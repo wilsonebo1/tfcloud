@@ -4,12 +4,20 @@ Thanks for your interest in contributing to the DataRobot Enterprise Installatio
 
 Please refer to this page for instructions on making useful contributions.
 
-## Getting the Code
-Clone this GitHub repository:
+## Quick Guide
+Clone this GitHub repository and create a new branch for your changes:
 ```bash
     cd ~/workspace
     git clone git@github.com:datarobot/admin-guide.git
     cd admin-guide
+    git checkout -b <ticket ID>/<short description>
+    # Edit files
+    # test files
+    gitbook serve  # load http://localhost:4000 in your browser
+    gitbook pdf    # Verify book.pdf renders properly
+    git commit -am 'some commit message'
+    git push origin <branch name>
+    # Open GitHub PR and wait for review.
 ```
 
 ## Versions
