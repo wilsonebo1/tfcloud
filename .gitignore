@@ -1,0 +1,4 @@
+_book/*
+book.pdf
+*.sw[lmnop]
+npm-debug.log
