@@ -1,29 +1,81 @@
-# DataRobot Installation and Administration Guide
+# DataRobot Enterprise Installation and Administration Manual
 
-Welcome to the DataRobot Administration Guide.
-This manual describes how to install, configure, and maintain your DataRobot installation.
+This repository contains documentation for installing and administering DataRobot Enterprise clusters.
 
-![datarobot-logo](common-resources/datarobot-robot.png)
+## Structure
+To avoid putting too much in a single PDF or book, this documentation is split into several sections, denoted by their separate folders.
 
-## Platform Overview
+### Installation
+Instructions for installing and upgrading DataRobot are found in `installation/`.
+This includes advanced configuration options and instructions for Linux-only as well as Cloudera installations.
 
-The DataRobot platform is highly flexible and supports multiple environment types, from single-node Linux systems to large Hadoop environments.
+### Administration
+This documentation is for all post-installation cluster administration tasks.
+These can include restarting services, recovering from common failure modes, backing up and restoring data, and more.
 
-All installations require at the minimum a Linux application server running DataRobot services in Docker containers.
-Services in Docker can be distributed across multiple Linux servers for fault tolerance, resource isolation, and greater computational resources.
+## Publishing
+Currently these docs are not published, but we'll update this section once we have a better clue.
+Chances are they will go on Confluence pages and be served on a support page.
+We can also easily run an HTTP server with the docs for internal usage and we may also include PDF's or an HTTP server in the on-prem application itself.
 
-In addition, the computational workload and object storage may be distributed across a Hadoop cluster.
-In this case, you will install an additional artifact on your Hadoop environment and configure your application server to integrate with your Hadoop cluster.
+You can build them locally using GitBook quite easily.
 
-## DataRobot Architecture
+## Dependencies
+These docs are built using [GitBook](https://gitbook.com).
 
-### Linux
+Please refer to the [GitBook Toolchain Documentation](https://toolchain.gitbook.com/) for help installing and using GitBook.
 
-The following diagram illustrates the high-level architecture of the DataRobot Linux installation.
+You will need to install Calibre `ebook-convert` to create `PDF` files.
+See [GitBook Documentation for installing ebook-convert](https://toolchain.gitbook.com/ebook.html).
 
-![datarobot-architecture](common-resources/architecture.png)
+# Contributing
 
-### Hadoop
+Thanks for your interest in contributing to the DataRobot Enterprise Installation Guide.
 
-When DataRobot is integrated with Hadoop, the DataRobot cluster architecture is modified to add a YARN Application Master that handles resources in Hadoop.
-![hadoop-architecture](common-resources/hadoop-arch.png)
+Please refer to this page for instructions on making useful contributions.
+
+## Quick Guide
+Clone this GitHub repository and create a new branch for your changes:
+```bash
+    cd ~/workspace
+    git clone git@github.com:datarobot/admin-guide.git
+    cd admin-guide
+    git checkout -b <ticket ID>/<short description>
+    # Edit files
+    # test files
+    gitbook serve  # load http://localhost:4000 in your browser
+    gitbook pdf    # Verify book.pdf renders properly
+    git commit -am 'some commit message'
+    git push origin <branch name>
+    # Open GitHub PR and wait for review.
+```
+
+## Versions
+First, ensure you are editing the right version of the documentation.
+
+Right now, development is on `master`.
+Once the 3.1 docs are published, we will create a `release/3.1` branch for 3.1 docs, while `master` will refer to future, 3.2 docs.
+
+To switch branches, use `git checkout <branch name>`.
+
+## Development
+GitBook makes development quite easy.
+In the root of this repository, simply run `gitbook serve` to run a local server where you can view changes.
+Your browser will automatically refresh when files are changed.
+
+Before making a commit, verify also that `gitbook pdf` creates a valid PDF file that looks appropriate.
+
+Always ensure all links are updated and working properly.
+
+## Style Guide
+* One line per sentence.
+
+* Use triple backticks for code blocks, and include syntax highlighting directives when applicable.
+
+## Misc Help
+
+### Links
+Links can be a little tricky.
+For help with relative linking in GitBook, see [this example book](https://seadude.gitbooks.io/learn-gitbook/content/).
+
+Note that your `SUMMARY.md` file must have a reference to a markdown file you want to link to.
