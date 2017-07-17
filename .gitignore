@@ -1,4 +1,5 @@
 _book/*
-book.pdf
+*/_book/*
+*.pdf
 *.sw[lmnop]
-npm-debug.log
+*.log
