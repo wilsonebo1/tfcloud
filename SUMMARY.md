@@ -17,8 +17,11 @@
 * [Advanced Configuration](installation/special-topics/README.md)
   * [SSL](installation/special-topics/ssl.md)
   * [Hadoop Kerberos](installation/special-topics/kerberos.md)
-  * [Separate Install user](installation/special-topics/admin-user.md)
   * [Unprivileged Application User](installation/special-topics/admin-user.md#manual-install)
+    * [Separate Install user](installation/special-topics/admin-user.md#dradmin)
+    * [Docker Configuration](installation/special-topics/admin-user.md#install-docker)
+    * [Directory Creation](installation/special-topics/admin-user.md#directories)
+    * [Logging](installation/special-topics/admin-user.md#logging)
 
 ## Administration
 * [Administrator's Manual](administration/README.md)

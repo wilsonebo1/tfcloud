@@ -5,6 +5,8 @@ DataRobot requires escalated privileges to install dependency packages, configur
 If you can't enable passwordless sudo for the DataRobot service user, you may either specify a separate 'admin user' (to be referred to as `dradmin`) or manually perform these steps.
 
 # Admin User {#dradmin}
+If possible, we recommend creating an admin user with `sudo` access for the installation process.
+
 * Create a user account that will only be used for the installation process:
 ```bash
     useradd dradmin
@@ -27,6 +29,8 @@ If you can't enable passwordless sudo for the DataRobot service user, you may ei
       admin_private_ssh_key_path: /home/dradmin/.ssh/id_rsa
 ```
 
+If your environment does not allow such a user, you will have to perform a manual installation:
+
 # Manual Configuration {#manual-install}
 
 Follow these instructions to install and configure the DataRobot application if the Edge Node or Linux-only installation is performed without an admin user capable of running commands with sudo via SSH.
@@ -34,7 +38,7 @@ Once these steps are performed, your cluster will be ready to run the DataRobot 
 
 You can use these instructions once the initial OS configuration and user setup is complete and the DataRobot installation media is downloaded and extracted on the install node.
 
-## Install Docker
+## Install Docker {#install-docker}
 Docker Engine version 1.10+ must be installed on all Edge Nodes.
 
 * Copy the folder `release/docker-packages/RedHat-7/` to all application servers.
@@ -117,7 +121,7 @@ This can be safely ignored.)
         /usr/lib/python2.7/site-packages/
 ```
 
-## Directories
+## Directories {#directories}
 Ensure the following directories exist and are owned by the DataRobot user with `755` permissions.
 All paths are relative to the `os_configuration.datarobot_home_dir` setting in your `config.yaml` or the default `/opt/datarobot` if that is not set.
 ```bash
@@ -162,7 +166,7 @@ Edit your `/etc/hosts` file to append the following lines, with IP addresses rep
     1.1.1.4 mongo-2
 ```
 
-## RSYSLOG
+## Logging {#logging}
 RSYLSOG is used to collect logs from all running Docker applications and the Cloudera cluster.
 Docker forwards `STDOUT` and `STDERR` from all containers to the local host’s syslog via the `daemon` logging facility.
 RSYSLOG filters these logs and writes them to local files as well as forwarding them to a central syslog server.
