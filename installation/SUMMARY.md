@@ -22,3 +22,7 @@
     * [Docker Configuration](special-topics/admin-user.md#install-docker)
     * [Directory Creation](special-topics/admin-user.md#directories)
     * [Logging](special-topics/admin-user.md#logging)
+
+## Additional Information
+
+* [Addendum](addendum.md)
