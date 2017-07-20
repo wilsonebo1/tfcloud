@@ -26,4 +26,4 @@ The following diagram illustrates the high-level architecture of the DataRobot L
 ### Hadoop
 
 When DataRobot is integrated with Hadoop, the DataRobot cluster architecture is modified to add a YARN Application Master that handles resources in Hadoop.
-![hadoop-architecture](common-resources/hadoop-arch.png)
+<img src="common-resources/hadoop-arch.png" style="border:1px solid black" />

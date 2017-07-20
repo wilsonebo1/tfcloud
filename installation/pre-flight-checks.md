@@ -3,7 +3,7 @@
 The following checks are useful for verifying that your cluster is ready to install and run the DataRobot application.
 They will prevent the most common installation issues and are also good for troubleshooting issues with your configuration.
 
-Perform these steps after performing the initial Edge Node requirements and preparation (after make bootstrap).
+Perform these steps after performing the [Cluster Preparation](standard-install.md#linux-prep) section of the installation (after `make bootstrap-cluster`) and before performing the [Install and Configure the Application](standard-install.md#linux-install) steps (before `make provision`).
 
 ## Docker storage capacity
 Verify that Docker has sufficient available storage capacity by checking the output of:

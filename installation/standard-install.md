@@ -1,8 +1,8 @@
-# DataRobot Linux Installation
+# DataRobot Linux Installation {#linux-install}
 The following steps are required for all DataRobot installations.
 Refer to supplementary material for any extra configuration requirements, such as [enabling SSL](./special-topics/ssl.md) or [Hadoop integration](./hadoop-install.md).
 
-## Cluster Preparation
+## Cluster Preparation {#linux-prep}
 
 To prepare the cluster for installation, we will create configuration files and install and configure system dependencies.
 
@@ -85,7 +85,7 @@ This is still required when using a single node:
     make bootstrap-cluster
 ```
 
-## Install and Configure the Application
+## Install and Configure the Application {#linux-provision}
 **NOTE**: Before running these steps, perform pre-flight checks to verify that the environment is ready to provision the DataRobot application.
 Refer to the [Pre-Flight Checks](./pre-flight-checks.md) guide and return here after successful completion.
 

@@ -1,8 +1,15 @@
 # Upgrading DataRobot
-Use the following instructions to prepare your DataRobot cluster for upgrade.
+If you are upgrading from a previous version of DataRobot, be sure to perform the following steps to prepare your DataRobot cluster for upgrade.
 
-## Remove old files and services
-* On each node, stop and remove all containers.
+## Application Server Preparation
+
+Perform the following steps on **all application servers** to avoid issues during your upgrade.
+None of these steps will cause you to lose any data or application state.
+However, they will require service downtime for the DataRobot application.
+
+### Remove old files and services
+
+* Stop and remove all containers.
 ```bash
     docker rm $(docker stop $(docker ps -aq))
 ```
@@ -14,6 +21,10 @@ Use the following instructions to prepare your DataRobot cluster for upgrade.
 ```bash
     systemctl stop docker
 ```
+* If your installed version of Docker is below 17.03, uninstall it completely from every node.
+```bash
+    yum remove docker docker-selinux
+```
 * Remove old Docker images
 ```bash
     rm -rf /var/lib/docker
@@ -24,7 +35,7 @@ Use the following instructions to prepare your DataRobot cluster for upgrade.
     rm -rf /opt/datarobot/etc/
 ```
 
-## Update configuration files
+### Update configuration files
 
 Your `config.yaml` will need to be updated.
 Contact DataRobot Support to identify required changes.
@@ -33,3 +44,11 @@ Remove the following keys, if present:
 
     USER_MODEL_CONTEXT_BASE
     SECURE_WORKER_USER_TASK_IMAGE
+
+
+## Cloudera Preparation
+
+* Log into the Cloudera Manager.
+* Stop the DataRobot service.
+* Delete the DataRobot service.
+* Deactivate the DataRobot parcel.
