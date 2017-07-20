@@ -57,10 +57,12 @@ To disable password protection:
   * As the encrypted blob `ENCRYPTED_CONFIG_DATA` in Cloudera Manager or Ambari configuration.
 
 * How can I access Redis shell if I don't know the password?
-  * On a Redis server, run `docker exec -it redis redis-cli.py` and enter `5hell_Secret` at the prompt.
+  * On a Redis server, run `docker exec -it redis redis-cli.py`.
+  Contact DataRobot support to obtain the password to enter at the prompt.
 
 * How can I access Mongo shell if I don't know the password?
-  * On a MongoDB server, run `docker exec -it mongo mongo-cli.py` and enter `5hell_Secret` at the prompt.
+  * On a MongoDB server, run `docker exec -it mongo mongo-cli.py`.
+  Contact DataRobot support to obtain the password to enter at the prompt.
 
 * Is traffic to and from databases encrypted?
   * No. This is anticipated for a later release of DataRobot.
