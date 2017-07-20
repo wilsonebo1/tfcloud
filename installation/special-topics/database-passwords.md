@@ -29,7 +29,7 @@ To enable or change passwords after installing DataRobot, follow these steps.
     make update-secrets  # Set a user-input password
 ```
 
-If your cluster is integrated with Hadoop, you will need to run `make push-configuration-to-hadoop`.
+If your cluster is integrated with Hadoop, you will then need to run `make push-configuration-to-hadoop` afterwards.
 
 ## Disabling Password Protection
 
@@ -47,22 +47,3 @@ To disable password protection:
 * Execute `make recreate-containers`
 
 * If your cluster is integrated with Hadoop, you will need to run `make push-configuration-to-hadoop`.
-
-
-## FAQ
-
-* Where are passwords stored?
-  * `/opt/DataRobot-3.1.x/secrets.yaml` on the provisioner node.
-  * In `/opt/datarobot/etc/secrets` on application servers.
-  * As the encrypted blob `ENCRYPTED_CONFIG_DATA` in Cloudera Manager or Ambari configuration.
-
-* How can I access Redis shell if I don't know the password?
-  * On a Redis server, run `docker exec -it redis redis-cli.py`.
-  Contact DataRobot support to obtain the password to enter at the prompt.
-
-* How can I access Mongo shell if I don't know the password?
-  * On a MongoDB server, run `docker exec -it mongo mongo-cli.py`.
-  Contact DataRobot support to obtain the password to enter at the prompt.
-
-* Is traffic to and from databases encrypted?
-  * No. This is anticipated for a later release of DataRobot.
