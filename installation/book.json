@@ -1,8 +1,8 @@
 {
     "root": "./",
-    "title": "DataRobot Installation and Administration Guide",
-    "description": "This manual describes how to install, configure, and maintain your on-premise DataRobot installation.",
-    "author": "DataRobot",
+    "title": "DataRobot Installation Manual",
+    "description": "This manual describes how to install and configure your on-premise DataRobot installation.",
+    "author": "DataRobot, Inc.",
     "plugins": [],
     "pluginsConfig": {
     }
