@@ -85,7 +85,7 @@ This is still required when using a single node:
     make bootstrap-cluster
 ```
 
-## Install and Configure the Application {#linux-install}
+## Install and Configure the Application {#linux-provision}
 **NOTE**: Before running these steps, perform pre-flight checks to verify that the environment is ready to provision the DataRobot application.
 Refer to the [Pre-Flight Checks](./pre-flight-checks.md) guide and return here after successful completion.
 
