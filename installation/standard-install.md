@@ -63,6 +63,8 @@ In particular, focus on the user, group, and SSH key settings near the top of th
       ...
 ```
 
+**NOTE**: Hostnames (aside from `webserver_location`, if specified), must be IPv4 addressses.
+
 The `multi-node.linux.yaml` file has a full set of sample configurations for reference purposes.
 The `example-configs/config-variables.md` file has a comprehensive set of documented configuration values.
 
