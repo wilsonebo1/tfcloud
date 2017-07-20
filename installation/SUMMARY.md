@@ -8,11 +8,11 @@
 * [Network Requirements](requirements/network-requirements.md)
 
 ## Installation
+* [Upgrades](upgrades.md)
 * [Linux Installation](standard-install.md)
 * [Hadoop Installation](hadoop-install.md)
   * [Cloudera Installation](cloudera-install.md)
   * [Hortonworks/BigInsights Installation](ambari-install.md)
-* [Upgrades](upgrades.md)
 * [Pre-Flight Checks](pre-flight-checks.md)
 * [Advanced Configuration](special-topics/README.md)
   * [SSL](special-topics/ssl.md)

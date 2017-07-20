@@ -11,9 +11,9 @@ Follow the steps in the sections below to install DataRobot on your Cloudera clu
 * Transfer the installation files from the application server to the Cloudera Manager server:
 
 ```bash
-    scp ~/hadoop/DataRobot-3.*.{jar,parcel,parcel.sha} \
+    scp ~/hadoop/DataRobot-3.1.0*.{jar,parcel,parcel.sha} \
         [CLOUDERA MANAGER SERVER IP ADDRESS]:/tmp
-    scp ~/hadoop/DataRobot-3.*.{jar,parcel,parcel.sha} \
+    scp ~/hadoop/DataRobot-3.1.0*.{jar,parcel,parcel.sha} \
         [CLOUDERA MANAGER SERVER IP ADDRESS]:/tmp
 ```
 
@@ -24,13 +24,13 @@ Follow the steps in the sections below to install DataRobot on your Cloudera clu
 
 * Move the CSD file:
 ```bash
-    sudo mv /tmp/DataRobot-3.*.jar /opt/cloudera/csd/
+    sudo mv /tmp/DataRobot-3.1.0*.jar /opt/cloudera/csd/
 ```
 
 * Change the ownership of the installation files:
 ```bash
     sudo chown cloudera-scm:cloudera-scm \
-        /opt/cloudera/csd/DataRobot-3.*.jar
+        /opt/cloudera/csd/DataRobot-3.1.0*.jar
 ```
 
 * Change the permissions of the installation file:
@@ -40,22 +40,22 @@ Follow the steps in the sections below to install DataRobot on your Cloudera clu
 
 * Move the parcel file:
 ```bash
-    sudo mv /tmp/DataRobot-3*.parcel /opt/cloudera/parcel-repo
+    sudo mv /tmp/DataRobot-3.1.0*.parcel /opt/cloudera/parcel-repo
 ```
 
 * Move the parcel file's SHA:
 ```bash
-    sudo mv /tmp/DataRobot-3*.parcel.sha /opt/cloudera/parcel-repo
+    sudo mv /tmp/DataRobot-3.1.0*.parcel.sha /opt/cloudera/parcel-repo
 ```
 **NOTE**: The CDH 5.4.0 and 5.5.0 .sha files have different formats.
 The CDH 5.4.0 format is `SHA PARCEL_FILENAME`: 
 ```
-    # FILE: DataRobot-3.1-release-el6.parcel.sha 
-    80e5223337d8978432ccae99ffea55f92e4fb4b9 DataRobot-3.1-release-el6.parcel
+    # FILE: DataRobot-3.1.0-release-el6.parcel.sha
+    80e5223337d8978432ccae99ffea55f92e4fb4b9 DataRobot-3.1.0-release-el6.parcel
 ```
 CDH 5.5.0 and later only contain the SHA, for example:
 ```
-    # FILE: DataRobot-3.1-release-el6.parcel.sha 
+    # FILE: DataRobot-3.1.0-release-el6.parcel.sha
     80e5223337d8978432ccae99ffea55f92e4fb4b9
 ```
 
@@ -95,7 +95,8 @@ If your cluster has Kerberos security enabled, refer to the [extra documentation
 
 * Click on your cluster name on the left hand side in the **Location** section.
 Search the list of parcels for the row labeled **DataRobot**:
-![cdh-parcels](./images/cdh-parcels.png)
+
+<img src="images/cdh-parcels.png" style="border:1px solid black" />
 
 * If the rightmost side of that row contains a button labeled **Download**, click it and wait for the action to complete.
 
@@ -112,7 +113,7 @@ The Status column for the DataRobot parcel should now read **Distributed, Activa
 
 * Click **Deploy Client Configuration**:
 
-![deploy client configuration](images/cdh-deploy-client-config.png)
+<img src="images/cdh-deploy-client-config.png" style="border:1px solid black" />
 
 **NOTE**: Some versions of Cloudera Manager do not have Deploy Client Configuration in this dropdown menu. If you do not see it, deploy configuration for each service individually by clicking the blue power icons next to its name and clicking through the wizard.
 
@@ -122,7 +123,8 @@ The Status column for the DataRobot parcel should now read **Distributed, Activa
 Once each step has a green checkmark to its left, click **Close**.
 
 * Click the down arrow button to the right of your cluster's name and click **Restart**.
-![restart](images/cdh-restart.png)
+
+<img src="images/cdh-restart.png" style="border:1px solid black" />
 
 * Click **Restart** in the confirmation window and wait for the command to finish, then click **Close**.
 
@@ -136,7 +138,7 @@ The DataRobot service requires that Spark be installed on your cluster. Follow t
 
 * Click on the radio button to select Spark (do *not* select the standalone option) and click **Continue**:
 
-![spark](images/cdh-spark.png)
+<img src="images/cdh-spark.png" style="border:1px solid black" />
 
 * Click **Continue** on the new screen.
 Wait while the system adds the Spark service.
@@ -154,24 +156,22 @@ Next, install the DataRobot service on your cluster.
 
 * Click the radio button labeled **DataRobot** and click **Continue**:
 
-![datarobot](images/cdh-datarobot-service.png)
+<img src="images/cdh-datarobot-service.png" style="border:1px solid black" />
 
 * Click **Select a host** under the **DataRobot Master Service** label.
 The master service is a process that runs on a Hadoop node and continuously checks if YARN is still running.
 
-![master](images/cdh-dr-master-service.png)
+<img src="images/cdh-dr-master-service.png" style="border:1px solid black" />
 
 * Click the name of the system to host the master service.
 This service can go on any node, but we recommend that it go on a **NameNode** or other administrative node rather than a worker.
 
-![master-select](images/cdh-master-host-select.png)
+<img src="images/cdh-master-host-select.png" style="border:1px solid black" />
 
 * Click **OK**.
 
-* Click **Select hosts** under the **Gateway** label.
-The gateway is used to synchronize DataRobot configuration files to worker nodes. 
-
-* On the **Hosts Selected** screen, click the checkbox for each node on which you want to run DataRobot modeling containers.
+* For all `DataRobot ETL` services, place one instance of each service on an available DataNode using the same procedure.
+`ETL` services work with Spark to enable large file ingest and processing up to 100GB.
 
 * Click **OK** and **Continue**.
 
@@ -180,7 +180,7 @@ The gateway is used to synchronize DataRobot configuration files to worker nodes
 * Edit container memory and vcores settings as appropriate for your cluster.
 We recommend at least 60GB of RAM for `MMW` and `SECURE_WORKER` containers and at least four cores.
 
-![dr config](images/cdh-dr-config.png)
+<img src="images/cdh-dr-config.png" style="border:1px solid black" />
 
 * (*HA HDFS clusters only*) Fill in a value for `ACTIVE_NAMENODE_ADDRESS` field.
 
@@ -194,7 +194,7 @@ We recommend at least 60GB of RAM for `MMW` and `SECURE_WORKER` containers and a
 
 * Click the down arrow button to the right of your cluster's name and select **Deploy Client Configuration**.
 
-![deploy client configuration](images/cdh-deploy-client-config.png)
+<img src="images/cdh-deploy-client-config.png" style="border:1px solid black" />
 
 * Click **Deploy Client Configuration** in the confirmation window.
 
@@ -208,7 +208,7 @@ When each step has a green checkmark to its left, click **Close**.
 * If the DataRobot service fails to start, check the `stderr` logs in the command results.
 If there was a configuration error, stop and then delete the DataRobot service and try to add it again.
 
-![fail](images/cdh-dr-fail.png)
+<img src="images/cdh-dr-fail.png" style="border:1px solid black" />
 
 * Click on the DataRobot service to see a status summary.
 The DataRobot Master Service should be marked in green, indicating "Good Health."
@@ -216,6 +216,8 @@ The Gateway services should be marked in gray, with a health status of "None."
 Hosts should display "1 Good Health."
 
 ## Synchronize Configuration
+
+**NOTE**: This section assumes you have completed the [Linux Installation](standard-install.md) portion of the installation process.
 
 Now DataRobot needs to synchronize configuration between the application servers and the Cloudera cluster.
 
