@@ -18,7 +18,7 @@ ignore_ca: false
 
 ### config.yaml
 Copy a sample YAML configuration file to `/opt/DataRobot-3.1.x/config.yaml`.
-You can find a sample Cloudera `config.yaml` file in `example-configs/multi-node.cloudera.yaml`.  
+You can find a sample Cloudera `config.yaml` file in `example-configs/multi-node.hadoop.yaml`.  
 Modify the sample to suit your environment.
 
 Contact DataRobot support for help with this file.

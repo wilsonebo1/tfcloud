@@ -22,3 +22,8 @@
     * [Docker Configuration](special-topics/admin-user.md#install-docker)
     * [Directory Creation](special-topics/admin-user.md#directories)
     * [Logging](special-topics/admin-user.md#logging)
+  * [Database Password Protection](special-topics/database-passwords.md)
+
+## Additional Information
+
+* [Addendum](addendum.md)

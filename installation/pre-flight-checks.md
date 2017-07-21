@@ -93,3 +93,19 @@ Verify that logrotate is properly configured by forcing a rotation of the log fi
 ```
 **NOTE**: DataRobot logs are written to the `daemon` syslog facility. Review your system’s RSYSLOG configuration (`/etc/rsyslog.conf` and `/etc/rsyslog.conf.d/`) to see if these messages will end up in any other log file, such as `/var/log/daemon.log` or `/var/log/messages`, and adjust your RSYSLOG and logrotate configuration to handle these messages.
 
+Example:
+```
+    # FILE: /etc/logrotate.d/system
+    /var/log/daemon.log
+    /var/log/messages
+    /var/log/syslog
+    {
+            su root root
+            daily
+            rotate 30
+            copytruncate
+            compress
+            missingok
+            notifempty
+    }
+```
