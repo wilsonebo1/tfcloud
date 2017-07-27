@@ -3,3 +3,5 @@ _book/*
 *.pdf
 *.sw[lmnop]
 *.log
+test-results.xml
+
