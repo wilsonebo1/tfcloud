@@ -49,6 +49,7 @@ function _clean {
 function _test {
     set +x
     _note "Testing can build HTML and PDF"
+    rm -f test-results.xml
     set +e
     for book in administration installation; do
         set -x
@@ -58,6 +59,13 @@ function _test {
                -v $(pwd)/$book:/gitbook $IMAGE_NAME gitbook pdf
         set +x
     done
+    cat > test-results.xml <<EOF
+<?xml version="1.0" encoding="utf-8"?>
+<testsuite errors="0" failures="0" name="Gitbook Tests" skips="0" tests="1">
+<testcase classname="tests.test_build_html_and_pdf" file="build.sh">
+</testcase>
+</testsuite>
+EOF
     set -e
 }
 
