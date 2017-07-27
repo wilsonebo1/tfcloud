@@ -62,7 +62,7 @@ When you make predictions off of these models, the queue again appears on the ri
 
 ![](images/worker-type-prediction2.png)
 
-###Worker count vs. corker availability for shared projects
+###Worker count vs. worker availability for shared projects
 
 At the top of the "Worker Usage" interface is the worker count that is automatically set to 4. This indicates that there are 4 workers currently being used for your project. You can either increase or decrease the number of workers by clicking either the up or down arrows located next to the worker count number. A higher worker count number means that projects can be processed quickly, compared to having only 1 or 2. You can also pause the workers from building models, and also resume the process by clicking the Play/Pause icon located to the left of the Worker count.
 
