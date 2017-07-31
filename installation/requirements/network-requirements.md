@@ -86,4 +86,3 @@ Check these settings on your cluster to ensure correct firewall configuration.
 | 50475 | TCP      | `dfs.datanode.https.address`  | Data Transfer with HTTPS |
 | 50090 | TCP      | `dfs.namenode.secondary.http-address` | Secondary NameNode without HTTPS |
 | 50091 | TCP      | `dfs.namenode.secondary.https-address` |  Secondary NameNode with HTTPS |
-

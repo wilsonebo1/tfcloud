@@ -45,7 +45,7 @@ This user must have access to the following:
     cd ~/
     mkdir ~/.ssh
     chmod 700 ~/.ssh
-    ssh-keygen -t rsa 
+    ssh-keygen -t rsa
     # Hit Enter at the prompts
     cat .ssh/id_rsa.pub >> ~/.ssh/authorized_keys
     chmod 700 ~/.ssh/authorized_keys
