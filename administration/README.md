@@ -108,17 +108,11 @@ When a user has been validated with their initial LDAP login, the organization�
 
 ![](images/ldap-admin-manage-users.png)
 
-1.  Select a user by clicking on their username to access that user’s account information.
+1. Select a user by clicking on their username to access that user’s account information. ![](images/ldap-admin-select-user.png)
 
-![](images/ldap-admin-select-user.png)
+2. You are now viewing that user’s profile. Click Change Permissions to see a list of each individual permission.![](images/admin-ldap-username-permission.png)
 
-2. You are now viewing that user’s profile. Click Change Permissions to see a list of each individual permission.
-
-![](images/admin-ldap-username-permission.png)
-
-3. Now you can Enable or Disable features for this user by checking the boxes, or leaving them blank. You can also set this user’s organization, number of workers, and a file upload size limit. 
-
-![](images/ldap-admin-user-permissions.png)
+3. Now you can Enable or Disable features for this user by checking the boxes, or leaving them blank. You can also set this user’s organization, number of workers, and a file upload size limit. ![](images/ldap-admin-user-permissions.png)
 
 Having an LDAP supported directory service keeps all of the users and organizations categorised and accessible. Any updates made in LDAP Directory server  will automatically update every application without the need to manually search and edit each one individually. For example, if a user is removed from Directory server, the application which is configured to authenticate to this particular Directory server won’t allow the removed user to login. This is a streamlined and efficient way for admins to accurately manage the DataRobot application authentication for large companies.
 
@@ -128,7 +122,8 @@ Part of config.yaml is involved with LDAP configuration as a step in the protoco
 
 The following is an example of LDAP configuration for Microsoft Active Directory in config.yaml file:
 
-```app_configuration:t
+```
+app_configuration:
 
  drenv_override:
 
@@ -145,3 +140,5 @@ The following is an example of LDAP configuration for Microsoft Active Directory
    USER_AUTH_LDAP_URI: ldap://ad-controller.example.com:389
 
    USER_AUTH_TYPE: ldapsearch
+```
+ 

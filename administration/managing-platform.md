@@ -50,17 +50,13 @@ Changing your password
 
 Any user on DataRobot can change their password any time through their profile settings page of the application. 
 
-1. Click **Settings** located under your avatar on the top right corner of the screen. You will see the “Change Your Password” form at the top of the "Settings" page:
-
-![](images/change-password-admin.png)
+1. Click **Settings** located under your avatar on the top right corner of the screen. You will see the “Change Your Password” form at the top of the "Settings" page:![](images/change-password-admin.png)
 
 2. First, enter your current password. Then, enter your new password twice - once to create it, and a second time to confirm it. 
 
 **Note:** You will receive an error message if your current password is incorrect, and/or if the new and confirmed password do not match.
 
-3. Click **Change Password** when you have completed all fields. DataRobot will briefly display a message indicating the update:
-
-![](images/change-password.png)
+3. Click **Change Password** when you have completed all fields. DataRobot will briefly display a message indicating the update:![](images/change-password.png)
 
 DataRobot enforces the following password policy for new accounts and password changes occurring after October 5, 2016. Passwords **must** adhere to the following:
 
@@ -294,25 +290,25 @@ The Admin can also add and remove users to and from organization. This process c
 Starting, stopping, managing services
 -------------------------------------
 ###Backup and recovery
-	Redis
-	Mongo
-	Gluster (can do incremental tar)
-	HFDS (add screenshots of Cloudera Mgr GUI)
-	AWS
+- Redis
+- Mongo
+- Gluster (can do incremental tar)
+- HFDS (add screenshots of Cloudera Mgr GUI)
+- AWS
 
 Disaster recovery config
 ------------------------
-Rebuild Mongo and Gluster Mirrors
-Recovery from backups
-Snapshot recovery
+- Rebuild Mongo and Gluster Mirrors
+- Recovery from backups
+- Snapshot recovery
 
 Monitoring DataRobot
 --------------------
-Linux
-DataRobot
-Nagios
-Usage reporting (ask support for copy of script)
-Availability (Monitoring) Guide (on confluence release page)
+- Linux
+- DataRobot
+- Nagios
+- Usage reporting (ask support for copy of script)
+- Availability (Monitoring) Guide (on confluence release page)
 The Availability Monitor on DataRobot provides general information about the application such as whether the application is ready to do work, how many users are connected, and which users they are. 
 
 Managing projects
