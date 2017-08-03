@@ -19,7 +19,7 @@ Admin users are capable of creating and adding new users to the DataRobot Enterp
 Click **Create User** when you're done.
 
 Setting user permissions
-------------------------
+-------------------------
 
 An Admin user is able to set permissions and settings for both themselves and other users within their organization. These permissions give the Admin access to a list of features that can be enabled or disabled per person, as needed.
 
@@ -50,7 +50,9 @@ Changing your password
 
 Any user on DataRobot can change their password any time through their profile settings page of the application. 
 
-1. Click **Settings** located under your avatar on the top right corner of the screen. You will see the “Change Your Password” form at the top of the "Settings" page:![](images/change-password-admin.png)
+1. Click **Settings** located under your avatar on the top right corner of the screen. You will see the “Change Your Password” form at the top of the "Settings" page:
+
+![](images/change-password-admin.png)
 
 2. First, enter your current password. Then, enter your new password twice - once to create it, and a second time to confirm it. 
 
@@ -58,7 +60,7 @@ Any user on DataRobot can change their password any time through their profile s
 
 3. Click **Change Password** when you have completed all fields. DataRobot will briefly display a message indicating the update:![](images/change-password.png)
 
-DataRobot enforces the following password policy for new accounts and password changes occurring after October 5, 2016. Passwords **must** adhere to the following:
+DataRobot enforces the following password policy for new accounts and password changes:
 
 - Only printable ASCII characters
 - Minimum one capital letter
@@ -68,7 +70,7 @@ DataRobot enforces the following password policy for new accounts and password c
 - Username and password cannot be the same
 
 Deactivating user accounts
--------------------------
+---------------------------
 
 You cannot delete a user account from the DataRobot Enterprise platform. This ensures that your organization's data is not lost, regardless of employee movement.
 
