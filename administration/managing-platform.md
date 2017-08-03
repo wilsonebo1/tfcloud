@@ -10,11 +10,11 @@ Admin users are capable of creating and adding new users to the DataRobot Enterp
 
 1. Click the profile icon located on the top right corner of the screen to expand a menu of profile options. Click **Manage Users**:
 
-![](images/ldap-admin-manage-users.png)
+	![](images/ldap-admin-manage-users.png)
 
 2. Click **Add New User** and fill out the email address and password for the new user you want to add:
 
-![](images/create-new-user.png)
+	![](images/create-new-user.png)
 
 Click **Create User** when you're done.
 
@@ -27,21 +27,21 @@ Below  are the steps to enable Admin access for any user.
 
 1. Click the profile icon located on the top right corner of the screen to expand a menu of profile options. Click **Manage Users**:
 
-![](images/manage-users.png)
+	![](images/manage-users.png)
 
 2. You are now on the "Manage Users" page. In the **Search** bar, enter the user’s username:
 
-![](images/search-user.png)
+	![](images/search-user.png)
 
 3. Click a user listed in the search results table below. This will take you to that user’s profile page. 
 
 4. Click **Change Permissions** located underneath the registration date, and this will take you to the "User Permissions" page:
 
-![](images/user-profile-admin-guide.png)
+	![](images/user-profile-admin-guide.png)
 
 5. Select the **Can Manage App Users** option listed underneath "Enabled features", and then press **Save** located to the far right to ensure that this permission change is saved:
 
-![](images/user-permissions-admin.png)
+	![](images/user-permissions-admin.png)
 
 Once the **Can Manage App Users** feature is enabled and saved, that user can then change settings for other users by following these same instructions. If you want to disable the **Can Manage App Users** permission feature, simply uncheck the box, and that user will no longer have Admin capabilities.
 
@@ -52,13 +52,15 @@ Any user on DataRobot can change their password any time through their profile s
 
 1. Click **Settings** located under your avatar on the top right corner of the screen. You will see the “Change Your Password” form at the top of the "Settings" page:
 
-![](images/change-password-admin.png)
+	![](images/change-password-admin.png)
 
 2. First, enter your current password. Then, enter your new password twice - once to create it, and a second time to confirm it. 
 
-**Note:** You will receive an error message if your current password is incorrect, and/or if the new and confirmed password do not match.
+	**Note:** You will receive an error message if your current password is incorrect, and/or if the new and confirmed password do not match.
 
-3. Click **Change Password** when you have completed all fields. DataRobot will briefly display a message indicating the update:![](images/change-password.png)
+3. Click **Change Password** when you have completed all fields. DataRobot will briefly display a message indicating the update:
+
+	![](images/change-password.png)
 
 DataRobot enforces the following password policy for new accounts and password changes:
 
