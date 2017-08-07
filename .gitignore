@@ -4,4 +4,4 @@ _book/*
 *.sw[lmnop]
 *.log
 test-results.xml
-
+*/node_modules/*

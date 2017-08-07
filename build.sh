@@ -50,13 +50,21 @@ function _test {
     set +x
     _note "Testing can build HTML and PDF"
     rm -f test-results.xml
+
+    local refname=$(git reflog | head -n 1 | cut -d ' ' -f1)
+    local user_id=$(id -u)
+
     set +e
     for book in administration installation; do
         set -x
         docker run --rm --name $TEST_CONTAINER \
-               -v $(pwd)/$book:/gitbook $IMAGE_NAME gitbook build
-        docker run --rm --name $TEST_CONTAINER \
-               -v $(pwd)/$book:/gitbook $IMAGE_NAME gitbook pdf
+               -e "BOOK=$book" \
+               -e "REFNAME=$refname" \
+               -e "USER_ID=$user_id" \
+               -w /gitbook \
+               -v $(pwd):/gitbook \
+               -v $(pwd)/gitbook.sh:/gitbook.sh $IMAGE_NAME \
+               /gitbook.sh
         set +x
     done
     cat > test-results.xml <<EOF
