@@ -54,6 +54,6 @@ at least 5GB of available space.
 
 | Description | Filename | Notes |
 |:------------|:---------|:------|
-| Hadoop Parcel | `DataRobot-3.1.x-el7.parcel`, `DataRobot-3.1.x-el7.parcel.sha` | |
+| Hadoop Parcel | `DataRobot-3.1.x-el7.parcel` | |
 | Hadoop Parcel Checksum | `DataRobot-3.1.x-el7.parcel.sha` | |
 | Service Descriptor | datarobot-ambari-3.1.x.tar.gz | Configuration files used to integrate an add-on service with Ambari. |

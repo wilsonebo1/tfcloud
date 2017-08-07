@@ -1,6 +1,7 @@
 # Kerberos Integration
 
 ## Additional Configuration for Clusters With Kerberos Enabled
+
 Skip this section if your cluster does not have Kerberos enabled.
 
 The steps in this section are required to configure clusters with Kerberos enabled to work with the DataRobot application.
@@ -26,20 +27,21 @@ To begin, log in to your Cloudera Manager.
 
 * Type `Cluster-wide Advanced Configuration Snippet (Safety Valve) for core-site.xml` in the search field near the top-left of the screen.
 Paste the following XML into the large text box:
-```
-    # CONFIG VALUE: core-site.xml
-    <property>
-      <name>hadoop.proxyuser.datarobot.hosts</name>
-      <value>*</value>
-    </property>
-    <property>
-      <name>hadoop.proxyuser.datarobot.groups</name>
-      <value>*</value>
-    </property>
-    <property>
-     <name>hadoop.proxyuser.datarobot.users</name>
-     <value>*</value>
-    </property>
+
+```xml
+# CONFIG VALUE: core-site.xml
+<property>
+  <name>hadoop.proxyuser.datarobot.hosts</name>
+  <value>*</value>
+</property>
+<property>
+  <name>hadoop.proxyuser.datarobot.groups</name>
+  <value>*</value>
+</property>
+<property>
+ <name>hadoop.proxyuser.datarobot.users</name>
+ <value>*</value>
+</property>
 ```
 
 * Click **Save Changes** just above the text box.
