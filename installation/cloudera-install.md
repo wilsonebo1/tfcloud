@@ -112,13 +112,13 @@ If your cluster has Kerberos security enabled, refer to the
 
 ### Distribute and Activate the DataRobot Parcel
 
-* Click on the Parcels icon (![parcels icon](./images/cdh-parcels-icon.png))
+* Click on the Parcels icon (<img src="./images/cdh-parcels-icon.png" alt="parcels icon" style="border: 1px solid black;"/>)
 in the top toolbar of the website.
 
 * Click on your cluster name on the left hand side in the **Location** section.
 Search the list of parcels for the row labeled **DataRobot**:
 
-![CDH Parcels](./images/cdh-parcels.png)
+<img src="./images/cdh-parcels.png" alt="CDH Parcels" style="border: 1px solid black;"/>
 
 * If the rightmost side of that row contains a button labeled **Download**,
 click it and wait for the action to complete.
@@ -137,7 +137,7 @@ The Status column for the DataRobot parcel should now read **Distributed, Activa
 
 * Click **Deploy Client Configuration**:
 
-![CDH Deploy Client Config](./images/cdh-deploy-client-config.png)
+<img src="./images/cdh-deploy-client-config.png" alt="CDH Deploy Client Config" style="border: 1px solid black;"/>
 
 **NOTE**: Some versions of Cloudera Manager do not have Deploy Client Configuration
 in this dropdown menu. If you do not see it, deploy configuration for each service
@@ -152,7 +152,7 @@ the wizard.
 
 * Click the down arrow button to the right of your cluster's name and click **Restart**.
 
-![CDH Restart](./images/cdh-restart.png)
+<img src="./images/cdh-restart.png" alt="CDH Restart" style="border: 1px solid black;"/>
 
 * Click **Restart** in the confirmation window and wait for the command to
 finish, then click **Close**.
@@ -174,7 +174,7 @@ select **Add a Service**.
 * Click on the radio button to select Spark (do *not* select the standalone
 option) and click **Continue**:
 
-![CDH Spark](./images/cdh-spark.png)
+<img src="./images/cdh-spark.png" alt="CDH Spark" style="border: 1px solid black;"/>
 
 * Click **Continue** on the new screen.
 
@@ -196,20 +196,20 @@ Next, install the DataRobot service on your cluster.
 
 * Click the radio button labeled **DataRobot** and click **Continue**:
 
-![CDH DataRobot Service](./images/cdh-datarobot-service.png)
+<img src="./images/cdh-datarobot-service.png" alt="CDH DataRobot Service" style="border: 1px solid black;"/>
 
 * Click **Select a host** under the **DataRobot Master Service** label.
 
 The master service is a process that runs on a Hadoop node and continuously checks if YARN is still running.
 
-![CDH DataRobot Master Service](./images/cdh-dr-master-service.png)
+<img src="./images/cdh-dr-master-service.png" alt="CDH DataRobot Master Service" style="border: 1px solid black;"/>
 
 * Click the name of the system to host the master service.
 
 This service can go on any node, but we recommend that it go on a **NameNode**
 or other administrative node rather than a worker.
 
-![CDH Master Host Select](./images/cdh-master-host-select.png)
+<img src="./images/cdh-master-host-select.png" alt="CDH Master Host Select" style="border: 1px solid black;"/>
 
 * Click **OK**.
 
@@ -231,7 +231,7 @@ your DataRobot license key.
 We recommend at least 60GB of RAM for `MMW` and `SECURE_WORKER` containers
 and at least four cores.
 
-![CDH DataRobot Config](./images/cdh-dr-config.png)
+<img src="./images/cdh-dr-config.png" alt="CDH DataRobot Config" style="border: 1px solid black;"/>
 
 * (*HA HDFS clusters only*) Fill in a value for `ACTIVE_NAMENODE_ADDRESS` field.
 
@@ -246,7 +246,7 @@ and at least four cores.
 * Click the down arrow button to the right of your cluster's name and
 select **Deploy Client Configuration**.
 
-![CDH Deploy Client Config](./images/cdh-deploy-client-config.png)
+<img src="./images/cdh-deploy-client-config.png" alt="CDH Deploy Client Config" style="border: 1px solid black;"/>
 
 * Click **Deploy Client Configuration** in the confirmation window.
 
@@ -262,7 +262,7 @@ select **Deploy Client Configuration**.
 command results. If there was a configuration error, stop and then delete the
 DataRobot service and try to add it again.
 
-![CDH DataRobot Fail](./images/cdh-dr-fail.png)
+<img src="./images/cdh-dr-fail.png" alt="CDH DataRobot Fail" style="border: 1px solid black;"/>
 
 * Click on the DataRobot service to see a status summary.
 

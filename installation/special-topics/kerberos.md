@@ -14,7 +14,7 @@ To begin, log in to your Cloudera Manager.
 
 * Click the add (+) button that appears lowest in the list of Allowed System Users and type datarobot in the text field that just appeared:
 
-![system users](images/cdh-kerberos-user-add.png)
+<img src="images/cdh-kerberos-user-add.png" alt="system users" style="border: 1px solid black;"/>
 
 * Click **Save Changes** just above the **Allowed System Users** section.
 

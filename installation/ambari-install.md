@@ -63,23 +63,23 @@ You should now be able to log in to the Ambari UI in your web browser.
 
 1. Go to the Ambari UI in your web browser. The UI is available on port 8080.
 2. Enter your username and password, then click **Sign in**:
-![](images/ambari-sign-in.png)
+<img src="images/ambari-sign-in.png" alt="" style="border: 1px solid black;"/>
 
 ## Provide Additional Configuration
 
 1. Go to the _MapReduce_ service:
-![](images/ambari-mapreduce-service.png)
+<img src="images/ambari-mapreduce-service.png" alt="" style="border: 1px solid black;"/>
 2. Navigate to the configuration:
-![](images/ambari-navigation-config.png)
+<img src="images/ambari-navigation-config.png" alt="" style="border: 1px solid black;"/>
 
 3. Append to the `mapreduce.application.classpath` parameter:
   * Using BigInsights: `:/usr/iop/current/hadoop-mapreduce-client/*`
   * Using Hortonworks: `:/usr/hdp/current/hadoop-mapreduce-client/*`
 
 4. Save changes:
-![](images/ambari-save-changes.png)
+<img src="images/ambari-save-changes.png" alt="" style="border: 1px solid black;"/>
 5. Restart all required services:
-![](images/ambari-restart-services.png)
+<img src="images/ambari-restart-services.png" alt="" style="border: 1px solid black;"/>
 
 ## Additional Configuration for Clusters With Kerberos Enabled
 
@@ -88,16 +88,16 @@ Skip this section if your cluster does not have Kerberos enabled.
 The steps in this section are required to configure clusters with Kerberos enabled to work with the DataRobot application.
 
 1. Go to the HDFS service:
-![](images/ambari-hdfs-service.png)
+<img src="images/ambari-hdfs-service.png" alt="" style="border: 1px solid black;"/>
 2. Navigate to the configuration:
-![](images/ambari-hdfs-config.png)
+<img src="images/ambari-hdfs-config.png" alt="" style="border: 1px solid black;"/>
 3. Navigate to the advanced tab:
-![](images/ambari-hdfs-advanced.png)
+<img src="images/ambari-hdfs-advanced.png" alt="" style="border: 1px solid black;"/>
 4. Find “custom core-site”:
-![](images/ambari-hdfs-custom.png)
+<img src="images/ambari-hdfs-custom.png" alt="" style="border: 1px solid black;"/>
 5. In the bottom, click on the “Add Property...“ link.
 6. Select “bulk property mode”:
-![](images/ambari-hdfs-bulk-props.png)
+<img src="images/ambari-hdfs-bulk-props.png" alt="" style="border: 1px solid black;"/>
 7. Add following:
 
 ```bash
@@ -149,21 +149,21 @@ from the Cloudera hosts.
 ## Install DataRobot Service
 
 1. Click on **actions** and then **add service**:
-![](images/ambari-add-service.png)
+<img src="images/ambari-add-service.png" alt="" style="border: 1px solid black;"/>
 2. Select DataRobot for installation:
-![](images/ambari-select-datarobot.png)
+<img src="images/ambari-select-datarobot.png" alt="" style="border: 1px solid black;"/>
 3. Click **Next**.
 4. Select where to install DataRobot Master and click **Next**.
 5. Select all YARN nodes as clients and click **Next**:
-![](images/ambari-select-yarn.png)
+<img src="images/ambari-select-yarn.png" alt="" style="border: 1px solid black;"/>
 6. Provide URL to the parcel package in the `datarobot-env` configuration:
-![](images/ambari-parcel-url.png)
+<img src="images/ambari-parcel-url.png" alt="" style="border: 1px solid black;"/>
 7. Set up all required parameters and provide the license in the `datarobot-master`
 configuration:
-![](images/ambari-required-params.png)
+<img src="images/ambari-required-params.png" alt="" style="border: 1px solid black;"/>
 3. Click **Next**.
 4. In case if cluster is secured by Kerberos, provide credentials:
-![](images/ambari-kerberos.png)
+<img src="images/ambari-kerberos.png" alt="" style="border: 1px solid black;"/>
 5. Proceed to the installation.
 
 ## Synchronize Configuration
