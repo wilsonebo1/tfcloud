@@ -268,6 +268,37 @@ Administrative settings on Enterprise and Jupyter
 
 ###Enterprise
 ###Jupyter
+DataRobot builds hundreds of powerful predictive models “out of the box” and uses a diverse set of “best in class” algorithms. Users are also able to integrate additional models that may not be available on DataRobot. These custom models are also available on the model **Leaderboard** for making comparisons alongside other models.
+
+You can create custom models by using **Jupyter**, which is an open source project that includes an interactive notebook web app and other related components. Jupyter works with various language kernels, and was developed as an offshoot of IPython to support language independence. 
+
+DataRobot allows you to use the Jupyter Notebook environment to develop new and custom models, or for integrating existing R and Python models. 
+
+The **Jupyter** tab can be found on the top of DataRobot application page. If the **Jupyter** tab is visible, the user has access to this feature and can create custom models with it. 
+
+![](images/jupyter-tab-enabled.png)
+
+If the **Jupyter** tab is not visible, that means that it’s been disabled for the user. The Admin needs to go into the user’s permissions settings page to enable the feature. 
+
+1. Click the profile icon on the top right corner of the application screen, and select **Manage Users** from the dropdown menu:
+
+	![](images/manage-users.png)
+
+2. Select a user from the **Manage Users** list to view that user's profile and permissions:
+
+	![](images/manage-users-page.png)
+
+3. Click **Change Permissions** in orde to see the full list of features for that user:
+
+	![](images/change-user-permissions.png)
+
+4. Scroll down until you see the **Jupyter Notebook Disabled*** feature. If the box is already checked, it means that the user cannot see or use the Jupyter feature. Uncheck the box to enable the feature:
+
+	![](images/save-jupyter-notebook-permission.png)
+
+5. Then, click the **Save** button on the top right corner of the **User Permissions** page:
+
+The Jupyter Notebook is now enabled and accessible to this user, which means that it will now appear as a tab on the top bar of the application screen.
 
 Per-organization resource constraints
 -------------------------------------

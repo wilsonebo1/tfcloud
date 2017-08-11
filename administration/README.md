@@ -4,7 +4,7 @@ Architecture overview
 Basic Drawing:
 --------------
 
-![](images/BasicDrawing.png)
+![](images/admin-basic-drawing.png)
 
 Basic explanation:
 ------------------
@@ -73,7 +73,7 @@ You will notice that you are initially set to a 4 worker limit. This can worker 
 Hadoop Drawing:
 ---------------
 
-![](images/HadoopDrawing.png)
+![](images/admin-hadoop-drawing.png)
 
 ###Hadoop explanation as it differs from basic
 
@@ -141,4 +141,4 @@ app_configuration:
 
    USER_AUTH_TYPE: ldapsearch
 ```
- 
+ o
