@@ -1,10 +1,10 @@
 # DataRobot Network Access Requirements
 
-Unless otherwise specified, "Hadoop" is applicable to both Cloudera
+**NOTE**: Unless otherwise specified, "Hadoop" is applicable to both Cloudera
 and Ambari clusters. Where there is something specific to Cloudera or
-Ambari, it is mentioned explicitly below.
+Ambari, it is mentioned explicitly.
 
-In Hadoop-based installs, the "application servers" are any edge-node
+In Hadoop-based installs, the **"application servers"** are any edge-node
 servers, running DataRobot services _outside of Hadoop_.
 
 
