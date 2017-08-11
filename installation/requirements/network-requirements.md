@@ -1,8 +1,22 @@
 # DataRobot Network Access Requirements
 
+Unless otherwise specified, "Hadoop" is applicable to both Cloudera
+and Ambari clusters. Where there is something specific to Cloudera or
+Ambari, it is mentioned explicitly below.
+
+In Hadoop-based installs, the "application servers" are any edge-node
+servers, running DataRobot services _outside of Hadoop_.
+
+
 ## End User
 
-End User and Administrator Access to web server and prediction nodes for web UI and API clients.
+End User and Administrator Access to web server and prediction servers for
+web UI and API clients.
+
+```
+End User => Webserver/Prediction Servers
+Provisioner/Administration Server => Webserver/Prediction Servers
+```
 
 | Port  | Protocol | Component|
 |------:|:---------|:---------|
@@ -11,7 +25,12 @@ End User and Administrator Access to web server and prediction nodes for web UI 
 
 ## Administrator
 
-Administrator Access to all nodes.
+All servers must allow incoming requests on these ports from an administration
+server (e.g. "provisioner").
+
+```
+Provisioner/Administration Server => All Servers
+```
 
 | Port  | Protocol | Component|
 |------:|:---------|:---------|
@@ -54,7 +73,8 @@ application server cluster, whether or not using Hadoop.
 
 ### Non-Hadoop Worker Ports
 
-For non-Hadoop installs, additional internal ports are required for DataRobot workers.
+For non-Hadoop installs, additional internal ports are required for
+DataRobot workers.
 
 | Port  | Protocol | Component |
 |------:|:---------|:----------|
@@ -84,6 +104,13 @@ _Check these settings on your cluster to ensure correct firewall configuration._
 
 ### Administrator Access
 
+These ports must be open on all Hadoop servers to allow incoming requests
+from an administration server.
+
+```
+Provisioner/Administration Server => Hadoop Servers
+```
+
 #### Cloudera
 
 Administration ports necessary for Cloudera Manager.
@@ -108,8 +135,14 @@ Administration ports necessary for Ambari Manager.
 
 These ports are used to communicate from one Hadoop server
 to another. All of these ports must be open on all Hadoop servers
-from all other Hadoop servers. These ports do not need to be open
-on application servers.
+to allow incoming requests to all other Hadoop servers and allow
+outgoing requests to all other Hadoop servers.
+
+These ports do not need to be open on application servers.
+
+```
+Hadoop Servers <=> Hadoop Servers
+```
 
 Some of these ports may be different depending on your Hadoop
 configuration.
@@ -120,16 +153,34 @@ Example ports include:
 |-----------:|:---------|:---------|
 | 2888       | TCP      | Zookeeper Quorom Port |
 | 3888       | TCP      | Zookeeper Election Port |
-| 7182-7186  | TCP      | Cloudera Internal Communication |
-| 7190-7191  | TCP/UDP  | Cloudera P2P Parcel Distribution |
 | 8030-8050  | TCP      | YARN Ports |
 | 8088       | TCP      | YARN ResourceManager HTTP |
 | 8090       | TCP      | YARN ResourceManager HTTPs |
 
+
+#### Additional Cloudera Ports
+
+Cloudera installs require additional ports of communication within
+the Hadoop cluster. Some of these ports may be different
+depending on configuration in your Cloudera Manager.
+
+Example ports include:
+
+| Port       | Protocol | Component|
+|-----------:|:---------|:---------|
+| 7182-7186  | TCP      | Cloudera Internal Communication |
+| 7190-7191  | TCP/UDP  | Cloudera P2P Parcel Distribution |
+
+
 ### Communication from Hadoop Cluster to Application Servers
 
-These ports must be opened on all Hadoop servers from all application
-servers.
+These ports must be opened on all Hadoop servers to allow incoming
+requests from all application servers. Application servers must
+allow outgoing requests on these ports to all Hadoop servers.
+
+```
+Application Servers => Hadoop Servers
+```
 
 | Port  | Protocol | Component|
 |------:|:---------|:---------|
@@ -146,8 +197,13 @@ servers.
 
 ### Communication from Application Servers to the Hadoop Cluster
 
-These ports must be opened on the application servers from all
-Hadoop servers.
+These ports must be opened on all application servers to allow
+incoming from all Hadoop servers. Hadoop servers must allow outgoing
+requests on these ports to all application servers.
+
+```
+Hadoop Servers => Application Servers
+```
 
 #### Common Ports
 
