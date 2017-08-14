@@ -45,7 +45,7 @@ This user must have access to the following:
     cd ~/
     mkdir ~/.ssh
     chmod 700 ~/.ssh
-    ssh-keygen -t rsa 
+    ssh-keygen -t rsa
     # Hit Enter at the prompts
     cat .ssh/id_rsa.pub >> ~/.ssh/authorized_keys
     chmod 700 ~/.ssh/authorized_keys
@@ -53,7 +53,10 @@ This user must have access to the following:
     # Append id_rsa.pub contents to /home/druser/.ssh/authorized_hosts on other nodes and verify ssh connectivity from the install node.
 ```
 
-If you are not able to give the `druser` user access to `sudo` or you have an alternative privilege escalation tool, see our additional documentation on installation with [unprivileged users](../special-topics/admin-user.md#nosudo).
+If you are not able to give the `druser` user access to `sudo` or you have an
+alternative privilege escalation tool, see our additional documentation on
+installation with
+[unprivileged users](../special-topics/admin-user.md#unprivileged-user-installation).
 
 ## Software
 You must have the following software installed and running

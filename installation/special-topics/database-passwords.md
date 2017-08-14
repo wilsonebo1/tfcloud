@@ -11,9 +11,9 @@ Password-enforced access to these databases may optionally be enabled using the 
 To enable password protection on both MongoDB and Redis, simply add the following settings to your `config.yaml`.
 
 ```yaml
-    ---
-    os_configuration:
-        secrets_enforced: true
+---
+os_configuration:
+    secrets_enforced: true
 ```
 
 ### After Installation
@@ -25,8 +25,8 @@ To enable or change passwords after installing DataRobot, follow these steps.
 * Run either of the following `make` commands:
 
 ```bash
-    make rotate-secrets  # Generate a new random password
-    make update-secrets  # Set a user-input password
+make rotate-secrets  # Generate a new random password
+make update-secrets  # Set a user-input password
 ```
 
 If your cluster is integrated with Hadoop, you will then need to run `make push-configuration-to-hadoop` afterwards.
@@ -36,14 +36,16 @@ If your cluster is integrated with Hadoop, you will then need to run `make push-
 To disable password protection:
 
 * update your `config.yaml`:
+
 ```yaml
-    ---
-    os_configuration:
-        secrets_enforced: false
+---
+os_configuration:
+    secrets_enforced: false
 ```
 
 * Remove the file `/opt/DataRobot-3.1.x/secrets.yaml` if it exists.
 
 * Execute `make recreate-containers`
 
-* If your cluster is integrated with Hadoop, you will need to run `make push-configuration-to-hadoop`.
+* If your cluster is integrated with Hadoop, you will need to run
+`make push-configuration-to-hadoop`.
