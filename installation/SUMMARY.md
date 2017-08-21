@@ -25,6 +25,7 @@
     * [Directory Creation](special-topics/admin-user.md#directories)
     * [Logging](special-topics/admin-user.md#logging)
   * [Database Password Protection](special-topics/database-passwords.md)
+  * [SELinux](special-topics/selinux.md)
 
 ## Additional Information
 
