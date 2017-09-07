@@ -26,6 +26,7 @@
     * [Logging](special-topics/admin-user.md#logging)
   * [Database Password Protection](special-topics/database-passwords.md)
   * [SELinux](special-topics/selinux.md)
+  * [Disk quota](special-topics/disk-quota.md)
 
 ## Additional Information
 
