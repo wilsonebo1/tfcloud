@@ -132,7 +132,7 @@ Example:
 
 **CDH**:
 
-<img src="images/cdh-test-health.png" alt="" style="border: 1px solid black;"/>
+<img src="images/cdh-health-check.png" alt="" style="border: 1px solid black;"/>
 
 **HDP**:
 
