@@ -138,15 +138,19 @@ Example:
 
 <img src="images/ambari-config-issues.png" alt="" style="border: 1px solid black;"/>
 
-2. Make sure datarobot user can submit yarn applications with reuired container sizes:
+2. Make sure datarobot user can submit yarn applications with required container sizes (you can vary `container_memory`, `num_containers`, `container_vcores` parameters, e.g. to run on every NM set this values close to `yarn.scheduler.maximum-allocation-{mb,vcores}`):
 
 **CDH**:
 
-```yarn jar /opt/cloudera/parcels/CDH/lib/hadoop-yarn/hadoop-yarn-applications-distributedshell.jar -shell_command "hdfs dfs -ls /tmp" -debug -appname "DataRobot pre-flight check" -num_containers 3 -container_memory 60000 -container_vcores 4 -jar /opt/cloudera/parcels/CDH/lib/hadoop-yarn/hadoop-yarn-applications-distributedshell.jar```
+```
+yarn jar /opt/cloudera/parcels/CDH/lib/hadoop-yarn/hadoop-yarn-applications-distributedshell.jar -shell_command "hdfs dfs -ls /tmp" -debug -appname "DataRobot pre-flight check" -num_containers 3 -container_memory 60000 -container_vcores 4 -jar /opt/cloudera/parcels/CDH/lib/hadoop-yarn/hadoop-yarn-applications-distributedshell.jar
+```
 
 **HDP**:
 
-```yarn jar /usr/hdp/current/hadoop-yarn-client/hadoop-yarn-applications-distributedshell.jar -jar /usr/hdp/current/hadoop-yarn-client/hadoop-yarn-applications-distributedshell.jar -shell_command "hdfs dfs -ls /tmp" -debug -appname "DataRobot pre-flight check" -num_containers 3 -container_memory 60000 -container_vcores 4```
+```
+yarn jar /usr/hdp/current/hadoop-yarn-client/hadoop-yarn-applications-distributedshell.jar -jar /usr/hdp/current/hadoop-yarn-client/hadoop-yarn-applications-distributedshell.jar -shell_command "hdfs dfs -ls /tmp" -debug -appname "DataRobot pre-flight check" -num_containers 3 -container_memory 60000 -container_vcores 4
+```
 
 3. Make sure datarobot user can impersonate unix user for ldap/impersonation environment:
 `curl -i --negotiate -u : "http://<HOST>:<PORT>/webhdfs/v1/<PATH>?doas=<USER>&op=LISTSTATUS"`
@@ -155,8 +159,12 @@ Example:
 
 **CDH**:
 
-```spark-submit --master yarn --num-executors 3 --executor-memory 20g --executor-cores 4 --proxy-user PROXY_USER --class org.apache.spark.examples.SparkPi /opt/cloudera/parcels/CDH/lib/spark/lib/spark-examples.jar 10000```
+```
+spark-submit --master yarn --num-executors 3 --executor-memory 20g --executor-cores 4 --proxy-user PROXY_USER --class org.apache.spark.examples.SparkPi /opt/cloudera/parcels/CDH/lib/spark/lib/spark-examples.jar 10000
+```
 
 **HDP**:
 
-```spark-submit --master yarn --num-executors 3 --executor-memory 20g --executor-cores 4 --proxy-user PROXY_USER --class org.apache.spark.examples.SparkPi /usr/hdp/current/spark-client/lib/spark-examples-1.6.2.2.5.3.0-37-hadoop2.7.3.2.5.3.0-37.jar 10000```
+```
+spark-submit --master yarn --num-executors 3 --executor-memory 20g --executor-cores 4 --proxy-user PROXY_USER --class org.apache.spark.examples.SparkPi /usr/hdp/current/spark-client/lib/spark-examples-1.6.2.2.5.3.0-37-hadoop2.7.3.2.5.3.0-37.jar 10000
+```
