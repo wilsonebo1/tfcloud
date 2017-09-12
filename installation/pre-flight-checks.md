@@ -143,16 +143,26 @@ Example:
 **CDH**:
 
 ```
-yarn jar /opt/cloudera/parcels/CDH/lib/hadoop-yarn/hadoop-yarn-applications-distributedshell.jar -shell_command "hdfs dfs -ls /tmp" -debug -appname "DataRobot pre-flight check" -num_containers 3 -container_memory 60000 -container_vcores 4 -jar /opt/cloudera/parcels/CDH/lib/hadoop-yarn/hadoop-yarn-applications-distributedshell.jar
+yarn jar \
+/opt/cloudera/parcels/CDH/lib/hadoop-yarn/hadoop-yarn-applications-distributedshell.jar \
+-shell_command "hdfs dfs -ls /tmp" \
+-debug -appname "DataRobot pre-flight check" \
+-num_containers 3 -container_memory 60000 -container_vcores 4 \
+-jar /opt/cloudera/parcels/CDH/lib/hadoop-yarn/hadoop-yarn-applications-distributedshell.jar
 ```
 
 **HDP**:
 
 ```
-yarn jar /usr/hdp/current/hadoop-yarn-client/hadoop-yarn-applications-distributedshell.jar -jar /usr/hdp/current/hadoop-yarn-client/hadoop-yarn-applications-distributedshell.jar -shell_command "hdfs dfs -ls /tmp" -debug -appname "DataRobot pre-flight check" -num_containers 3 -container_memory 60000 -container_vcores 4
+yarn jar \
+/usr/hdp/current/hadoop-yarn-client/hadoop-yarn-applications-distributedshell.jar \
+-shell_command "hdfs dfs -ls /tmp" \
+-debug -appname "DataRobot pre-flight check" \
+-num_containers 3 -container_memory 60000 -container_vcores 4 \
+-jar /usr/hdp/current/hadoop-yarn-client/hadoop-yarn-applications-distributedshell.jar 
 ```
 
-3. Make sure datarobot user can impersonate unix user for ldap/impersonation environment:
+3. Make sure `datarobot` user can impersonate unix user for ldap/impersonation environment:
 `curl -i --negotiate -u : "http://<HOST>:<PORT>/webhdfs/v1/<PATH>?doas=<USER>&op=LISTSTATUS"`
 
 4. Make sure Spark is installed and functioning:
@@ -160,11 +170,19 @@ yarn jar /usr/hdp/current/hadoop-yarn-client/hadoop-yarn-applications-distribute
 **CDH**:
 
 ```
-spark-submit --master yarn --num-executors 3 --executor-memory 20g --executor-cores 4 --proxy-user PROXY_USER --class org.apache.spark.examples.SparkPi /opt/cloudera/parcels/CDH/lib/spark/lib/spark-examples.jar 10000
+spark-submit --master yarn \
+--num-executors 3 --executor-memory 20g --executor-cores 4 \
+--proxy-user PROXY_USER \
+--class org.apache.spark.examples.SparkPi \
+/opt/cloudera/parcels/CDH/lib/spark/lib/spark-examples.jar 10000
 ```
 
 **HDP**:
 
 ```
-spark-submit --master yarn --num-executors 3 --executor-memory 20g --executor-cores 4 --proxy-user PROXY_USER --class org.apache.spark.examples.SparkPi /usr/hdp/current/spark-client/lib/spark-examples-1.6.2.2.5.3.0-37-hadoop2.7.3.2.5.3.0-37.jar 10000
+spark-submit --master yarn \
+--num-executors 3 --executor-memory 20g --executor-cores 4 \
+--proxy-user PROXY_USER \
+--class org.apache.spark.examples.SparkPi \
+/usr/hdp/current/spark-client/lib/spark-examples-1.6.2.2.5.3.0-37-hadoop2.7.3.2.5.3.0-37.jar 10000
 ```
