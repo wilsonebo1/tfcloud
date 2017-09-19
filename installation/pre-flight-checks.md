@@ -128,7 +128,7 @@ Example:
 
 ## Hadoop pre-flight checks
 
-1. Check health and configuration issues reported by Cloudera Manager or Ambari:
+1. Check health and configuration issues reported by Cloudera Manager or Ambari (requires to update configuration and restart hadoop services):
 
 **CDH**:
 
@@ -164,6 +164,9 @@ yarn jar \
 
 3. Make sure `datarobot` user can impersonate unix user for ldap/impersonation environment:
 `curl -i --negotiate -u : "http://<HOST>:<PORT>/webhdfs/v1/<PATH>?doas=<USER>&op=LISTSTATUS"`
+
+e.g.
+`curl -i --negotiate -u : "http://bos-rd1-cdh-master1.rd1.hq.datarobot.com:50070/webhdfs/v1/tmp?doas=peter&op=LISTSTATUS"`
 
 4. Make sure Spark is installed and functioning:
 
