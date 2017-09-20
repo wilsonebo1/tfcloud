@@ -166,7 +166,7 @@ yarn jar \
 `curl -i --negotiate -u : "http://<HOST>:<PORT>/webhdfs/v1/<PATH>?doas=<USER>&op=LISTSTATUS"`
 
 e.g.
-`curl -i --negotiate -u : "http://bos-rd1-cdh-master1.rd1.hq.datarobot.com:50070/webhdfs/v1/tmp?doas=peter&op=LISTSTATUS"`
+`curl -i --negotiate -u : "http://example.com:50070/webhdfs/v1/tmp?doas=peter&op=LISTSTATUS"`
 
 4. Make sure Spark is installed and functioning:
 
