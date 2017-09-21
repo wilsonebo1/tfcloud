@@ -126,9 +126,15 @@ Example:
 }
 ```
 
-## Hadoop pre-flight checks
+# Hadoop Pre-Flight Checks {#hadoop-checks}
 
-1. Check health and configuration issues reported by Cloudera Manager or Ambari (requires to update configuration and restart hadoop services):
+Use these checks before installation to ensure that your Hadoop environment is ready to install and run DataRobot.
+
+
+## Service health and configuration
+
+Check for health and configuration issues reported by Cloudera Manager or Ambari.
+You may be required to update configuration and restart Hadoop services.
 
 **CDH**:
 
@@ -138,54 +144,62 @@ Example:
 
 <img src="images/ambari-config-issues.png" alt="" style="border: 1px solid black;"/>
 
-2. Make sure datarobot user can submit yarn applications with required container sizes (you can vary `container_memory`, `num_containers`, `container_vcores` parameters, e.g. to run on every NM set this values close to `yarn.scheduler.maximum-allocation-{mb,vcores}`):
+## Test YARN Container Submission
+Ensure the datarobot user can submit yarn applications with the required container size.
+Modify the `container_memory`, `num_containers` and `container_vcores` parameters to match your expected container size.
 
 **CDH**:
 
-```
+```bash
 yarn jar \
-/opt/cloudera/parcels/CDH/lib/hadoop-yarn/hadoop-yarn-applications-distributedshell.jar \
--shell_command "hdfs dfs -ls /tmp" \
--debug -appname "DataRobot pre-flight check" \
--num_containers 3 -container_memory 60000 -container_vcores 4 \
--jar /opt/cloudera/parcels/CDH/lib/hadoop-yarn/hadoop-yarn-applications-distributedshell.jar
+    /opt/cloudera/parcels/CDH/lib/hadoop-yarn/hadoop-yarn-applications-distributedshell.jar \
+    -shell_command "hdfs dfs -ls /tmp" \
+    -debug -appname "DataRobot pre-flight check" \
+    -num_containers 3 -container_memory 60000 -container_vcores 4 \
+    -jar /opt/cloudera/parcels/CDH/lib/hadoop-yarn/hadoop-yarn-applications-distributedshell.jar
 ```
 
 **HDP**:
 
-```
+```bash
 yarn jar \
-/usr/hdp/current/hadoop-yarn-client/hadoop-yarn-applications-distributedshell.jar \
--shell_command "hdfs dfs -ls /tmp" \
--debug -appname "DataRobot pre-flight check" \
--num_containers 3 -container_memory 60000 -container_vcores 4 \
--jar /usr/hdp/current/hadoop-yarn-client/hadoop-yarn-applications-distributedshell.jar 
+    /usr/hdp/current/hadoop-yarn-client/hadoop-yarn-applications-distributedshell.jar \
+    -shell_command "hdfs dfs -ls /tmp" \
+    -debug -appname "DataRobot pre-flight check" \
+    -num_containers 3 -container_memory 60000 -container_vcores 4 \
+    -jar /usr/hdp/current/hadoop-yarn-client/hadoop-yarn-applications-distributedshell.jar
 ```
 
-3. Make sure `datarobot` user can impersonate unix user for ldap/impersonation environment:
-`curl -i --negotiate -u : "http://<HOST>:<PORT>/webhdfs/v1/<PATH>?doas=<USER>&op=LISTSTATUS"`
+## Check LDAP Impersonation
+In environments with LDAP or user impersonation, ensure the `datarobot` user can successfully impersonate Unix users:
 
-e.g.
-`curl -i --negotiate -u : "http://example.com:50070/webhdfs/v1/tmp?doas=peter&op=LISTSTATUS"`
+```bash
+WEBHDFS_HOST=webhdfs.internal.com
+WEBHDFS_PORT=50070
+PATH=/tmp/
+USER=someusername
+curl -i --negotiate -u : "http://${WEBHDFS_HOST}:${WEBHDFS_PORT}/webhdfs/v1/${PATH}?doas=${USER}&op=LISTSTATUS"
+```
 
-4. Make sure Spark is installed and functioning:
+## Check Spark Health
+Make sure Spark is installed and functioning:
 
 **CDH**:
 
 ```
 spark-submit --master yarn \
---num-executors 3 --executor-memory 20g --executor-cores 4 \
---proxy-user PROXY_USER \
---class org.apache.spark.examples.SparkPi \
-/opt/cloudera/parcels/CDH/lib/spark/lib/spark-examples.jar 10000
+    --num-executors 3 --executor-memory 20g --executor-cores 4 \
+    --proxy-user PROXY_USER \
+    --class org.apache.spark.examples.SparkPi \
+    /opt/cloudera/parcels/CDH/lib/spark/lib/spark-examples.jar 10000
 ```
 
 **HDP**:
 
 ```
 spark-submit --master yarn \
---num-executors 3 --executor-memory 20g --executor-cores 4 \
---proxy-user PROXY_USER \
---class org.apache.spark.examples.SparkPi \
-/usr/hdp/current/spark-client/lib/spark-examples-1.6.2.2.5.3.0-37-hadoop2.7.3.2.5.3.0-37.jar 10000
+    --num-executors 3 --executor-memory 20g --executor-cores 4 \
+    --proxy-user PROXY_USER \
+    --class org.apache.spark.examples.SparkPi \
+    /usr/hdp/current/spark-client/lib/spark-examples-1.6.2.2.5.3.0-37-hadoop2.7.3.2.5.3.0-37.jar 10000
 ```
