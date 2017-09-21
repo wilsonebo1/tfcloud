@@ -134,14 +134,13 @@ Use these checks before installation to ensure that your Hadoop environment is r
 ## Service health and configuration
 
 Check for health and configuration issues reported by Cloudera Manager or Ambari.
-You may be required to update configuration and restart Hadoop services.
 
 **CDH**:
 
 <img src="images/cdh-health-check.png" alt="" style="border: 1px solid black;"/>
 
 **HDP**:
-
+Note: this screen will appear when restarting services on the cluster if there are issues with configuration.
 <img src="images/ambari-config-issues.png" alt="" style="border: 1px solid black;"/>
 
 ## Test YARN Container Submission
