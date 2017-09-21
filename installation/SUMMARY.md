@@ -16,6 +16,7 @@
   * [Cloudera Installation](cloudera-install.md)
   * [Hortonworks/BigInsights Installation](ambari-install.md)
 * [Pre-Flight Checks](pre-flight-checks.md)
+* [Hadoop Pre-Flight Checks](pre-flight-checks.md#hadoop-checks)
 * [Advanced Configuration](special-topics/README.md)
   * [SSL](special-topics/ssl.md)
   * [Hadoop Kerberos](special-topics/kerberos.md)
