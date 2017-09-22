@@ -107,11 +107,9 @@ The _activity monitor_ is a system that sends notifications, for certain events 
 ![](images/activity-monitor-2.png)
 
 
-
-
 <a name="administrative-settings-on-jupyter"></a>
 Administrative settings Jupyter
-----------------------------------
+---------------------------------
 
 
 <a name="jupyter"></a>
@@ -157,7 +155,7 @@ Jupyter Notebook is now enabled and accessible to this user, which means that it
 
 <a name="per-organization-resource-constraints"></a>
 Per-organization resource constraints
-----------------------------------
+---------------------------------
 
 This feature is managed by the Admin and depends on the organization’s various project needs. Enterprise Admin can access this feature under the **Manage Users** page, where the **Manage Organizations** tab is located. 
 
@@ -230,8 +228,6 @@ For this command, you simply need to run the stop-services command first, then t
 
 <a name="check-services-status"></a>
 ###Check services status:
-
-Command name: ```make check-services-status```
 
 This command checks the container state on docker, which is defined in a config.yaml file. 
 

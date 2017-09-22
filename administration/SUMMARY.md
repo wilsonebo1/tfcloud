@@ -1,3 +1,4 @@
+
 # Part I: Understanding your DataRobot environment
 
 * [Architecture Overview](README.md#architecture-overview)
@@ -18,7 +19,7 @@
 
 # Part II: Managing the Platform
 
-* [Managing User Accounts](managing-platform.md#)
+* [Managing User Accounts](managing-platform.md)
 	* [Creating user accounts](managing-platform.md#creating-user-accounts)
 	* [Setting user permissions](managing-platform.md#setting-user-permissions)
 	* [Changing your password](managing-platform.md#changing-your-password)
