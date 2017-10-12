@@ -13,14 +13,14 @@ section.
 ### Copy Artifact
 
 * Copy the DataRobot package to a directory on the install server.
-In this install guide we will assume the directory is `/opt/DataRobot-3.1.x/`.
-If you use a different directory, replace `/opt/DataRobot-3.1.x/` in the following commands with your directory.
+In this install guide we will assume the directory is `/opt/DataRobot-4.0.x/`.
+If you use a different directory, replace `/opt/DataRobot-4.0.x/` in the following commands with your directory.
 
 Ensure the destination has at least 15 GB of free space for the file and its extracted contents:
 
 ```bash
 scp DataRobot-Release-*.tar.gz \
-    druser@[INSTALL SERVER IP]:/opt/DataRobot-3.1.x/
+    druser@[INSTALL SERVER IP]:/opt/DataRobot-4.0.x/
 ```
 
 * Run the following commands from an SSH session on the install server:
@@ -33,7 +33,7 @@ ssh druser@[INSTALL SERVER IP]
 Execute all the following commands from this directory:
 
 ```bash
-cd /opt/DataRobot-3.1.x/
+cd /opt/DataRobot-4.0.x/
 ```
 
 * Extract the package:
@@ -44,7 +44,7 @@ tar xzvf DataRobot-Release*.tar.gz
 
 ### Create Configuration Files
 
-* Copy the sample YAML configuration file to `/opt/DataRobot-3.1.x/config.yaml`:
+* Copy the sample YAML configuration file to `/opt/DataRobot-4.0.x/config.yaml`:
 
 ```bash
 cp example-configs/multi-node.linux.yaml config.yaml

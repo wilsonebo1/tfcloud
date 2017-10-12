@@ -43,7 +43,7 @@ os_configuration:
     secrets_enforced: false
 ```
 
-* Remove the file `/opt/DataRobot-3.1.x/secrets.yaml` if it exists.
+* Remove the file `/opt/DataRobot-4.0.x/secrets.yaml` if it exists.
 
 * Execute `make recreate-containers`
 

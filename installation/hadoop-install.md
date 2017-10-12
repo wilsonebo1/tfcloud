@@ -9,7 +9,7 @@ To enable this integration, first create `hadoop-configuration.yaml` and `config
 
 ### hadoop-configuration.yaml
 
-Place a file like the following in `/opt/DataRobot-3.1.x/`
+Place a file like the following in `/opt/DataRobot-4.0.x/`
 
 ```yaml
 # FILE: hadoop-configuration.yaml
@@ -23,7 +23,7 @@ ignore_ca: false
 
 ### config.yaml
 
-Copy a sample YAML configuration file to `/opt/DataRobot-3.1.x/config.yaml`.
+Copy a sample YAML configuration file to `/opt/DataRobot-4.0.x/config.yaml`.
 
 You can find a sample Cloudera `config.yaml` file in `example-configs/multi-node.hadoop.yaml`. Modify the sample to suit your
 environment.
@@ -53,7 +53,7 @@ servers and the Cloudera cluster.
 * Start the configuration synchronization process.
 
 ```bash
-cd /opt/DataRobot-3.1.x/
+cd /opt/DataRobot-4.0.x/
 make push-configuration-to-hadoop
 ```
 
