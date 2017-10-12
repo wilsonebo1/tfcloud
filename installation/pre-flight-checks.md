@@ -1,7 +1,29 @@
 # Pre-Flight Checks
 
-The following checks are useful for verifying that your cluster is ready to install and run the DataRobot application.
-They will prevent the most common installation issues and are also good for troubleshooting issues with your configuration.
+## Pre-Flight Checks CLI Tool
+The DataRobot installation media contains a utility for verifying your cluster's configuration.
+
+This will prevent the most common installation issues and is also good for troubleshooting issues with your configuration.
+
+Access it by running
+
+```bash
+./bin/datarobot health cluster-checks
+```
+
+Several options can be used to modify behavior for this command; use the `--help` flag to learn about available options.
+Individual tests can be disabled with the `-x` flag, for example
+
+```bash
+./bin/datarobot health cluster-checks -x port
+```
+
+will disable all port checks.
+
+
+## Manual Health Checks
+
+If you cannot use the CLI tool or want more detail, you can perform many of these checks manually.
 
 Perform these steps after performing the [Cluster Preparation](standard-install.md#linux-prep) section of the installation (after `make bootstrap-cluster`) and before performing the [Install and Configure the Application](standard-install.md#linux-provision) steps (before `make provision`).
 
@@ -36,9 +58,8 @@ On the install node, logged in as the DataRobot user, run the following to verif
 ```bash
 sudo su druser
 cd /opt/DataRobot-4.0.x/
-make provision-prompt
-./inventory/hosts --list
-ansible -i inventory/hosts -m shell -a 'uptime' all -vvvv
+./bin/inventory --list
+./bin/ansible -i ./bin/inventory -m shell -a 'uptime' all
 ```
 
 ## Docker access across all nodes
@@ -48,8 +69,7 @@ This end-to-end test will verify that the provisioner can run, connect to nodes 
 ```bash
 sudo su druser
 cd /opt/DataRobot-4.0.x/
-make provision-prompt
-ansible -i inventory/hosts -m docker -a "image=foo name=bar state=absent" all
+./bin/ansible -i ./bin/inventory -m docker -a "image=foo name=bar state=absent" all
 ```
 
 ## Logging

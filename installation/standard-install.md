@@ -77,26 +77,33 @@ os_configuration:
 The `multi-node.linux.yaml` file has a full set of sample configurations for reference purposes.
 The `example-configs/config-variables.md` file has a comprehensive set of documented configuration values.
 
+To validate your configuration files, run
+
+```bash
+./bin/datarobot validate
+```
+
 Contact DataRobot Support if you have any questions about settings in this file.
+
+### Install Dependencies
 
 * Run the dependency installation command.
 It should take several minutes to complete.
 
 ```bash
-sudo make install-dependencies
+./bin/datarobot setup-dependencies
 ```
 
-* Run the bootstrap command to create the Docker registry container and pull the first image:
+* Verify that everything is configured correctly:
 
 ```bash
-make bootstrap
+./bin/datarobot health cluster-checks --deps-installed
 ```
 
-* Run the bootstrap-cluster command to install Docker and configure all servers to run the application.
-This is still required when using a single node:
+* Start the Docker registry:
 
 ```bash
-make bootstrap-cluster
+./bin/datarobot run-registry
 ```
 
 ## Install and Configure the Application {#linux-provision}
@@ -111,7 +118,13 @@ With dependencies installed and configured across the application servers, you a
 This command should take several minutes to complete:
 
 ```bash
-make provision
+./bin/datarobot install
+```
+
+* Check that the cluster was installed correctly:
+
+```bash
+./bin/datarobot smoke-test
 ```
 
 * Run the command to generate the initial admin account for the DataRobot application:

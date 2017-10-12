@@ -5,7 +5,7 @@ configure Docker, and configure logging on your system.
 
 If you can't enable passwordless sudo for the DataRobot service user, you
 may either specify a separate 'admin user' (to be referred to as `dradmin`)
-or manually perform these steps.
+or manually perform the Manual Configuration steps.
 
 ## Admin User
 
@@ -53,6 +53,12 @@ installation process.
 You can use these instructions once the initial OS configuration and user setup
 is complete and the DataRobot installation media is downloaded and extracted on
 the install node.
+
+After performing these steps, verify everything is working correctly with
+
+```bash
+./bin/datarobot health cluster-checks
+```
 
 ## Install Docker
 

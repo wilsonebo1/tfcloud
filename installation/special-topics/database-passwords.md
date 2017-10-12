@@ -22,14 +22,19 @@ To enable or change passwords after installing DataRobot, follow these steps.
 
 * Make the above modification to your `config.yaml` file (set `secrets_enforced` to `true`).
 
-* Run either of the following `make` commands:
+* Enable secrets with
 
 ```bash
-make rotate-secrets  # Generate a new random password
-make update-secrets  # Set a user-input password
+./bin/datarobot install
 ```
 
-If your cluster is integrated with Hadoop, you will then need to run `make push-configuration-to-hadoop` afterwards.
+* You should regularly rotate secrets:
+
+```bash
+./bin/datarobot rotate-secrets
+```
+
+If your cluster is integrated with Hadoop, you will then need to run `./bin/datarobot hadoop-sync` afterwards.
 
 ## Disabling Password Protection
 
@@ -45,7 +50,7 @@ os_configuration:
 
 * Remove the file `/opt/DataRobot-4.0.x/secrets.yaml` if it exists.
 
-* Execute `make recreate-containers`
+* Execute `./bin/datarobot install`
 
 * If your cluster is integrated with Hadoop, you will need to run
-`make push-configuration-to-hadoop`.
+`./bin/datarobot hadoop-sync`.
