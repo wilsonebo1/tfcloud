@@ -1,9 +1,56 @@
 # Pre-Flight Checks
 
-The following checks are useful for verifying that your cluster is ready to install and run the DataRobot application.
-They will prevent the most common installation issues and are also good for troubleshooting issues with your configuration.
+## Pre-Flight Checks CLI Tool
+The DataRobot installation media contains a utility for verifying your cluster's configuration.
 
-Perform these steps after performing the [Cluster Preparation](standard-install.md#linux-prep) section of the installation (after `make bootstrap-cluster`) and before performing the [Install and Configure the Application](standard-install.md#linux-provision) steps (before `make provision`).
+This will prevent the most common installation issues and is also good for troubleshooting issues with your configuration.
+
+Access it by running:
+
+```bash
+./bin/datarobot health cluster-checks
+```
+
+Several options can be used to modify behavior for this command; use the `--help` flag to learn about available options.
+Individual tests can be disabled with the `-x` flag, for example:
+
+```bash
+./bin/datarobot health cluster-checks -x port
+```
+
+will disable all port checks.
+
+There are two primary times to run the pre-flight checks tool: before and after dependency installation.
+Before dependency install, the tool can be run as shown above, with no flags required.
+This will verify connectivity to all hosts specified in the `config.yaml`, and perform a variety of checks to ensure dependency installation goes smoothly, including:
+
+* No port conflicts with defined services and existing applications on the hosts.
+* Adequate free space for Docker and the DataRobot application is available.
+* Filesystem for `/var/lib/docker` is appropriately configured for the chosen storage driver.
+
+After dependencies have been installed (`./bin/datarobot install-dependencies`) and the registry is running (`./bin/datarobot run-registry`), the pre-flight checks tool can be executed again.
+Additional tests will be executed on the cluster to confirm the correct functioning of the new dependencies.
+
+Run the tool with this command:
+
+```bash
+./bin/datarobot health cluster-checks --deps-installed
+```
+
+In addition to the checks indicated above, the following will be tested:
+
+* Docker registry is reachable and from all nodes and containers can be run.
+* Docker-py was correctly installed and is available to ansible.
+* Logging functionality is working properly for DataRobot logs.
+* Docker group correctly configured for the datarobot user.
+* And more!
+
+
+## Manual Health Checks
+
+If you cannot use the CLI tool or want more detail, you can perform many of these checks manually.
+
+Perform these steps after performing the [Cluster Preparation](standard-install.md#linux-prep) section of the installation (after `./bin/datarobot install-dependencies`) and before performing the [Install and Configure the Application](standard-install.md#linux-provision) steps (before `./bin/datarobot install`).
 
 ## Docker storage capacity
 
@@ -12,6 +59,7 @@ Verify that Docker has sufficient available storage capacity by checking the out
 ```bash
 docker info | grep 'Data Space' 2> /dev/null
 ```
+
 Ensure that the difference between Data Space Total and Data Space Used is greater than 100 GB.
 
     Note: Data Space Used and Available may not add up to Total; this is expected in setups using devicemapper storage.
@@ -22,7 +70,7 @@ Verify that you can run Docker containers with the following command:
 
 ```bash
 sudo su druser
-cd /opt/DataRobot-3.1.x/
+cd /opt/DataRobot-4.0.x/
 docker load -i dockerfiles/datarobot/saved/docker-registry.tar
 docker run --rm -it docker.hq.datarobot.com/datarobot/registry
 # You should see some logs from the container
@@ -35,10 +83,9 @@ On the install node, logged in as the DataRobot user, run the following to verif
 
 ```bash
 sudo su druser
-cd /opt/DataRobot-3.1.x/
-make provision-prompt
-./inventory/hosts --list
-ansible -i inventory/hosts -m shell -a 'uptime' all -vvvv
+cd /opt/DataRobot-4.0.x/
+./bin/inventory --list
+./bin/ansible -i ./bin/inventory -m shell -a 'uptime' all
 ```
 
 ## Docker access across all nodes
@@ -47,9 +94,8 @@ This end-to-end test will verify that the provisioner can run, connect to nodes 
 
 ```bash
 sudo su druser
-cd /opt/DataRobot-3.1.x/
-make provision-prompt
-ansible -i inventory/hosts -m docker -a "image=foo name=bar state=absent" all
+cd /opt/DataRobot-4.0.x/
+./bin/ansible -i ./bin/inventory -m docker -a "image=foo name=bar state=absent" all
 ```
 
 ## Logging
