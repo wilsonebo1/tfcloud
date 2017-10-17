@@ -23,6 +23,13 @@ scp DataRobot-Release-*.tar.gz \
     druser@[INSTALL SERVER IP]:/opt/DataRobot-4.0.x/
 ```
 
+Also transfer the sha1sum file, to verify the integrity of the installation package:
+
+```bash
+scp DataRobot-Release-*.tar.gz.sha1sum \
+    druser@[INSTALL SERVER IP]:/opt/DataRobot-4.0.x/
+```
+
 * Run the following commands from an SSH session on the install server:
 
 ```bash
@@ -35,6 +42,27 @@ Execute all the following commands from this directory:
 ```bash
 cd /opt/DataRobot-4.0.x/
 ```
+
+* Verify the integrity of the transferred installation package:
+
+```bash
+sha1sum -c DataRobot-Release*.tar.gz.sha1sum
+```
+
+If the installation package was transferred without error, you will see a message similar to the following:
+
+```bash
+DataRobot-RELEASE-4.0.x.tar.gz: OK
+```
+
+If the file was corrupted, you will see a message similar to the following:
+
+```bash
+DataRobot-RELEASE-4.0.x.tar.gz: FAILED
+sha1sum: WARNING: 1 computed checksum did NOT match
+```
+
+In this case, the file will need to be downloaded again and transferred to the installation server.
 
 * Extract the package:
 
