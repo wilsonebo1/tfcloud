@@ -13,14 +13,14 @@ section.
 ### Copy Artifact
 
 * Copy the DataRobot package to a directory on the install server.
-In this install guide we will assume the directory is `/opt/DataRobot-3.1.x/`.
-If you use a different directory, replace `/opt/DataRobot-3.1.x/` in the following commands with your directory.
+In this install guide we will assume the directory is `/opt/DataRobot-4.0.x/`.
+If you use a different directory, replace `/opt/DataRobot-4.0.x/` in the following commands with your directory.
 
 Ensure the destination has at least 15 GB of free space for the file and its extracted contents:
 
 ```bash
 scp DataRobot-Release-*.tar.gz \
-    druser@[INSTALL SERVER IP]:/opt/DataRobot-3.1.x/
+    druser@[INSTALL SERVER IP]:/opt/DataRobot-4.0.x/
 ```
 
 * Run the following commands from an SSH session on the install server:
@@ -33,7 +33,7 @@ ssh druser@[INSTALL SERVER IP]
 Execute all the following commands from this directory:
 
 ```bash
-cd /opt/DataRobot-3.1.x/
+cd /opt/DataRobot-4.0.x/
 ```
 
 * Extract the package:
@@ -44,7 +44,7 @@ tar xzvf DataRobot-Release*.tar.gz
 
 ### Create Configuration Files
 
-* Copy the sample YAML configuration file to `/opt/DataRobot-3.1.x/config.yaml`:
+* Copy the sample YAML configuration file to `/opt/DataRobot-4.0.x/config.yaml`:
 
 ```bash
 cp example-configs/multi-node.linux.yaml config.yaml
@@ -77,26 +77,33 @@ os_configuration:
 The `multi-node.linux.yaml` file has a full set of sample configurations for reference purposes.
 The `example-configs/config-variables.md` file has a comprehensive set of documented configuration values.
 
+To validate your configuration files, run
+
+```bash
+./bin/datarobot validate
+```
+
 Contact DataRobot Support if you have any questions about settings in this file.
+
+### Install Dependencies
 
 * Run the dependency installation command.
 It should take several minutes to complete.
 
 ```bash
-sudo make install-dependencies
+./bin/datarobot setup-dependencies
 ```
 
-* Run the bootstrap command to create the Docker registry container and pull the first image:
+* Verify that everything is configured correctly:
 
 ```bash
-make bootstrap
+./bin/datarobot health cluster-checks --deps-installed
 ```
 
-* Run the bootstrap-cluster command to install Docker and configure all servers to run the application.
-This is still required when using a single node:
+* Start the Docker registry:
 
 ```bash
-make bootstrap-cluster
+./bin/datarobot run-registry
 ```
 
 ## Install and Configure the Application {#linux-provision}
@@ -111,7 +118,13 @@ With dependencies installed and configured across the application servers, you a
 This command should take several minutes to complete:
 
 ```bash
-make provision
+./bin/datarobot install
+```
+
+* Check that the cluster was installed correctly:
+
+```bash
+./bin/datarobot smoke-test
 ```
 
 * Run the command to generate the initial admin account for the DataRobot application:

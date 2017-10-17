@@ -82,15 +82,10 @@ sudo semodule -i datarobot.pp
 ## SELinux Management Requirements
 
 DataRobot also requires you run some SELinux management commands to operate.
-These depend on the state set up during installation, so they must be run
-*after running* `make bootstrap-cluster`. This allows `rsyslog` to work
-on a variant port (1514), accept logs from services, and write to the
-DataRobot logs directory (e.g. `/opt/datarobot/logs`).
+These depend on the state set up during installation, so they must be run *after running* `./bin/datarobot setup-dependencies`.
+This allows `rsyslog` to work on a variant port (1514), accept logs from services, and write to the DataRobot logs directory (e.g. `/opt/datarobot/logs`).
 
-The recommended procedure to enable this functionality and restart
-`rsyslog` for the changes to take effect is to run the following commands
-on all instances after provisioning them (e.g., running
-`make bootstrap-cluster`):
+The recommended procedure to enable this functionality and restart `rsyslog` for the changes to take effect is to run the following commands on all instances after provisioning them (e.g., running `./bin/datarobot setup-dependencies`):
 
 ```bash
 sudo semanage port -a -t syslogd_port_t -p udp 1514

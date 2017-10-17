@@ -25,8 +25,8 @@ This user must have access to the following:
 * Ownership of a directory called `/opt/datarobot` on each node with enough space to install and run the application.
 ```bash
     useradd --create-home --uid 1234 druser # uid can be any valid uid
-    mkdir /opt/datarobot /opt/DataRobot-3.1.x
-    chown druser:druser /opt/datarobot /opt/DataRobot-3.1.x
+    mkdir /opt/datarobot /opt/DataRobot-4.0.x
+    chown druser:druser /opt/datarobot /opt/DataRobot-4.0.x
 ```
 * Access to the Docker Engine on the host.
 ```bash
@@ -78,4 +78,4 @@ You must have the following software installed and running
 
 | Description | Filename | Notes |
 |:------------|:---------|:------|
-| DataRobot Distribution | DataRobot-release-3.1.x.tar.gz | A tarball containing all files required for DataRobot installation |
+| DataRobot Distribution | DataRobot-release-4.0.x.tar.gz | A tarball containing all files required for DataRobot installation |

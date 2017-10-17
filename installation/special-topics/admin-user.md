@@ -5,7 +5,7 @@ configure Docker, and configure logging on your system.
 
 If you can't enable passwordless sudo for the DataRobot service user, you
 may either specify a separate 'admin user' (to be referred to as `dradmin`)
-or manually perform these steps.
+or manually perform the Manual Configuration steps.
 
 ## Admin User
 
@@ -54,6 +54,12 @@ You can use these instructions once the initial OS configuration and user setup
 is complete and the DataRobot installation media is downloaded and extracted on
 the install node.
 
+After performing these steps, verify everything is working correctly with
+
+```bash
+./bin/datarobot health cluster-checks
+```
+
 ## Install Docker
 
 Docker Engine version 1.10+ must be installed on all Edge Nodes.
@@ -64,7 +70,7 @@ servers.
 * On all nodes, run the following commands:
 
 ```bash
-cd /opt/DataRobot-3.1.x/
+cd /opt/DataRobot-4.0.x/
 sudo yum localinstall -y --nogpgcheck \
     release/docker-packages/RedHat-7/prereqs/*.rpm
 sudo yum localinstall -y --nogpgcheck \

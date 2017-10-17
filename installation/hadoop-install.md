@@ -9,7 +9,7 @@ To enable this integration, first create `hadoop-configuration.yaml` and `config
 
 ### hadoop-configuration.yaml
 
-Place a file like the following in `/opt/DataRobot-3.1.x/`
+Place a file like the following in `/opt/DataRobot-4.0.x/`
 
 ```yaml
 # FILE: hadoop-configuration.yaml
@@ -21,9 +21,15 @@ use_tls: false
 ignore_ca: false
 ```
 
+Verify your file is correctly configured with
+
+```bin
+./bin/datarobot validate
+```
+
 ### config.yaml
 
-Copy a sample YAML configuration file to `/opt/DataRobot-3.1.x/config.yaml`.
+Copy a sample YAML configuration file to `/opt/DataRobot-4.0.x/config.yaml`.
 
 You can find a sample Cloudera `config.yaml` file in `example-configs/multi-node.hadoop.yaml`. Modify the sample to suit your
 environment.
@@ -53,11 +59,12 @@ servers and the Cloudera cluster.
 * Start the configuration synchronization process.
 
 ```bash
-cd /opt/DataRobot-3.1.x/
-make push-configuration-to-hadoop
+cd /opt/DataRobot-4.0.x/
+./bin/datarobot hadoop-sync
 ```
 
 When prompted, enter credentials to access the Cloudera Manager.
+Credentials can also be passed as environment variables or CLI arguments.
 
 The user you authenticate with must have permissions to modify configuration
 of the DataRobot service and restart services. The provisioner will post configuration
@@ -67,15 +74,10 @@ information to the Cloudera Manager and trigger a restart of the DataRobot servi
 application server, which triggers a configuration synchronization process on
 the application server that restarts services.
 
-* Wait for the application server's Docker containers to restart before proceeding.
-You should be able to see all containers on the application server except for
-`registry` and `hadoopconfigsync` get restarted (uptime should be reset in
-the `STATUS` column of `docker ps` output).
-
 * Verify that the installation and configuration have successfully completed:
 
 ```bash
-docker exec -it app tools/test_health.py
+./bin/datarobot health hadoop-health
 ```
 
 * Generate the initial admin account for the DataRobot application:
