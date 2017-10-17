@@ -169,8 +169,9 @@ yarn jar \
     -jar /usr/hdp/current/hadoop-yarn-client/hadoop-yarn-applications-distributedshell.jar
 ```
 
-At the end you should see a message `17/10/16 14:38:22 INFO distributedshell.Client: Application completed successfully`
-To check logs find applicationId in job output: `Submitted application application_1508158073679_0004`. Run after `yarn logs -applicationId application_1508158073679_0004 | less`. You should see content of `/tmp` directory in container stdout logs:
+At the end you should see a message like `17/10/16 14:38:22 INFO distributedshell.Client: Application completed successfully`.
+To check the logs from this job, find the applicationId in the job output, eg. `Submitted application application_1508158073679_0004` and run `yarn logs -applicationId application_1508158073679_0004 | less`.
+You should see the content of the `/tmp` directory in `HDFS` in the container stdout logs:
 
 ```
 LogType:stdout
@@ -194,7 +195,8 @@ USER=someusername
 curl -i --negotiate -u : "http://${WEBHDFS_HOST}:${WEBHDFS_PORT}/webhdfs/v1/${PATH}?doas=${USER}&op=LISTSTATUS"
 ```
 
-Result should be HTTP status code 200 and json list of files:
+The HTTP status code should be 200 and the request should return a json object with a list of files:
+
 ```
 HTTP/1.1 200 OK
 Cache-Control: no-cache
@@ -237,4 +239,6 @@ spark-submit --master yarn \
     /usr/hdp/current/spark-client/lib/spark-examples-1.6.2.2.5.3.0-37-hadoop2.7.3.2.5.3.0-37.jar 10000
 ```
 
-After job finish you would be able to see the result: `Pi is roughly 3.1416745671416746`. If spark version is < 2.0 need to create home directory on hdfs for `PROXY_USER`. For spark >= 2.0 need to add parameter `--conf "spark.yarn.stagingDir=STAGING_DIR_ON_HDFS"`
+When the job finishes you should see the result `Pi is roughly 3.1416745671416746`.
+If the installed version of Spark is below 2.0, you will need to create the home directory on HDFS for `PROXY_USER`.
+For Spark versions above 2.0, add the parameter `--conf "spark.yarn.stagingDir=<STAGING_DIR_ON_HDFS>"` to your command.
