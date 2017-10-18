@@ -4,7 +4,7 @@
 
 [**Hadoop KMS**](https://hadoop.apache.org/docs/stable/hadoop-kms/index.html) is a cryptographic key management server based on Hadoop’s KeyProvider API.
 
-* Add to kms-site.xml next properties:
+To use DataRobot with Hadoop KMS, enable the following properties in your cluster's `core-site.xml`
 
 ```xml
 # CONFIG VALUE: core-site.xml
@@ -18,5 +18,7 @@
 </property>
 ```
 
-* Set DataRobot conf `KMS_AUTHENTICATION_TYPE` and `hdfs.KMS_AUTHENTICATION_TYPE` to `kerberos`
-* Set DataRobot conf `hdfs.KMS_PROVIDER` to `kms://http@KMS_HOST:16000/kms` 
+Next, configure DataRobot with the following properties:
+
+* Set `KMS_AUTHENTICATION_TYPE` and `hdfs.KMS_AUTHENTICATION_TYPE` to `kerberos`.
+* Set `hdfs.KMS_PROVIDER` to `kms://http@<KMS_HOST>:16000/kms` .
