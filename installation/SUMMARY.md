@@ -20,6 +20,7 @@
 * [Advanced Configuration](special-topics/README.md)
   * [SSL](special-topics/ssl.md)
   * [Hadoop Kerberos](special-topics/kerberos.md)
+  * [KMS Integration](special-topics/kms.md)
   * [Unprivileged Application User](special-topics/admin-user.md)
     * [Separate Install user](special-topics/admin-user.md#admin-user)
     * [Docker Configuration](special-topics/admin-user.md#install-docker)
