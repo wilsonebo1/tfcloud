@@ -16,6 +16,10 @@ To use DataRobot with Hadoop KMS, enable the following properties in your cluste
   <name>hadoop.kms.proxyuser.datarobot.groups</name>
   <value>*</value>
 </property>
+<property>
+  <name>hadoop.kms.proxyuser.datarobot.users</name>
+  <value>*</value>
+</property>
 ```
 
 Next, configure DataRobot with the following properties:
