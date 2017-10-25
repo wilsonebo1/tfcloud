@@ -122,16 +122,16 @@ It should take several minutes to complete.
 ./bin/datarobot setup-dependencies
 ```
 
-* Verify that everything is configured correctly:
-
-```bash
-./bin/datarobot health cluster-checks --deps-installed
-```
-
 * Start the Docker registry:
 
 ```bash
 ./bin/datarobot run-registry
+```
+
+* Verify that everything is configured correctly:
+
+```bash
+./bin/datarobot health cluster-checks --deps-installed
 ```
 
 ## Install and Configure the Application {#linux-provision}
