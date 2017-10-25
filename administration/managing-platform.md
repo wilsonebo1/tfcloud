@@ -102,8 +102,8 @@ Common Admin Tasks
 <a name="activity-monitor"></a>
 ###Activity monitor 
 The _activity monitor_ is a system that sends notifications, for certain events happening in DataRobot, through a specialized log file system. These specific events encompass the processes that take place on the application ranging from the signon step, all the way to insights and prediction events. The activity monitor tracks and logs each of the resources that were accessed during each event. 
-
 ![](images/activity-monitor.png)
+
 ![](images/activity-monitor-2.png)
 
 
@@ -155,7 +155,7 @@ Jupyter Notebook is now enabled and accessible to this user, which means that it
 
 <a name="per-organization-resource-constraints"></a>
 Per-organization resource constraints
----------------------------------
+-------------------------
 
 This feature is managed by the Admin and depends on the organization’s various project needs. Enterprise Admin can access this feature under the **Manage Users** page, where the **Manage Organizations** tab is located. 
 
@@ -198,7 +198,7 @@ Editing a user’s organization status through that user's own profile page is a
 
 <a name="starting-stopping-and-managing-services"></a>
 Starting, stopping, and managing services
-------------------------------------
+---------------------------------
 It is important to be able to stop, start, and manage services on DataRobot in order to avoid problems, make changes or fixes, and check to make sure that everything is in good condition. 
 
 **Note:** These DataRobot services are just used for Docker, and do not affect the Hadoop site. 
@@ -238,7 +238,7 @@ DataRobot uses dependency delivery through Docker-run mongo, which pulls mongo f
 
 <a name="backup-and-recovery"></a>
 Backup and recovery
-----------------------------------
+-------------------
 For the storage database on the application, DataRobot uses each of the following services:
 
 
@@ -261,7 +261,6 @@ Gluster is a storage service that can do incremental tar, which is a special arc
 HDFS, a distributed file system, is the primary storage system for Hadoop applications that provides high-performance access to data across all Hadoop clusters. This service is similar to Gluster because it’s also used for storing the same types of data (.csv, cv’s, and models) on DataRobot. 
 
 As a result of this overlap, HDFS and Gluster are mutually exclusive services on the DataRobot platform. When the Hadoop (with HDFS) service is being used, it replaces Gluster, and vice-versa. Both of these services are never used at the same time. 
-
 ![](images/hadoop-running.png)
 
 ![](images/hadoop-finished.png)
@@ -298,7 +297,6 @@ Monitoring DataRobot
 <a name="nagios"></a>
 ###Nagios
 Nagios is a free and open source computer software application used to monitor systems, networks, and infrastructure. It also offers monitor and alert services for servers, switches, applications, and services. 
-
 
 <a name="linux"></a>
 ###Linux
@@ -508,7 +506,7 @@ Click on the imported model listed on the screen, which will expand it – showi
 
 ![](images/imported-model-code-snippet.png)
 
-Click “Show fill snippet” at the bottom of the code screen to view the entire source code for the model.
+Click “Show full snippet” at the bottom of the code screen to view the entire source code for the model.
 
 
 

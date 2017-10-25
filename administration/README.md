@@ -44,7 +44,7 @@ When you begin a new project (by importing a dataset file), the Worker Usage int
 
 Once you choose a prediction target topic (from your dataset) and select your preferred settings, you can **Start** the model building process!
 
-![](images/modeling-worker-type.png)
+![](images/admin-target-start.png)
 
 Once DataRobot starts building models, the Worker Usage interface displays another numbered list of steps to begin building each model.
 
