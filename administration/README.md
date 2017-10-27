@@ -21,7 +21,9 @@ The pricing is straightforward and reflects the value that lies in the computati
 <a name="memory"></a>
 ###Memory
 
-Practically speaking, DataRobot can train models on up to 100GB of data. With datasets of this size, we make sure to try out both in-memory and distributed algorithms to determine which of the two is the best fit for your specific dataset. We downsample the data, fitting it into the available RAM, and train models using single instance algorithms. We also run the entire dataset (or as much of it that can fit) on a Spark cluster, and train with distributed algorithms from MLlib. The results are then made available on the **Leaderboard** for you to review and compare.
+The allowed file size on DataRobot depends on the platform and release, detailed in the [Size Matrix](https://support.datarobot.com/hc/en-us/articles/115003904626-What-file-size-can-I-import-?flash_digest=774af71819e1d46534bb81907a8dec8c0738f368#). File size distinctions are made for the Enterprise Hadoop, and Enterprise Non-Hadoop platforms. 
+
+With datasets of this size, we make sure to try out both in-memory and distributed algorithms to determine which of the two is the best fit for your specific dataset. We downsample the data, fitting it into the available RAM, and train models using single instance algorithms. We also run the entire dataset (or as much of it that can fit) on a Spark cluster, and train with distributed algorithms from MLlib. The results are then made available on the **Leaderboard** for you to review and compare.
 
 <a name="queues"></a>
 ###Queues
