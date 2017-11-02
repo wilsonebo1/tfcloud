@@ -152,7 +152,7 @@ This command should take several minutes to complete:
 * Check that the cluster was installed correctly:
 
 ```bash
-./bin/datarobot smoke-test
+./bin/datarobot health smoke-test
 ```
 
 * Run the command to generate the initial admin account for the DataRobot application:
