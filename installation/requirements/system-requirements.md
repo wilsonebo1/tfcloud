@@ -50,7 +50,7 @@ This user must have access to the following:
     cat .ssh/id_rsa.pub >> ~/.ssh/authorized_keys
     chmod 700 ~/.ssh/authorized_keys
     ssh -i ~/.ssh/id_rsa localhost echo "success"
-    # Append id_rsa.pub contents to /home/druser/.ssh/authorized_hosts on other nodes and verify ssh connectivity from the install node.
+    # Append id_rsa.pub contents to /home/druser/.ssh/authorized_keys on other nodes and verify ssh connectivity from the install node.
 ```
 
 If you are not able to give the `druser` user access to `sudo` or you have an

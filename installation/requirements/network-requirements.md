@@ -69,7 +69,7 @@ application server cluster, whether or not using Hadoop.
 | 9090  | TCP      | DataRobot Availability Monitor |
 | 9496  | TCP      | DataRobot PNGExport Service |
 | 26379 | TCP      | Redis Sentinel |
-| 27017 | TCP      | Mongo |
+| 27017 | TCP      | MongoDB |
 
 ### Non-Hadoop Worker Ports
 
@@ -171,15 +171,14 @@ Example ports include:
 | 7182-7186  | TCP      | Cloudera Internal Communication |
 | 7190-7191  | TCP/UDP  | Cloudera P2P Parcel Distribution |
 
-
 ### Communication from Hadoop Cluster to Application Servers
 
-These ports must be opened on all Hadoop servers to allow incoming
-requests from all application servers. Application servers must
-allow outgoing requests on these ports to all Hadoop servers.
+These ports must be opened on all application servers to allow
+incoming requests from all Hadoop servers. Hadoop servers must allow outgoing
+requests on these ports to all application servers.
 
 ```
-Application Servers => Hadoop Servers
+Hadoop Servers => Application Servers
 ```
 
 | Port  | Protocol | Component|
@@ -193,16 +192,16 @@ Application Servers => Hadoop Servers
 | 8027  | TCP      | Hadoop Configuration Sync |
 | 8100  | TCP      | DataRobot DataSets Service API |
 | 26379 | TCP      | Redis Sentinel |
-| 27017 | TCP      | Mongo |
+| 27017 | TCP      | MongoDB |
 
 ### Communication from Application Servers to the Hadoop Cluster
 
-These ports must be opened on all application servers to allow
-incoming from all Hadoop servers. Hadoop servers must allow outgoing
-requests on these ports to all application servers.
+These ports must be opened on all Hadoop servers to allow incoming
+requests from all application servers. Application servers must
+allow outgoing requests on these ports to all Hadoop servers.
 
 ```
-Hadoop Servers => Application Servers
+Application Servers => Hadoop Servers
 ```
 
 #### Common Ports
@@ -225,7 +224,7 @@ Both Cloudera and Ambari use these ports.
 
 #### Additional Cloudera Ports
 
-These ports are use by Cloudera in addition to the common ports.
+These ports are used by Cloudera in addition to the common ports.
 
 | Port  | Protocol | Hadoop Configuration Variable | Component |
 |------:|:---------|:------------------------------|:----------|
@@ -237,7 +236,7 @@ These ports are use by Cloudera in addition to the common ports.
 
 #### Additional Ambari Ports
 
-These ports are use by Ambari in addition to the common ports.
+These ports are used by Ambari in addition to the common ports.
 
 | Port  | Protocol | Hadoop Configuration Variable | Component |
 |------:|:---------|:------------------------------|:----------|
