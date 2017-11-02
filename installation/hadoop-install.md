@@ -16,7 +16,7 @@ Place a file like the following in `/opt/DataRobot-4.0.x/`
 ---
 cluster_name: <name of hadoop cluster>
 manager_address: <address of Ambari or Cloudera Manager>
-# Set these to true if the Cloudera Manager or Ambari is using SSL
+# Set these to true if the Cloudera Manager or Ambari is using SSL/TLS
 use_tls: false
 ignore_ca: false
 ```
