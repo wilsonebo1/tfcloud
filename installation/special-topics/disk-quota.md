@@ -7,7 +7,7 @@ Disk quotas for secureworker are supported in dockerized and Cloudera Hadoop dep
 
 There is only one StorageAllocator that supports quotas.
 It is the `BtrfsStorageAllocator` class.
-For it to work the context directories have to be on a btrfs fylesystem.
+For it to work the context directories have to be on a btrfs filesystem.
 The settings that enable quotas are very similar for the IDE and for the secureworker.
 
 * IDE:

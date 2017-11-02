@@ -40,9 +40,9 @@ at least 5GB of available space.
 
 | Description | Filename | Notes |
 |:------------|:---------|:------|
-| Hadoop Parcel | `DataRobot-4.0.x-el7.parcel` *or* `DataRobot-4.0.x-el6.parcel` | Use the file for **el7** for CentOS/RHEL 7.x. Use the file with **el6** for CentOS/RHEL 6.4. |
-| Hadoop Parcel Checksum | `DataRobot-4.0.x-el7.parcel.sha` *or* `DataRobot-4.0.x-el6.parcel.sha` | Use the file for **el7** for CentOS/RHEL 7.x. Use the file with **el6** for CentOS/RHEL 6.4. |
-| Custom Service Descriptor (CSD) | DataRobot-4.0.x.jar | Configuration files used to integrate an add-on service with Cloudera. |
+| Hadoop Parcel | `DataRobot-4.0.x-el7.parcel` *or* `DataRobot-4.0.x-el6.parcel` | Use the file with **el7** for CentOS/RHEL 7.x. Use the file with **el6** for CentOS/RHEL 6.4. |
+| Hadoop Parcel Checksum | `DataRobot-4.0.x-el7.parcel.sha` *or* `DataRobot-4.0.x-el6.parcel.sha` | Use the file with **el7** for CentOS/RHEL 7.x. Use the file with **el6** for CentOS/RHEL 6.4. |
+| Custom Service Descriptor (CSD) | DataRobot-4.0.x.jar | Configuration files used to integrate DataRobot with Cloudera. |
 
 ## Ambari Requirements
 
@@ -56,4 +56,4 @@ at least 5GB of available space.
 |:------------|:---------|:------|
 | Hadoop Parcel | `DataRobot-4.0.x-el7.parcel` | |
 | Hadoop Parcel Checksum | `DataRobot-4.0.x-el7.parcel.sha` | |
-| Service Descriptor | datarobot-ambari-4.0.x.tar.gz | Configuration files used to integrate an add-on service with Ambari. |
+| Service Descriptor | datarobot-ambari-4.0.x.tar.gz | Configuration files used to integrate DataRobot with Ambari. |
