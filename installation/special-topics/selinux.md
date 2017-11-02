@@ -39,44 +39,49 @@ A more detailed background on SELinux can be found
 
 DataRobot uses Docker containers for many services. The containers must be
 granted a level of contextual access to operate, including connecting to
-sockets and relabeling files/directories. It is recommended you *configure
-the policy before provisioning the instances*.
+sockets and relabeling files/directories.
 
 Additionally, `rsyslog` is used for logging, and must be allowed to access
 directories and sockets.
 
-A recommended SELinux policy for use with DataRobot is shown below:
+On an selinux enabled system, DataRobot will automatically install a compatible selinux policy during installation of dependencies (e.g., running `./bin/datarobot setup-dependencies`).
+
+The installed policy will be similar to the one shown below:
 
 ```
 # FILE: datarobot.te
-module datarobot 1.0;
+module datarobot 4.0;
 require {
-type unlabeled_t;
-type unreserved_port_t;
-type svirt_lxc_net_t;
-type syslogd_t;
-type docker_t;
-type logrotate_t;
-class unix_stream_socket connectto;
-class fifo_file setattr;
-class udp_socket name_bind;
-class dir { write read };
+    type docker_t;
+    type logrotate_t;
+    type svirt_lxc_net_t;
+    type syslogd_t;
+    type unlabeled_t;
+    type unreserved_port_t;
+    type usr_t;
+    class chr_file { rename unlink };
+    class dir { add_name create read relabelfrom relabelto remove_name rename reparent rmdir setattr write };
+    class fifo_file setattr;
+    class file { append create getattr ioctl link open relabelfrom relabelto rename setattr unlink write };
+    class lnk_file { create relabelfrom relabelto rename setattr unlink };
+    class chr_file { rename unlink };
+    class sock_file { create setattr };
+    class udp_socket name_bind;
+    class unix_stream_socket connectto;
 }
-allow logrotate_t unlabeled_t:dir read;
+
 allow svirt_lxc_net_t docker_t:fifo_file setattr;
 allow svirt_lxc_net_t docker_t:unix_stream_socket connectto;
-allow syslogd_t unlabeled_t:dir write;
+allow svirt_lxc_net_t usr_t:dir { add_name create relabelfrom relabelto remove_name rename reparent rmdir setattr write };
+allow svirt_lxc_net_t usr_t:file { create link relabelfrom relabelto rename setattr unlink write };
+allow svirt_lxc_net_t usr_t:chr_file { rename unlink };
+allow svirt_lxc_net_t usr_t:lnk_file { create relabelfrom relabelto rename setattr unlink };
+allow svirt_lxc_net_t usr_t:sock_file { create setattr };
+
+allow logrotate_t unlabeled_t:dir read;
+allow syslogd_t unlabeled_t:dir { add_name write };
+allow syslogd_t unlabeled_t:file { append create getattr ioctl open write };
 allow syslogd_t unreserved_port_t:udp_socket name_bind;
-```
-
-If this policy is written to a file, it can be checked for validity, compiled,
-and installed with the following commands **on all instances**, prior to
-provisioning:
-
-```bash
-sudo checkmodule -M -m datarobot.te -o datarobot.mod
-sudo semodule_package -o datarobot.pp -m datarobot.mod
-sudo semodule -i datarobot.pp
 ```
 
 ## SELinux Management Requirements
