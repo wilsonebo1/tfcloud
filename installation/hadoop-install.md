@@ -19,6 +19,7 @@ manager_address: <address of Ambari or Cloudera Manager>
 # Set these to true if the Cloudera Manager or Ambari is using SSL
 use_tls: false
 ignore_ca: false
+manager_type: <ambari or cloudera>
 ```
 
 Verify your file is correctly configured with
@@ -52,7 +53,7 @@ one of the [Hadoop Installation)(hadoop-install.md#hadoop-installation)
 process for either Cloudera or Ambari Hadoop.
 
 Now, DataRobot needs to synchronize configuration between the application
-servers and the Cloudera cluster.
+servers and the Hadoop cluster.
 
 * SSH into the application server as the DataRobot user.
 
@@ -63,12 +64,12 @@ cd /opt/DataRobot-4.0.x/
 ./bin/datarobot hadoop-sync
 ```
 
-When prompted, enter credentials to access the Cloudera Manager.
+When prompted, enter credentials to access the Ambari or Cloudera Manager.
 Credentials can also be passed as environment variables or CLI arguments.
 
 The user you authenticate with must have permissions to modify configuration
 of the DataRobot service and restart services. The provisioner will post configuration
-information to the Cloudera Manager and trigger a restart of the DataRobot service.
+information to the Ambari or Cloudera Manager and trigger a restart of the DataRobot service.
 
 * When the DataRobot service restarts, it copies configuration files to the
 application server, which triggers a configuration synchronization process on
