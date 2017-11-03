@@ -28,7 +28,7 @@ This will verify connectivity to all hosts specified in the `config.yaml`, and p
 * Adequate free space for Docker and the DataRobot application is available.
 * Filesystem for `/var/lib/docker` is appropriately configured for the chosen storage driver.
 
-After dependencies have been installed (`./bin/datarobot install-dependencies`) and the registry is running (`./bin/datarobot run-registry`), the pre-flight checks tool can be executed again.
+After dependencies have been installed (`./bin/datarobot setup-dependencies`) and the registry is running (`./bin/datarobot run-registry`), the pre-flight checks tool can be executed again.
 Additional tests will be executed on the cluster to confirm the correct functioning of the new dependencies.
 
 Run the tool with this command:
@@ -50,7 +50,7 @@ In addition to the checks indicated above, the following will be tested:
 
 If you cannot use the CLI tool or want more detail, you can perform many of these checks manually.
 
-Perform these steps after performing the [Cluster Preparation](standard-install.md#linux-prep) section of the installation (after `./bin/datarobot install-dependencies`) and before performing the [Install and Configure the Application](standard-install.md#linux-provision) steps (before `./bin/datarobot install`).
+Perform these steps after performing the [Cluster Preparation](standard-install.md#linux-prep) section of the installation (after `./bin/datarobot setup-dependencies`) and before performing the [Install and Configure the Application](standard-install.md#linux-provision) steps (before `./bin/datarobot install`).
 
 ## Docker storage capacity
 
