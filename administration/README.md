@@ -190,4 +190,3 @@ app_configuration:
 
 **Note:** Enabling LDAP disables the creation of both email and local accounts. 
 Please inform Support (support@datarobot.com) about which DataRobot accounts need to be linked to LDAP accounts. 
- 

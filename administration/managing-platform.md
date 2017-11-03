@@ -321,46 +321,11 @@ On DataRobot, Nagios has access to the AvailabilityMonitor REST API. It can tell
 
 
 <a name="customer-usage-report"></a>
-##Customer Usage Report
-The Customer Usage Report is updated daily by the Customer Success team, and provides the CFDS and Sales teams with insights into users’ activities on DataRobot, without needing to take the time to reach out and ask each person for that information. 
+##Customer Usage Report 
 
-If you have any questions regarding a specific user, please contact Customer Support: Support@datarobot.com.
+If you have any questions regarding a specific user, or would like to run a Customer Usage Report,  please contact Customer Support: Support@datarobot.com.
 
 The report is organized on an Excel spreadsheet for each customer along with a series of useful information pertaining to their organization, project, and other activity statistics that have occurred. 
-
-_Column definitions on the usage report:_
-
-|Column names| Definitions|
-|------------|:-----------|
-|```Notes``` | Internal notes|
-|```Domain```| Domain of user's email address|
-|```PID```| Project ID|
-|```CreationTime```| when project was created|
-|```Email```| Project owner|
-|```total_models```| the amount of models created for this particular project|
-|```num_model_errors```| how many model errors|
-|```latest_model_training_time```| date of last model created|
-|```total_user_models```| number of custom models built after Autopilot|
-|```PID Errors```| Project ID errors|
-|```PID Has Error```| If any of the below are set to "FALSE" then this column will say "Error"|
-|```has metadata```| metadata record exists|
-|```has eda```| eda record exists|
-|```has low info var```| low info variables were identified in the dataset|
-|```has vartypes```| var type string exists (fails currently due to schema change)|
-|```has summary```| all non low info variables have summary data (min, max, mean, etc)|
-|```has profile```| all non low info variables have profile information (charts)|
-|```has metric```| metric has been set for the project|
-|```has mode```| mode (auto, semi-auto, manual) has been set for the project|
-|```has target```| target variable has been set for the project|
-|```has info```| info scores (green bars in the app) have been computed after starting the project|
-|```total_models```| how many models were created|
-|```num_model_errors```| how many model errors|
-|```latest_model_training_time```| date of last model created|
-|```total_user_models```| number of custom models built after Autopilot|
-|```target variable```| target selected by the user
-|```metric```| metric selected for the project|
-
-
 
 <a name="availability-monitoring"></a>
 ###Availability Monitoring
@@ -447,7 +412,7 @@ Supporting transferable models
 
 This feature is only available on Enterprise, and allows users to transfer models from the DataRobot application (where they were built), to another application (where those models can be used for making predictions). Use the model transfer feature when you want to create an isolated and stable environment for your prediction systems.
 
-**Note:** There are known issues with using versions less than __________
+**Note:** There are known issues with using versions less than V3.1.3.
 
 
 <a name="standalone-servers"></a>
