@@ -54,7 +54,6 @@ If the installation package was transferred without error, you will see a messag
 
 ```bash
 DataRobot-RELEASE-4.1.x.tar.gz: OK
-<<<<<<< HEAD
 ```
 
 If the file was corrupted, you will see a message similar to the following:
@@ -64,17 +63,6 @@ DataRobot-RELEASE-4.1.x.tar.gz: FAILED
 sha1sum: WARNING: 1 computed checksum did NOT match
 ```
 
-=======
-```
-
-If the file was corrupted, you will see a message similar to the following:
-
-```bash
-DataRobot-RELEASE-4.1.x.tar.gz: FAILED
-sha1sum: WARNING: 1 computed checksum did NOT match
-```
-
->>>>>>> release/4.0
 In this case, the file will need to be downloaded again and transferred to the installation server.
 
 * Extract the package:
@@ -85,11 +73,7 @@ tar xzvf DataRobot-Release*.tar.gz
 
 ### Create Configuration Files
 
-<<<<<<< HEAD
-* Copy the sample YAML configuration file to `/opt/DataRobot-4.1.x/config.yaml`:
-=======
 First, choose a sample YAML configuration file as a template from the `example-configs` directory:
->>>>>>> release/4.0
 
 * `single-node.linux.yaml`: Single machine Linux install.
 
@@ -133,14 +117,11 @@ To validate your configuration files, run
 ./bin/datarobot validate
 ```
 
-<<<<<<< HEAD
-=======
 #### SSL/TLS Encrpytion
 
 Note: if your DataRobot installation is accessed from the Internet, as opposed to a internal network, you _must_ use TLS (Transport Layer Security) encryption to prevent exposing data and unauthorized access to your cluster.
 For instructions on setting up TLS encryption on your webserver, see the Advanced Configuration [section on TLS](special-topics/tls.md).
 
->>>>>>> release/4.0
 Contact DataRobot Support if you have any questions about settings in this file.
 
 ### Install Dependencies
