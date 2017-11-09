@@ -34,7 +34,7 @@ This user must have access to the following:
     groupadd docker
     usermod -aG docker druser
 ```
-* Passwordless sudo access
+* Passwordless sudo access (use `sudo visudo`).
 ```
     # FILE: /etc/sudoers
     Defaults     !requiretty
