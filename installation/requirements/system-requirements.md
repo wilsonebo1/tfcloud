@@ -41,6 +41,8 @@ This user must have access to the following:
     druser       ALL=(ALL) NOPASSWD: ALL
 ```
 * Passwordless SSH access to all nodes in the cluster, even in single-node environment.
+Please ensure there is no SSH timeout; some SSH commands take a long time to run, particularly if disk access is slow.
+If there is an SSH timeout, it must be greater than 45 minutes.
 ```bash
     su druser
     cd ~/
