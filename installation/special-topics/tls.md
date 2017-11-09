@@ -1,8 +1,8 @@
-# SSL Configuration {#ssl-config}
+# TLS Configuration {#tls-config}
 
-## DataRobot Application SSL
+## DataRobot Application TLS
 
-If you are configuring DataRobot with SSL enabled, copy the TLS certificate and key files into the directory `/opt/DataRobot-4.0.x/certs/` and update your `config.yaml` with the file names (paths are relative to the certs directory).
+If you are configuring DataRobot with TLS enabled, copy the TLS certificate and key files into the directory `/opt/DataRobot-4.0.x/certs/` and update your `config.yaml` with the file names (paths are relative to the certs directory).
 You may use separate keys for your prediction servers.
 
 ```yaml
@@ -21,7 +21,7 @@ You may use separate keys for your prediction servers.
         key_file_name: pred_cert.key
 ``` 
 
-If your certificates are signed by an internal Certificate Authority, you will need to disable SSL certificate validation in the application.
+If your certificates are signed by an internal Certificate Authority, you will need to disable TLS certificate validation in the application.
 ```yaml
     # config.yaml snippet
     ---
@@ -32,9 +32,9 @@ If your certificates are signed by an internal Certificate Authority, you will n
 ```
 This will not disable SSL/TLS; all traffic to the web server will still be encrypted.
 
-## Cloudera Manager or Ambari SSL
+## Cloudera Manager or Ambari TLS
 
-If your Cloudera Manager or Ambari Server is secured with SSL, set the following flags in your `hadoop-configration.yaml` file:
+If your Cloudera Manager or Ambari Server is secured with TLS, set the following flags in your `hadoop-configration.yaml` file:
 
 ```yaml
     # hadoop-configuration.yaml snippet

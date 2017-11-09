@@ -1,7 +1,7 @@
 # DataRobot Linux Installation {#linux-install}
 
 The following steps are required for all DataRobot installations.
-Refer to supplementary material for any extra configuration requirements, such as [enabling SSL](./special-topics/ssl.md) or [Hadoop integration](./hadoop-install.md).
+Refer to supplementary material for any extra configuration requirements, such as [enabling TLS](./special-topics/tls.md) or [Hadoop integration](./hadoop-install.md).
 
 ## Cluster Preparation {#linux-prep}
 
@@ -110,6 +110,11 @@ To validate your configuration files, run
 ```bash
 ./bin/datarobot validate
 ```
+
+#### SSL/TLS Encrpytion
+
+Note: if your DataRobot installation is accessed from the Internet, as opposed to a internal network, you _must_ use TLS (Transport Layer Security) encryption to prevent exposing data and unauthorized access to your cluster.
+For instructions on setting up TLS encryption on your webserver, see the Advanced Configuration [section on TLS](special-topics/tls.md).
 
 Contact DataRobot Support if you have any questions about settings in this file.
 
