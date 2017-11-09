@@ -77,7 +77,7 @@ First, choose a sample YAML configuration file as a template from the `example-c
 
 * `single-node.linux.yaml`: Single machine Linux install.
 
-* `multi-node.linux.yaml`: Multiple machine Linu install, with additional examples for more complex setups.
+* `multi-node.linux.yaml`: Multiple machine Linux install, with additional examples for more complex setups.
 
 * `single-node.hadoop.yaml`: Single application server install connecting to a Hadoop cluster.
 
