@@ -174,6 +174,6 @@ docker exec app create_initial_admin.sh
 Application server installation complete!
 
 If this is a Linux-only installation, DataRobot is now ready to use.
-Please refer to the [Administration Manual](../administration/README.md) to learn how to administer your installation.
+Please refer to the Administration Manual to learn how to administer your installation.
 
 If this is a Hadoop installation, refer to the [Hadoop Installation](./hadoop-install.md) section to continue with the installation process.
