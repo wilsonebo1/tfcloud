@@ -77,12 +77,14 @@ tar xzvf DataRobot-Release*.tar.gz
 
 ```bash
 cp example-configs/multi-node.linux.yaml config.yaml
+chmod 0600 config.yaml
 ```
 
 * Or, if you have only one node:
 
 ```bash
 cp example-configs/single-node-poc.linux.yaml config.yaml
+chmod 0600 config.yaml
 ```
 
 **NOTE**: The file extension MUST be `yaml`.

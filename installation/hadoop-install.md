@@ -25,6 +25,7 @@ manager_type: <ambari or cloudera>
 Verify your file is correctly configured with
 
 ```bin
+chmod 0600 hadoop-configuration.yaml
 ./bin/datarobot validate
 ```
 
