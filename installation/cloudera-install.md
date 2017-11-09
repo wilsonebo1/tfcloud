@@ -28,7 +28,7 @@ ssh [USERNAME]@[CLOUDERA MANAGER IP ADDRESS]
 * Move the CSD file:
 
 ```bash
-sudo mv /tmp/DataRobot-4.0.x*.jar /opt/cloudera/csd/
+sudo mv /tmp/DataRobot-4.1.x/*.jar /opt/cloudera/csd/
 ```
 
 * Change the ownership of the installation files:

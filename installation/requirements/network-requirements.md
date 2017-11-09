@@ -20,7 +20,7 @@ Provisioner/Administration Server => Webserver/Prediction Servers
 
 | Port  | Protocol | Component|
 |------:|:---------|:---------|
-| 80    | TCP      | Web Server HTTP Traffic (SSL Not Enabled) |
+| 80    | TCP      | Web Server HTTP Traffic (TLS Not Enabled) |
 | 443   | TCP      | Web Server HTTPS Traffic Enabled |
 
 ## Administrator
@@ -119,7 +119,7 @@ Administration ports necessary for Cloudera Manager.
 |------:|:---------|:---------|
 | 22    | TCP      | SSH Access |
 | 7180  | TCP      | Cloudera Manager web interface |
-| 7183  | TCP      | Cloudera Manager web interface (SSL enabled) |
+| 7183  | TCP      | Cloudera Manager web interface (TLS enabled) |
 
 #### Ambari
 
@@ -183,8 +183,8 @@ Hadoop Servers => Application Servers
 
 | Port  | Protocol | Component|
 |------:|:---------|:---------|
-| 80    | TCP      | HTTP traffic for config sync (SSL not enabled on edge node) |
-| 443   | TCP      | HTTPS traffic for config sync (SSL enabled on edge node) |
+| 80    | TCP      | HTTP traffic for config sync (TLS not enabled on edge node) |
+| 443   | TCP      | HTTPS traffic for config sync (TLS enabled on edge node) |
 | 1514  | UDP      | Logging |
 | 6379  | TCP      | Redis |
 | 6556  | TCP      | Resource Proxy Subscriber |
@@ -232,7 +232,7 @@ These ports are used by Cloudera in addition to the common ports.
 | 1006  | TCP      | `dfs.datanode.http.address`| Data transfer without HTTPS (HDFS HA) |
 | 2552  | TCP      |                               | Cloudera Log Publisher |
 | 7180  | TCP      |                               | Cloudera Manager web interface |
-| 7183  | TCP      |                               | Cloudera Manager web interface (SSL enabled) |
+| 7183  | TCP      |                               | Cloudera Manager web interface (TLS enabled) |
 
 #### Additional Ambari Ports
 

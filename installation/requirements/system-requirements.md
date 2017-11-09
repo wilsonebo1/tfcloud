@@ -20,6 +20,7 @@ DataRobot ships files and scripts necessary to run a Docker registry containing 
 ## Users
 DataRobot runs all services using the Linux user of your choice.
 For illustration purposes, we will use the username `druser` throughout this documentation.
+The user may be a system user, but keep in mind you will want to set a default shell for the user.
 This user must have access to the following:
 
 * Ownership of a directory called `/opt/datarobot` on each node with enough space to install and run the application.
@@ -33,13 +34,15 @@ This user must have access to the following:
     groupadd docker
     usermod -aG docker druser
 ```
-* Passwordless sudo access
+* Passwordless sudo access (use `sudo visudo`).
 ```
     # FILE: /etc/sudoers
     Defaults     !requiretty
     druser       ALL=(ALL) NOPASSWD: ALL
 ```
 * Passwordless SSH access to all nodes in the cluster, even in single-node environment.
+Please ensure there is no SSH timeout; some SSH commands take a long time to run, particularly if disk access is slow.
+If there is an SSH timeout, it must be greater than 45 minutes.
 ```bash
     su druser
     cd ~/
@@ -52,6 +55,7 @@ This user must have access to the following:
     ssh -i ~/.ssh/id_rsa localhost echo "success"
     # Append id_rsa.pub contents to /home/druser/.ssh/authorized_keys on other nodes and verify ssh connectivity from the install node.
 ```
+* A shell (`/bin/bash` preferred)
 
 If you are not able to give the `druser` user access to `sudo` or you have an
 alternative privilege escalation tool, see our additional documentation on
@@ -59,19 +63,20 @@ installation with
 [unprivileged users](../special-topics/admin-user.md#unprivileged-user-installation).
 
 ## Software
-You must have the following software installed and running
+You must have the following software installed.
+Running the following commands should succeed.
 
 * RSYSLOG
 ```bash
-    service rsyslog status
+    service rsyslog status  # Should show service status
 ```
 * logrotate
 ```bash
-    which logrotate
+    which logrotate  # Should output a path to logrotate
 ```
-* GNU Make
+* Python 2.7
 ```bash
-    yum list installed | grep make
+    yum list installed | grep python  # Python 2.7 should be installed
 ```
 
 ## Files
