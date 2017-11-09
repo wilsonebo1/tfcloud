@@ -73,21 +73,24 @@ tar xzvf DataRobot-Release*.tar.gz
 
 ### Create Configuration Files
 
-* Copy the sample YAML configuration file to `/opt/DataRobot-4.0.x/config.yaml`:
+First, choose a sample YAML configuration file as a template from the `example-configs` directory:
+
+* `single-node.linux.yaml`: Single machine Linux install.
+
+* `multi-node.linux.yaml`: Multiple machine Linu install, with additional examples for more complex setups.
+
+* `single-node.hadoop.yaml`: Single application server install connecting to a Hadoop cluster.
+
+* `multi-node.hadoop.yaml`: Multiple application servers (eg. HA databases or dedicated prediction servers).
+
+Now, copy it to `/opt/DataRobot-4.0.x/config.yaml`:
 
 ```bash
 cp example-configs/multi-node.linux.yaml config.yaml
 chmod 0600 config.yaml
 ```
 
-* Or, if you have only one node:
-
-```bash
-cp example-configs/single-node-poc.linux.yaml config.yaml
-chmod 0600 config.yaml
-```
-
-**NOTE**: The file extension MUST be `yaml`.
+**NOTE**: The file extension MUST be `yaml`, not `yml`.
 
 * Edit `config.yaml` to suit your particular cluster.
 
