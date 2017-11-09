@@ -20,6 +20,7 @@ DataRobot ships files and scripts necessary to run a Docker registry containing 
 ## Users
 DataRobot runs all services using the Linux user of your choice.
 For illustration purposes, we will use the username `druser` throughout this documentation.
+The user may be a system user, but keep in mind you will want to set a default shell for the user.
 This user must have access to the following:
 
 * Ownership of a directory called `/opt/datarobot` on each node with enough space to install and run the application.
@@ -52,6 +53,7 @@ This user must have access to the following:
     ssh -i ~/.ssh/id_rsa localhost echo "success"
     # Append id_rsa.pub contents to /home/druser/.ssh/authorized_keys on other nodes and verify ssh connectivity from the install node.
 ```
+* A shell (`/bin/bash` preferred)
 
 If you are not able to give the `druser` user access to `sudo` or you have an
 alternative privilege escalation tool, see our additional documentation on
