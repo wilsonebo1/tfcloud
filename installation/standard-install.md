@@ -30,7 +30,8 @@ scp DataRobot-Release-*.tar.gz.sha1sum \
     druser@[INSTALL SERVER IP]:/opt/DataRobot-4.0.x/
 ```
 
-* Run the following commands from an SSH session on the install server:
+* Run the following commands from an SSH session on the install server.
+Be sure to use the appropriate ssh key for the `druser` user.
 
 ```bash
 ssh druser@[INSTALL SERVER IP]
