@@ -130,7 +130,7 @@ on all nodes with your choices of group name and DataRobot user name:
 
 ```bash
 sudo groupadd docker
-sudo usermod -a -G docker druser
+sudo usermod -aG docker druser
 sudo service docker restart
 ```
 
