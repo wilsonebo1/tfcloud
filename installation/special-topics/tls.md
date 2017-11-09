@@ -32,7 +32,7 @@ If your certificates are signed by an internal Certificate Authority, you will n
 ```
 This will not disable SSL/TLS; all traffic to the web server will still be encrypted.
 
-## Cloudera Manager or Ambari TLS
+## Cloudera Manager or Ambari TLS {#cm-tls}
 
 If your Cloudera Manager or Ambari Server is secured with TLS, set the following flags in your `hadoop-configration.yaml` file:
 
@@ -41,3 +41,7 @@ If your Cloudera Manager or Ambari Server is secured with TLS, set the following
     use_tls: true
     ignore_ca: true
 ```
+
+`use_tls: true` will enable TLS connections to your manager server.
+
+`ignore_ca: true` will ignore certificate validation errors in the event your server's TLS certificate is signed by a custom Certificate Authority.

@@ -30,7 +30,8 @@ scp DataRobot-Release-*.tar.gz.sha1sum \
     druser@[INSTALL SERVER IP]:/opt/DataRobot-4.0.x/
 ```
 
-* Run the following commands from an SSH session on the install server:
+* Run the following commands from an SSH session on the install server.
+Be sure to use the appropriate ssh key for the `druser` user.
 
 ```bash
 ssh druser@[INSTALL SERVER IP]
@@ -72,19 +73,24 @@ tar xzvf DataRobot-Release*.tar.gz
 
 ### Create Configuration Files
 
-* Copy the sample YAML configuration file to `/opt/DataRobot-4.0.x/config.yaml`:
+First, choose a sample YAML configuration file as a template from the `example-configs` directory:
+
+* `single-node.linux.yaml`: Single machine Linux install.
+
+* `multi-node.linux.yaml`: Multiple machine Linux install, with additional examples for more complex setups.
+
+* `single-node.hadoop.yaml`: Single application server install connecting to a Hadoop cluster.
+
+* `multi-node.hadoop.yaml`: Multiple application servers (eg. HA databases or dedicated prediction servers).
+
+Now, copy it to `/opt/DataRobot-4.0.x/config.yaml`:
 
 ```bash
 cp example-configs/multi-node.linux.yaml config.yaml
+chmod 0600 config.yaml
 ```
 
-* Or, if you have only one node:
-
-```bash
-cp example-configs/single-node-poc.linux.yaml config.yaml
-```
-
-**NOTE**: The file extension MUST be `yaml`.
+**NOTE**: The file extension MUST be `yaml`, not `yml`.
 
 * Edit `config.yaml` to suit your particular cluster.
 
@@ -171,6 +177,6 @@ docker exec app create_initial_admin.sh
 Application server installation complete!
 
 If this is a Linux-only installation, DataRobot is now ready to use.
-Please refer to the [Administration Manual](../administration/README.md) to learn how to administer your installation.
+Please refer to the Administration Manual to learn how to administer your installation.
 
 If this is a Hadoop installation, refer to the [Hadoop Installation](./hadoop-install.md) section to continue with the installation process.

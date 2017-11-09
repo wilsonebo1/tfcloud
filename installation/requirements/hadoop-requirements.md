@@ -33,7 +33,7 @@ at least 5GB of available space.
 
 ## Cloudera Requirements
 
-* Cloudera CDH must be version 5.4 through 5.11.
+* Cloudera CDH must be version 5.4 or greater.
 * Cloudera cluster must be running on CentOS/RHEL version 6.4 or greater.
 
 ### Required files
