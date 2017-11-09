@@ -13,21 +13,21 @@ section.
 ### Copy Artifact
 
 * Copy the DataRobot package to a directory on the install server.
-In this install guide we will assume the directory is `/opt/DataRobot-4.0.x/`.
-If you use a different directory, replace `/opt/DataRobot-4.0.x/` in the following commands with your directory.
+In this install guide we will assume the directory is `/opt/DataRobot-4.1.x/`.
+If you use a different directory, replace `/opt/DataRobot-4.1.x/` in the following commands with your directory.
 
 Ensure the destination has at least 15 GB of free space for the file and its extracted contents:
 
 ```bash
 scp DataRobot-Release-*.tar.gz \
-    druser@[INSTALL SERVER IP]:/opt/DataRobot-4.0.x/
+    druser@[INSTALL SERVER IP]:/opt/DataRobot-4.1.x/
 ```
 
 Also transfer the sha1sum file, to verify the integrity of the installation package:
 
 ```bash
 scp DataRobot-Release-*.tar.gz.sha1sum \
-    druser@[INSTALL SERVER IP]:/opt/DataRobot-4.0.x/
+    druser@[INSTALL SERVER IP]:/opt/DataRobot-4.1.x/
 ```
 
 * Run the following commands from an SSH session on the install server.
@@ -41,7 +41,7 @@ ssh druser@[INSTALL SERVER IP]
 Execute all the following commands from this directory:
 
 ```bash
-cd /opt/DataRobot-4.0.x/
+cd /opt/DataRobot-4.1.x/
 ```
 
 * Verify the integrity of the transferred installation package:
@@ -53,14 +53,14 @@ sha1sum -c DataRobot-Release*.tar.gz.sha1sum
 If the installation package was transferred without error, you will see a message similar to the following:
 
 ```bash
-DataRobot-RELEASE-4.0.x.tar.gz: OK
+DataRobot-RELEASE-4.1.x.tar.gz: OK
 <<<<<<< HEAD
 ```
 
 If the file was corrupted, you will see a message similar to the following:
 
 ```bash
-DataRobot-RELEASE-4.0.x.tar.gz: FAILED
+DataRobot-RELEASE-4.1.x.tar.gz: FAILED
 sha1sum: WARNING: 1 computed checksum did NOT match
 ```
 
@@ -70,7 +70,7 @@ sha1sum: WARNING: 1 computed checksum did NOT match
 If the file was corrupted, you will see a message similar to the following:
 
 ```bash
-DataRobot-RELEASE-4.0.x.tar.gz: FAILED
+DataRobot-RELEASE-4.1.x.tar.gz: FAILED
 sha1sum: WARNING: 1 computed checksum did NOT match
 ```
 
@@ -86,7 +86,7 @@ tar xzvf DataRobot-Release*.tar.gz
 ### Create Configuration Files
 
 <<<<<<< HEAD
-* Copy the sample YAML configuration file to `/opt/DataRobot-4.0.x/config.yaml`:
+* Copy the sample YAML configuration file to `/opt/DataRobot-4.1.x/config.yaml`:
 =======
 First, choose a sample YAML configuration file as a template from the `example-configs` directory:
 >>>>>>> release/4.0
@@ -99,7 +99,7 @@ First, choose a sample YAML configuration file as a template from the `example-c
 
 * `multi-node.hadoop.yaml`: Multiple application servers (eg. HA databases or dedicated prediction servers).
 
-Now, copy it to `/opt/DataRobot-4.0.x/config.yaml`:
+Now, copy it to `/opt/DataRobot-4.1.x/config.yaml`:
 
 ```bash
 cp example-configs/multi-node.linux.yaml config.yaml
