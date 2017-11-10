@@ -1,6 +1,6 @@
 # Integration with LDAP
 
-DataRobot can optionally be integrated with the external corporate LDAP server.
+DataRobot can optionally be integrated with an external LDAP server.
 
 The following LDAP servers are supported:
 
@@ -10,11 +10,13 @@ The following LDAP servers are supported:
 
 ## Authentication Types
 
-DataRobot supports 2 authentication types: `ldap` and `ldapsearch`
+DataRobot supports two authentication types: `ldap` and `ldapsearch`.
 
 ### Authentication Type `ldap`
 
-`ldap` works in a limited number of environments: only when all the DataRobot users belong to one level of an LDAP node. The flow is the following:
+To use `ldap`, all DataRobot users must belong to one level of an LDAP node. This is less flexible than `ldapsearch`, but there is no need to store LDAP credentials in configuration.
+
+Authentication flow is the following:
 
 1. User enters a username in the UI.
 2. `ldap` backend interpolates dist name template (replaces `$username` with an actual username) and gets DN (distinguished name) of the user.
@@ -24,30 +26,18 @@ DataRobot supports 2 authentication types: `ldap` and `ldapsearch`
 
 Limitations:
 
-1. We are limited by dist name template and can't authenticate users from different organization units.
+1. Limited by dist name template and can't authenticate users from different organization units.
 2. Attribute that's not a part of DN can't be used as a DataRobot username (e.g. if corporate DN is `uid=john.smith,cn=users,cn=accounts,dc=datarobot,dc=com`, DataRobot can only use `john.smith` as a username).
-
-Advantages:
-
-1. There is no need to store LDAP credentials in configuration.
 
 ### Authentication Type `ldapsearch`
 
-Backend `ldapsearch` doesn't make any assumptions on LDAP structure. The flow is:
+Backend `ldapsearch` does not make any assumptions on LDAP structure, and is more flexible than `ldap` authentication type, but requires more configuration options to be set. This requires LDAP credentials to be stored in configuration.
+
+Authentication flow is the following:
 
 1. User enters a username in the UI.
 2. `ldapsearch` backend performs an LDAP query using a predefined query pattern (e.g. `(uid=$username)`, `(sAMAccount=$username)`, `(email=$username)` or `((cn=$username)|(foo=bar)))` - DataRobot takes `BIND_DN` / `BIND_PASSWORD` from the configuration for making this query.
 3. If there is exactly one user found, `ldapsearch` takes the appropriate DN from the search results and tries to bind using the password entered by user to check if the password is correct.
-
-Advantages:
-
-1. Flexibility.
-2. Completely covers all the use cases covered by `ldap` backend from functional perspective.
-
-Disadvantages:
-
-1. Requires more configuration options to be set.
-2. Requires LDAP credentials to be stored in the configuration.
 
 ## LDAP Configuration Tool
 
@@ -66,11 +56,11 @@ There is an interactive LDAP Configuration Tool that can help to streamline this
 - **`USER_AUTH_LDAP_GLOBAL_OPTIONS`** (optional) - JSON-encoded dict (usually used for advanced SSL configuration)
 - **`USER_AUTH_LDAP_CONNECTION_OPTIONS`** (optional) - JSON-encoded dict (usually used for advanced SSL configuration)
 
-### Configurtaion Options for Authentication Type `ldap`
+### Configuration Options for Authentication Type `ldap`
 
 - **`USER_AUTH_LDAP_DIST_NAME_TEMPLATE`** - template for converting DataRobot usernames into LDAP DN, e.g. `CN=$username,OU=Users,DC=example,DC=org`
 
-### Configurtaion Options for Authentication Type `ldapsearch`
+### Configuration Options for Authentication Type `ldapsearch`
 
 - **`USER_AUTH_LDAP_BIND_DN`** - DN of the service LDAP account
 - **`USER_AUTH_LDAP_BIND_PASSWORD`** - password for the service LDAP account
