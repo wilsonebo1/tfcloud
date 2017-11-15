@@ -13,9 +13,9 @@ ssh druser@[APPLICATION SERVER IP ADDRESS]
 * Transfer the installation files from the application server to the Cloudera Manager server:
 
 ```bash
-scp ~/hadoop/DataRobot-4.0.x*.{jar,parcel,parcel.sha} \
+scp ~/hadoop/DataRobot-4.1.x*.{jar,parcel,parcel.sha} \
     [CLOUDERA MANAGER SERVER IP ADDRESS]:/tmp
-scp ~/hadoop/DataRobot-4.0.x*.{jar,parcel,parcel.sha} \
+scp ~/hadoop/DataRobot-4.1.x*.{jar,parcel,parcel.sha} \
     [CLOUDERA MANAGER SERVER IP ADDRESS]:/tmp
 ```
 
@@ -28,14 +28,14 @@ ssh [USERNAME]@[CLOUDERA MANAGER IP ADDRESS]
 * Move the CSD file:
 
 ```bash
-sudo mv /tmp/DataRobot-4.0.x*.jar /opt/cloudera/csd/
+sudo mv /tmp/DataRobot-4.1.x/*.jar /opt/cloudera/csd/
 ```
 
 * Change the ownership of the installation files:
 
 ```bash
 sudo chown cloudera-scm:cloudera-scm \
-    /opt/cloudera/csd/DataRobot-4.0.x*.jar
+    /opt/cloudera/csd/DataRobot-4.1.x*.jar
 ```
 
 * Change the permissions of the installation file:
@@ -47,13 +47,13 @@ sudo chmod 644 /opt/cloudera/csd/DataRobot-3.*.jar
 * Move the parcel file:
 
 ```bash
-sudo mv /tmp/DataRobot-4.0.x*.parcel /opt/cloudera/parcel-repo
+sudo mv /tmp/DataRobot-4.1.x*.parcel /opt/cloudera/parcel-repo
 ```
 
 * Move the parcel file's SHA:
 
 ```bash
-sudo mv /tmp/DataRobot-4.0.x*.parcel.sha /opt/cloudera/parcel-repo
+sudo mv /tmp/DataRobot-4.1.x*.parcel.sha /opt/cloudera/parcel-repo
 ```
 
 **NOTE**: The CDH 5.4.0 and 5.5.0 .sha files have different formats.
@@ -61,14 +61,14 @@ sudo mv /tmp/DataRobot-4.0.x*.parcel.sha /opt/cloudera/parcel-repo
 The CDH 5.4.0 format is `SHA PARCEL_FILENAME`:
 
 ```
-# FILE: DataRobot-4.0.x-release-el6.parcel.sha
-80e5223337d8978432ccae99ffea55f92e4fb4b9 DataRobot-4.0.x-release-el6.parcel
+# FILE: DataRobot-4.1.x-release-el6.parcel.sha
+80e5223337d8978432ccae99ffea55f92e4fb4b9 DataRobot-4.1.x-release-el6.parcel
 ```
 
 CDH 5.5.0 and later only contain the SHA, for example:
 
 ```
-# FILE: DataRobot-4.0.x-release-el6.parcel.sha
+# FILE: DataRobot-4.1.x-release-el6.parcel.sha
 80e5223337d8978432ccae99ffea55f92e4fb4b9
 ```
 

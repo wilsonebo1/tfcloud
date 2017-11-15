@@ -70,7 +70,7 @@ servers.
 * On all nodes, run the following commands:
 
 ```bash
-cd /opt/DataRobot-4.0.x/
+cd /opt/DataRobot-4.1.x/
 sudo yum localinstall -y --nogpgcheck \
     release/docker-packages/RedHat-7/prereqs/*.rpm
 sudo yum localinstall -y --nogpgcheck \
@@ -130,7 +130,7 @@ on all nodes with your choices of group name and DataRobot user name:
 
 ```bash
 sudo groupadd docker
-sudo usermod -a -G docker druser
+sudo usermod -aG docker druser
 sudo service docker restart
 ```
 

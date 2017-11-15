@@ -18,7 +18,7 @@
 * [Pre-Flight Checks](pre-flight-checks.md)
 * [Hadoop Pre-Flight Checks](pre-flight-checks.md#hadoop-checks)
 * [Advanced Configuration](special-topics/README.md)
-  * [SSL](special-topics/ssl.md)
+  * [TLS](special-topics/tls.md)
   * [Hadoop Kerberos](special-topics/kerberos.md)
   * [KMS Integration](special-topics/kms.md)
   * [Unprivileged Application User](special-topics/admin-user.md)

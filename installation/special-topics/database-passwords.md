@@ -48,7 +48,7 @@ os_configuration:
     secrets_enforced: false
 ```
 
-* Remove the file `/opt/DataRobot-4.0.x/secrets.yaml` if it exists.
+* Remove the file `/opt/DataRobot-4.1.x/secrets.yaml` if it exists.
 
 * Execute `./bin/datarobot install`
 
