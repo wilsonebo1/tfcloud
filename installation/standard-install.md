@@ -10,6 +10,22 @@ To prepare the cluster for installation, we will create configuration files and 
 First, ensure all nodes in your cluster meet the requirements specficied in the [Linux Application Server Requirements](./requirements/system-requirements.md#linux-requirements)
 section.
 
+### SELinux
+
+If SELinux is installed and enforcing mode is desired, follow instructions for [SELinux](./special-topics/selinux.md).
+
+If enforcing mode is not desired and SELinux is installed, configure SELinux for permissive mode:
+
+```bash
+sudo setenforce Permissive
+```
+
+Additionally, configure permissive boot after reboot:
+
+```bash
+sudo sed -i 's/enforcing/permissive/' /etc/sysconfig/selinux
+```
+
 ### Copy Artifact
 
 * Copy the DataRobot package to a directory on the install server.
@@ -117,7 +133,7 @@ To validate your configuration files, run
 ./bin/datarobot validate
 ```
 
-#### SSL/TLS Encrpytion
+#### SSL/TLS Encryption
 
 Note: if your DataRobot installation is accessed from the Internet, as opposed to a internal network, you _must_ use TLS (Transport Layer Security) encryption to prevent exposing data and unauthorized access to your cluster.
 For instructions on setting up TLS encryption on your webserver, see the Advanced Configuration [section on TLS](special-topics/tls.md).

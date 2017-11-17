@@ -109,8 +109,10 @@ which logrotate  # Should output a path to logrotate
 * Python 2.7
 
 ```bash
-yum list installed | grep python  # Python 2.7 should be installed
+python --version
 ```
+
+The version reported should be a version of `2.7`.
 
 ## Disk Space
 
