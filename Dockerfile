@@ -1,6 +1,6 @@
 FROM node:slim
 
-MAINTAINER Release Squad "release@datarobot.com"
+MAINTAINER Platform Squad "enterprise-platform@datarobot.com"
 
 RUN apt-get update && \
     apt-get install -y calibre && \
