@@ -13,8 +13,6 @@ changing permissions, and restarting services.
 
 ## Hadoop Requirements
 
-* For Java 7 systems, Oracle Java JDK version greater than or equal to
-`1.7.0_75` must be installed.
 * For Java 8 systems, Oracle Java JDK version greater than or equal to
 `1.8.0_60` must be installed.
 * HDFS, Yarn, Spark on Yarn, and ZooKeeper must be installed.

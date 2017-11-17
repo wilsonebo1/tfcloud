@@ -7,7 +7,7 @@ Follow the steps in the sections below to install DataRobot on your Cloudera clu
 * Connect to the application server via SSH:
 
 ```bash
-ssh druser@[APPLICATION SERVER IP ADDRESS]
+ssh datarobot@[APPLICATION SERVER IP ADDRESS]
 ```
 
 * Transfer the installation files from the application server to the Cloudera Manager server:
@@ -65,11 +65,19 @@ The CDH 5.4.0 format is `SHA PARCEL_FILENAME`:
 80e5223337d8978432ccae99ffea55f92e4fb4b9 DataRobot-4.1.x-release-el6.parcel
 ```
 
-CDH 5.5.0 and later only contain the SHA, for example:
+CDH 5.5.0 and later **must only contain the SHA**,
+_without the space and filename_, for example:
 
 ```
 # FILE: DataRobot-4.1.x-release-el6.parcel.sha
 80e5223337d8978432ccae99ffea55f92e4fb4b9
+```
+
+**NOTE**: This means you must remove the space and filename from the sha, for example:
+
+```bash
+cat /tmp/DataRobot-4.1.x-release.el6.parcel | cut -d ' ' -f 1 \
+| sudo tee /opt/cloudera/parcel-repo/DataRobot-4.1.x-release.el6.parcel
 ```
 
 * Change the ownership of the parcel file:

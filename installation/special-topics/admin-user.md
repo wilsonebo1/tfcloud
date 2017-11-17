@@ -31,9 +31,9 @@ dradmin      ALL=(ALL) NOPASSWD: ALL
 # config.yaml snippet
 ---
 os_configuration:
-    user: druser
-    group: druser
-    private_ssh_key_path: /home/druser/.ssh/id_rsa
+    user: datarobot
+    group: datarobot
+    private_ssh_key_path: /home/datarobot/.ssh/id_rsa
     admin_user: dradmin
     admin_private_ssh_key_path: /home/dradmin/.ssh/id_rsa
 ```
@@ -70,7 +70,7 @@ servers.
 * On all nodes, run the following commands:
 
 ```bash
-cd /opt/DataRobot-4.1.x/
+cd /opt/datarobot/DataRobot-4.1.x/
 sudo yum localinstall -y --nogpgcheck \
     release/docker-packages/RedHat-7/prereqs/*.rpm
 sudo yum localinstall -y --nogpgcheck \
@@ -130,7 +130,7 @@ on all nodes with your choices of group name and DataRobot user name:
 
 ```bash
 sudo groupadd docker
-sudo usermod -aG docker druser
+sudo usermod -aG docker datarobot
 sudo service docker restart
 ```
 
@@ -138,7 +138,7 @@ Verify that your DataRobot user can access the Docker daemon on all nodes by
 logging in as your DataRobot user and running:
 
 ```bash
-sudo su druser
+sudo su datarobot
 docker info
 ```
 
@@ -175,7 +175,7 @@ with `755` permissions. All paths are relative to the
 the default `/opt/datarobot` if that is not set.
 
 ```bash
-sudo su druser
+sudo su datarobot
 cd /opt/datarobot
 mkdir -p data \
          data/nginx \

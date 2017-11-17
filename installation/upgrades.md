@@ -44,7 +44,7 @@ different.
 * Remove old Docker images
 
 ```bash
-rm -rf /var/lib/docker
+rm -rf /var/lib/docker/*
 rm -rf /opt/datarobot/registry
 ```
 * Remove old configuration files
@@ -56,6 +56,13 @@ rm -rf /opt/datarobot/etc/
 ### Update configuration files
 
 Your `config.yaml` will need to be updated.
+
+Look at the file in `example-configs` most relevant to your install target.
+Some new required values may be necessary which are not required in earlier releases.
+For example, if using Hadoop, make sure to add required keys per the
+`example-configs/*hadoop.yaml` files which are under
+_"Additional Hadoop configuration settings"_ (e.g. `WEBHDFS_STORAGE_DIR`, etc.).
+
 Contact DataRobot Support to identify required changes.
 
 Remove the following keys, if present:

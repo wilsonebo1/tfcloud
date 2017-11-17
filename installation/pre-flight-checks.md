@@ -69,8 +69,8 @@ Ensure that the difference between Data Space Total and Data Space Used is great
 Verify that you can run Docker containers with the following command:
 
 ```bash
-sudo su druser
-cd /opt/DataRobot-4.1.x/
+sudo su datarobot
+cd /opt/datarobot/DataRobot-4.1.x/
 docker load -i dockerfiles/datarobot/saved/docker-registry.tar
 docker run --rm -it docker.hq.datarobot.com/datarobot/registry
 # You should see some logs from the container
@@ -82,8 +82,8 @@ docker run --rm -it docker.hq.datarobot.com/datarobot/registry
 On the install node, logged in as the DataRobot user, run the following to verify the provisioner will be able to connect to all nodes in the cluster:
 
 ```bash
-sudo su druser
-cd /opt/DataRobot-4.1.x/
+sudo su datarobot
+cd /opt/datarobot/DataRobot-4.1.x/
 ./bin/inventory --list
 ./bin/ansible -i ./bin/inventory -m shell -a 'uptime' all
 ```
@@ -93,8 +93,8 @@ cd /opt/DataRobot-4.1.x/
 This end-to-end test will verify that the provisioner can run, connect to nodes via SSH, and interact with the Docker daemon on all application servers:
 
 ```bash
-sudo su druser
-cd /opt/DataRobot-4.1.x/
+sudo su datarobot
+cd /opt/datarobot/DataRobot-4.1.x/
 ./bin/ansible -i ./bin/inventory -m docker -a "image=foo name=bar state=absent" all
 ```
 
@@ -119,8 +119,8 @@ If desired, put the `$FileOwner`, `$FileGroup`, and/or `$FileCreateMode` directi
 
 ```
 # FILE SNIPPET: /etc/rsyslog.d/53-logging.conf
-$FileOwner druser
-$FileGroup druser
+$FileOwner datarobot
+$FileGroup datarobot
 $FileCreateMode 0600
 ...
 ```
