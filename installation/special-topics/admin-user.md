@@ -91,7 +91,6 @@ To do so, modify the daemon options on all Edge Node servers.
 * Modify the file `/etc/docker/daemon.json` with the following:
 
 ```json
-# File: /etc/docker/daemon.json
 {
     "group": "docker",
     "insecure-registries": [
