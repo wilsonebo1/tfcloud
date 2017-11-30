@@ -78,33 +78,43 @@ You should now be able to log in to the Ambari UI in your web browser.
 
 4. Save changes:
 <img src="images/ambari-save-changes.png" alt="" style="border: 1px solid black;"/>
-5. Restart all required services:
-<img src="images/ambari-restart-services.png" alt="" style="border: 1px solid black;"/>
 
-## Additional Configuration for Clusters With Kerberos Enabled
+5. Update proxy-user settings in core-site.xml
 
-Skip this section if your cluster does not have Kerberos enabled.
+DataRobot requires proxy-user settings in both secure (=kerberized) and nonsecure clusters.
 
-The steps in this section are required to configure clusters with Kerberos enabled to work with the DataRobot application.
-
-1. Go to the HDFS service:
+5.1. Go to the HDFS service:
 <img src="images/ambari-hdfs-service.png" alt="" style="border: 1px solid black;"/>
-2. Navigate to the configuration:
+5.2. Navigate to the configuration:
 <img src="images/ambari-hdfs-config.png" alt="" style="border: 1px solid black;"/>
-3. Navigate to the advanced tab:
+5.3. Navigate to the advanced tab:
 <img src="images/ambari-hdfs-advanced.png" alt="" style="border: 1px solid black;"/>
-4. Find “custom core-site”:
+5.4. Find “custom core-site”:
 <img src="images/ambari-hdfs-custom.png" alt="" style="border: 1px solid black;"/>
-5. In the bottom, click on the “Add Property...“ link.
-6. Select “bulk property mode”:
+5.5. In the bottom, click on the “Add Property...“ link.
+5.6. Select “bulk property mode”:
 <img src="images/ambari-hdfs-bulk-props.png" alt="" style="border: 1px solid black;"/>
-7. Add following:
+5.7. Add proxyuser properties for datarobot:
 
 ```bash
 hadoop.proxyuser.datarobot.groups=*
+hadoop.proxyuser.datarobot.hosts=*
+```
+
+The above properties will mean that datarobot can impersonate any user. This can be narrowed if needed but datarobot itself needs to be in the list.
+
+5.8. (Optional) Add proxyuser property for yarn:
+In nonsecure clusters without Linux Container Executor setup you also need to allow the yarn user to proxy datarobot.
+
+```bash
+hadoop.proxyuser.yarn.groups=datarobot
+hadoop.proxyuser.yarn.hosts=*
 ```
 
 Save changes.
+
+6. Restart all required services:
+<img src="images/ambari-restart-services.png" alt="" style="border: 1px solid black;"/>
 
 ## Distribute Parcel to Hosts
 
