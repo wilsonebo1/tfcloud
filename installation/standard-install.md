@@ -122,7 +122,7 @@ os_configuration:
     ...
 ```
 
-**NOTE**: Hostnames (aside from `webserver_location`, if specified), must be IPv4 addressses.
+**NOTE**: Hostnames (aside from `webserver_location`, if specified), must be IPv4 addresses.
 
 The `multi-node.linux.yaml` file has a full set of sample configurations for reference purposes.
 The `example-configs/config-variables.md` file has a comprehensive set of documented configuration values.
@@ -132,6 +132,11 @@ To validate your configuration files, run
 ```bash
 ./bin/datarobot validate
 ```
+
+**NOTE**: Although the validation is very comprehensive regarding the aspects of semantics and particular attribute values,
+there are still situations where invalid user-provided configuration will not be detected. This can cause unexpected results during deployment/usage.
+One such situation is a YAML format configuration file with an extra indent step. This could lead to a required key being absent or invalid key being present.
+Please manually verify that the correct level of indentation is used in all YAML files.
 
 #### SSL/TLS Encryption
 
