@@ -85,15 +85,21 @@ DataRobot requires proxy-user settings in both secure (=kerberized) and nonsecur
 
 5.1. Go to the HDFS service:
 <img src="images/ambari-hdfs-service.png" alt="" style="border: 1px solid black;"/>
+
 5.2. Navigate to the configuration:
 <img src="images/ambari-hdfs-config.png" alt="" style="border: 1px solid black;"/>
+
 5.3. Navigate to the advanced tab:
 <img src="images/ambari-hdfs-advanced.png" alt="" style="border: 1px solid black;"/>
+
 5.4. Find “custom core-site”:
 <img src="images/ambari-hdfs-custom.png" alt="" style="border: 1px solid black;"/>
+
 5.5. In the bottom, click on the “Add Property...“ link.
+
 5.6. Select “bulk property mode”:
 <img src="images/ambari-hdfs-bulk-props.png" alt="" style="border: 1px solid black;"/>
+
 5.7. Add proxyuser properties for datarobot:
 
 ```bash
