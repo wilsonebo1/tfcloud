@@ -34,7 +34,7 @@ Copy Ambari configuration descriptor to services directories:
 
 ```bash
 find /var/lib/ambari-server/resources/stacks/*/*/services -maxdepth 0 \
-.  | xargs -n 1 cp -r DATAROBOT
+    | xargs -n 1 cp -r DATAROBOT
 ```
 
 Add to `/var/lib/ambari-server/resources/stacks/*/*/role_command_order.json`:
