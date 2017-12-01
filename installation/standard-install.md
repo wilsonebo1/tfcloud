@@ -133,9 +133,10 @@ To validate your configuration files, run
 ./bin/datarobot validate
 ```
 
-**NOTE**: Although the validation is very comprehensive regarding the aspects of semantics and particular attribute values,
-there are still situations where invalid user-provided configuration will not be detected. This can cause unexpected results during deployment/usage.
-One such situation is a YAML format configuration file with an extra indent step. This could lead to a required key being absent or invalid key being present.
+**NOTE**: Although the validation is very comprehensive regarding the aspects of semantics and particular attribute values, there are still situations where invalid user-provided configuration will not be detected.
+This can cause unexpected results during deployment/usage.
+One such situation is a YAML configuration file with an extra indent step.
+This may lead to an optional key being absent because it is shifted into the object above it.
 Please manually verify that the correct level of indentation is used in all YAML files.
 
 #### SSL/TLS Encryption
