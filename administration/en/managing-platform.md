@@ -380,7 +380,7 @@ Now that you’ve enabled this feature, that user can delete unnecessary project
 
 	![](images/perm-delete-project.png)
 
-5. Click on the "x" icon to permenantly delete the project. Another warning message will appear before the project is permanently deleted, in case you change your mind and want to keep it:
+5. Click on the "x" icon to permanently delete the project. Another warning message will appear before the project is permanently deleted, in case you change your mind and want to keep it:
 
 	![](images/confirm-perm-delete-project.png)
 
@@ -406,7 +406,7 @@ A screen will appear to make sure that you want to follow through with the resto
 **Note:** Once a project is deleted from the **Manage Deleted Projects** page (by clicking the "x" icon), it cannot be restored because it's been permanently deleted.
 
 
-<a name="supporting-transgerable-models"></a>
+<a name="supporting-transferable-models"></a>
 Supporting transferable models
 ------------------------------
 
