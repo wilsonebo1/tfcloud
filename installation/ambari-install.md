@@ -134,16 +134,18 @@ For example:
 
 ```bash
 cd [PATH TO DIRECTORY WITH PARCEL IN IT]
-python -m SimpleHTTPServer
+python -m SimpleHTTPServer [SERVER PORT]
 ```
+
+**NOTE**: If `[SERVER PORT]` is not provided it will bind to port `8000`.
 
 In this case, the parcel URL used will be like:
 
 ```
-http://[IP OF SIMPLE WEBSERVER]:8000/DataRobot-[PARCEL VERSION].parcel
+http://[IP OF SIMPLE WEBSERVER]:[SERVER PORT]/DataRobot-[PARCEL VERSION].parcel
 ```
 
-**NOTE**: If using this approach, the edgenode must allow port `8000`
+**NOTE**: If using this approach, the edgenode must allow incoming traffic on `[SERVER PORT]`
 from the Cloudera hosts.
 
 ## Install DataRobot Service
