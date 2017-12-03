@@ -81,7 +81,7 @@ You should now be able to log in to the Ambari UI in your web browser.
 
 5. Update proxy-user settings in core-site.xml
 
-DataRobot requires proxy-user settings in both secure (=kerberized) and nonsecure clusters.
+DataRobot requires proxy-user settings in both secure (= Kerberos enabled) and nonsecure clusters.
 
 5.1. Go to the HDFS service:
 <img src="images/ambari-hdfs-service.png" alt="" style="border: 1px solid black;"/>
@@ -118,6 +118,7 @@ hadoop.proxyuser.yarn.hosts=*
 ```
 
 Save changes.
+
 
 6. Restart all required services:
 <img src="images/ambari-restart-services.png" alt="" style="border: 1px solid black;"/>
