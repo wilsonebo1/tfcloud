@@ -329,7 +329,7 @@ The report is organized on an Excel spreadsheet for each customer along with a s
 
 <a name="availability-monitoring"></a>
 ###Availability Monitoring
-Requesting the health of DataRobot initially relied on smoke tests and manual UAT in order to tell if any of the installed clusters was running properly. Even though those tactics were challenging, the the information was valuable for both the users and the organizations. So, the Availability Monitor was created as a new service deployed alongside DataRobot. 
+Requesting the health of DataRobot initially relied on smoke tests and manual UAT in order to tell if any of the installed clusters was running properly. Even though those tactics were challenging, the information was valuable for both the users and the organizations. So, the Availability Monitor was created as a new service deployed alongside DataRobot. 
 The Availability Monitor on DataRobot provides general information to customers about the current state of the application such as whether the it is ready to do work, how many users are connected, and which users they are. It also contains specific information about the status of components: what is expected to be running, and what is currently running. With this service in place, the Admin can easily track user activity on each project, and know when DataRobot has available resources to begin working. 
 
 
@@ -455,24 +455,20 @@ Seeing this means that the feature has been successfully applied, and this user 
 
 <a name="import-to-scoring-engine-cluster"></a>
 ###Import to scoring engine cluster
-Click the profile icon on the top right corner of the application screen, and select “Manage Predictions” from the dropdown menu:
+1. Click the profile icon on the top right corner of the application screen, and select “Manage Predictions” from the dropdown menu:
 
 ![](images/manage-predictions-option.png)
 
-Click “Import Model” at the top of the page. This will open an import dialog:
+2. Click “Import Model” at the top of the page. This will open an import dialog:
 
 ![](images/import-models-button.png)
 
-Select a .drmodel file to import by either dragging it onto the screen, or by clicking the “Browse Model” button to locate the file and add it from there. You can also cancel the import at this time, by simply clicking “Cancel Import”. When the file import is complete, the model will appear on the ***Manage Predictions*** page:
+3. Select a .drmodel file to import by either dragging it onto the screen, or by clicking the “Browse Model” button to locate the file and add it from there. You can also cancel the import at this time, by simply clicking “Cancel Import”. When the file import is complete, the model will appear on the ***Manage Predictions*** page:
 
 ![](images/upload-model-import.png)
 
-Click on the imported model listed on the screen, which will expand it – showing a snippet of that model’s source code. You can now use the model code to make predictions on a standalone predictions environment:
+4. Click on the imported model listed on the screen, which will expand it – showing a snippet of that model’s source code. You can now use the model code to make predictions on a standalone predictions environment:
 
 ![](images/imported-model-code-snippet.png)
 
-Click “Show full snippet” at the bottom of the code screen to view the entire source code for the model.
-
-
-
-
+5. Click “Show full snippet” at the bottom of the code screen to view the entire source code for the model.
