@@ -9,9 +9,9 @@ export REFNAME=${REFNAME:-$(git reflog | head -n 1 | cut -d ' ' -f1)}
 function _gitbook {
     local pdfname=$BOOK-guide-$(date +%Y-%m-%d)-$REFNAME.pdf
 
-    echo "Building $BOOK book as $USER_ID"
+    echo "Building $BOOK book in $BOOK_DIR as $USER_ID"
 
-    pushd $BOOK
+    pushd $BOOK_DIR
 
     set -x
     rm -rf node_modules
