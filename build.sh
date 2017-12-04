@@ -55,9 +55,11 @@ function _test {
     local user_id=$(id -u)
 
     set +e
-    for book in administration installation; do
+    for book_dir in administration/en administration/jp installation; do
+        local book=$(echo $book_dir | sed -e 's/.*\///')
         set -x
         docker run --rm --name $TEST_CONTAINER \
+               -e "BOOK_DIR=$book_dir" \
                -e "BOOK=$book" \
                -e "REFNAME=$refname" \
                -e "USER_ID=$user_id" \
