@@ -82,13 +82,13 @@ When you make predictions off of these models, the queue again appears on the ri
 <a name="worker-count-vs-worker-availability-for-shared-projects"></a>
 ###Worker count vs. worker availability for shared projects
 
-At the top of the Worker Usage interface is the _worker count_, which is set to 4 workers. This indicates that there are 4 workers currently being used on your project. You can increase or decrease the number of workers by clicking either the up or down orange arrows located next to the worker count number. A higher worker count number means that projects can be processed quicker than projects with a low worker count number. You can also pause the workers from building models or resume the process, by clicking the orange **Play/Pause** button located to the left of the worker count.
+At the top of the Worker Usage interface is the _worker count_, which is set to 4 workers by default. This indicates that there are 4 workers currently being used on your project. You can increase or decrease the number of workers by clicking either the up or down orange arrows located next to the worker count number. A higher worker count number means that projects can be processed quicker than projects with a low worker count number. You can also pause the workers from building models or resume the process, by clicking the orange **Play/Pause** button located to the left of the worker count.
 
 ![](images/modeling-worker-type-4.png)
 
 The Admin can change the worker count number, which is a good way to ensure that all users within an organization have fair access to the workers. Admins also have access to the management console, which allows them to create groups within their organization. Once these group-based worker assignments are created, Admins can then set modeling limits for the group. This means that Admins can set a cap on the number of shared workers that each group can use, which minimizes resource contention throughout organizations.
 
-Each user's own worker count number is respected and maintained, regardless of how many workers are available on projects and through organzations. This means that a user's personal worker count (located in their profile settings) is the maximum number workers available to that user at all times (unless the Admin changes it). 
+Each user's own worker count number is respected and maintained, regardless of how many workers are available on projects and through organizations. This means that a user's personal worker count (located in their profile settings) is the maximum number workers available to that user at all times (unless the Admin changes it). 
 For example: If a user has a worker count of 4 workers, that user can utilize any number of workers ranging from 1-4. If the user is part of a project or organization with a worker count of 12 workers, they can only use up to 4 of those 12 workers, and no more. 
 
 Hadoop Drawing:
@@ -157,7 +157,7 @@ When a user has been validated with their initial LDAP login, the organization�
 	
 **Note:** You can also set this user’s organization, number of workers, and a file upload size limit from this same page.
 
-Having an LDAP-supported directory service keeps all of the users and organizations categorised and accessible. Any updates made in the LDAP Directory server will automatically update every application without the need to manually search and edit each one individually. For example, if a user is removed from the Directory server, the application (which is configured to authenticate to this particular Directory server) won’t allow the removed user to log back into the application. This is a streamlined and efficient way for Admins to accurately manage DataRobot application authentication for large comapnies.
+Having an LDAP-supported directory service keeps all of the users and organizations categorised and accessible. Any updates made in the LDAP Directory server will automatically update every application without the need to manually search and edit each one individually. For example, if a user is removed from the Directory server, the application (which is configured to authenticate to this particular Directory server) won’t allow the removed user to log back into the application. This is a streamlined and efficient way for Admins to accurately manage DataRobot application authentication for large companies.
 
 <a name="about-configyaml"></a>
 ###About config.yaml
