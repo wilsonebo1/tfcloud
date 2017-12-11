@@ -131,7 +131,7 @@ Either `scp` the file to all hosts, or run a small webserver.
 
 ### Copying Parcel to All Hosts
 
-For each host in Ambari which could run DataRobot service, copy the parcel
+For each host in Ambari that could run DataRobot service, copy the parcel
 from edgenode to that host:
 
 ```bash
@@ -139,7 +139,7 @@ scp ~/hadoop/DataRobot-*.{parcel,parcel.sha} \
     [AMBARI HOST IP ADDRESS]:/tmp
 ```
 
-In this case, the parcel URL used will be like:
+In this case, the parcel URL used will look like:
 
 ```
 file:////tmp/DataRobot-[PARCEL VERSION].parcel
@@ -147,7 +147,7 @@ file:////tmp/DataRobot-[PARCEL VERSION].parcel
 
 ### Run Temporary Webserver
 
-Alternatively, a simple HTTP webserver on edgenode can host the parcel.
+Alternatively, a simple HTTP webserver on an edgenode can host the parcel.
 For example:
 
 ```bash
@@ -157,7 +157,7 @@ python -m SimpleHTTPServer [SERVER PORT]
 
 **NOTE**: If `[SERVER PORT]` is not provided it will bind to port `8000`.
 
-In this case, the parcel URL used will be like:
+In this case, the parcel URL used will look like:
 
 ```
 http://[IP OF SIMPLE WEBSERVER]:[SERVER PORT]/DataRobot-[PARCEL VERSION].parcel
@@ -176,7 +176,7 @@ from the Cloudera hosts.
 4. Select where to install DataRobot Master and click **Next**.
 5. Select all YARN nodes as clients and click **Next**:
 <img src="images/ambari-select-yarn.png" alt="" style="border: 1px solid black;"/>
-6. Provide URL to the parcel package in the `datarobot-env` configuration:
+6. Provide the URL to the parcel package in the `datarobot-env` configuration:
 <img src="images/ambari-parcel-url.png" alt="" style="border: 1px solid black;"/>
 7. Set up all required parameters and provide the license in the `datarobot-master`
 configuration:
