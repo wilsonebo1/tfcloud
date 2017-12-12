@@ -44,7 +44,7 @@ different.
 * Remove old Docker images
 
 ```bash
-rm -rf /var/lib/docker/*
+rm -rf /var/lib/docker
 rm -rf /opt/datarobot/registry
 ```
 * Remove old configuration files

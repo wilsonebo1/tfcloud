@@ -43,6 +43,8 @@ For illustration purposes, we will use the username `datarobot` throughout this 
 The user may be a system user, but keep in mind you will want to set a default shell for the user.
 This user must have access to the following:
 
+* A shell (`/bin/bash` preferred)
+
 * Ownership of a directory called `/opt/datarobot` on each node with enough space to install and run the application.
 
 ```bash
@@ -81,8 +83,6 @@ ssh -i ~/.ssh/id_rsa localhost echo "success"
 # Append id_rsa.pub contents to /home/datarobot/.ssh/authorized_keys on other nodes
 # and verify ssh connectivity from the install node.
 ```
-
-* A shell (`/bin/bash` preferred)
 
 If you are not able to give the `datarobot` user access to `sudo` or you have an
 alternative privilege escalation tool, see our additional documentation on
