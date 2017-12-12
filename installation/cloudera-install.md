@@ -128,7 +128,7 @@ DataRobot requires proxy-user settings in both secure (= Kerberos enabled) and n
 
 * Click the add (+) button that appears lowest in the list of Allowed System Users and type datarobot in the text field that just appeared:
 
-<img src="images/cdh-kerberos-user-add.png" alt="system users" style="border: 1px solid black;"/>
+<img src="special-topics/images/cdh-kerberos-user-add.png" alt="system users" style="border: 1px solid black;"/>
 
 * Click **Save Changes** just above the **Allowed System Users** section.
 
