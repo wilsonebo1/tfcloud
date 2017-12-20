@@ -43,7 +43,7 @@ Add to `/var/lib/ambari-server/resources/stacks/*/*/role_command_order.json`:
 "DATAROBOT_CLIENT-INSTALL": ["NAMENODE-START", "DATANODE-START"],
 ```
 
-Restart Ambari server with:
+Restart Ambari server:
 
 ```bash
 sudo service ambari-server restart
@@ -57,7 +57,7 @@ sudo ambari-server start --skip-database-check
 
 The restart process may require several minutes to complete.
 
-## Login to Ambari
+## Log in to Ambari
 
 You should now be able to log in to the Ambari UI in your web browser.
 
@@ -78,33 +78,49 @@ You should now be able to log in to the Ambari UI in your web browser.
 
 4. Save changes:
 <img src="images/ambari-save-changes.png" alt="" style="border: 1px solid black;"/>
-5. Restart all required services:
-<img src="images/ambari-restart-services.png" alt="" style="border: 1px solid black;"/>
 
-## Additional Configuration for Clusters With Kerberos Enabled
+### Update Proxy-User Settings in `core-site.xml`.
 
-Skip this section if your cluster does not have Kerberos enabled.
+DataRobot requires proxy-user settings in both secure (= Kerberos enabled) and nonsecure clusters. Update the proxy-user settings in `core-site.xml`.
 
-The steps in this section are required to configure clusters with Kerberos enabled to work with the DataRobot application.
-
-1. Go to the HDFS service:
+1. Select the HDFS service:
 <img src="images/ambari-hdfs-service.png" alt="" style="border: 1px solid black;"/>
-2. Navigate to the configuration:
+
+2. Navigate to the configurations via the Configs tab:
 <img src="images/ambari-hdfs-config.png" alt="" style="border: 1px solid black;"/>
-3. Navigate to the advanced tab:
+
+3. Select the Advanced tab:
 <img src="images/ambari-hdfs-advanced.png" alt="" style="border: 1px solid black;"/>
-4. Find “custom core-site”:
+
+4. Expand the "Custom core-site" option:
 <img src="images/ambari-hdfs-custom.png" alt="" style="border: 1px solid black;"/>
-5. In the bottom, click on the “Add Property...“ link.
-6. Select “bulk property mode”:
+
+5. At the bottom of the window, click the "Add property..." link.
+
+6. Click the bulk property icon in the right of the "Add Property" window:
 <img src="images/ambari-hdfs-bulk-props.png" alt="" style="border: 1px solid black;"/>
-7. Add following:
 
-```bash
-hadoop.proxyuser.datarobot.groups=*
-```
+7. In the "Properties" box, add proxyuser properties for DataRobot:
 
-Save changes.
+	```bash
+	hadoop.proxyuser.datarobot.groups=*
+	hadoop.proxyuser.datarobot.hosts=*
+	```
+
+	Adding the above properties enables DataRobot to impersonate any user. These permissions can be narrowed, if needed, but DataRobot must be in the list. 
+
+8. (Optional) Add proxyuser properties for YARN. In nonsecure clusters without the Linux Container Executor setup, you also need to allow the YARN user to proxy DataRobot.
+
+	```bash
+	hadoop.proxyuser.yarn.groups=datarobot
+	hadoop.proxyuser.yarn.hosts=*
+	```
+
+9. Save changes.
+
+
+10. Restart all required services:
+<img src="images/ambari-restart-services.png" alt="" style="border: 1px solid black;"/>
 
 ## Distribute Parcel to Hosts
 
@@ -113,7 +129,7 @@ Either `scp` the file to all hosts, or run a small webserver.
 
 ### Copying Parcel to All Hosts
 
-For each host in Ambari which could run DataRobot service, copy the parcel
+For each host in Ambari that could run DataRobot service, copy the parcel
 from edgenode to that host:
 
 ```bash
@@ -121,7 +137,7 @@ scp ~/hadoop/DataRobot-*.{parcel,parcel.sha} \
     [AMBARI HOST IP ADDRESS]:/tmp
 ```
 
-In this case, the parcel URL used will be like:
+In this case, the parcel URL used will look like:
 
 ```
 file:////tmp/DataRobot-[PARCEL VERSION].parcel
@@ -129,7 +145,7 @@ file:////tmp/DataRobot-[PARCEL VERSION].parcel
 
 ### Run Temporary Webserver
 
-Alternatively, a simple HTTP webserver on edgenode can host the parcel.
+Alternatively, a simple HTTP webserver on an edgenode can host the parcel.
 For example:
 
 ```bash
@@ -139,34 +155,42 @@ python -m SimpleHTTPServer [SERVER PORT]
 
 **NOTE**: If `[SERVER PORT]` is not provided it will bind to port `8000`.
 
-In this case, the parcel URL used will be like:
+In this case, the parcel URL used will look like:
 
 ```
 http://[IP OF SIMPLE WEBSERVER]:[SERVER PORT]/DataRobot-[PARCEL VERSION].parcel
 ```
 
-**NOTE**: If using this approach, the edgenode must allow incoming traffic on `[SERVER PORT]`
-from the Cloudera hosts.
+**NOTE**: If using this approach, the edgenode must allow incoming traffic on `[SERVER PORT]` from the Cloudera hosts.
 
 ## Install DataRobot Service
 
 1. Click on **actions** and then **add service**:
 <img src="images/ambari-add-service.png" alt="" style="border: 1px solid black;"/>
+
 2. Select DataRobot for installation:
 <img src="images/ambari-select-datarobot.png" alt="" style="border: 1px solid black;"/>
+
 3. Click **Next**.
+
 4. Select where to install DataRobot Master and click **Next**.
+
 5. Select all YARN nodes as clients and click **Next**:
 <img src="images/ambari-select-yarn.png" alt="" style="border: 1px solid black;"/>
-6. Provide URL to the parcel package in the `datarobot-env` configuration:
+
+6. Provide the URL to the parcel package in the `datarobot-env` configuration:
 <img src="images/ambari-parcel-url.png" alt="" style="border: 1px solid black;"/>
+
 7. Set up all required parameters and provide the license in the `datarobot-master`
 configuration:
 <img src="images/ambari-required-params.png" alt="" style="border: 1px solid black;"/>
-3. Click **Next**.
-4. In case if cluster is secured by Kerberos, provide credentials:
+
+8. Click **Next**.
+
+9. In case if cluster is secured by Kerberos, provide credentials:
 <img src="images/ambari-kerberos.png" alt="" style="border: 1px solid black;"/>
-5. Proceed to the installation.
+
+10. Proceed to the installation.
 
 ## Synchronize Configuration
 
