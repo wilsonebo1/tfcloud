@@ -207,21 +207,21 @@ It is important to be able to stop, start, and manage services on DataRobot in o
 <a name="starting-services"></a>
 ###Starting services:
 
-Command name: ```make start-services```
+Command name: `./bin/datarobot services start`
 
 This is the initial start command. It is a cluster-wide command that needs to be executed from the provisioner host, under the same directory from where the config.yaml file is located. This command starts the registry and docker containers services for all of the hosts from that file. 
 
 
 <a name="stopping-services"></a>
 ###Stopping services:
-Command name: ```make stop-services```
+Command name: `./bin/datarobot services stop`
 
 This is another cluster-wide command that also needs to be executed from the provisioner host, under the same directory from where the config.yaml file is located. This command stops the registry and the docker containers cleanly for all of the hosts from that file. 
 
 
 <a name="restart-services"></a>
 ###Restart services:
-Command name: ```make restart-services```
+Command name: `./bin/datarobot services restart`
 
 For this command, you simply need to run the stop-services command first, then then run start-services command, in order to properly restart the services. Restarting something, indicates that it has stopped. This two-step process is detailed above for the start and stop services. 
 
