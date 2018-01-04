@@ -206,21 +206,21 @@ Jupyter Notebookが有効になり、このユーザーがアクセスできる�
 <a name="starting-services"></a>
 ###サービスの開始:
 
-コマンド名: ```make start-services```
+コマンド名: `./bin/datarobot services start`
 
 これは初期開始コマンドです。これはクラスター全体のコマンドで、config.yamlファイルが格納されているディレクトリの下にあるプロビジョニングホストから実行する必要があります。このコマンドは、このファイルからすべてのホストのレジストリおよびDockerコンテナサービスを開始します。
 
 
 <a name="stopping-services"></a>
 ###サービスの停止:
-コマンド名: ```make stop-services```
+コマンド名: `./bin/datarobot services stop`
 
 これはもう1つのクラスター全体のコマンドで、このコマンドもconfig.yamlファイルが格納されているディレクトリの下にあるプロビジョニングホストから実行する必要があります。このコマンドは、このファイルからすべてのホストのレジストリおよびDockerコンテナサービスを停止します。
 
 
 <a name="restart-services"></a>
 ###サービスの再開:
-コマンド名: ```make restart-services```
+コマンド名: `./bin/datarobot services restart`
 
 サービスを適切に再開するには、最初にstop-servicesコマンドを実行し、その後にstart-servicesコマンドを実行します。サービスを再開するには、そのサービスが停止している必要があります。この2段階のプロセスの詳細については、上記のサービスの開始と停止のセクションを参照してください。
 
