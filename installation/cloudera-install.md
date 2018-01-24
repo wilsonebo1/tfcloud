@@ -116,9 +116,9 @@ For example, access a Cloudera Manager with HTTPS enabled at `https://<Cloudera 
 * Enter your username and password, then click **Login**.
 
 
-### Update proxy-user settings in core-site.xml
+### Update proxyuser settings in core-site.xml
 
-DataRobot requires proxy-user settings in both secure (= Kerberos enabled) and nonsecure clusters.
+DataRobot requires proxyuser settings in both secure (= Kerberos enabled) and nonsecure clusters.
 
 * Click the name of the **YARN** service on the left side of the screen.
 
@@ -156,6 +156,21 @@ Paste the following XML into the large text box:
  <value>*</value>
 </property>
 ```
+
+*. (Optional) Add proxyuser properties for YARN. In nonsecure clusters without the Linux Container Executor (LCE) setup, you also need to allow the YARN user to proxy DataRobot.
+
+	```bash
+	hadoop.proxyuser.yarn.groups=datarobot
+	hadoop.proxyuser.yarn.hosts=*
+	```
+
+---
+**NOTE**
+
+In clusters without Kerberos authentication, by default, the LCE runs all jobs as user "nobody". This user can be changed by setting "yarn.nodemanager.linux-container-executor.nonsecure-mode.local-user" to the desired user. However, it can also be configured to run jobs as the user submitting the job. In that case "yarn.nodemanager.linux-container-executor.nonsecure-mode.limit-users" should be set to false. See [here](https://hadoop.apache.org/docs/r2.7.2/hadoop-yarn/hadoop-yarn-site/NodeManagerCgroups.html) for more detailed information.
+DataRobot submits YARN applications from within a YARN container thus either the owner of the process needs to be the service user "datarobot" or the user owning the process needs to be able to proxy "datarobot". If this is not the case, the submitted YARN applications wont be owned by "datarobot".
+
+---
 
 * Click **Save Changes** just above the text box.
 
