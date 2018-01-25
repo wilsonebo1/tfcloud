@@ -5,6 +5,9 @@ Hadoop cluster.
 
 DataRobot can integrate with Cloudera, Hortonworks, and IBM BigInsights Hadoop distributions.
 
+**NOTE**: DataRobot supports only parcels as a format of software distribution for a Cloudera Hadoop cluster.
+Deployment via system specific packages (RPM, DEB, etc.) is not supported.
+
 ## Access Requirements
 
 The administrator must have permission to access the Cloudera or Ambari Manager
