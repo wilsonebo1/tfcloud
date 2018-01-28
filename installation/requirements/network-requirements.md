@@ -64,8 +64,8 @@ application server cluster, whether or not using Hadoop.
 | 8011  | TCP      | DataRobot Socket.IO Server |
 | 8023  | TCP      | DataRobot Upload Server |
 | 8033  | TCP      | DataRobot Diagnostics Server |
+| 8097  | TCP      | DataRobot Prediction Optimization Application |
 | 8100  | TCP      | DataRobot Datasets Service API |
-| 9000  | TCP      | DataRobot Prediction Optimization Application |
 | 9090  | TCP      | DataRobot Availability Monitor |
 | 9496  | TCP      | DataRobot PNGExport Service |
 | 26379 | TCP      | Redis Sentinel |
