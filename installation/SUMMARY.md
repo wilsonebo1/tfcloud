@@ -30,6 +30,7 @@
   * [SELinux](special-topics/selinux.md)
   * [Disk quota](special-topics/disk-quota.md)
   * [Exported Model File Validation](special-topics/model-export-validation.md)
+  * [Password Policies](special-topics/password-policies.md)
 
 ## Additional Information
 
