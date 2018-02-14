@@ -161,6 +161,13 @@ It should take several minutes to complete.
 ./bin/datarobot run-registry
 ```
 
+### Upgrade Existing Mongo Data
+
+If upgrading from a release prior to DataRobot 4.2, the mongo data should now be upgraded.
+See the [Mongo Data Upgrade](special-topics/mongo-data-upgrade.md) file for instructions.
+
+### Execute Pre-flight Checks
+
 * Verify that everything is configured correctly:
 
 ```bash

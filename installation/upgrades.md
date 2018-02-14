@@ -70,6 +70,13 @@ Remove the following keys, if present:
 * `USER_MODEL_CONTEXT_BASE`
 * `SECURE_WORKER_USER_TASK_IMAGE`
 
+### Upgrade mongo data
+
+Starting with DataRobot release 4.2 the version of mongo has been upgraded from 2.4 to 3.4. 
+The mongo storage engine has been upgraded to WiredTiger. 
+Customers upgrading from prior releases will need to go through a data upgrade process.
+See [Mongo Data Upgrade](special-topics/mongo-data-upgrade.md) for additional details.
+
 ## Cloudera Preparation
 
 * Log into the Cloudera Manager.
