@@ -23,6 +23,7 @@ changing permissions, and restarting services.
 Manager server must be known.
 * The /tmp directory on the Cloudera or Ambari Manager must be writable and have
 at least 5GB of available space.
+* If [Transparent Encryption in HDFS](http://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/TransparentEncryption.html) is enabled, [HttpFS](https://hadoop.apache.org/docs/stable/hadoop-kms/index.html) is required.
 
 ### Memory and Compute Requirements
 

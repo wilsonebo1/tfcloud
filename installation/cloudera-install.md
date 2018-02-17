@@ -164,11 +164,22 @@ Paste the following XML into the large text box:
 	hadoop.proxyuser.yarn.hosts=*
 	```
 
+  * (Optional) If you want DataRobot to use [HttpFS](https://hadoop.apache.org/docs/stable/hadoop-kms/index.html) instead of [webhdfs](http://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/WebHDFS.html), add proxyuser properties for HttpFS as described [here](special-topics/httpfs.md).
+
+  * (Optional) If your secure cluster has a [Key Management Server (KMS)](https://hadoop.apache.org/docs/stable/hadoop-kms/index.html), add proxy user properties for KMS as described [here](special-topics/kms.md).
+
 ---
 **NOTE**
 
 In clusters without Kerberos authentication, by default, the LCE runs all jobs as user "nobody". This user can be changed by setting "yarn.nodemanager.linux-container-executor.nonsecure-mode.local-user" to the desired user. However, it can also be configured to run jobs as the user submitting the job. In that case "yarn.nodemanager.linux-container-executor.nonsecure-mode.limit-users" should be set to false. See [here](https://hadoop.apache.org/docs/r2.7.2/hadoop-yarn/hadoop-yarn-site/NodeManagerCgroups.html) for more detailed information.
 DataRobot submits YARN applications from within a YARN container thus either the owner of the process needs to be the service user "datarobot" or the user owning the process needs to be able to proxy "datarobot". If this is not the case, the submitted YARN applications wont be owned by "datarobot".
+
+---
+
+---
+**NOTE**
+
+If you use [Transparent Encryption in HDFS](http://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/TransparentEncryption.html) you must use [HttpFS](special-topics/httpfs.md) instead of webhdfs.
 
 ---
 
@@ -310,10 +321,15 @@ and at least four cores.
 
 <img src="./images/cdh-dr-config.png" alt="CDH DataRobot Config" style="border: 1px solid black;"/>
 
-* (*HA HDFS clusters only*) Fill in a value for `ACTIVE_NAMENODE_ADDRESS` field.
+* (*HA HDFS clusters only*) Fill in a value for `ACTIVE_NAMENODE_ADDRESS` field if you want to explicitly pick an active namenode. If not specified, DataRobot will automatically pick the active namenode.
 
-* (*HA HDFS clusters only*) If multiple nameservices exist specify one in the `NAMESERVICE` variable.
+* For HA HDFS clusters, set the following (options not shown in screen above):
+  - To explicitly pick an active namenode, fill in a value for the `ACTIVE_NAMENODE_ADDRESS` field. If not specified, DataRobot will automatically pick the active namenode.
+  - If multiple nameservices exist, use the `NAMESERVICE` variable to specify the one you want DataRobot to use.
 
+* For [HttpFS](https://hadoop.apache.org/docs/stable/hadoop-kms/index.html), set the following (options not shown in screen above):
+  - Check the `PREFER_HTTPFS` field and fill in a value for `HTTPFS_HOST`, specifying the HttpFS destination (for example, 'https://hostname:14000').
+  
 * Click **Continue** and wait while DataRobot is added to the cluster.
 
 * When the process is complete, click **Continue**.

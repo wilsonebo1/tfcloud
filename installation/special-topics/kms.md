@@ -1,6 +1,6 @@
-# Hadoop KMS Integration
+# Hadoop KMS
 
-## Additional Configuration for Clusters With Kerberos Enabled
+## Additional Configuration for Clusters With Key Management Server (KMS) Enabled
 
 [**Hadoop KMS**](https://hadoop.apache.org/docs/stable/hadoop-kms/index.html) is a cryptographic key management server based on Hadoop’s KeyProvider API.
 
@@ -25,3 +25,6 @@ Next, configure DataRobot with the following properties:
 
 * Set `KMS_AUTHENTICATION_TYPE` and `hdfs.KMS_AUTHENTICATION_TYPE` to `kerberos`.
 * Set `hdfs.KMS_PROVIDER` to `kms://http@<KMS_HOST>:16000/kms` .
+
+
+
