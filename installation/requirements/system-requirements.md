@@ -12,6 +12,10 @@ Other systems are supported on a best-effort basis.
 
 Your Linux server must have access to up-to-date repository servers with standard RedHat packages.
 
+## Shell
+
+You must have access to a shell (`/bin/bash` is preferred).
+
 ## Docker
 
 DataRobot supports Docker version 1.10 and greater.
@@ -47,7 +51,7 @@ This user must have access to the following:
 
 ```bash
 useradd --create-home --uid 1234 datarobot # uid can be any valid uid
-mkdir -p /opt/datarobot /opt/datarobot/DataRobot-4.1.x
+mkdir -p /opt/datarobot /opt/datarobot/DataRobot-4.x.x
 chown -R datarobot:datarobot /opt/datarobot
 ```
 
@@ -58,12 +62,12 @@ groupadd docker
 usermod -aG docker datarobot
 ```
 
-* Passwordless sudo access (use `sudo visudo`).
+* Enable sudo for the datarobot user.
 
 ```bash
-# FILE: /etc/sudoers
-Defaults     !requiretty
-datarobot    ALL=(ALL) NOPASSWD: ALL
+echo 'datarobot ALL=(ALL) NOPASSWD: ALL' >> ./datarobot
+mv datarobot /etc/sudoers.d/
+chown root:wheel /etc/sudoers.d/datarobot
 ```
 
 * Passwordless SSH access to all nodes in the cluster, even in single-node environment.
@@ -71,18 +75,15 @@ Please ensure there is no SSH timeout; some SSH commands take a long time to run
 If there is an SSH timeout, it must be greater than 45 minutes.
 
 ```bash
-su datarobot
-cd ~/
+su - datarobot
 ssh-keygen -t rsa
 # Hit Enter at the prompts
 cat .ssh/id_rsa.pub >> ~/.ssh/authorized_keys
-chmod 700 ~/.ssh/authorized_keys
-ssh -i ~/.ssh/id_rsa localhost echo "success"
+chmod 600 ~/.ssh/authorized_keys
+ssh -i ~/.ssh/id_rsa localhost date
 # Append id_rsa.pub contents to /home/datarobot/.ssh/authorized_keys on other nodes
 # and verify ssh connectivity from the install node.
 ```
-
-* A shell (`/bin/bash` preferred)
 
 If you are not able to give the `datarobot` user access to `sudo` or you have an
 alternative privilege escalation tool, see our additional documentation on
@@ -126,4 +127,43 @@ we recommend a minimum of 4TB of free space for production-ready systems.
 
 | Description | Filename | Notes |
 |:------------|:---------|:------|
-| DataRobot Distribution | DataRobot-RELEASE-4.0.x.tar.gz | A tarball containing all files required for DataRobot installation |
+| DataRobot Distribution | DataRobot-RELEASE-4.x.x.tar.gz | A tarball containing all files required for DataRobot installation |
+
+## Additional requirements
+
+Make sure there aren't any protocol proxy environment variables set. Usually they go with following names:
+
+```bash
+http_proxy
+https_proxy
+ftp_proxy
+rsync_proxy
+no_proxy
+```
+
+**NOTE**: in most of the cases these names are used in lowercase in contrast to conventional upper case naming for shell environment variables.
+But there may be exceptions to this.
+
+You can check their presence by running:
+
+```bash
+env | grep -i proxy
+```
+
+To unset these for an entire cluster add following lines to `/home/datarobot/.bashrc` file on every node:
+
+```bash
+unset http_proxy
+unset https_proxy
+unset ftp_proxy
+unset rsync_proxy
+unset no_proxy
+```
+
+Also you may want to check if docker daemon is configured to use the variables. Run:
+
+```bash
+systemctl show --property=Environment docker
+```
+
+If the output contains something like `Environment=HTTP_PROXY=http://proxy.example.com:80/` etc., you should make changes to `/etc/systemd/system/docker.service.d/http-proxy.conf` to mirror your environment configuration.
