@@ -321,8 +321,6 @@ and at least four cores.
 
 <img src="./images/cdh-dr-config.png" alt="CDH DataRobot Config" style="border: 1px solid black;"/>
 
-* (*HA HDFS clusters only*) Fill in a value for `ACTIVE_NAMENODE_ADDRESS` field if you want to explicitly pick an active namenode. If not specified, DataRobot will automatically pick the active namenode.
-
 * For HA HDFS clusters, set the following (options not shown in screen above):
   - To explicitly pick an active namenode, fill in a value for the `ACTIVE_NAMENODE_ADDRESS` field. If not specified, DataRobot will automatically pick the active namenode.
   - If multiple nameservices exist, use the `NAMESERVICE` variable to specify the one you want DataRobot to use.
