@@ -20,6 +20,7 @@
 * [Advanced Configuration](special-topics/README.md)
   * [TLS](special-topics/tls.md)
   * [KMS Integration](special-topics/kms.md)
+  * [HttpFS](special-topics/httpfs.md)
   * [Unprivileged Application User](special-topics/admin-user.md)
     * [Separate Install user](special-topics/admin-user.md#admin-user)
     * [Docker Configuration](special-topics/admin-user.md#install-docker)

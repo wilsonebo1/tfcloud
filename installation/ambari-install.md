@@ -116,6 +116,10 @@ DataRobot requires proxy-user settings in both secure (= Kerberos enabled) and n
 	hadoop.proxyuser.yarn.hosts=*
 	```
 
+  * (Optional) If you want DataRobot to use [HttpFS](https://hadoop.apache.org/docs/stable/hadoop-kms/index.html) instead of [webhdfs](http://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/WebHDFS.html), add proxyuser properties for HttpFS as described [here](special-topics/httpfs.md).
+
+  * (Optional) If your secure cluster has a [Key Management Server (KMS)](https://hadoop.apache.org/docs/stable/hadoop-kms/index.html), add proxy user properties for KMS as described [here](special-topics/kms.md).
+
 ---
 **NOTE**
 
@@ -123,6 +127,13 @@ In clusters without Kerberos authentication, by default, the LCE runs all jobs a
 DataRobot submits YARN applications from within a YARN container thus either the owner of the process needs to be the service user "datarobot" or the user owning the process needs to be able to proxy "datarobot". If this is not the case, the submitted YARN applications wont be owned by "datarobot".
 
 If Kerberos is enabled, DataRobot needs to be able to run Spark jobs on behalf of the currently authenticated user, on any available Yarn host. This can be enabled by listing all Yarn worker hosts and all DataRobot users in the config file, or by using "*" for those properties.
+
+---
+
+---
+**NOTE**
+
+If you use [Transparent Encryption in HDFS](http://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/TransparentEncryption.html) you must use [HttpFS](special-topics/httpfs.md) instead of webhdfs.
 
 ---
 
@@ -195,9 +206,16 @@ http://[IP OF SIMPLE WEBSERVER]:[SERVER PORT]/DataRobot-[PARCEL VERSION].parcel
 configuration:
 <img src="images/ambari-required-params.png" alt="" style="border: 1px solid black;"/>
 
+* For HA HDFS clusters, set the following (options not shown in screen above):
+  - To explicitly pick an active namenode, fill in a value for the `ACTIVE_NAMENODE_ADDRESS` field. If not specified, DataRobot will automatically pick the active namenode.
+  - If multiple nameservices exist, use the `NAMESERVICE` variable to specify the one you want DataRobot to use.
+
+* For [HttpFS](https://hadoop.apache.org/docs/stable/hadoop-kms/index.html), set the following (options not shown in screen above):
+  - Check the `PREFER_HTTPFS` field and fill in a value for `HTTPFS_HOST`, specifying the HttpFS destination (for example, 'https://hostname:14000').
+  
 8. Click **Next**.
 
-9. In case if cluster is secured by Kerberos, provide credentials:
+9. If the cluster is secured by Kerberos, provide the admin credentials:
 <img src="images/ambari-kerberos.png" alt="" style="border: 1px solid black;"/>
 
 10. Proceed to the installation.
