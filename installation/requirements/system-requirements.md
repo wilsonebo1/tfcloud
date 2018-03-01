@@ -117,8 +117,10 @@ The version reported should be a version of `2.7`.
 
 ## Disk Space
 
-We recommend a minimum of 100GB free space on all nodes for DataRobot for
-production-ready systems.
+DataRobot requires a minimum of 100GiB of free disk space available at the following paths:
+
+- /opt/datarobot
+- /var/lib/docker
 
 For data storage nodes (running `gluster`, `HDFS`, etc.),
 we recommend a minimum of 4TB of free space for production-ready systems.
