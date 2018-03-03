@@ -1,4 +1,4 @@
-# Ambari (Hortonworks/BigInsights) Installation
+# Ambari (Hortonworks) Installation
 
 ## Transfer Files from Edgenode to Ambari
 
@@ -73,7 +73,6 @@ You should now be able to log in to the Ambari UI in your web browser.
 <img src="images/ambari-navigation-config.png" alt="" style="border: 1px solid black;"/>
 
 3. Append to the `mapreduce.application.classpath` parameter:
-  * Using BigInsights: `:/usr/iop/current/hadoop-mapreduce-client/*`
   * Using Hortonworks: `:/usr/hdp/current/hadoop-mapreduce-client/*`
 
 4. Save changes:

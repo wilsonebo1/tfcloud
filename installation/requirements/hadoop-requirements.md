@@ -3,7 +3,7 @@
 DataRobot is installable as a parcel that can run on your organization's
 Hadoop cluster.
 
-DataRobot can integrate with Cloudera, Hortonworks, and IBM BigInsights Hadoop distributions.
+DataRobot can integrate with Cloudera, and Hortonworks Hadoop distributions.
 
 **NOTE**: DataRobot supports only parcels as a format of software distribution for a Cloudera Hadoop cluster.
 Deployment via system specific packages (RPM, DEB, etc.) is not supported.
@@ -48,8 +48,7 @@ at least 5GB of available space.
 
 ## Ambari Requirements
 
-* If your cluster is based on Hortonworks, it must be version 2.3, 2.4, or 2.5.
-* If your cluster is based on IBM BigInsights, it must be version 4.1, or 4.2.
+* If your cluster is based on Hortonworks, it must be version 2.3, 2.4, 2.5 or 2.6.
 * Ambari cluster must be running on CentOS/RHEL version 7 or greater.
 
 ### Required files
