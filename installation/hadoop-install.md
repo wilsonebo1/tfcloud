@@ -1,7 +1,6 @@
 # Hadoop Installation Instructions
 
-DataRobot can integrate with Cloudera and Ambari Hadoop distributions.
-Supported Ambari distributions include Hortonworks and IBM BigInsights.
+DataRobot can integrate with Cloudera and Hortonworks Hadoop distributions.
 
 ## Create Config Files
 
@@ -45,7 +44,7 @@ Contact DataRobot support for help with this file.
 Now, use the following sections install DataRobot on Hadoop.
 
 * [Cloudera Installation](cloudera-install.md)
-* [Hortonworks/BigInsights Installation](ambari-install.md)
+* [Hortonworks Installation](ambari-install.md)
 
 When complete, proceed to synchronize configuration.
 

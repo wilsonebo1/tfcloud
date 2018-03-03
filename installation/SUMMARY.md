@@ -14,7 +14,7 @@
 * [Linux Installation](standard-install.md)
 * [Hadoop Installation](hadoop-install.md)
   * [Cloudera Installation](cloudera-install.md)
-  * [Hortonworks/BigInsights Installation](ambari-install.md)
+  * [Hortonworks Installation](ambari-install.md)
 * [Pre-Flight Checks](pre-flight-checks.md)
 * [Hadoop Pre-Flight Checks](pre-flight-checks.md#hadoop-checks)
 * [Advanced Configuration](special-topics/README.md)
