@@ -36,7 +36,7 @@ at least 5GB of available space.
 ## Cloudera Requirements
 
 * Cloudera CDH must be version 5.4 or greater.
-* Cloudera cluster must be running on CentOS/RHEL version 6.4 or greater.
+* Cloudera cluster must be running on CentOS/RHEL version 6.4 or greater on the X86_64 Architecture.
 
 ### Required files
 
@@ -50,7 +50,7 @@ at least 5GB of available space.
 
 * If your cluster is based on Hortonworks, it must be version 2.3, 2.4, or 2.5.
 * If your cluster is based on IBM BigInsights, it must be version 4.1, or 4.2.
-* Ambari cluster must be running on CentOS/RHEL version 7 or greater.
+* Ambari cluster must be running on CentOS/RHEL version 6.4 or greater on the X86_64 Architecture.
 
 ### Required files
 
