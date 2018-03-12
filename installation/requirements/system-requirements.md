@@ -66,8 +66,8 @@ usermod -aG docker datarobot
 
 ```bash
 echo 'datarobot ALL=(ALL) NOPASSWD: ALL' >> ./datarobot
+chown root:root /etc/sudoers.d/datarobot
 mv datarobot /etc/sudoers.d/
-chown root:wheel /etc/sudoers.d/datarobot
 ```
 
 * Passwordless SSH access to all nodes in the cluster, even in single-node environment.
