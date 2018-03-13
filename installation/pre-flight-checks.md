@@ -294,11 +294,11 @@ For Spark versions above 2.0, add the parameter `--conf "spark.yarn.stagingDir=<
 
 DataRobot relies on YARN CPU scheduling by default but for some YARN configurations CPU scheduling is not possible, in particular for `CapacityScheduler` with `DefaultResourseCalculator` (by default **HDP** has CPU scheduling disabled and **CDH** has CPU scheduling enabled).
 
-There are 3 way to fix this issue:
+There are 3 ways to fix this issue:
 
 1) If possible enable [DominantResourceCalculator](https://hadoop.apache.org/docs/r2.7.4/hadoop-yarn/hadoop-yarn-site/CapacityScheduler.html#Other_Properties)
    for [CapacityScheduler](https://hadoop.apache.org/docs/r2.7.4/hadoop-yarn/hadoop-yarn-site/CapacityScheduler.html) or switch to [FairScheduler](https://hadoop.apache.org/docs/r2.7.4/hadoop-yarn/hadoop-yarn-site/FairScheduler.html).  
-2) Set `YARN_CPU_SCHEDULING` to false in the Cloudera Manager configuration page for DataRobot.  
+2) Add `YARN_CPU_SCHEDULING: Fasle` to `config.yaml`.  
 3) Set number of vcores for each type of container to 1 in configuration.  
 
 This problem would manifest in the UI with some jobs waiting indefinitely for workers. Containers with one vcore would work (such as some ingest jobs or availability monitor pings), while modeling jobs and other tasks might wait forever.
