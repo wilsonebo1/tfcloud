@@ -292,21 +292,19 @@ For Spark versions above 2.0, add the parameter `--conf "spark.yarn.stagingDir=<
 
 ## Check YARN Scheduler Configuration
 
-DataRobot relies on YARN CPU scheduling by default but for some YARN
-configurations CPU scheduling is not possible, in particular for
-`CapacityScheduler` with `DefaultResourseCalculator` (**HDP** has this bad default,
-**CDH** has safe defaults). There 3 way to fix this issue:
+DataRobot relies on YARN CPU scheduling by default but for some YARN configurations CPU scheduling is not possible, in particular for `CapacityScheduler` with `DefaultResourseCalculator` (by default **HDP** has CPU scheduling disabled and **CDH** has CPU scheduling enabled).
 
-1) If possible enable [DominantResourceCalculator](https://hadoop.apache.org/docs/stable/hadoop-yarn/hadoop-yarn-site/CapacityScheduler.html#Other_Properties)
-   for [CapacityScheduler](https://hadoop.apache.org/docs/stable/hadoop-yarn/hadoop-yarn-site/CapacityScheduler.html) or switch to `FairScheduler`;  
-2) Set to `YARN_CPU_SCHEDULING` in DR configuration to false;  
-3) Set number of vcores for each type of container to 1 in configuration  
+There are 3 way to fix this issue:
 
-From UI standpoint this problem may manifest in following way: DR wait
-infinitely for some container types but others work fine (containers that has
-vcores==1 works but  vcores > 1 stuck)
+1) If possible enable [DominantResourceCalculator](https://hadoop.apache.org/docs/r2.7.4/hadoop-yarn/hadoop-yarn-site/CapacityScheduler.html#Other_Properties)
+   for [CapacityScheduler](https://hadoop.apache.org/docs/r2.7.4/hadoop-yarn/hadoop-yarn-site/CapacityScheduler.html) or switch to [FairScheduler](https://hadoop.apache.org/docs/r2.7.4/hadoop-yarn/hadoop-yarn-site/FairScheduler.html).  
+2) Set `YARN_CPU_SCHEDULING` to false in the Cloudera Manager configuration page for DataRobot.  
+3) Set number of vcores for each type of container to 1 in configuration.  
 
-Logs will contain lot of following warnings:
+This problem would manifest in the UI with some jobs waiting indefinitely for workers. Containers with one vcore would work (such as some ingest jobs or availability monitor pings), while modeling jobs and other tasks might wait forever.
+
+Additionally, you would find the following logs in the DataRobot Application Master logs:
+
 ```
 18/03/05 09:15:02,341  WARN [ForkJoinPool-1-worker-93] (YarnDispatcher.scala:178)
 - Allocated container does not have matching request.
@@ -315,6 +313,4 @@ details={"containerNodeAdress":"ip-10-50-178-21.ec2.internal:8042",
 "containerId":"container_e01_1520184952473_0001_01_021975",
 "requests":"ArrayBuffer()"}
 ```
-By itself this log message may appear on loaded system due to
-[YARN-1902](https://issues.apache.org/jira/browse/YARN-1902) and not considered
-problematic.
+By itself this log message may appear on a system under load due to [YARN-1902](https://issues.apache.org/jira/browse/YARN-1902) and is not considered problematic.
