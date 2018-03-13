@@ -11,6 +11,7 @@
 ## Installation
 
 * [Upgrades](upgrades.md)
+  * [Mongo Data Upgrade](special-topics/mongo-data-upgrade.md)
 * [Linux Installation](standard-install.md)
 * [Hadoop Installation](hadoop-install.md)
   * [Cloudera Installation](cloudera-install.md)
@@ -27,7 +28,6 @@
     * [Directory Creation](special-topics/admin-user.md#directories)
     * [Logging](special-topics/admin-user.md#logging)
   * [Database Password Protection](special-topics/database-passwords.md)
-  * [Mongo Data Upgrade](special-topics/mongo-data-upgrade.md)
   * [Integration with LDAP](special-topics/ldap.md)
   * [SELinux](special-topics/selinux.md)
   * [Disk quota](special-topics/disk-quota.md)
