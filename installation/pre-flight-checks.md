@@ -288,3 +288,29 @@ spark-submit --master yarn \
 When the job finishes you should see the result `Pi is roughly 3.1416745671416746`.
 If the installed version of Spark is below 2.0, you will need to create the home directory on HDFS for `PROXY_USER`.
 For Spark versions above 2.0, add the parameter `--conf "spark.yarn.stagingDir=<STAGING_DIR_ON_HDFS>"` to your command.
+
+
+## Check YARN Scheduler Configuration
+
+DataRobot relies on YARN CPU scheduling by default but for some YARN configurations CPU scheduling is not possible, in particular for `CapacityScheduler` with `DefaultResourseCalculator` (by default **HDP** has CPU scheduling disabled and **CDH** has CPU scheduling enabled).
+
+There are 3 ways to fix this issue:
+
+1) If possible enable [DominantResourceCalculator](https://hadoop.apache.org/docs/r2.7.4/hadoop-yarn/hadoop-yarn-site/CapacityScheduler.html#Other_Properties)
+   for [CapacityScheduler](https://hadoop.apache.org/docs/r2.7.4/hadoop-yarn/hadoop-yarn-site/CapacityScheduler.html) or switch to [FairScheduler](https://hadoop.apache.org/docs/r2.7.4/hadoop-yarn/hadoop-yarn-site/FairScheduler.html).  
+2) Set `YARN_CPU_SCHEDULING` to false in the Cloudera Manager or Ambari configuration page for DataRobot.
+3) Set number of vcores for each type of container to 1 in configuration.  
+
+This problem would manifest in the UI with some jobs waiting indefinitely for workers. Containers with one vcore would work (such as some ingest jobs or availability monitor pings), while modeling jobs and other tasks might wait forever.
+
+Additionally, you would find the following logs in the DataRobot Application Master logs:
+
+```
+18/03/05 09:15:02,341  WARN [ForkJoinPool-1-worker-93] (YarnDispatcher.scala:178)
+- Allocated container does not have matching request.
+details={"containerNodeAdress":"ip-10-50-178-21.ec2.internal:8042",
+"containerVCores":"4","containerMemory":"30208",
+"containerId":"container_e01_1520184952473_0001_01_021975",
+"requests":"ArrayBuffer()"}
+```
+By itself this log message may appear on a system under load due to [YARN-1902](https://issues.apache.org/jira/browse/YARN-1902) and is not considered problematic.
