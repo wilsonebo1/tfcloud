@@ -11,6 +11,7 @@
 ## Installation
 
 * [Upgrades](upgrades.md)
+  * [Mongo Data Upgrade](special-topics/mongo-data-upgrade.md)
 * [Linux Installation](standard-install.md)
 * [Hadoop Installation](hadoop-install.md)
   * [Cloudera Installation](cloudera-install.md)
