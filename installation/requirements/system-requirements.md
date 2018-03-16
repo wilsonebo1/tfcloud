@@ -68,7 +68,7 @@ usermod -aG docker datarobot
 
 ```bash
 echo 'datarobot ALL=(ALL) NOPASSWD: ALL' >> ./datarobot
-chown root:root /etc/sudoers.d/datarobot
+chown root:root datarobot
 mv datarobot /etc/sudoers.d/
 ```
 
