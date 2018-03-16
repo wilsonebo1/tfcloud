@@ -87,6 +87,16 @@ ssh -i ~/.ssh/id_rsa localhost date
 # and verify ssh connectivity from the install node.
 ```
 
+* Ensure that sshd is appropriately configured for public key authentication.
+
+```bash
+grep PubkeyAuthentication /etc/ssh/sshd_config
+# If a line like "#PubkeyAuthentication yes" appears, you must uncomment the line:
+sudo vi /etc/ssh/sshd_config
+# Uncomment the line, save and quit
+sudo systemctl restart sshd.service
+```
+
 If you are not able to give the `datarobot` user access to `sudo` or you have an
 alternative privilege escalation tool, see our additional documentation on
 installation with
