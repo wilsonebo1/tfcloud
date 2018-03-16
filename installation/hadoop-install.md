@@ -8,7 +8,7 @@ To enable this integration, first create `hadoop-configuration.yaml` and `config
 
 ### hadoop-configuration.yaml
 
-Place a file like the following in `/opt/datarobot/DataRobot-4.1.x/`
+Place a file like the following in `/opt/datarobot/DataRobot-4.2.x/`
 
 ```yaml
 # FILE: hadoop-configuration.yaml
@@ -32,7 +32,7 @@ chmod 0600 hadoop-configuration.yaml
 
 ### config.yaml
 
-Copy a sample YAML configuration file to `/opt/datarobot/DataRobot-4.1.x/config.yaml`.
+Copy a sample YAML configuration file to `/opt/datarobot/DataRobot-4.2.x/config.yaml`.
 
 You can find a sample Cloudera `config.yaml` file in `example-configs/multi-node.hadoop.yaml`. Modify the sample to suit your
 environment.
@@ -62,7 +62,7 @@ servers and the Hadoop cluster.
 * Start the configuration synchronization process.
 
 ```bash
-cd /opt/datarobot/DataRobot-4.1.x/
+cd /opt/datarobot/DataRobot-4.2.x/
 ./bin/datarobot hadoop-sync
 ```
 
