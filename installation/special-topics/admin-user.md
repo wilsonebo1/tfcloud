@@ -70,7 +70,7 @@ servers.
 * On all nodes, run the following commands:
 
 ```bash
-cd /opt/datarobot/DataRobot-4.1.x/
+cd /opt/datarobot/DataRobot-4.2.x/
 sudo yum localinstall -y --nogpgcheck \
     release/docker-packages/RedHat-7/prereqs/*.rpm
 sudo yum localinstall -y --nogpgcheck \
@@ -94,7 +94,7 @@ To do so, modify the daemon options on all Edge Node servers.
 {
     "group": "docker",
     "insecure-registries": [
-        "docker.registry:5000"
+        "<IP of application server>:5000"
     ],
     "storage-driver": "overlay",
     "selinux-enabled": true,
@@ -109,7 +109,7 @@ To do so, modify the daemon options on all Edge Node servers.
 ```bash
 # File snippet: /etc/sysconfig/docker
 OPTIONS='--selinux-enabled --log-driver=syslog --group=docker --storage-driver=overlay'
-INSECURE_REGISTRY='--insecure-registry docker.registry:5000'
+INSECURE_REGISTRY='--insecure-registry <IP of application server>:5000'
 ```
 
 * Restart the Docker service to apply changes:
@@ -188,36 +188,6 @@ mkdir -p data \
          odbc/local_configs \
          DataRobot \
          logs
-```
-
-## /etc/hosts File
-
-DataRobot services on the edge node use `/etc/hosts` entries to identify the
-locations of some services.
-
-Edit your `/etc/hosts` file to append the following lines, with IP
-addresses replaced as appropriate:
-
-```
-# FILE: /etc/hosts (append these lines)
-1.1.1.1 docker.registry
-1.1.1.1 predictionapi
-1.1.1.1 edabroker
-1.1.1.1 securebroker
-1.1.1.1 app
-1.1.1.1 nginx
-1.1.1.1 datasetsserviceapi
-1.1.1.1 queueproxy
-1.1.1.1 publicapi
-1.1.1.1 internalapi
-1.1.1.1 appupload
-1.1.1.1 resourceproxy
-1.1.1.1 mmqueue
-1.1.1.2 redis-0
-1.1.1.3 redis-1
-1.1.1.2 mongo-0
-1.1.1.3 mongo-1
-1.1.1.4 mongo-2
 ```
 
 ## Logging

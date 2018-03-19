@@ -68,7 +68,7 @@ usermod -aG docker datarobot
 
 ```bash
 echo 'datarobot ALL=(ALL) NOPASSWD: ALL' >> ./datarobot
-chown root:root /etc/sudoers.d/datarobot
+chown root:root datarobot
 mv datarobot /etc/sudoers.d/
 ```
 
@@ -85,6 +85,16 @@ chmod 600 ~/.ssh/authorized_keys
 ssh -i ~/.ssh/id_rsa localhost date
 # Append id_rsa.pub contents to /home/datarobot/.ssh/authorized_keys on other nodes
 # and verify ssh connectivity from the install node.
+```
+
+* Ensure that sshd is appropriately configured for public key authentication.
+
+```bash
+grep PubkeyAuthentication /etc/ssh/sshd_config
+# If a line like "#PubkeyAuthentication yes" appears, you must uncomment the line:
+sudo vi /etc/ssh/sshd_config
+# Uncomment the line, save and quit
+sudo systemctl restart sshd.service
 ```
 
 If you are not able to give the `datarobot` user access to `sudo` or you have an
