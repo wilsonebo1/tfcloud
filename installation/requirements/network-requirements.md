@@ -214,13 +214,6 @@ Both Cloudera and Ambari use these ports.
 | 7680  | TCP      | Not configurable              | DataRobot Application Manager |
 | 8020  | TCP      | `fs.default.name`, `fs.defaultFS` | NameNode IPC Port |
 | 8027  | TCP      |                               | Hadoop Configuration Sync |
-| 8485  | TCP      | `dfs.journalnode.rpc-address` | Required if using HA HDFS |
-| 44011 | TCP      | Not configurable              | DataRobot YARN Application Master Stats |
-| 44012 | TCP      | Not configurable              | DataRobot YARN Application Master Stats |
-| 44013 | TCP      | Not configurable              | DataRobot YARN Application Master Stats |
-| 44014 | TCP      | Not configurable              | DataRobot YARN Application Master Stats |
-| 44015 | TCP      | Not configurable              | DataRobot YARN Application Master Stats |
-| 44016 | TCP      | Not configurable              | DataRobot YARN Application Master Stats |
 | 50020 | TCP      | `dfs.datanode.ipc.address` | HDFS Metadata operations |
 | 50070 | TCP      | `dfs.namenode.http-address` | NameNode Web UI without HTTPS |
 | 50090 | TCP      | `dfs.namenode.secondary.http-address` | Secondary NameNode without HTTPS |
@@ -228,6 +221,17 @@ Both Cloudera and Ambari use these ports.
 | 50470 | TCP      | `dfs.namenode.https-address`  | NameNode Web UI with HTTPS |
 | 50475 | TCP      | `dfs.datanode.https.address`  | Data Transfer with HTTPS |
 
+
+These ports are only used on DataRobot 4.2.1 and above.
+
+| Port  | Protocol | Hadoop Configuration Variable | Component |
+|------:|:---------|:------------------------------|:----------|
+| 44011 | TCP      | Not configurable              | DataRobot YARN Application Master Stats |
+| 44012 | TCP      | Not configurable              | DataRobot YARN Application Master Stats |
+| 44013 | TCP      | Not configurable              | DataRobot YARN Application Master Stats |
+| 44014 | TCP      | Not configurable              | DataRobot YARN Application Master Stats |
+| 44015 | TCP      | Not configurable              | DataRobot YARN Application Master Stats |
+| 44016 | TCP      | Not configurable              | DataRobot YARN Application Master Stats |
 
 #### Additional Cloudera Ports
 
