@@ -211,9 +211,10 @@ Both Cloudera and Ambari use these ports.
 | Port  | Protocol | Hadoop Configuration Variable | Component |
 |------:|:---------|:------------------------------|:----------|
 | 2181  | TCP      | `clientPort`                  | ZooKeeper client port |
+| 7678  | TCP      | Not configurable              | Worker Broker Client  |
 | 7680  | TCP      | Not configurable              | DataRobot Application Manager |
 | 8020  | TCP      | `fs.default.name`, `fs.defaultFS` | NameNode IPC Port |
-| 8027  | TCP      |                               | Hadoop Configuration Sync |
+| 8027  | TCP      | Not configurable              | Hadoop Configuration Sync |
 | 8485  | TCP      | `dfs.journalnode.rpc-address` | Required if using HA HDFS |
 | 9001  | TCP      | Not configurable              | ETL Controller |
 | 50020 | TCP      | `dfs.datanode.ipc.address` | HDFS Metadata operations |
@@ -313,6 +314,7 @@ All of these are listed in one or more of the above tables.
 |7186|TCP|Cloudera Internal Communication|All Hadoop Nodes (CDH only)|All Hadoop Nodes (CDH only)|
 |7190|TCP/UDP|Cloudera P2P Parcel Distribution|All Hadoop Nodes (CDH only)|All Hadoop Nodes (CDH only)|
 |7191|TCP/UDP|Cloudera P2P Parcel Distribution|All Hadoop Nodes (CDH only)|All Hadoop Nodes (CDH only)|
+|7678|TCP|Worker Broker Client (Hadoop only)|All Cluster Nodes|All Cluster Nodes|
 |7680|TCP|DataRobot Application Manager|All Hadoop Nodes|Application Servers|
 |8000|TCP|DataRobot Flask Application|All Cluster Nodes|All Cluster Nodes|
 |8001|TCP|DataRobot v0 API|All Cluster Nodes|All Cluster Nodes|
