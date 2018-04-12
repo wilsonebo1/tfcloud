@@ -106,12 +106,13 @@ DataRobot requires proxy-user settings in both secure (= Kerberos enabled) and n
 	hadoop.proxyuser.datarobot.hosts=*
 	```
 
-	Adding the above properties enables DataRobot to impersonate any user. These permissions can be narrowed, if needed, but DataRobot must be in the list. 
+	Adding the above properties enables DataRobot to impersonate any user. These permissions can be narrowed, if needed, via `groups` and `users` but DataRobot must be in the respective lists. 
 
 8. (Optional) Add proxyuser properties for YARN. In nonsecure clusters without the Linux Container Executor (LCE) setup, you also need to allow the YARN user to proxy DataRobot.
 
 	```bash
 	hadoop.proxyuser.yarn.groups=datarobot
+	hadoop.proxyuser.yarn.users=datarobot
 	hadoop.proxyuser.yarn.hosts=*
 	```
 

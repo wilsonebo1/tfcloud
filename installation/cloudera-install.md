@@ -161,6 +161,7 @@ Paste the following XML into the large text box:
 
 	```bash
 	hadoop.proxyuser.yarn.groups=datarobot
+	hadoop.proxyuser.yarn.users=datarobot
 	hadoop.proxyuser.yarn.hosts=*
 	```
 
