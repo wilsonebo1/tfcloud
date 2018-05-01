@@ -294,19 +294,6 @@ sudo service rsyslog restart
 
 On all application servers, configure logrotate to conserve space.
 
-```
-# FILE: /etc/logrotate.d/datarobot
-/opt/datarobot/logs/*.log {
-    su root root
-    daily
-    rotate 30
-    copytruncate
-    compress
-    missingok
-    notifempty
-}
-```
-
 **NOTE**: DataRobot logs are written to the daemon syslog facility.
 
 Review your system’s RSYSLOG configuration (`/etc/rsyslog.conf`
@@ -320,20 +307,17 @@ An example logrotate configuration is below. Modify it to suit your needs.
 
 ```
 # FILE: /etc/logrotate.d/datarobot
-/var/log/syslog
-/var/log/daemon.log
-/var/log/messages
-{
-    rotate 4
-    weekly
-    missingok
-    notifempty
-    compress
-    delaycompress
-    sharedscripts
-    postrotate
-        invoke-rc.d rsyslog rotate > /dev/null
-    endscript
+/opt/datarobot/logs/*.log {
+        su root root
+        daily
+        rotate 30
+        compress
+        delaycompress
+        missingok
+        notifempty
+        postrotate
+            pkill --ns $$ rsyslog -HUP
+        endscript
 }
 ```
 

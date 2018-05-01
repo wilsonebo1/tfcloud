@@ -165,10 +165,13 @@ Example:
     su root root
     daily
     rotate 30
-    copytruncate
+    delaycompress
     compress
     missingok
     notifempty
+    postrotate
+        pkill --ns $$ rsyslog -HUP
+    endscript
 }
 ```
 
@@ -297,9 +300,9 @@ DataRobot relies on YARN CPU scheduling by default but for some YARN configurati
 There are 3 ways to fix this issue:
 
 1) If possible enable [DominantResourceCalculator](https://hadoop.apache.org/docs/r2.7.4/hadoop-yarn/hadoop-yarn-site/CapacityScheduler.html#Other_Properties)
-   for [CapacityScheduler](https://hadoop.apache.org/docs/r2.7.4/hadoop-yarn/hadoop-yarn-site/CapacityScheduler.html) or switch to [FairScheduler](https://hadoop.apache.org/docs/r2.7.4/hadoop-yarn/hadoop-yarn-site/FairScheduler.html).  
+   for [CapacityScheduler](https://hadoop.apache.org/docs/r2.7.4/hadoop-yarn/hadoop-yarn-site/CapacityScheduler.html) or switch to [FairScheduler](https://hadoop.apache.org/docs/r2.7.4/hadoop-yarn/hadoop-yarn-site/FairScheduler.html).
 2) Set `YARN_CPU_SCHEDULING` to false in the Cloudera Manager or Ambari configuration page for DataRobot.
-3) Set number of vcores for each type of container to 1 in configuration.  
+3) Set number of vcores for each type of container to 1 in configuration.
 
 This problem would manifest in the UI with some jobs waiting indefinitely for workers. Containers with one vcore would work (such as some ingest jobs or availability monitor pings), while modeling jobs and other tasks might wait forever.
 
