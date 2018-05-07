@@ -8,6 +8,8 @@ DataRobot can integrate with Cloudera, and Hortonworks Hadoop distributions.
 **NOTE**: DataRobot supports only parcels as a format of software distribution for a Cloudera Hadoop cluster.
 Deployment via system specific packages (RPM, DEB, etc.) is not supported.
 
+DataRobot is not supported on Hadoop clusters that use Sentry security because Sentry does not allow impersonation.
+
 ## Access Requirements
 
 The administrator must have permission to access the Cloudera or Ambari Manager
