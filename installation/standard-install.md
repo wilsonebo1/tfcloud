@@ -23,7 +23,7 @@ sudo setenforce Permissive
 Additionally, configure permissive boot after reboot:
 
 ```bash
-sudo sed -i 's/enforcing/permissive/' /etc/sysconfig/selinux
+sudo sed -i --follow-symlinks 's/SELINUX=enforcing/SELINUX=permissive/' /etc/sysconfig/selinux
 ```
 
 ### Copy Artifact
