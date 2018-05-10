@@ -156,7 +156,9 @@ Example ports include:
 | 8030-8050  | TCP      | YARN Ports |
 | 8088       | TCP      | YARN ResourceManager HTTP |
 | 8090       | TCP      | YARN ResourceManager HTTPs |
-
+| 8188       | TCP      | YARN Timeline Server HTTP |
+| 8190       | TCP      | YARN Timeline Server HTTPS |
+| 10200      | TCP      | YARN Timeline Server RPC |
 
 #### Additional Cloudera Ports
 
@@ -337,10 +339,13 @@ All of these are listed in one or more of the above tables.
 |8090|TCP|YARN ResourceManager HTTPs|All Hadoop Nodes|All Hadoop Nodes|
 |8097|TCP|DataRobot Prediction Optimization Application|All Cluster Nodes|All Cluster Nodes|
 |8100|TCP|DataRobot Datasets Service API|All Cluster Nodes|All Cluster Nodes|
+|8188|TCP|YARN Timeline Service webapp HTTP|YARN Timeline Service host|All Hadoop Nodes|
+|8190|TCP|YARN Timeline Service webapp HTTPS|YARN Timeline Service host|All Hadoop Nodes|
 |8485|TCP|Required if using HA HDFS|All Hadoop Nodes|Application Servers|
 |9001|TCP|ETL Controller|All Hadoop Nodes|Application Servers|
 |9090|TCP|DataRobot Availability Monitor|Application Servers|Application Servers|
 |9496|TCP|DataRobot PNGExport Service|All Cluster Nodes|All Cluster Nodes|
+|10200|TCP|YARN Timeline Service RPC|YARN Timeline Service host|All Hadoop Nodes|
 |24007|TCP|Gluster Daemon|All Cluster Nodes|All Cluster Nodes|
 |24008|TCP|Gluster Management|All Cluster Nodes|All Cluster Nodes|
 |24009|TCP|Gluster Brick|All Cluster Nodes|All Cluster Nodes|
