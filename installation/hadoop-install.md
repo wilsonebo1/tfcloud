@@ -21,7 +21,7 @@ use_tls: false
 ignore_ca: false
 ```
 
-More information about the SSL/TLS keys can be found in the [TLS Guide](installation/special-topics/tls.md#cm-tls)
+More information about the SSL/TLS keys can be found in the [TLS Guide](special-topics/tls.md#cm-tls)
 
 Verify your file is correctly configured with
 
@@ -51,7 +51,7 @@ When complete, proceed to synchronize configuration.
 ## Synchronize Configuration
 
 **NOTE**: This section assumes you have completed the [Linux Installation](standard-install.md) portion of the installation process, and
-one of the [Hadoop Installation)(hadoop-install.md#hadoop-installation)
+one of the [Hadoop Installation](hadoop-install.md#hadoop-installation)
 process for either Cloudera or Ambari Hadoop.
 
 Now, DataRobot needs to synchronize configuration between the application
