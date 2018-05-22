@@ -70,10 +70,17 @@ Remove the following keys, if present:
 * `USER_MODEL_CONTEXT_BASE`
 * `SECURE_WORKER_USER_TASK_IMAGE`
 
+On upgrade to version 4.3 the following required changes must be made to `config.yaml`:
+
+1. Remove the instance of the `edabroker` service and replace it with the following two services: `taskmanager` and `rabbit`. There should be exactly one instance of both the `taskmanager` and the `rabbit` services on each cluster.
+
+2. Remove the instance of the `edaworker` service and replace it with the `execmanager` service. NOTE: this component should _not_ be present on Hadoop installs.
+
+
 ### Upgrade mongo data
 
-Starting with DataRobot release 4.2 the version of mongo has been upgraded from 2.4 to 3.4. 
-The mongo storage engine has been upgraded to WiredTiger. 
+Starting with DataRobot release 4.2 the version of mongo has been upgraded from 2.4 to 3.4.
+The mongo storage engine has been upgraded to WiredTiger.
 Customers upgrading from prior releases will need to go through a data upgrade process.
 See [Mongo Data Upgrade](special-topics/mongo-data-upgrade.md) for additional details.
 

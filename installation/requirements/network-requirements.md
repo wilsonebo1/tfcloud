@@ -52,6 +52,7 @@ application server cluster, whether or not using Hadoop.
 | 5445  | TCP      | IDE Client Broker |
 | 5446  | TCP      | IDE Client Worker |
 | 5544  | UDP      | Audit Logs |
+| 5672  | TCP      | RabbitMQ |
 | 6379  | TCP      | Redis |
 | 6556  | TCP      | Resource Proxy Subscriber |
 | 6557  | TCP      | Resource Proxy Publisher |
@@ -78,10 +79,8 @@ DataRobot workers.
 
 | Port  | Protocol | Component |
 |------:|:---------|:----------|
-| 5555  | TCP      | Worker Broker Client |
-| 5556  | TCP      | Worker Broker |
-| 5558  | TCP      | User Worker Broker Client |
-| 5559  | TCP      | User Worker Broker |
+| 5558  | TCP      | Secure Worker Broker Client |
+| 5559  | TCP      | Secure Worker Broker |
 
 ### Gluster Ports
 
@@ -286,10 +285,9 @@ All of these are listed in one or more of the above tables.
 |5445|TCP|IDE Client Broker|All Cluster Nodes|All Cluster Nodes|
 |5446|TCP|IDE Client Worker|All Cluster Nodes|All Cluster Nodes|
 |5544|UDP|Audit Logs|All Cluster Nodes|All Cluster Nodes|
-|5555|TCP|Worker Broker Client (non-Hadoop only)|All Cluster Nodes|All Cluster Nodes|
-|5556|TCP|Worker Broker (non-Hadoop only)|All Cluster Nodes|All Cluster Nodes|
-|5558|TCP|User Worker Broker Client (non-Hadoop only)|All Cluster Nodes|All Cluster Nodes|
-|5559|TCP|User Worker Broker (non-Hadoop only)|All Cluster Nodes|All Cluster Nodes|
+|5558|TCP|Secure Worker Broker Client (non-Hadoop only)|All Cluster Nodes|All Cluster Nodes|
+|5559|TCP|Secure Worker Broker (non-Hadoop only)|All Cluster Nodes|All Cluster Nodes|
+|5672|TCP|RabbitMQ|All Cluster Nodes|All Cluster Nodes|
 |6379|TCP|Redis|All Cluster Nodes|All Cluster Nodes|
 |6556|TCP|Resource Proxy Subscriber|Application Servers|All Cluster Nodes|
 |6557|TCP|Resource Proxy Publisher|Application Servers|Application Servers|
