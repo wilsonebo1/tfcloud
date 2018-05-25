@@ -76,6 +76,18 @@ On upgrade to version 4.3 the following required changes must be made to `config
 
 2. Remove the instance of the `edaworker` service and replace it with the `execmanager` service. NOTE: this component should _not_ be present on Hadoop installs.
 
+### Update Network configuration
+
+On upgrade to version 4.3, the following changes to the open ports between hosts must be made:
+
+
+| Action            | Port  | Protocol | Component            |
+|:------------------|------:|:---------|:---------------------|
+| Add               | 5672  | TCP      | RabbitMQ |
+| Optionally Remove | 5555  | TCP      | Worker Broker Client |
+| Optionally Remove | 5556  | TCP      | Worker Broker |
+
+
 
 ### Upgrade mongo data
 
