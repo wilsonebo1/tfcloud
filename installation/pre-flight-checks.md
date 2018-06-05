@@ -182,7 +182,7 @@ Use these checks before installation to ensure that your Hadoop environment is r
 
 ## Service health and configuration
 
-Check for health and configuration issues reported by Cloudera Manager or Ambari.
+Check for health and configuration issues reported by Hadoop Manager.
 
 **CDH**:
 
@@ -193,6 +193,7 @@ Note: this screen will appear when restarting services on the cluster if there a
 <img src="images/ambari-config-issues.png" alt="" style="border: 1px solid black;"/>
 
 ## Test YARN Container Submission
+
 Ensure the datarobot user can submit yarn applications with the required container size.
 Modify the `container_memory`, `num_containers` and `container_vcores` parameters to match your expected container size.
 
@@ -234,6 +235,7 @@ drwxrwxrwt   - mapred    hadoop              0 2017-10-16 11:42 /tmp/logs
 ```
 
 ## Check LDAP Impersonation
+
 In environments with LDAP or user impersonation, ensure the `datarobot` user can successfully impersonate Unix users:
 
 ```bash
@@ -246,7 +248,7 @@ curl -i --negotiate -u : "http://${WEBHDFS_HOST}:${WEBHDFS_PORT}/webhdfs/v1/${PA
 
 The HTTP status code should be 200 and the request should return a json object with a list of files:
 
-```
+```bash
 HTTP/1.1 200 OK
 Cache-Control: no-cache
 Expires: Tue, 17 Oct 2017 11:05:27 GMT
@@ -266,11 +268,12 @@ Transfer-Encoding: chunked
 ```
 
 ## Check Spark Health
+
 Make sure Spark is installed and functioning:
 
 **CDH**:
 
-```
+```bash
 spark-submit --master yarn \
     --num-executors 3 --executor-memory 20g --executor-cores 4 \
     --proxy-user PROXY_USER \
@@ -280,7 +283,7 @@ spark-submit --master yarn \
 
 **HDP**:
 
-```
+```bash
 spark-submit --master yarn \
     --num-executors 3 --executor-memory 20g --executor-cores 4 \
     --proxy-user PROXY_USER \

@@ -3,7 +3,7 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-
+ALL_BOOKS="administration/en administration/jp installation rpm-installation"
 IMAGE_NAME=dr-gitbook
 TEST_CONTAINER=gitbook-test
 
@@ -54,10 +54,20 @@ function _test {
     local refname=$(git reflog | head -n 1 | cut -d ' ' -f1)
     local user_id=$(id -u)
 
+    # allow testing a single book, otherwise default to all books
+    if [ -z "$@" ]; then
+        local books=$ALL_BOOKS
+    else
+        local books="$@"
+    fi
+
+    local oldIFS=$IFS
+    IFS=' '
     set +e
-    for book_dir in administration/en administration/jp installation; do
+    for book_dir in $books; do
         local book=$(echo $book_dir | sed -e 's/.*\///')
         set -x
+        echo "Building book: $book"
         docker run --rm --name $TEST_CONTAINER \
                -e "BOOK_DIR=$book_dir" \
                -e "BOOK=$book" \
@@ -69,6 +79,7 @@ function _test {
                /gitbook.sh
         set +x
     done
+    IFS=$oldIFS
     cat > test-results.xml <<EOF
 <?xml version="1.0" encoding="utf-8"?>
 <testsuite errors="0" failures="0" name="Gitbook Tests" skips="0" tests="1">
@@ -100,19 +111,19 @@ function _run_target() {
         build)
             _note "Building"
             set -x
-            _build
+            _build $args
             set +x ;;
         clean)
             _note "Cleaning"
             set -x
-            _clean
+            _clean $args
             set +x ;;
         test*)
             _note "Running Test"
             set -x
             _clean
-            _build
-            _test
+            _build $args
+            _test $args
             set +x
             ;;
         *)

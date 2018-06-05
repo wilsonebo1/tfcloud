@@ -1,6 +1,6 @@
 # Hadoop Installation Instructions
 
-DataRobot can integrate with Cloudera and Hortonworks Hadoop distributions.
+DataRobot can integrate with Cloudera Hadoop distribution.
 
 ## Create Config Files
 
@@ -15,13 +15,13 @@ Place a file like the following in `/opt/datarobot/DataRobot-4.2.x/`
 ---
 cluster_name: <name of hadoop cluster>
 manager_address: <address of Hadoop Manager>
-manager_type: <ambari or cloudera>
+manager_type: cloudera
 # Set these to true if the Hadoop Manager is using SSL/TLS
 use_tls: false
 ignore_ca: false
 ```
 
-More information about the SSL/TLS keys can be found in the [TLS Guide](special-topics/tls.md#cm-tls)
+More information about the SSL/TLS keys can be found in the [TLS Guide](installation/special-topics/tls.md#cm-tls)
 
 Verify your file is correctly configured with
 
@@ -34,7 +34,7 @@ chmod 0600 hadoop-configuration.yaml
 
 Copy a sample YAML configuration file to `/opt/datarobot/DataRobot-4.2.x/config.yaml`.
 
-You can find a sample Cloudera `config.yaml` file in `example-configs/multi-node.hadoop.yaml`. Modify the sample to suit your
+You can find a sample Cloudera `config.yaml` file in `example-configs/single-node-poc.hadoop.yaml`. Modify the sample to suit your
 environment.
 
 Contact DataRobot support for help with this file.
@@ -44,14 +44,13 @@ Contact DataRobot support for help with this file.
 Now, use the following sections install DataRobot on Hadoop.
 
 * [Cloudera Installation](cloudera-install.md)
-* [Hortonworks Installation](ambari-install.md)
 
 When complete, proceed to synchronize configuration.
 
 ## Synchronize Configuration
 
 **NOTE**: This section assumes you have completed the [Linux Installation](standard-install.md) portion of the installation process, and
-the [Hadoop Installation)(hadoop-install.md#hadoop-installation) process.
+the [Hadoop Installation](hadoop-install.md#hadoop-installation) process.
 
 Now, DataRobot needs to synchronize configuration between the application
 servers and the Hadoop cluster.
@@ -62,6 +61,7 @@ servers and the Hadoop cluster.
 
 ```bash
 cd /opt/datarobot/DataRobot-4.2.x/
+source release/profile
 ./bin/datarobot hadoop-sync
 ```
 
@@ -76,22 +76,8 @@ information to the Hadoop Manager and trigger a restart of the DataRobot service
 application server, which triggers a configuration synchronization process on
 the application server that restarts services.
 
-* Verify that the installation and configuration have successfully completed:
-
-```bash
-./bin/datarobot health hadoop-health
-```
-
-* Generate the initial admin account for the DataRobot application:
-
-```bash
-docker exec app create_initial_admin.sh
-```
-
 You can now open the DataRobot application in your web browser by pointing it
 to `http://[APPLICATION SERVER FQDN OR IP ADDRESS]` and logging in using the
-credentials printed out by the previous command.
-
-You should use this account for creating new users and modifying user permissions only.
+credentials printed out at the end of the [Linux Installation](standard-install.md#linux-provision) process.
 
 Installation is now complete.

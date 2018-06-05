@@ -19,7 +19,7 @@ You may use separate keys for your prediction servers.
         enabled: true
         cert_file_name: pred_cert.pem
         key_file_name: pred_cert.key
-``` 
+```
 
 If your certificates are signed by an internal Certificate Authority, you will need to disable TLS certificate validation in the application.
 ```yaml
@@ -32,9 +32,9 @@ If your certificates are signed by an internal Certificate Authority, you will n
 ```
 This will not disable SSL/TLS; all traffic to the web server will still be encrypted.
 
-## Cloudera Manager or Ambari TLS {#cm-tls}
+## Hadoop Manager TLS {#cm-tls}
 
-If your Cloudera Manager or Ambari Server is secured with TLS, set the following flags in your `hadoop-configration.yaml` file:
+If your Hadoop Manager is secured with TLS, set the following flags in your `hadoop-configuration.yaml` file:
 
 ```yaml
     # hadoop-configuration.yaml snippet

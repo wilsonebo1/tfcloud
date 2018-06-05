@@ -157,17 +157,17 @@ Paste the following XML into the large text box:
 </property>
 ```
 
-*. (Optional) Add proxyuser properties for YARN. In nonsecure clusters without the Linux Container Executor (LCE) setup, you also need to allow the YARN user to proxy DataRobot.
+* (Optional) Add proxyuser properties for YARN. In nonsecure clusters without the Linux Container Executor (LCE) setup, you also need to allow the YARN user to proxy DataRobot.
 
-	```bash
-	hadoop.proxyuser.yarn.groups=datarobot
-	hadoop.proxyuser.yarn.users=datarobot
-	hadoop.proxyuser.yarn.hosts=*
-	```
+```bash
+hadoop.proxyuser.yarn.groups=datarobot
+hadoop.proxyuser.yarn.users=datarobot
+hadoop.proxyuser.yarn.hosts=*
+```
 
-  * (Optional) If you want DataRobot to use [HttpFS](https://hadoop.apache.org/docs/stable/hadoop-kms/index.html) instead of [webhdfs](http://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/WebHDFS.html), add proxyuser properties for HttpFS as described [here](special-topics/httpfs.md).
+* (Optional) If you want DataRobot to use [HttpFS](https://hadoop.apache.org/docs/stable/hadoop-kms/index.html) instead of [webhdfs](http://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/WebHDFS.html), add proxyuser properties for HttpFS as described [here](special-topics/httpfs.md).
 
-  * (Optional) If your secure cluster has a [Key Management Server (KMS)](https://hadoop.apache.org/docs/stable/hadoop-kms/index.html), add proxy user properties for KMS as described [here](special-topics/kms.md).
+* (Optional) If your secure cluster has a [Key Management Server (KMS)](https://hadoop.apache.org/docs/stable/hadoop-kms/index.html), add proxy user properties for KMS as described [here](special-topics/kms.md).
 
 ---
 **NOTE**
@@ -330,7 +330,7 @@ and at least four cores.
 
 * For [HttpFS](https://hadoop.apache.org/docs/stable/hadoop-kms/index.html), set the following (options not shown in screen above):
   - Check the `PREFER_HTTPFS` field and fill in a value for `HTTPFS_HOST`, specifying the HttpFS destination (for example, 'https://hostname:14000').
-  
+
 * Click **Continue** and wait while DataRobot is added to the cluster.
 
 * When the process is complete, click **Continue**.

@@ -24,9 +24,11 @@ To enable or change passwords after installing DataRobot, follow these steps.
 
 * Enable secrets with
 
+{% block enable_secrets_command %}
 ```bash
 ./bin/datarobot install
 ```
+{% endblock %}
 
 * You should regularly rotate secrets:
 
@@ -50,7 +52,13 @@ os_configuration:
 
 * Remove the file `/opt/datarobot/DataRobot-4.2.x/secrets.yaml` if it exists.
 
-* Execute `./bin/datarobot install`
+* Execute:
+
+{% block disable_secrets_command %}
+```bash
+./bin/datarobot install
+```
+{% endblock %}
 
 * If your cluster is integrated with Hadoop, you will need to run
 `./bin/datarobot hadoop-sync`.

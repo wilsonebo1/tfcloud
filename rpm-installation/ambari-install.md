@@ -1,0 +1,1 @@
+../installation/ambari-install.md

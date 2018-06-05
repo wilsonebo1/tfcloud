@@ -1,0 +1,134 @@
+# DataRobot System Requirements
+
+This section describes the software and infrastructure requirements for running the DataRobot application.
+It assumes you have provisioned sufficient hardware resources to run large computational workloads.
+
+# Linux Application Server {#linux-requirements}
+
+## Linux Distribution
+
+DataRobot officially supports RedHat and CentOS at versions `6.9` and `7.4` and above.
+
+Your Linux server must have access to up-to-date repository servers with standard RedHat packages.
+
+Additionally, access to the following packages and their dependencies are required.
+
+```bash
+bzip2, bzip2-libs, ca-certificates, curl, cyrus-sasl, db4, file, freetype, gdbm, glibc, gmp, gpgme, libaio, libcurl,
+libffi, libgcc, libgfortran, libgomp, libpcap, libpng, libstdc++, libuuid, libXft, libxml2, mysql, mysql-libs, ncurses,
+net-tools, numactl, openssl, readline, snappy, sqlite, tar, tk, uuid, wget, xz, zlib
+```
+
+These packages are available on [Extra Packages for Enterprise Linux (EPEL)](https://fedoraproject.org/wiki/EPEL) for CentOS/RHEL 6/7.
+
+We recommend making the latest stable version from EPEL available in your internal repositories if you are not using EPEL.
+
+## Shell
+
+You must have access to a shell (`/bin/bash` is preferred).
+
+## Users
+
+DataRobot runs all services as a user named `datarobot`, which will be created during the RPM and Hadoop installation process.
+
+A separate admin user must be provided by the customer for running installation and administration commmands.
+It will be assumed that this user is used when running any commands in these instructions.
+This user _must_ be able to execute any commands with `sudo`.
+For illustration purposes, we will use the username `dradmin` throughout this documentation.
+
+The user may be a system user, but keep in mind you will want to set a default shell for the user.
+This user must have access to the following:
+
+* Enable sudo for the admin user.
+
+```bash
+echo 'dradmin ALL=(ALL) NOPASSWD: ALL' >> ./dradmin
+chown root:root dradmin
+sudo mv dradmin /etc/sudoers.d/
+```
+
+* Passwordless SSH access to all nodes in the cluster, even in single-node environment.
+Please ensure there is no SSH timeout; some SSH commands take a long time to run, particularly if disk access is slow.
+If there is an SSH timeout, it must be greater than 45 minutes.
+
+```bash
+ssh-keygen -t rsa
+# Hit Enter at the prompts
+cat .ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+chmod 600 ~/.ssh/authorized_keys
+ssh -i ~/.ssh/id_rsa localhost date
+# Append id_rsa.pub contents to /home/datarobot/.ssh/authorized_keys on other nodes
+# and verify ssh connectivity from the install node.
+```
+
+* Ensure that sshd is appropriately configured for public key authentication.
+
+```bash
+grep PubkeyAuthentication /etc/ssh/sshd_config
+# If a line like "#PubkeyAuthentication yes" appears, you must uncomment the line:
+sudo vi /etc/ssh/sshd_config
+# Uncomment the line, save and quit
+sudo systemctl restart sshd.service
+```
+
+## Software
+
+You must have the following software installed.
+Running the following commands should succeed.
+
+* RSYSLOG
+
+```bash
+service rsyslog status  # Should show service status
+```
+
+* logrotate
+
+```bash
+which logrotate  # Should output a path to logrotate
+```
+
+## Disk Space
+
+DataRobot requires a minimum of free disk space available at the following paths:
+
+- /opt/datarobot - 80 GiB;
+
+For data storage nodes (running `HDFS`, etc.), we recommend a minimum of 4TB of free space for production-ready systems.
+
+## Files
+
+| Description | Filename | Notes |
+|:------------|:---------|:------|
+| DataRobot Distribution | DataRobot-RELEASE-4.x.x.tar.gz | A tarball containing all files required for DataRobot installation |
+
+## Additional requirements
+
+Make sure there aren't any protocol proxy environment variables set. Usually they go with following names:
+
+```bash
+http_proxy
+https_proxy
+ftp_proxy
+rsync_proxy
+no_proxy
+```
+
+**NOTE**: in most of the cases these names are used in lowercase in contrast to conventional upper case naming for shell environment variables.
+But there may be exceptions to this.
+
+You can check their presence by running:
+
+```bash
+env | grep -i proxy
+```
+
+To unset these for an entire cluster add following lines to `/home/datarobot/.bashrc` file on every node:
+
+```bash
+unset http_proxy
+unset https_proxy
+unset ftp_proxy
+unset rsync_proxy
+unset no_proxy
+```
