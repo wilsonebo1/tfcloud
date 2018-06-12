@@ -143,6 +143,39 @@ we recommend a minimum of 4TB of free space for production-ready systems.
 |:------------|:---------|:------|
 | DataRobot Distribution | DataRobot-RELEASE-4.x.x.tar.gz | A tarball containing all files required for DataRobot installation |
 
+## Limits
+
+Recommended limits for various system parameters are below.
+
+#### Open files
+
+There should be at least 65535 open file handles available for processes.
+This can be set through through ulimits in `/etc/security/limits.conf`:
+
+```bash
+*         hard    nofile      65535
+*         soft    nofile      65535
+```
+
+#### Number of processes
+
+There should be at least 32768 process numbers availabe.
+These can be set through through ulimits in `/etc/security/limits.conf`:
+
+```bash
+*      soft   nproc    32768
+*      hard   nproc    32768
+```
+
+#### Keys in keyrings
+
+Set `root_maxkeys` to at least 1000000.
+This can be set through `/etc/sysctl.conf`:
+
+```bash
+kernel.keys.root_maxkeys = 1000000
+```
+
 ## Additional requirements
 
 Make sure there aren't any protocol proxy environment variables set. Usually they go with following names:
