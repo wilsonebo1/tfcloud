@@ -95,6 +95,14 @@ internal ports are required.
 | 24009 | TCP      | Gluster Brick |
 | 49152 | TCP      | Gluster Brick |
 
+### Optional Premium Feature Ports
+These ports are only required if the referenced feature has been purchased and enabled.
+
+| Port  | Protocol | Component |
+|------:|:---------|:----------|
+| 5432  | TCP      | Model Management timescaledb |
+| 1514  | TCP      | Model Management modmonrsyslogmaster |
+
 ## Hadoop Installations
 
 **NOTE**: Default Hadoop ports are listed here.
@@ -276,12 +284,14 @@ All of these are listed in one or more of the above tables.
 |1019|TCP|Data transfer (HDFS HA) (Ambari only)|All Hadoop Nodes|Application Servers|
 |1022|TCP|Data transfer without HTTPS (HDFS HA) (Ambari only)|All Hadoop Nodes|Application Servers|
 |1514|UDP|Logging|Provisioner/Admin|All Cluster Nodes|
+|1514|TCP|Logging|modmonrsyslogmaster (premium feature)|Dedicated Prediction Workers|
 |2181|TCP|ZooKeeper client port|All Hadoop Nodes|Application Servers|
 |2552|TCP|Cloudera Log Publisher (Cloudera only)|All Hadoop Nodes|Application Servers|
 |2888|TCP|Zookeeper Quorom Port|All Hadoop Nodes|All Hadoop Nodes|
 |3000|TCP|DataRobot Prediction Optimization User Interface|All Cluster Nodes|All Cluster Nodes|
 |3888|TCP|Zookeeper Election Port|All Hadoop Nodes|All Hadoop Nodes|
 |5000|TCP|Docker Registry|All Cluster Nodes|All Cluster Nodes|
+|5432|TCP|Timescaledb (premium feature)|Timescaledb|modmonrsyslogmaster, modmonworker and publicapi|
 |5445|TCP|IDE Client Broker|All Cluster Nodes|All Cluster Nodes|
 |5446|TCP|IDE Client Worker|All Cluster Nodes|All Cluster Nodes|
 |5544|UDP|Audit Logs|All Cluster Nodes|All Cluster Nodes|
