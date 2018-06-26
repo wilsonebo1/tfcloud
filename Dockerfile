@@ -9,7 +9,7 @@ RUN apt-get update && \
     npm cache clear --force && \
     rm -rf /tmp/*
 
-WORKDIR /gitbook
+WORKDIR /tmp/gitbook
 
 EXPOSE 4000 35729
 

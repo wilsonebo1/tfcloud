@@ -54,29 +54,27 @@ function _test {
     local refname=$(git reflog | head -n 1 | cut -d ' ' -f1)
     local user_id=$(id -u)
 
-    # allow testing a single book, otherwise default to all books
-    if [ -z "$@" ]; then
-        local books=$ALL_BOOKS
-    else
-        local books="$@"
-    fi
-
     local oldIFS=$IFS
     IFS=' '
-    set +e
-    for book_dir in $books; do
-        local book=$(echo $book_dir | sed -e 's/.*\///')
+
+    rm -rf output/*
+    for book_dir in $ALL_BOOKS; do
+        local book=$(echo $book_dir | sed -e 's#\/#-#')
         set -x
         echo "Building book: $book"
         docker run --rm --name $TEST_CONTAINER \
-               -e "BOOK_DIR=$book_dir" \
+               --user=$UID \
+               -i \
                -e "BOOK=$book" \
+               -e "BOOK_DIR=$book_dir" \
+               -e "BUILD_DIR=/tmp/gitbook/output" \
+               -e "HOME=/tmp/" \
                -e "REFNAME=$refname" \
                -e "USER_ID=$user_id" \
-               -w /gitbook \
-               -v $(pwd):/gitbook \
-               -v $(pwd)/gitbook.sh:/gitbook.sh $IMAGE_NAME \
-               /gitbook.sh
+               -w /tmp/gitbook \
+               -v $(pwd):/tmp/gitbook \
+               -v $(pwd)/gitbook.sh:/tmp/gitbook.sh $IMAGE_NAME \
+               /tmp/gitbook.sh
         set +x
     done
     IFS=$oldIFS
@@ -87,7 +85,6 @@ function _test {
 </testcase>
 </testsuite>
 EOF
-    set -e
 }
 
 
@@ -123,7 +120,7 @@ function _run_target() {
             set -x
             _clean
             _build $args
-            _test $args
+            _test
             set +x
             ;;
         *)
