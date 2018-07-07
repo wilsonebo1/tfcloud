@@ -18,11 +18,9 @@ These can include restarting services, recovering from common failure modes, bac
 
 ## Publishing
 
-Currently these docs are not published, but we'll update this section once we have a better clue.
-Chances are they will go on Confluence pages and be served on a support page.
-We can also easily run an HTTP server with the docs for internal usage and we may also include PDF's or an HTTP server in the on-prem application itself.
+When PR's to release branches are merged, PDF's are created by the [Admin_Guide_Publish](https://jenkins.hq.datarobot.com/job/Admin_Guide_Publish/) job.
 
-You can build them locally using GitBook quite easily.
+You can manually upload the published artifacts to the appropriate Wiki page https://datarobot.atlassian.net/wiki/spaces/ONPREM/pages/9732170/Enterprise+Releases.
 
 ## Dependencies
 
