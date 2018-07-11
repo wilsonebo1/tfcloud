@@ -320,7 +320,7 @@ your DataRobot license key.
 * Edit container memory and vcores settings as appropriate for your cluster.
 
 We recommend at least 60GB of RAM for `MMW` and `SECURE_WORKER` containers
-and at least four cores.
+and at least eight cores.
 
 <img src="./images/cdh-dr-config.png" alt="CDH DataRobot Config" style="border: 1px solid black;"/>
 

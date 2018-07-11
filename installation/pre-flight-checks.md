@@ -204,7 +204,7 @@ yarn jar \
     /opt/cloudera/parcels/CDH/lib/hadoop-yarn/hadoop-yarn-applications-distributedshell.jar \
     -shell_command "hdfs dfs -ls /tmp" \
     -debug -appname "DataRobot pre-flight check" \
-    -num_containers 3 -container_memory 60000 -container_vcores 4 \
+    -num_containers 3 -container_memory 60000 -container_vcores 8 \
     -jar /opt/cloudera/parcels/CDH/lib/hadoop-yarn/hadoop-yarn-applications-distributedshell.jar
 ```
 
@@ -215,7 +215,7 @@ yarn jar \
     /usr/hdp/current/hadoop-yarn-client/hadoop-yarn-applications-distributedshell.jar \
     -shell_command "hdfs dfs -ls /tmp" \
     -debug -appname "DataRobot pre-flight check" \
-    -num_containers 3 -container_memory 60000 -container_vcores 4 \
+    -num_containers 3 -container_memory 60000 -container_vcores 8 \
     -jar /usr/hdp/current/hadoop-yarn-client/hadoop-yarn-applications-distributedshell.jar
 ```
 

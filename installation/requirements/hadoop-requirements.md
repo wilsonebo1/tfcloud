@@ -39,7 +39,7 @@ at least 5GB of available space.
 * Set `yarn.nodemanager.resource.memory-mb` to at least 60GB.
 * Set `yarn.scheduler.maximum-allocation-mb` to at least 60GB.
 * Set `yarn.nodemanager.resource.cpu-vcores` to at least 4 vcores.
-* Set `yarn.scheduler.maximum-allocation-vcores` to at least 4 vcores.
+* Set `yarn.scheduler.maximum-allocation-vcores` to at least 8 vcores.
 * DataRobot worker nodes must have a minimum of 128GB of memory.
 
 ### Hadoop Container Requirements
@@ -47,7 +47,7 @@ at least 5GB of available space.
 | Container name | Max Instances allowed | Persistent count | vCores per instance | Memory per instance (GB) | Long Running | Notes |
 |----------------|:---------------------:|:----------------:|:-------------------:|:------------------------:|:------------:|-------|
 |DataRobot Master YARN AM|1|1|1|2|Y|Required|
-|Modeling containers|8|0|4|60|N|Required|
+|Modeling containers|8|0|8|60|N|Required|
 |EDA containers|8|0|2|60|N|Required|
 |DSS container|8|0|1|.004|N|Only required if DataRobot Master Yarn Quick Worker is not used|
 |Next Steps container|8|0|1|.002|N|Only required if DataRobot Master Yarn Quick Worker is not used|
