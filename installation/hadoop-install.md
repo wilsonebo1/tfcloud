@@ -16,6 +16,8 @@ Place a file like the following in `/opt/datarobot/DataRobot-4.2.x/`
 cluster_name: <name of hadoop cluster>
 manager_address: <address of Hadoop Manager>
 manager_type: <ambari or cloudera>
+# Optional
+# cm_api_version: <cloudera manager api version>
 # Set these to true if the Hadoop Manager is using SSL/TLS
 use_tls: false
 ignore_ca: false
