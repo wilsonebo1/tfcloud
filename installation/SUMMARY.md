@@ -32,6 +32,7 @@
   * [Integration with PAM](special-topics/pam.md)
   * [SELinux](special-topics/selinux.md)
   * [Disk quota](special-topics/disk-quota.md)
+  * [Standalone Predictions](special-topics/standalone-predictions.md)
   * [Exported Model File Validation](special-topics/model-export-validation.md)
   * [Password Policies](special-topics/password-policies.md)
   * [VPC Installaion](special-topics/vpc-installation.md)

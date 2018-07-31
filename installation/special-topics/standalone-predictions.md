@@ -1,0 +1,81 @@
+# Standalone Predictions
+
+DataRobot ships with a Standalone Scoring Engine (SSE) which is used for generating predictions independently from the rest of DataRobot services.
+SSE clusters run only the services required to run prediction API servers using an imported `*.drx` model file, namely `scoringengine` and `dedicatedpredictionnginx`, plus an optional `gluster` service for distributed storage.
+
+Sections below explain how to perform an installation of DataRobot with just standalone scoring services.
+
+## Configuration
+
+Every server in the SSE-only DataRobot installation needs to run `scoringengine` and `dedicatedpredictionnginx` services.
+One of the nodes in the cluster needs to also run a `provisioner` for the installation to work.
+Optionally, distributed storage service such as `gluster` can be added to one of the nodes, if needed.
+
+Note that DataRobot installation script requires you to provide `webserver_hostname` in `os_configuration` even if the cluster doesn't have a `webserver`. In order to workaround this limitation any non-empty valid hostname string can be used as a value. For example:
+
+```yaml
+---
+# config.yaml snippet
+os_configuration:
+  webserver_hostname: localhost
+```
+
+### Examples
+
+Example `servers` section in the configuration for a 3-node cluster running Gluster for storage:
+
+```yaml
+# config.yaml snippet
+---
+servers:
+- app_configuration:
+    dedicated_prediction_server: true
+    drenv_override:
+      FILE_STORAGE_TYPE: gluster_api
+  hosts:
+  - 192.168.1.1
+  services:
+  - provisioner
+  - gluster
+  - scoringengine
+  - dedicatedpredictionnginx
+- app_configuration:
+    dedicated_prediction_server: true
+    drenv_override:
+      FILE_STORAGE_TYPE: gluster_api
+  hosts:
+  - 192.168.1.2
+  - 192.168.1.3
+  services:
+  - scoringengine
+  - dedicatedpredictionnginx
+```
+
+Example `servers` section in the configuration for a 2-node cluster not running distributed storage:
+
+```yaml
+# config.yaml snippet
+---
+servers:
+- app_configuration:
+    dedicated_prediction_server: true
+    drenv_override:
+      FILE_STORAGE_TYPE: local
+  hosts:
+  - 192.168.1.1
+  services:
+  - provisioner
+  - scoringengine
+  - dedicatedpredictionnginx
+- app_configuration:
+    dedicated_prediction_server: true
+    drenv_override:
+      FILE_STORAGE_TYPE: local
+  hosts:
+  - 192.168.1.2
+  services:
+  - scoringengine
+  - dedicatedpredictionnginx
+```
+
+**Note:** For SSE clusters with `FILE_STORAGE_TYPE: local`, model import needs to be performed for every node in the cluster, since local file system of each server will be used for storing the `*.drx` file. This is not the case for clusters configured to use distributed storage such as `gluster` -- model import needs to happen once on any node in the cluster in order for it to be accessible for generating predictions.
