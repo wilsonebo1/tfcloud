@@ -67,7 +67,26 @@ There is an interactive LDAP Configuration Tool that can help to streamline this
 - **`USER_AUTH_LDAP_SEARCH_BASE_DN`** - LDAP node that contains all the DR users, (e.g. `OU=Users,DC=example,DC=org`)
 - **`USER_AUTH_LDAP_SEARCH_SCOPE`** - LDAP search scope (ONELEVEL or SUBTREE, default is SUBTREE)
 - **`USER_AUTH_LDAP_SEARCH_FILTER`** - LDAP search query (default: `(cn=$username)`)
-`
+
+### Configuring DataRobot to Send Email Notifications
+
+Use **`USER_AUTH_LDAP_MAPPING_EMAIL_ADDRESS`** configuration option to configure DataRobot to send email notifications to users with LDAP accounts.
+DataRobot will use this mapping to find the email address of the user in the corresponding LDAP record.
+
+For example, users in FreeIPA directory have `mail` attribute, so in order to configure DataRobot to use that we need to configure the app in the following way:
+
+```yaml
+# Example config.yaml snippet
+---
+app_configuration:
+    drenv_override:
+        USER_AUTH_LDAP_MAPPING_EMAIL_ADDRESS: mail
+```
+
+With this configuration DataRobot will read the email address found in `mail` attribute in the directory and will use it for sending notifications, such as the email about autopilot completion.
+
+**Note:** Emails in DataRobot with LDAP authentication are read-only, meaning users are not able to edit their email address from the DataRobot Application.
+Email is synchronized with the directory each time user signs into the application and the only way to change user's email address is to change it in LDAP directory and re-log in.
 
 ### `config.yaml`
 
