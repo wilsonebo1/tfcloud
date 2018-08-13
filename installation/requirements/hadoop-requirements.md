@@ -23,6 +23,7 @@ changing permissions, and restarting services.
 * For Java 8 systems, Oracle Java JDK version greater than or equal to
 `1.8.0_60` must be installed.
 * HDFS, Yarn, Spark on Yarn, and ZooKeeper must be installed.
+* Yarn client must be installed on all nodes where DataRobot services will be installed.
 * The fully qualified domain name (FQDN) or IP address of the Hadoop
 Manager server must be known.
 * The /tmp directory on the Hadoop Manager must be writable and have
