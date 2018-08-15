@@ -76,11 +76,11 @@ On upgrade to version 4.3 the following required changes must be made to `config
 
 2. Remove the instance of the `edaworker` service and replace it with the `execmanager` service. NOTE: this component should _not_ be present on Hadoop installs.
 
-On upgrade to version 4.4 the following required changes must be made to `config.yaml`:
+On upgrade to version 4.4 the following required changes must be made to `config.yaml` for non Hadoop installs:
 
-1. Remove the instance of the `securebroker` service on non Hadoop installs.
+1. Remove the instance of the `securebroker` service
 
-2. Find the instace of `secureworker` service on on Hadoop installs.
+2. Find the instance of `secureworker` service .
 
   * If the `secureworker` service was on a different node than the `execmanager` service, replace `execmanager` with `execmanagereda` and `secureworker` with `execmanagersw` to retain the same workload distribution.
 
