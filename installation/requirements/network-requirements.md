@@ -69,18 +69,9 @@ application server cluster, whether or not using Hadoop.
 | 8100  | TCP      | DataRobot Datasets Service API |
 | 9090  | TCP      | DataRobot Availability Monitor |
 | 9496  | TCP      | DataRobot PNGExport Service |
+| 15672 | TCP      | RabbitMQ HTTP Interface |
 | 26379 | TCP      | Redis Sentinel |
 | 27017 | TCP      | MongoDB |
-
-### Non-Hadoop Worker Ports
-
-For non-Hadoop installs, additional internal ports are required for
-DataRobot workers.
-
-| Port  | Protocol | Component |
-|------:|:---------|:----------|
-| 5558  | TCP      | Secure Worker Broker Client |
-| 5559  | TCP      | Secure Worker Broker |
 
 ### Gluster Ports
 
@@ -158,7 +149,7 @@ Example ports include:
 
 | Port       | Protocol | Component|
 |-----------:|:---------|:---------|
-| 2888       | TCP      | Zookeeper Quorom Port |
+| 2888       | TCP      | Zookeeper Quorum Port |
 | 3888       | TCP      | Zookeeper Election Port |
 | 8030-8050  | TCP      | YARN Ports |
 | 8088       | TCP      | YARN ResourceManager HTTP |
@@ -287,7 +278,7 @@ All of these are listed in one or more of the above tables.
 |1514|TCP|Logging|modmonrsyslogmaster (premium feature)|Dedicated Prediction Workers|
 |2181|TCP|ZooKeeper client port|All Hadoop Nodes|Application Servers|
 |2552|TCP|Cloudera Log Publisher (Cloudera only)|All Hadoop Nodes|Application Servers|
-|2888|TCP|Zookeeper Quorom Port|All Hadoop Nodes|All Hadoop Nodes|
+|2888|TCP|Zookeeper Quorum Port|All Hadoop Nodes|All Hadoop Nodes|
 |3000|TCP|DataRobot Prediction Optimization User Interface|All Cluster Nodes|All Cluster Nodes|
 |3888|TCP|Zookeeper Election Port|All Hadoop Nodes|All Hadoop Nodes|
 |5000|TCP|Docker Registry|All Cluster Nodes|All Cluster Nodes|
@@ -295,8 +286,6 @@ All of these are listed in one or more of the above tables.
 |5445|TCP|IDE Client Broker|All Cluster Nodes|All Cluster Nodes|
 |5446|TCP|IDE Client Worker|All Cluster Nodes|All Cluster Nodes|
 |5544|UDP|Audit Logs|All Cluster Nodes|All Cluster Nodes|
-|5558|TCP|Secure Worker Broker Client (non-Hadoop only)|All Cluster Nodes|All Cluster Nodes|
-|5559|TCP|Secure Worker Broker (non-Hadoop only)|All Cluster Nodes|All Cluster Nodes|
 |5672|TCP|RabbitMQ|All Cluster Nodes|All Cluster Nodes|
 |6379|TCP|Redis|All Cluster Nodes|All Cluster Nodes|
 |6556|TCP|Resource Proxy Subscriber|Application Servers|All Cluster Nodes|
@@ -354,6 +343,7 @@ All of these are listed in one or more of the above tables.
 |9090|TCP|DataRobot Availability Monitor|Application Servers|Application Servers|
 |9496|TCP|DataRobot PNGExport Service|All Cluster Nodes|All Cluster Nodes|
 |10200|TCP|YARN Timeline Service RPC|YARN Timeline Service host|All Hadoop Nodes|
+|15672|TCP|RabbitMQ HTTP Interface|RabbitMQ node|Application Servers|
 |24007|TCP|Gluster Daemon|All Cluster Nodes|All Cluster Nodes|
 |24008|TCP|Gluster Management|All Cluster Nodes|All Cluster Nodes|
 |24009|TCP|Gluster Brick|All Cluster Nodes|All Cluster Nodes|
