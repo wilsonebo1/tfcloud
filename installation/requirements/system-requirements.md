@@ -107,10 +107,10 @@ installation with
 You must have the following software installed.
 Running the following commands should succeed.
 
-* RSYSLOG
+* checkpolicy
 
 ```bash
-service rsyslog status  # Should show service status
+which checkpolicy  # Should output a path to checkpolicy
 ```
 
 * logrotate
@@ -119,13 +119,48 @@ service rsyslog status  # Should show service status
 which logrotate  # Should output a path to logrotate
 ```
 
+* net-tools package
+
+```bash
+which netstat  # Should output a path to netstat
+```
+
+* policycoreutils-python package
+
+```bash
+which semanage  # Should output a path to semanage
+```
+
 * Python 2.7
 
 ```bash
-python --version
+
+python --version # Should be a version of `2.7`.
 ```
 
-The version reported should be a version of `2.7`.
+* rsync
+
+```bash
+which rsync  # Should output a path to rsync
+```
+
+* rsyslog
+
+```bash
+service rsyslog status  # Should show service status
+```
+
+* vim
+
+```bash
+which vim  # Should output a path to vim
+```
+
+* wget
+
+```bash
+which wget  # Should output a path to wget
+```
 
 ## Disk Space
 
