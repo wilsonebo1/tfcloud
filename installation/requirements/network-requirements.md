@@ -186,11 +186,13 @@ Hadoop Servers => Application Servers
 | 80    | TCP      | HTTP traffic for config sync (TLS not enabled on edge node) |
 | 443   | TCP      | HTTPS traffic for config sync (TLS enabled on edge node) |
 | 1514  | UDP      | Logging |
+| 5672  | TCP      | RabbitMQ |
 | 6379  | TCP      | Redis |
 | 6556  | TCP      | Resource Proxy Subscriber |
 | 6558  | TCP      | Queue Proxy Subscriber |
 | 8027  | TCP      | Hadoop Configuration Sync |
 | 8100  | TCP      | DataRobot DataSets Service API |
+| 15672 | TCP      | RabbitMQ HTTP Interface |
 | 26379 | TCP      | Redis Sentinel |
 | 27017 | TCP      | MongoDB |
 
