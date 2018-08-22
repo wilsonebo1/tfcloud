@@ -76,7 +76,7 @@ On upgrade to version 4.3 the following required changes must be made to `config
 
 2. Remove the instance of the `edaworker` service and replace it with the `execmanager` service. NOTE: this component should _not_ be present on Hadoop installs.
 
-On upgrade to version 4.4 the following required changes must be made to `config.yaml` for non Hadoop installs:
+On upgrade to version 4.5 the following required changes must be made to `config.yaml` for non Hadoop installs:
 
 1. Remove the instance of the `securebroker` service
 
@@ -104,6 +104,13 @@ On upgrade to version 4.4, the following changes to the open ports between hosts
 | Action            | Port  | Protocol | Component            |
 |:------------------|------:|:---------|:---------------------|
 | Add               | 15672 | TCP      | RabbitMQ HTTP Interface|
+
+
+On upgrade to version 4.5, the following changes to the open ports between hosts must be made:
+
+
+| Action            | Port  | Protocol | Component            |
+|:------------------|------:|:---------|:---------------------|
 | Optionally Remove | 5558  | TCP      | Secure Worker Broker Client |
 | Optionally Remove | 5556  | TCP      | Secure Worker Broker |
 
