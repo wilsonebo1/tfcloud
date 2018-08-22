@@ -21,6 +21,8 @@ net-tools, numactl, openssl, readline, snappy, sqlite, tar, tk, uuid, wget, xz, 
 
 These packages are available on [Extra Packages for Enterprise Linux (EPEL)](https://fedoraproject.org/wiki/EPEL) for CentOS/RHEL 6/7.
 
+**NOTE**: On RHEL7, the `libdb4` package provides `db4` and there is no package named `db4` for RHEL7. On RHEL6 the package name is `db4`.
+
 We recommend making the latest stable version from EPEL available in your internal repositories if you are not using EPEL.
 
 ## Shell
