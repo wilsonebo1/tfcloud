@@ -1,0 +1,9 @@
+{
+    "root": "./",
+    "title": "DataRobot Installation Addition",
+    "description": "This addition provides extra steps for installing DataRobot on unmanaged Apache Hadoop.",
+    "author": "DataRobot, Inc.",
+    "plugins": [],
+    "pluginsConfig": {
+    }
+}

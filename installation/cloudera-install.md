@@ -304,9 +304,6 @@ or other administrative node rather than a worker.
 
 * Click **OK**.
 
-* For the **Gateway** service, select _all_ hosts. This is used to
-synchronize configuration and must be installed on _all_ hosts.
-
 * For all **DataRobot ETL** services, place one instance of each service on an
 available DataNode using the same procedure.
 
@@ -361,9 +358,6 @@ DataRobot service and try to add it again.
 * Click on the DataRobot service to see a status summary.
 
 * The DataRobot Master Service should be marked in green, indicating "Good Health."
-
-* The Gateway services should be marked in gray, with a health status of
-"None." They should be shown for _all nodes_.
 
 * Hosts should display "1 Good Health."
 
