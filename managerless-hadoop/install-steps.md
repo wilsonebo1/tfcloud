@@ -92,11 +92,11 @@ export HADOOP_CONFIG_ENCRYPTION_KEY=defaultkey
 export CONTAINER_CONFIG_FILE=/home/datarobot/datarobot-master.conf
 ```
 
-Please use `screen` (or any similar tool) to run `datarobot.sh` in the background, 
+Please use `screen` (or any similar tool) to run `datarobot.sh` in the background,
 passing required parameters as follows:
 ```bash
 ./datarobot.sh start_master $LICENSE_KEY $DATAROBOT_PROVISIONING_HOST datarobot
 ```
 
-This will start the application master and restart services on the 
+This will start the application master and restart services on the
 application node.

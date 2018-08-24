@@ -3,7 +3,7 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-ALL_BOOKS="administration/en administration/jp installation rpm-installation"
+ALL_BOOKS="administration/en administration/jp installation rpm-installation managerless-hadoop"
 IMAGE_NAME=dr-gitbook
 TEST_CONTAINER=gitbook-test
 

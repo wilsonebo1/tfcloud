@@ -1,7 +1,7 @@
 ## Background
 
 DataRobot depends on Cloudera Manager or Ambari to manage its configuration.
-Installing DataRobot on a cluster that does not have one of these managers (referred to as unmanaged Hadoop) will require some additional steps. 
+Installing DataRobot on a cluster that does not have one of these managers (referred to as unmanaged Hadoop) will require some additional steps.
 This guide provides an overview of the steps which are required to install DataRobot on an unmanaged Hadoop cluster.
 
 The installation process consists of the following steps:

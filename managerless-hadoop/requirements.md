@@ -12,7 +12,7 @@ hadoop.proxyuser.datarobot.hosts	*
 hadoop.proxyuser.datarobot.groups	*
 allowed.system.users	                datarobot
 ```
-* For unsecured hadoop - LCE should be set and it should be allowed to run 
+* For unsecured hadoop - LCE should be set and it should be allowed to run
 containers on behalf of any user. This can be configured by setting the following properties
 in `yarn-site.xml`:
 ```
