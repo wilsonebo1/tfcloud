@@ -157,6 +157,8 @@ Example ports include:
 | 8188       | TCP      | YARN Timeline Server HTTP |
 | 8190       | TCP      | YARN Timeline Server HTTPS |
 | 10200      | TCP      | YARN Timeline Server RPC |
+| 14000      | TCP      | HTTPFS data transfer (if HTTPFS is enabled)|
+| 14001      | TCP      | HTTPFS administration (if HTTPFS is enabled)|
 
 #### Additional Cloudera Ports
 
@@ -225,6 +227,8 @@ Both Cloudera and Ambari use these ports.
 | 50091 | TCP      | `dfs.namenode.secondary.https-address` | Secondary NameNode with HTTPS |
 | 50470 | TCP      | `dfs.namenode.https-address`  | NameNode Web UI with HTTPS |
 | 50475 | TCP      | `dfs.datanode.https.address`  | Data Transfer with HTTPS |
+| 14000 | TCP      | Not configurable              | HTTPFS data transfer (if HTTPFS is enabled)|
+| 14001 | TCP      | Not configurable              | HTTPFS administration (if HTTPFS is enabled)|
 
 
 These ports are only used on DataRobot 4.2.1 and above.
@@ -345,6 +349,8 @@ All of these are listed in one or more of the above tables.
 |9090|TCP|DataRobot Availability Monitor|Application Servers|Application Servers|
 |9496|TCP|DataRobot PNGExport Service|All Cluster Nodes|All Cluster Nodes|
 |10200|TCP|YARN Timeline Service RPC|YARN Timeline Service host|All Hadoop Nodes|
+|14000|TCP|HTTPFS data transfer (if HTTPFS is enabled)|HDFS data nodes|All Cluster Nodes|
+|14001|TCP|HTTPFS administration (if HTTPFS is enabled)|HDFS data nodes|All Cluster Nodes|
 |15672|TCP|RabbitMQ HTTP Interface|RabbitMQ node|Application Servers|
 |24007|TCP|Gluster Daemon|All Cluster Nodes|All Cluster Nodes|
 |24008|TCP|Gluster Management|All Cluster Nodes|All Cluster Nodes|
