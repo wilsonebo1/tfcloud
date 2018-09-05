@@ -69,7 +69,7 @@ application server cluster, whether or not using Hadoop.
 | 8097  | TCP      | DataRobot Prediction Optimization Application |
 | 8100  | TCP      | DataRobot Datasets Service API |
 | 9090  | TCP      | DataRobot Availability Monitor |
-| 9496  | TCP      | DataRobot PNGExport Service |
+| 9494  | TCP      | DataRobot PNGExport Service |
 | 15672 | TCP      | RabbitMQ HTTP Interface |
 | 26379 | TCP      | Redis Sentinel |
 | 27017 | TCP      | MongoDB |
@@ -274,9 +274,9 @@ All of these are listed in one or more of the above tables.
 |Port|Protocol|Component|Target Node|Source|
 |---:|:-------|:--------|:----------|:-----|
 |22|TCP|SSH Access|All Cluster Nodes|Provisioner/Admin|
-|80|TCP|HTTP|Application Servers|All Cluster Nodes|
-|111|TCP/UDP|Gluster Portmapper Service (non-Hadoop only)|All Cluster Nodes|All Cluster Nodes|
-|443|TCP|HTTPS|Application Servers|All Cluster Nodes|
+|80|TCP|HTTP|Application Web Servers (not secure)|End users, All Cluster Nodes|
+|111|TCP/UDP|Gluster Portmapper Service (non-Hadoop only)|Data Servers|All Cluster Nodes|
+|443|TCP|HTTPS|Application Web Servers (TLS)|End users, All Cluster Nodes|
 |1004|TCP|Data transfer (HDFS HA) (Cloudera only)|All Hadoop Nodes|Application Servers|
 |1006|TCP|Data transfer without HTTPS (HDFS HA) (Cloudera only)|All Hadoop Nodes|Application Servers|
 |1019|TCP|Data transfer (HDFS HA) (Ambari only)|All Hadoop Nodes|Application Servers|
@@ -294,19 +294,19 @@ All of these are listed in one or more of the above tables.
 |5446|TCP|IDE Client Worker|All Cluster Nodes|All Cluster Nodes|
 |5544|UDP|Audit Logs|All Cluster Nodes|All Cluster Nodes|
 |5672|TCP|RabbitMQ|All Cluster Nodes|All Cluster Nodes|
-|6379|TCP|Redis|All Cluster Nodes|All Cluster Nodes|
+|6379|TCP|Redis|Data Servers|All Cluster Nodes|
 |6556|TCP|Resource Proxy Subscriber|Application Servers|All Cluster Nodes|
 |6557|TCP|Resource Proxy Publisher|Application Servers|Application Servers|
 |6558|TCP|Queue Proxy Subscriber|Application Servers|All Cluster Nodes|
 |6559|TCP|Queue Proxy Publisher|Application Servers|Application Servers|
-|7180|TCP|Cloudera Manager web interface (Cloudera only)|All Hadoop Nodes|Application Servers/Provisioner/Admin|
-|7182|TCP|Cloudera Internal Communication|All Hadoop Nodes (CDH only)|All Hadoop Nodes (CDH only)|
-|7183|TCP|Cloudera Manager web interface (TLS enabled) (Cloudera only)|All Hadoop Nodes|Application Servers/Provisioner/Admin|
-|7184|TCP|Cloudera Internal Communication|All Hadoop Nodes (CDH only)|All Hadoop Nodes (CDH only)|
-|7185|TCP|Cloudera Internal Communication|All Hadoop Nodes (CDH only)|All Hadoop Nodes (CDH only)|
-|7186|TCP|Cloudera Internal Communication|All Hadoop Nodes (CDH only)|All Hadoop Nodes (CDH only)|
-|7190|TCP/UDP|Cloudera P2P Parcel Distribution|All Hadoop Nodes (CDH only)|All Hadoop Nodes (CDH only)|
-|7191|TCP/UDP|Cloudera P2P Parcel Distribution|All Hadoop Nodes (CDH only)|All Hadoop Nodes (CDH only)|
+|7180|TCP|Cloudera Manager web interface (CDH only) (not secure)|All Hadoop Nodes|Application Servers/Provisioner/Admin|
+|7182|TCP|Cloudera Internal Communication (CDH only)|All Hadoop Nodes|All Hadoop Nodes|
+|7183|TCP|Cloudera Manager web interface (CDH only) (TLS enabled)|All Hadoop Nodes|Application Servers/Provisioner/Admin|
+|7184|TCP|Cloudera Internal Communication|All Hadoop Nodes (CDH only)|All Hadoop Nodes|
+|7185|TCP|Cloudera Internal Communication|All Hadoop Nodes (CDH only)|All Hadoop Nodes|
+|7186|TCP|Cloudera Internal Communication|All Hadoop Nodes (CDH only)|All Hadoop Nodes|
+|7190|TCP/UDP|Cloudera P2P Parcel Distribution|All Hadoop Nodes (CDH only)|All Hadoop Nodes|
+|7191|TCP/UDP|Cloudera P2P Parcel Distribution|All Hadoop Nodes (CDH only)|All Hadoop Nodes|
 |7678|TCP|Worker Broker Client (Hadoop only)|All Cluster Nodes|All Cluster Nodes|
 |7680|TCP|DataRobot Application Manager|All Hadoop Nodes|Application Servers|
 |8000|TCP|DataRobot Flask Application|Application Servers|Application Servers|
@@ -316,7 +316,7 @@ All of these are listed in one or more of the above tables.
 |8011|TCP|DataRobot Socket.IO Server|Application Servers|Application Servers|
 |8020|TCP|NameNode IPC Port|All Hadoop Nodes|Application Servers|
 |8023|TCP|DataRobot Upload Server|Application Servers|Application Servers|
-|8027|TCP|Hadoop Configuration Sync|Application Servers|Application Servers|
+|8027|TCP|Hadoop Configuration Sync|Application Servers|Hadoop Manager Node|
 |8030|TCP|YARN Ports|All Hadoop Nodes|All Hadoop Nodes|
 |8031|TCP|YARN Ports|All Hadoop Nodes|All Hadoop Nodes|
 |8032|TCP|YARN Ports|All Hadoop Nodes|All Hadoop Nodes|
@@ -350,16 +350,16 @@ All of these are listed in one or more of the above tables.
 |8833|TCP|Datarobot diagnostics (not secure)|Application Servers|Administrators|
 |9001|TCP|ETL Controller|All Hadoop Nodes|Application Servers|
 |9090|TCP|DataRobot Availability Monitor|Application Servers|Application Servers|
-|9496|TCP|DataRobot PNGExport Service|All Cluster Nodes|All Cluster Nodes|
+|9494|TCP|DataRobot PNGExport Service|All Cluster Nodes|All Cluster Nodes|
 |10200|TCP|YARN Timeline Service RPC|YARN Timeline Service host|All Hadoop Nodes|
 |14000|TCP|HTTPFS data transfer (if HTTPFS is enabled)|HDFS data nodes|All Cluster Nodes|
 |14001|TCP|HTTPFS administration (if HTTPFS is enabled)|HDFS data nodes|All Cluster Nodes|
 |15672|TCP|RabbitMQ HTTP Interface|RabbitMQ node|Application Servers|
-|24007|TCP|Gluster Daemon|All Cluster Nodes|All Cluster Nodes|
-|24008|TCP|Gluster Management|All Cluster Nodes|All Cluster Nodes|
-|24009|TCP|Gluster Brick|All Cluster Nodes|All Cluster Nodes|
-|26379|TCP|Redis Sentinel|Application Servers|Application Servers|
-|27017|TCP|MongoDB|Application Servers|All Cluster Nodes|
+|24007|TCP|Gluster Daemon|Data Servers|All Cluster Nodes|
+|24008|TCP|Gluster Management|Data Servers|All Cluster Nodes|
+|24009|TCP|Gluster Brick|Data Servers|All Cluster Nodes|
+|26379|TCP|Redis Sentinel|Data Servers|Application Servers|
+|27017|TCP|MongoDB|Data Servers|All Cluster Nodes|
 |44011|TCP|DataRobot YARN Application Master Stats (DataRobot 4.2.1 and above)|All Hadoop Nodes|Application Servers|
 |44012|TCP|DataRobot YARN Application Master Stats (DataRobot 4.2.1 and above)|All Hadoop Nodes|Application Servers|
 |44013|TCP|DataRobot YARN Application Master Stats (DataRobot 4.2.1 and above)|All Hadoop Nodes|Application Servers|
@@ -367,7 +367,7 @@ All of these are listed in one or more of the above tables.
 |44015|TCP|DataRobot YARN Application Master Stats (DataRobot 4.2.1 and above)|All Hadoop Nodes|Application Servers|
 |44016|TCP|DataRobot YARN Application Master Stats (DataRobot 4.2.1 and above)|All Hadoop Nodes|Application Servers|
 |44017|TCP|DataRobot YARN Application Master Stats (DataRobot 4.2.1 and above)|All Hadoop Nodes|Application Servers|
-|49152|TCP|Gluster Brick|All Cluster Nodes|All Cluster Nodes|
+|49152|TCP|Gluster Brick|Data Servers|All Cluster Nodes|
 |50010|TCP|Data transfer (Ambari only)|All Hadoop Nodes|Application Servers|
 |50020|TCP|HDFS Metadata operations|All Hadoop Nodes|Application Servers|
 |50070|TCP|NameNode Web UI without HTTPS|All Hadoop Nodes|Application Servers|
