@@ -35,7 +35,8 @@ Provisioner/Administration Server => All Servers
 | Port  | Protocol | Component|
 |------:|:---------|:---------|
 | 22    | TCP      | SSH Access |
-
+| 8433  | TCP      | Datarobot diagnostics (TLS) |
+| 8833  | TCP      | Datarobot diagnostics (not secure) |
 
 ## Internal Ports
 
@@ -344,7 +345,9 @@ All of these are listed in one or more of the above tables.
 |8100|TCP|DataRobot Datasets Service API|All Cluster Nodes|All Cluster Nodes|
 |8188|TCP|YARN Timeline Service webapp HTTP|YARN Timeline Service host|All Hadoop Nodes|
 |8190|TCP|YARN Timeline Service webapp HTTPS|YARN Timeline Service host|All Hadoop Nodes|
+|8433|TCP|Datarobot diagnostics (TLS)|Application Servers|Administrators|
 |8485|TCP|Required if using HA HDFS|All Hadoop Nodes|Application Servers|
+|8833|TCP|Datarobot diagnostics (not secure)|Application Servers|Administrators|
 |9001|TCP|ETL Controller|All Hadoop Nodes|Application Servers|
 |9090|TCP|DataRobot Availability Monitor|Application Servers|Application Servers|
 |9496|TCP|DataRobot PNGExport Service|All Cluster Nodes|All Cluster Nodes|
