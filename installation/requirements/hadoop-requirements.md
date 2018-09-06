@@ -29,7 +29,7 @@ Manager server must be known.
 * The /tmp directory on the Hadoop Manager must be writable and have
 at least 5GB of available space.
 * If [Transparent Encryption in HDFS](http://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/TransparentEncryption.html) is enabled, [HttpFS](https://hadoop.apache.org/docs/stable/hadoop-kms/index.html) is required.
-* The only supported Hadoop storage system is HDFS.  Other Hadoop storage systems, including `EMC Isilon`, are not supported.
+* The only supported Hadoop storage system is HDFS. Other Hadoop storage systems, including `EMC Isilon`, are not supported.
 
 ## Hadoop Recommendations
 
