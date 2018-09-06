@@ -43,7 +43,7 @@ Contact DataRobot support for help with this file.
 
 ## Hadoop Installation
 
-Now, use the following sections install DataRobot on Hadoop.
+Now, use the following sections to install DataRobot on Hadoop.
 
 * [Cloudera Installation](cloudera-install.md)
 * [Hortonworks Installation](ambari-install.md)

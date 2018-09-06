@@ -182,7 +182,7 @@ In this case, the parcel URL used will look like:
 http://[IP OF SIMPLE WEBSERVER]:[SERVER PORT]/DataRobot-[PARCEL VERSION].parcel
 ```
 
-**NOTE**: If using this approach, the edgenode must allow incoming traffic on `[SERVER PORT]` from the Cloudera hosts.
+**NOTE**: If using this approach, the edgenode must allow incoming traffic on `[SERVER PORT]` from the Hadoop hosts.
 
 ## Install DataRobot Service
 
@@ -219,6 +219,10 @@ configuration:
 <img src="images/ambari-kerberos.png" alt="" style="border: 1px solid black;"/>
 
 10. Proceed to the installation.
+
+Ambari should report that all DataRobot services were installed successfully, but will show that `Datarobot Master`
+is stopped.  It will also show that Restart is required.  It is not necessary to perform the restart now.  Services will
+be restarted as part of the `Synchronize Configuration` process.
 
 ## Synchronize Configuration
 

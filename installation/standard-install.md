@@ -132,6 +132,12 @@ To validate your configuration files, run
 ```bash
 ./bin/datarobot validate
 ```
+If everything is OK, the output will be similar to:
+```bash
+Validating configurations for DataRobot.
+Validated config.yaml.
+DataRobot config files are valid.
+```
 
 **NOTE**: Although the validation is very comprehensive regarding the aspects of semantics and particular attribute values, there are still situations where invalid user-provided configuration will not be detected.
 This can cause unexpected results during deployment/usage.
@@ -165,11 +171,21 @@ It should take several minutes to complete.
 ```bash
 ./bin/datarobot setup-dependencies
 ```
+A successful run of this command will finish with:
+```bash
+Playbook completed successfully
+DataRobot dependencies setup completely.
+```
 
 * Start the Docker registry:
 
 ```bash
 ./bin/datarobot run-registry
+```
+A successful run of this command will finish with:
+```bash
+Playbook completed successfully
+DataRobot registry setup complete.
 ```
 
 ### Upgrade Existing Mongo Data
@@ -183,6 +199,12 @@ See the [Mongo Data Upgrade](special-topics/mongo-data-upgrade.md) section for i
 
 ```bash
 ./bin/datarobot health cluster-checks --deps-installed
+```
+A successful run of this command will finish with:
+```bash
+Playbook completed successfully
+
+Cluster has passed all pre-flight checks
 ```
 
 ## Install and Configure the Application {#linux-provision}
@@ -198,6 +220,11 @@ This command should take several minutes to complete:
 
 ```bash
 ./bin/datarobot install
+```
+A successful run of this command will finish with:
+```bash
+Playbook completed successfully
+DataRobot Installation Complete.
 ```
 
 * Check that the cluster was installed correctly:

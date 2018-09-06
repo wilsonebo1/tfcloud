@@ -173,7 +173,7 @@ hadoop.proxyuser.yarn.hosts=*
 **NOTE**
 
 In clusters without Kerberos authentication, by default, the LCE runs all jobs as user "nobody". This user can be changed by setting "yarn.nodemanager.linux-container-executor.nonsecure-mode.local-user" to the desired user. However, it can also be configured to run jobs as the user submitting the job. In that case "yarn.nodemanager.linux-container-executor.nonsecure-mode.limit-users" should be set to false. See [here](https://hadoop.apache.org/docs/r2.7.2/hadoop-yarn/hadoop-yarn-site/NodeManagerCgroups.html) for more detailed information.
-DataRobot submits YARN applications from within a YARN container thus either the owner of the process needs to be the service user "datarobot" or the user owning the process needs to be able to proxy "datarobot". If this is not the case, the submitted YARN applications wont be owned by "datarobot".
+DataRobot submits YARN applications from within a YARN container thus either the owner of the process needs to be the service user "datarobot" or the user owning the process needs to be able to proxy "datarobot". If this is not the case, the submitted YARN applications won't be owned by "datarobot".
 
 If Kerberos is enabled, DataRobot needs to be able to run Spark jobs on behalf of the currently authenticated user, on any available Yarn host. This can be enabled by listing all Yarn worker hosts and all DataRobot users in the config file, or by using "*" for those properties.
 
@@ -232,7 +232,7 @@ The Status column for the DataRobot parcel should now read **Distributed, Activa
 
 **NOTE**: Some versions of Cloudera Manager do not have Deploy Client Configuration
 in this dropdown menu. If you do not see it, deploy configuration for each service
-individually by clicking the blue power icons next to its name and clicking through
+individually by clicking the blue power icon next to its name and clicking through
 the wizard.
 
 * Click **Deploy Client Configuration** in the confirmation window.

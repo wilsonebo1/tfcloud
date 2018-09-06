@@ -13,10 +13,20 @@ However, they will require service downtime for the DataRobot application.
 
 ### Remove old files and services
 
-* Stop and remove all containers.
+* Stop and remove all containers:
 
 ```bash
 docker rm $(docker stop $(docker ps -aq))
+```
+
+This command will print out a list of numbers similar to the following:
+```bash
+f581d5af3801
+851c9781beb1
+eba209849502
+77c790ba5b13
+...
+# There will be about 40 rows.
 ```
 
 * Remove the DataRobot code directory:
@@ -25,14 +35,20 @@ docker rm $(docker stop $(docker ps -aq))
 rm -rf /opt/datarobot/DataRobot/
 ```
 
-* Stop the Docker daemon
+* Stop the Docker daemon:
 
 ```bash
 systemctl stop docker
 ```
 
-* If your installed version of Docker is below 17.03, uninstall it completely
-from every node.
+* Check the installed version of Docker:
+
+```bash
+docker --version
+```
+
+* If the installed version of Docker is below 17.03, uninstall it completely
+from every node:
 
 ```bash
 yum remove -y docker docker-selinux
@@ -41,13 +57,14 @@ yum remove -y docker docker-selinux
 **NOTE:** If using even older versions of Docker, the package names may be
 different.
 
-* Remove old Docker images
+* Remove old Docker images:
 
 ```bash
 rm -rf /var/lib/docker
 rm -rf /opt/datarobot/registry
 ```
-* Remove old configuration files
+
+* Remove old configuration files:
 
 ```bash
 rm -rf /opt/datarobot/etc/
@@ -82,11 +99,10 @@ On upgrade to version 4.4 the following required changes must be made to `config
 
 On upgrade to version 4.5 the following required changes must be made to `config.yaml` for non Hadoop installs:
 
-1. Remove the instance of the `securebroker` service
+1. Remove the instance of the `securebroker` service.
 
-2. Remove the instance of `secureworker` service.
-
-=======
+2. Find the instance of `secureworker` service.
+  * If the `secureworker` service was on a different node than the `execmanager` service, replace `execmanager` with `execmanagereda` and `secureworker` with `execmanagersw` to retain the same workload distribution.
 
 ### Update Network configuration
 
