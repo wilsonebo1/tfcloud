@@ -29,21 +29,21 @@ sudo sed -i --follow-symlinks 's/SELINUX=enforcing/SELINUX=permissive/' /etc/sys
 ### Copy Artifact
 
 * Copy the DataRobot package to a directory on the install server.
-In this install guide we will assume the directory is `/opt/datarobot/DataRobot-4.2.x/`.
-If you use a different directory, replace `/opt/datarobot/DataRobot-4.2.x/` in the following commands with your directory.
+In this install guide we will assume the directory is `/opt/datarobot/DataRobot-4.5.x/`.
+If you use a different directory, replace `/opt/datarobot/DataRobot-4.5.x/` in the following commands with your directory.
 
 Ensure the destination has at least 15 GB of free space for the file and its extracted contents:
 
 ```bash
 scp DataRobot-RELEASE-*.tar.gz \
-    datarobot@[INSTALL SERVER IP]:/opt/datarobot/DataRobot-4.2.x/
+    datarobot@[INSTALL SERVER IP]:/opt/datarobot/DataRobot-4.5.x/
 ```
 
 Also transfer the sha1sum file, to verify the integrity of the installation package:
 
 ```bash
 scp DataRobot-RELEASE-*.tar.gz.sha1sum \
-    datarobot@[INSTALL SERVER IP]:/opt/datarobot/DataRobot-4.2.x/
+    datarobot@[INSTALL SERVER IP]:/opt/datarobot/DataRobot-4.5.x/
 ```
 
 * Run the following commands from an SSH session on the install server.
@@ -57,7 +57,7 @@ ssh datarobot@[INSTALL SERVER IP]
 Execute all the following commands from this directory:
 
 ```bash
-cd /opt/datarobot/DataRobot-4.2.x/
+cd /opt/datarobot/DataRobot-4.5.x/
 ```
 
 * Verify the integrity of the transferred installation package:
@@ -69,13 +69,13 @@ sha1sum -c DataRobot-RELEASE*.tar.gz.sha1sum
 If the installation package was transferred without error, you will see a message similar to the following:
 
 ```bash
-DataRobot-RELEASE-4.0.x.tar.gz: OK
+DataRobot-RELEASE-4.5.x.tar.gz: OK
 ```
 
 If the file was corrupted, you will see a message similar to the following:
 
 ```bash
-DataRobot-RELEASE-4.0.x.tar.gz: FAILED
+DataRobot-RELEASE-4.5.x.tar.gz: FAILED
 sha1sum: WARNING: 1 computed checksum did NOT match
 ```
 
@@ -99,7 +99,7 @@ First, choose a sample YAML configuration file as a template from the `example-c
 
 * `multi-node.hadoop.yaml`: Multiple application servers (eg. HA databases or dedicated prediction servers).
 
-Now, copy it to `/opt/datarobot/DataRobot-4.2.x/config.yaml`:
+Now, copy it to `/opt/datarobot/DataRobot-4.5.x/config.yaml`:
 
 ```bash
 cp example-configs/multi-node.linux.yaml config.yaml
@@ -127,24 +127,6 @@ os_configuration:
 The `multi-node.linux.yaml` file has a full set of sample configurations for reference purposes.
 The `example-configs/config-variables.md` file has a comprehensive set of documented configuration values.
 
-To validate your configuration files, run
-
-```bash
-./bin/datarobot validate
-```
-If everything is OK, the output will be similar to:
-```bash
-Validating configurations for DataRobot.
-Validated config.yaml.
-DataRobot config files are valid.
-```
-
-**NOTE**: Although the validation is very comprehensive regarding the aspects of semantics and particular attribute values, there are still situations where invalid user-provided configuration will not be detected.
-This can cause unexpected results during deployment/usage.
-One such situation is a YAML configuration file with an extra indent step.
-This may lead to an optional key being absent because it is shifted into the object above it.
-Please manually verify that the correct level of indentation is used in all YAML files.
-
 #### Accept Oracle Java License
 
 Accept the Oracle Binary Code License terms and allow DataRobot to install Oracle Java Development Kit 10 by adding `accept_oracle_bcl_terms: yes` to your `config.yaml`.
@@ -162,6 +144,60 @@ Note: if your DataRobot installation is accessed from the Internet, as opposed t
 For instructions on setting up TLS encryption on your webserver, see the Advanced Configuration [section on TLS](special-topics/tls.md).
 
 Contact DataRobot Support if you have any questions about settings in this file.
+
+#### Configuring Webserver Privilege and Ports
+
+By default, the webserver (`nginx`) runs on privileged ports (80 for http, 443 for https).
+
+This can be configured. It is possible to run `nginx` on non-privileged ports (typically >=1024 on most distributions).
+For example, port `8080` can be used for http, and port `8443` for https (any non-privileged ports can be used).
+This can be configured in `config.yaml`:
+
+```yaml
+# Example config.yaml snippet
+---
+...
+os_configuration:
+  webserver:
+    http_port: 8080
+    https_port: 8443
+
+
+#### Offline Installation using Local Connection
+
+It is possible to avoid using SSH, for example in offline installation. When this is done, installation must be done
+on each machine separately (following the full installation instructions on each machine). Additionally, the ansible
+connection must be set to `local`. This can be done for each host in `config.yaml`, by converting the `hosts` list
+from strings (e.g. `- 10.1.2.3`) into mappings of the address (e.g. `- address: 10.1.2.3`) and overriding ansible
+variables. For example:
+
+```yaml
+# Example config.yaml snippet
+---
+...
+servers:
+  ...
+  hosts:
+  - address: 10.1.2.3
+    ansible_vars:
+      ansible_connection: local
+...
+```
+
+#### Validate Configuration
+
+To validate your configuration files, run
+
+```bash
+./bin/datarobot validate
+```
+
+**NOTE**: Although the validation is very comprehensive regarding the aspects of semantics and particular attribute values, there are still situations where invalid user-provided configuration will not be detected.
+This can cause unexpected results during deployment/usage.
+One such situation is a YAML configuration file with an extra indent step.
+This may lead to an optional key being absent because it is shifted into the object above it.
+Please manually verify that the correct level of indentation is used in all YAML files.
+
 
 ### Install Dependencies
 
@@ -226,6 +262,10 @@ A successful run of this command will finish with:
 Playbook completed successfully
 DataRobot Installation Complete.
 ```
+
+**NOTE**: If performing an offline install, run all of these commands on each machine. Additionally, you may need to perform a final
+`bin/datarobot services restart` on each machine after completing installation on all machines.
+
 
 * Check that the cluster was installed correctly:
 

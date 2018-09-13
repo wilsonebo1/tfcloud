@@ -2,7 +2,7 @@
 
 ## DataRobot Application TLS
 
-If you are configuring DataRobot with TLS enabled, copy the TLS certificate and key files into the directory `/opt/datarobot/DataRobot-4.2.x/certs/` and update your `config.yaml` with the file names (paths are relative to the certs directory).
+If you are configuring DataRobot with TLS enabled, copy the TLS certificate and key files into the directory `/opt/datarobot/DataRobot-4.5.x/certs/` and update your `config.yaml` with the file names (paths are relative to the certs directory).
 You may use separate keys for your prediction servers.
 
 ```yaml

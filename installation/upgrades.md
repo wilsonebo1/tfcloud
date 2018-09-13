@@ -47,11 +47,11 @@ systemctl stop docker
 docker --version
 ```
 
-* If the installed version of Docker is below 17.03, uninstall it completely
+* If the installed version of Docker is below 18.03, uninstall it completely
 from every node:
 
 ```bash
-yum remove -y docker docker-selinux
+yum remove -y docker docker-ce-selinux docker-selinux python-docker-py
 ```
 
 **NOTE:** If using even older versions of Docker, the package names may be

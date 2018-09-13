@@ -31,11 +31,16 @@ You must have access to a shell (`/bin/bash` is preferred).
 
 ## Users
 
-DataRobot runs all services as a user named `datarobot`, which will be created during the RPM and Hadoop installation process.
+DataRobot requires a user to run services. Typically, this user is named `datarobot`.
+This user is _not created_ during the RPM and Hadoop installation process.
+This user must own the DataRobot installation directory, `/opt/datarobot`.
 
-A separate admin user must be provided by the customer for running installation and administration commmands.
-It will be assumed that this user is used when running any commands in these instructions.
-This user _must_ be able to execute any commands with `sudo`.
+A _separate_ admin user (or `root`) must be provided by the customer for running privileged installation and administration commmands.
+It will be assumed that this user is used when running any commands in these instructions unless otherwise specified.
+This user _must_ be able to execute any commands with `sudo` (or be `root`).
+We recommend an admin user with `sudo` access is used instead of logging in and running commands as `root`, which
+may require some manual changes beyond the scope of this document
+(e.g. with permissions, or modification of `ansible` roles/playbooks).
 For illustration purposes, we will use the username `dradmin` throughout this documentation.
 
 The user may be a system user, but keep in mind you will want to set a default shell for the user.

@@ -50,7 +50,7 @@ os_configuration:
     secrets_enforced: false
 ```
 
-* Remove the file `/opt/datarobot/DataRobot-4.2.x/secrets.yaml` if it exists.
+* Remove the file `/opt/datarobot/DataRobot-4.5.x/secrets.yaml` if it exists.
 
 * Execute:
 

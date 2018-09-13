@@ -28,21 +28,21 @@ sudo sed -i 's/enforcing/permissive/' /etc/sysconfig/selinux
 ### Copy Artifact
 
 * Copy the DataRobot package to a directory on the install server.
-In this install guide we will assume the directory is `/opt/datarobot/DataRobot-4.2.x/`.
-If you use a different directory, replace `/opt/datarobot/DataRobot-4.2.x/` in the following commands with your directory.
+In this install guide we will assume the directory is `/opt/datarobot/DataRobot-4.5.x/`.
+If you use a different directory, replace `/opt/datarobot/DataRobot-4.5.x/` in the following commands with your directory.
 
 Ensure the destination has at least 5 GB of free space for the file and its extracted contents:
 
 ```bash
 scp DataRobot-RELEASE-*.tar.gz \
-    dradmin@[INSTALL SERVER IP]:/opt/datarobot/DataRobot-4.2.x/
+    dradmin@[INSTALL SERVER IP]:/opt/datarobot/DataRobot-4.5.x/
 ```
 
 Also transfer the sha1sum file, to verify the integrity of the installation package:
 
 ```bash
 scp DataRobot-RELEASE-*.tar.gz.sha1sum \
-    dradmin@[INSTALL SERVER IP]:/opt/datarobot/DataRobot-4.2.x/
+    dradmin@[INSTALL SERVER IP]:/opt/datarobot/DataRobot-4.5.x/
 ```
 
 * Run the following commands from an SSH session on the install server.
@@ -56,7 +56,7 @@ ssh dradmin@[INSTALL SERVER IP]
 Execute all the following commands from this directory:
 
 ```bash
-cd /opt/datarobot/DataRobot-4.2.x/
+cd /opt/datarobot/DataRobot-4.5.x/
 ```
 
 * Verify the integrity of the transferred installation package:
@@ -68,13 +68,13 @@ sha1sum -c DataRobot-RELEASE*.tar.gz.sha1sum
 If the installation package was transferred without error, you will see a message similar to the following:
 
 ```bash
-DataRobot-RELEASE-4.2.x.tar.gz: OK
+DataRobot-RELEASE-4.5.x.tar.gz: OK
 ```
 
 If the file was corrupted, you will see a message similar to the following:
 
 ```bash
-DataRobot-RELEASE-4.2.x.tar.gz: FAILED
+DataRobot-RELEASE-4.5.x.tar.gz: FAILED
 sha1sum: WARNING: 1 computed checksum did NOT match
 ```
 
@@ -98,9 +98,7 @@ Contact DataRobot Support if you have any questions about settings in this file.
 * Run the following command to install the base DataRobot system and installer
 
 ```bash
-sudo yum localinstall \
-    release/datarobot-rpms/datarobot-common-*.rpm \
-    release/datarobot-rpms/datarobot-system-*.rpm
+sudo yum localinstall release/datarobot-rpms/datarobot-system-*.rpm
 ```
 
 ### Enable DataRobot CLI Environment
@@ -124,7 +122,7 @@ First, choose a sample YAML configuration file as a template from the `example-c
 
 The `multi-node` configurations are not supported for RPM installs at this time.
 
-Now, copy it to `/opt/datarobot/DataRobot-4.2.x/config.yaml`:
+Now, copy it to `/opt/datarobot/DataRobot-4.5.x/config.yaml`:
 
 ```bash
 cp example-configs/single-node-poc.linux.yaml config.yaml
@@ -137,9 +135,22 @@ chmod 0600 config.yaml
 
 In particular, focus on the user, group, and SSH key settings near the top of the file and the host IP’s near the bottom of the file.
 
-The `admin_user` refers to the user running the installation. They must have the ability to run commands via `sudo` over SSH.
-The SSH key specified by `private_ssh_key_path` must be useable by the `admin_user` to SSH into all machines in the cluster and run `sudo` commands.
-RPMs will create a `datarobot` user to run services. The `user` and `group` must match `datarobot` for RPM installation.
+DataRobot requires a user to run services, referred to as `user` in `config.yaml` (along with it's group, `group`).
+Typically, this user is named `datarobot`, but any username is valid. RPMs will _not_ create a `datarobot` user/group.
+This user must be created manually. This user must own the DataRobot installation directory, `/opt/datarobot`.
+Typically, this means `/opt/datarobot` is the `HOME` directory of this user.
+To create this user manually, if it does not already exist:
+
+```bash
+useradd -d /opt/datarobot datarobot
+```
+
+The `user` refers to the user which services run as, and is used for parts of the installation that do not require privilege (`sudo`). The SSH key
+specified by `private_ssh_key_path` must be usable by the `user` to SSH into all machines in the cluster, unless an offline installation is performed.
+
+The `admin_user` refers to the user running privileged parts of the installation (such as requiring `sudo`, running `systemctl`/`initctl` commands, etc.).
+They must have the ability to run commands via `sudo` over SSH, unless an offline installation is performed.
+The SSH key specified by `admin_private_ssh_key_path` must be usable by the `admin_user` to SSH into all machines in the cluster and run `sudo` commands.
 
 ```yaml
 # Example config.yaml snippet
@@ -148,7 +159,8 @@ os_configuration:
     admin_user: dradmin
     user: datarobot
     group: datarobot
-    private_ssh_key_path: /home/dradmin/.ssh/id_rsa
+    admin_private_ssh_key_path: /home/dradmin/.ssh/id_rsa
+    private_ssh_key_path: /opt/datarobot/.ssh/id_rsa
     ...
 ```
 
@@ -171,7 +183,7 @@ The `example-configs/config-variables.md` file has a comprehensive set of docume
 
 If you are not doing a Hadoop install, you will need to configure DataRobot to use local storage.
 
-```
+```yaml
 # Example config.yaml snippet
 ---
 ...
@@ -180,6 +192,48 @@ app_configuration:
         FILE_STORAGE_TYPE: local
         LOCAL_FILE_STORAGE_DIR: /opt/datarobot/data
         FILE_STORAGE_PREFIX: storage/  # Trailing slash required
+...
+```
+
+#### Configuring Webserver Privilege and Ports
+
+By default, the webserver (`nginx`) runs as the privileged user (`admin_user`), runs on privileged ports (80 for http,
+443 for https), uses `setcap` to allow `user` to bind to those ports, then uses `sudo` to drop privileges and run `nginx`
+as `user.
+
+This can be configured. It is possible to run `nginx` on non-privileged ports (typically >=1024 on most distributions).
+This avoids running `setcap`/`sudo` and just starts `nginx` as `user`. For example, port `8080` can be used for http, and
+port `8443` for https (any non-privileged ports can be used). This can be configured in `config.yaml`:
+
+```yaml
+# Example config.yaml snippet
+---
+...
+os_configuration:
+  webserver:
+    privileged: false
+    http_port: 8080
+    https_port: 8443
+```
+
+#### Offline Installation using Local Connection
+
+It is possible to avoid using SSH, for example in offline installation. When this is done, installation must be done
+on each machine separately (following the full installation instructions on each machine). Additionally, the ansible
+connection must be set to `local`. This can be done for each host in `config.yaml`, by converting the `hosts` list
+from strings (e.g. `- 10.1.2.3`) into mappings of the address (e.g. `- address: 10.1.2.3`) and overriding ansible
+variables. For example:
+
+```yaml
+# Example config.yaml snippet
+---
+...
+servers:
+  ...
+  hosts:
+  - address: 10.1.2.3
+    ansible_vars:
+      ansible_connection: local
 ...
 ```
 
@@ -200,22 +254,39 @@ Please manually verify that the correct level of indentation is used in all YAML
 
 ## Install and Configure the Application {#linux-provision}
 
-* Run the following commands in order to install and configure DataRobot:
+* As the `admin_user`, set up system configuration and install required packages and service definitions:
 
 ```bash
-# Set up system configuration and install required packages
 ./bin/datarobot setup-dependencies
+```
 
-# Render configuration files
+* As the `user`, install and configure DataRobot:
+
+```bash
+source release/profile
+
 ./bin/datarobot install --pre-configure
+```
 
-# Start DataRobot services
+* As the `admin_user`, start DataRobot services:
+
+```bash
 ./bin/datarobot services start
+```
 
-# Apply configuration to the running application
+* As the `user`, apply configuration to the running application:
+
+```bash
 ./bin/datarobot install --post-configure
+```
 
-# Create the initial admin user
+**NOTE**: If performing an offline install, run all of these commands on each machine. Additionally, you may need to perform a final
+`bin/datarobot services restart` on each machine after completing installation on all machines.
+
+
+An initial admin user can be created by running:
+
+```bash
 /opt/datarobot/sbin/datarobot-create-admin
 ```
 
