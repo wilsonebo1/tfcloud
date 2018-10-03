@@ -1,10 +1,11 @@
 {% block hadoop_integration_requirements %}
 # DataRobot Hadoop Integration Requirements
 
-DataRobot is installable as a parcel that can run on your organization's
-Hadoop cluster.
+Please note that multiple restarts of your Hadoop cluster will be required.
 
-DataRobot can integrate with Cloudera, and Hortonworks (Ambari) Hadoop distributions.
+DataRobot is installable as a parcel that can run on your organization's Hadoop cluster.
+
+DataRobot can integrate with Cloudera and Hortonworks (Ambari) Hadoop distributions.
 {% endblock %}
 
 **NOTE**: DataRobot supports only parcels as a format of software distribution for a Hadoop cluster.
