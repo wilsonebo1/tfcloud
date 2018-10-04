@@ -104,6 +104,7 @@ DataRobot requires proxy-user settings in both secure (= Kerberos enabled) and n
 	```bash
 	hadoop.proxyuser.datarobot.groups=*
 	hadoop.proxyuser.datarobot.hosts=*
+	hadoop.proxyuser.datarobot.users=*
 	```
 
 	Adding the above properties enables DataRobot to impersonate any user. These permissions can be narrowed, if needed, via `groups` and `users` but DataRobot must be in the respective lists. 
