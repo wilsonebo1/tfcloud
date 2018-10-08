@@ -63,41 +63,51 @@ You should now be able to log in to the Ambari UI in your web browser.
 
 1. Go to the Ambari UI in your web browser. The UI is available on port 8080.
 2. Enter your username and password, then click **Sign in**:
-<img src="images/ambari-sign-in.png" alt="" style="border: 1px solid black;"/>
+
+<img src="images/ambari-sign-in.png" alt="" style="border: 1px solid black;" width="500"/>
 
 ## Provide Additional Configuration
 
 1. Go to the _MapReduce_ service:
-<img src="images/ambari-mapreduce-service.png" alt="" style="border: 1px solid black;"/>
+
+<img src="images/ambari-mapreduce-service.png" alt="" style="border: 1px solid black;" width="200"/>
+
 2. Navigate to the configuration:
-<img src="images/ambari-navigation-config.png" alt="" style="border: 1px solid black;"/>
+
+<img src="images/ambari-navigation-config.png" alt="" style="border: 1px solid black;" width="300"/>
 
 3. Append to the `mapreduce.application.classpath` parameter:
-  * Using Hortonworks: `:/usr/hdp/current/hadoop-mapreduce-client/*`
+  `:/usr/hdp/current/hadoop-mapreduce-client/*`
 
 4. Save changes:
-<img src="images/ambari-save-changes.png" alt="" style="border: 1px solid black;"/>
+
+<img src="images/ambari-save-changes.png" alt="" style="border: 1px solid black;" width="150"/>
 
 ### Update Proxy-User Settings in `core-site.xml`.
 
 DataRobot requires proxy-user settings in both secure (= Kerberos enabled) and nonsecure clusters. Update the proxy-user settings in `core-site.xml`.
 
 1. Select the HDFS service:
-<img src="images/ambari-hdfs-service.png" alt="" style="border: 1px solid black;"/>
+
+<img src="images/ambari-hdfs-service.png" alt="" style="border: 1px solid black;" width="200"/>
 
 2. Navigate to the configurations via the Configs tab:
-<img src="images/ambari-hdfs-config.png" alt="" style="border: 1px solid black;"/>
+
+<img src="images/ambari-hdfs-config.png" alt="" style="border: 1px solid black;" width="200"/>
 
 3. Select the Advanced tab:
-<img src="images/ambari-hdfs-advanced.png" alt="" style="border: 1px solid black;"/>
+
+<img src="images/ambari-hdfs-advanced.png" alt="" style="border: 1px solid black;" width="200"/>
 
 4. Expand the "Custom core-site" option:
-<img src="images/ambari-hdfs-custom.png" alt="" style="border: 1px solid black;"/>
+
+<img src="images/ambari-hdfs-custom.png" alt="" style="border: 1px solid black;" width="200"/>
 
 5. At the bottom of the window, click the "Add property..." link.
 
 6. Click the bulk property icon in the right of the "Add Property" window:
-<img src="images/ambari-hdfs-bulk-props.png" alt="" style="border: 1px solid black;"/>
+
+<img src="images/ambari-hdfs-bulk-props.png" alt="" style="border: 1px solid black;" width="600"/>
 
 7. In the "Properties" box, add proxyuser properties for DataRobot:
 
@@ -142,7 +152,8 @@ If you use [Transparent Encryption in HDFS](http://hadoop.apache.org/docs/stable
 
 
 10. Restart all required services:
-<img src="images/ambari-restart-services.png" alt="" style="border: 1px solid black;"/>
+
+<img src="images/ambari-restart-services.png" alt="" style="border: 1px solid black;" width="600"/>
 
 ## Distribute Parcel to Hosts
 
@@ -188,24 +199,29 @@ http://[IP OF SIMPLE WEBSERVER]:[SERVER PORT]/DataRobot-[PARCEL VERSION].parcel
 ## Install DataRobot Service
 
 1. Click on **actions** and then **add service**:
-<img src="images/ambari-add-service.png" alt="" style="border: 1px solid black;"/>
+
+<img src="images/ambari-add-service.png" alt="" style="border: 1px solid black;" width="200"/>
 
 2. Select DataRobot for installation:
-<img src="images/ambari-select-datarobot.png" alt="" style="border: 1px solid black;"/>
+
+<img src="images/ambari-select-datarobot.png" alt="" style="border: 1px solid black;" width="500"/>
 
 3. Click **Next**.
 
 4. Select where to install DataRobot Master and click **Next**.
 
 5. Select all YARN nodes as clients and nodes for ETL roles. Then click **Next**:
-<img src="images/ambari-select-yarn.png" alt="" style="border: 1px solid black;"/>
+
+<img src="images/ambari-select-yarn.png" alt="" style="border: 1px solid black;" width="600"/>
 
 6. Provide the URL to the parcel package in the `datarobot-env` configuration:
-<img src="images/ambari-parcel-url.png" alt="" style="border: 1px solid black;"/>
+
+<img src="images/ambari-parcel-url.png" alt="" style="border: 1px solid black;" width="600"/>
 
 7. Set up all required parameters and provide the license in the `datarobot-master`
 configuration:
-<img src="images/ambari-required-params.png" alt="" style="border: 1px solid black;"/>
+
+<img src="images/ambari-required-params.png" alt="" style="border: 1px solid black;" width="600"/>
 
 * For HA HDFS clusters, set the following (options not shown in screen above):
   - To explicitly pick an active namenode, fill in a value for the `ACTIVE_NAMENODE_ADDRESS` field. If not specified, DataRobot will automatically pick the active namenode.
@@ -217,7 +233,8 @@ configuration:
 8. Click **Next**.
 
 9. If the cluster is secured by Kerberos, provide the admin credentials:
-<img src="images/ambari-kerberos.png" alt="" style="border: 1px solid black;"/>
+
+<img src="images/ambari-kerberos.png" alt="" style="border: 1px solid black;" width="500"/>
 
 10. Proceed to the installation.
 
