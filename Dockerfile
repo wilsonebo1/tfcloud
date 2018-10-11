@@ -3,7 +3,7 @@ FROM node:slim
 MAINTAINER Platform Squad "enterprise-platform@datarobot.com"
 
 RUN apt-get update && \
-    apt-get install -y calibre && \
+    apt-get install -y calibre git && \
     npm install --global gitbook-cli && \
     gitbook fetch latest && \
     npm cache clear --force && \

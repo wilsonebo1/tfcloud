@@ -49,6 +49,7 @@ application server cluster, whether or not using Hadoop.
 | 443   | TCP      | NGINX     |
 | 1514  | UDP      | Logging   |
 | 3000  | TCP      | DataRobot Prediction Optimization User Interface |
+| 3003  | TCP      | DataRobot Tableau Extensions Service |
 | 5000  | TCP      | Docker Registry   |
 | 5445  | TCP      | IDE Client Broker |
 | 5446  | TCP      | IDE Client Worker |
@@ -287,6 +288,7 @@ All of these are listed in one or more of the above tables.
 |2552|TCP|Cloudera Log Publisher (Cloudera only)|All Hadoop Nodes|Application Servers|
 |2888|TCP|Zookeeper Quorum Port|All Hadoop Nodes|All Hadoop Nodes|
 |3000|TCP|DataRobot Prediction Optimization User Interface|All Cluster Nodes|All Cluster Nodes|
+|3003|TCP|DataRobot Tableau Extensions Service|All Cluster Nodes|All Cluster Nodes|
 |3888|TCP|Zookeeper Election Port|All Hadoop Nodes|All Hadoop Nodes|
 |5000|TCP|Docker Registry|All Cluster Nodes|All Cluster Nodes|
 |5432|TCP|Timescaledb (premium feature)|Timescaledb|modmonrsyslogmaster, modmonworker and publicapi|
