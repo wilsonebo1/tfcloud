@@ -45,7 +45,7 @@ application server cluster, whether or not using Hadoop.
 |------:|:---------|:----------|
 | 80    | TCP      | NGINX     |
 | 443   | TCP      | NGINX     |
-| 1514  | UDP      | Logging   |
+| 1514  | UDP      | Application Web   |
 | 6379  | TCP      | Redis |
 | 6556  | TCP      | Resource Proxy Subscriber |
 | 6557  | TCP      | Resource Proxy Publisher |
@@ -156,7 +156,7 @@ Hadoop Servers => Application Servers
 |------:|:---------|:---------|
 | 80    | TCP      | HTTP traffic for config sync (TLS not enabled on edge node) |
 | 443   | TCP      | HTTPS traffic for config sync (TLS enabled on edge node) |
-| 1514  | UDP      | Logging |
+| 1514  | UDP      | Application Web |
 | 6379  | TCP      | Redis |
 | 6556  | TCP      | Resource Proxy Subscriber |
 | 6558  | TCP      | Queue Proxy Subscriber |
@@ -229,7 +229,7 @@ All of these are listed in one or more of the above tables.
 |443|TCP|HTTPS|Application Servers|All Cluster Nodes|
 |1004|TCP|Data transfer (HDFS HA) (Cloudera only)|All Hadoop Nodes|Application Servers|
 |1006|TCP|Data transfer without HTTPS (HDFS HA) (Cloudera only)|All Hadoop Nodes|Application Servers|
-|1514|UDP|Logging|Provisioner/Admin|All Cluster Nodes|
+|1514|UDP|Application Web|Provisioner/Admin|All Cluster Nodes|
 |2181|TCP|ZooKeeper client port|All Hadoop Nodes|Application Servers|
 |2552|TCP|Cloudera Log Publisher (Cloudera only)|All Hadoop Nodes|Application Servers|
 |2888|TCP|Zookeeper Quorom Port|All Hadoop Nodes|All Hadoop Nodes|
