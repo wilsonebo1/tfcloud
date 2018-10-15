@@ -70,6 +70,12 @@ rm -rf /opt/datarobot/registry
 rm -rf /opt/datarobot/etc/
 ```
 
+* Remove old temporary package files:
+
+```bash
+rm -rf /tmp/docker-*
+```
+
 ### Update configuration files
 
 Your `config.yaml` will need to be updated.
