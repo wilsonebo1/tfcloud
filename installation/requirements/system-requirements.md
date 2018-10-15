@@ -164,13 +164,39 @@ which wget  # Should output a path to wget
 
 ## Disk Space
 
-DataRobot requires a minimum of free disk space available at the following paths:
+DataRobot requires a minimum of free disk space in these locations:
 
-- /opt/datarobot - 80 GiB;
-- /var/lib/docker - 30 GiB.
+- DataRobot Home Directory (default `/opt/datarobot`) - 80 GiB
+- Docker Data Directory (default `/varlib/docker`) - 30 GiB
 
-For data storage nodes (running `gluster`, `HDFS`, etc.),
-we recommend a minimum of 4TB of free space for production-ready systems.
+For data storage nodes (running `gluster`, `HDFS`, etc.), we recommend a minimum of 4TB of free space for production-ready systems.
+
+## Directories
+
+### DataRobot Home Directory
+
+The default path for the DataRobot home directory is `/opt/datarobot`.
+
+It is used to store the DataRobot installation media and all code, configuration files, and application data.
+
+If `/opt/datarobot` is not on the desired disk partition, it is possible to configure DataRobot to use any alternative directory.
+When setting up the `config.yaml` file, set the `os_configuration.datarobot_home_dir` to your desired path.
+
+For ease of administration, it is common to create a symlink named `/opt/datarobot` pointing to your home directory.
+However, it is advised to point DataRobot configuration to the real path used and not the symlink.
+
+### Docker Data Directory
+
+Docker defaults to storing images and metadata in `/var/lib/docker`.
+
+If `/opt/datarobot` is not on the desired disk partition, it is possible to create a symlink in your DataRobot home directory as follows.
+
+With a DataRobot home directory of `/data/mydatarobot`:
+
+```bash
+mkdir /data/mydatarobot/docker
+ln -s /data/mydatarobot/docker /var/lib/docker
+```
 
 ## Files
 
