@@ -291,7 +291,7 @@ All of these are listed in one or more of the above tables.
 |3003|TCP|DataRobot Tableau Extensions Service|All Cluster Nodes|All Cluster Nodes|
 |3888|TCP|Zookeeper Election Port|All Hadoop Nodes|All Hadoop Nodes|
 |5000|TCP|Docker Registry|All Cluster Nodes|All Cluster Nodes|
-|5432|TCP|Model Management|Timescaledb|modmonrsyslogmaster, modmonworker and publicapi|
+|5432|TCP|Model Management|Model Management|modmonrsyslogmaster, modmonworker and publicapi|
 |5445|TCP|IDE Client Broker|All Cluster Nodes|All Cluster Nodes|
 |5446|TCP|IDE Client Worker|All Cluster Nodes|All Cluster Nodes|
 |5544|UDP|Audit Logs|All Cluster Nodes|All Cluster Nodes|
