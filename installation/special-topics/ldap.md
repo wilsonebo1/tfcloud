@@ -80,7 +80,7 @@ For example, users in FreeIPA directory have `mail` attribute, so in order to co
 ---
 app_configuration:
     drenv_override:
-        USER_AUTH_LDAP_MAPPING_EMAIL_ADDRESS: mail
+        USER_AUTH_LDAP_ATTR_EMAIL_ADDRESS: mail
 ```
 
 With this configuration DataRobot will read the email address found in `mail` attribute in the directory and will use it for sending notifications, such as the email about autopilot completion.
