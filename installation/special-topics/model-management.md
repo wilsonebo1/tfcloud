@@ -9,7 +9,7 @@ dedicated prediction servers in the following way:
 - services:
   - dedicatedpredictionapi
   - dedicatedpredictionnginx
-  - modmonrsyslogslave
+  - modmonrsyslogmaster
   hosts:
   - x.x.x.x
   - y.y.y.y
@@ -19,21 +19,16 @@ dedicated prediction servers in the following way:
     drenv_override:
       WORKER_MODEL_CACHE: 16 # Models to cache in memory at once. Tune this for your use case
       MODEL_CACHE_MODE: LRU # Mode for caching models. Options: LRU, latest
-      # enable model management features
-      PREDICTION_API_MONITOR_USAGE_ENABLED: true   # service stats
-      PREDICTION_API_MONITOR_RESULT_ENABLED: true  # target drift
-      PREDICTION_API_MONITOR_RAW_ENABLED: true     # feature drift
 ```
 
 Note that in addition to an example configuration in `multi-node.linux.yaml` we now run one
-additional service on dedicated prediction API nodes - `modmonrsyslogslave`.
+additional service on dedicated prediction API nodes - `modmonrsyslogmaster`.
 
 One more server is needed for model management data collection and processing:
 
 ```yaml
 - services:
   - pgsql
-  - modmonrsyslogmaster
   - modmonworker
   hosts:
   - z.z.z.z
