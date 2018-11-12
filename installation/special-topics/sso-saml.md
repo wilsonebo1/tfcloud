@@ -24,6 +24,7 @@ Single Sign-On should be configured on both Identity Provider and DataRobot side
 ### Identity Provider configuration
 
 Identity Providers implement their own dashborads, so customer should reach IdP's documentation to integrate DataRobot. IdP requires from DataRobot sign in and sign out urls. They are represented on the `Manage SSO` page under `Single Sign-On URL` and `Single Sign-Out URL` settings.
+DataRobot expects to receive username and email from the identity provider. IdP should be configured so that the SAML response contains `username` attribute (mandatory) and `email` attribute (optional, recommended). 
 
 ### DataRobot configuration
 
