@@ -51,7 +51,7 @@ docker --version
 from every node:
 
 ```bash
-yum remove -y docker docker-ce-selinux docker-selinux python-docker-py
+yum remove -y docker docker-ce docker-ce-selinux docker-selinux python-docker-py
 ```
 
 **NOTE:** If using even older versions of Docker, the package names may be
