@@ -10,6 +10,7 @@
 
 ## Installation
 
+* [Upgrades](upgrades.md)
 * [Linux Installation](standard-install.md)
 * [Hadoop Installation](hadoop-install.md)
   * [Cloudera Installation](cloudera-install.md)
@@ -24,3 +25,4 @@
   * [Exported Model File Validation](special-topics/model-export-validation.md)
   * [Password Policies](special-topics/password-policies.md)
   * [Network File System (NFS)](special-topics/nfs.md)
+  * [Model Management](special-topics/model-management.md)

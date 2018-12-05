@@ -91,11 +91,11 @@ tar xzvf DataRobot-RELEASE*.tar.gz
 
 First, choose a sample YAML configuration file as a template from the `example-configs` directory:
 
-* `single-node.linux.yaml`: Single machine Linux install.
+* `single-node-poc.linux.yaml`: Single machine Linux install.
 
 * `multi-node.linux.yaml`: Multiple machine Linux install, with additional examples for more complex setups.
 
-* `single-node.hadoop.yaml`: Single application server install connecting to a Hadoop cluster.
+* `single-node-poc.hadoop.yaml`: Single application server install connecting to a Hadoop cluster.
 
 * `multi-node.hadoop.yaml`: Multiple application servers (eg. HA databases or dedicated prediction servers).
 
@@ -161,7 +161,9 @@ os_configuration:
   webserver:
     http_port: 8080
     https_port: 8443
-
+    privileged: false
+  webserver_hostname: hostname-to-use:8443
+```
 
 #### Offline Installation using Local Connection
 
@@ -276,8 +278,15 @@ DataRobot Installation Complete.
 * Run the command to generate the initial admin account for the DataRobot application:
 
 ```bash
-docker exec app create_initial_admin.sh
+docker exec -it app create_initial_admin.sh
 ```
+
+## Complete and Test
+
+Application server installation complete!
+
+If this is a Linux-only installation, DataRobot is now ready to use.
+If this is a Hadoop installation, refer to the [Hadoop Installation](./hadoop-install.md) section to continue with the installation process.
 
 * You can now open the DataRobot application in your web browser by pointing it to `http://[INSTALL SERVER FQDN OR IP ADDRESS]` and logging in using the credentials printed out by the previous command. You should use this account for creating new users and modifying user permissions only.
 
@@ -286,10 +295,4 @@ Sample datasets can be downloaded as follows:
 * <https://s3.amazonaws.com/datarobot_public_datasets/10k_diabetes.xlsx> (use _"readmitted"_ as your target variable)
 * <https://s3.amazonaws.com/datarobot_test/kickcars-sample-200.csv> (use _"isBadBuy"_ as your target variable)
 
-
-Application server installation complete!
-
-If this is a Linux-only installation, DataRobot is now ready to use.
 Please refer to the Administration Manual to learn how to administer your installation.
-
-If this is a Hadoop installation, refer to the [Hadoop Installation](./hadoop-install.md) section to continue with the installation process.

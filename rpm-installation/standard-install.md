@@ -113,19 +113,20 @@ This must be done once in every new shell session if you wish to use the DataRob
 
 ### Create Configuration Files
 
-#### Copy From Template
 First, choose a sample YAML configuration file as a template from the `example-configs` directory:
 
 * `single-node-poc.linux.yaml`: Single machine Linux install.
 
+* `multi-node.linux.yaml`: Multiple machine Linux install, with additional examples for more complex setups.
+
 * `single-node-poc.hadoop.yaml`: Single application server install connecting to a Hadoop cluster.
 
-The `multi-node` configurations are not supported for RPM installs at this time.
+* `multi-node.hadoop.yaml`: Multiple application servers (eg. HA databases or dedicated prediction servers).
 
 Now, copy it to `/opt/datarobot/DataRobot-4.5.x/config.yaml`:
 
 ```bash
-cp example-configs/single-node-poc.linux.yaml config.yaml
+cp example-configs/multi-node.linux.yaml config.yaml
 chmod 0600 config.yaml
 ```
 
@@ -166,6 +167,9 @@ os_configuration:
 
 **NOTE**: Hostnames (aside from `webserver_location`, if specified), must be IPv4 addresses.
 
+The `multi-node.linux.yaml` file has a full set of sample configurations for reference purposes.
+The `example-configs/config-variables.md` file has a comprehensive set of documented configuration values.
+
 #### Accept Oracle Java License
 
 Accept the Oracle Binary Code License terms and allow DataRobot to install Oracle Java Development Kit 10 by adding `accept_oracle_bcl_terms: yes` to your `config.yaml`.
@@ -176,8 +180,6 @@ The license terms can be found on [Oracle's website](http://www.oracle.com/techn
 ---
 accept_oracle_bcl_terms: yes
 ```
-
-The `example-configs/config-variables.md` file has a comprehensive set of documented configuration values.
 
 #### Configure Storage
 
@@ -211,9 +213,10 @@ port `8443` for https (any non-privileged ports can be used). This can be config
 ...
 os_configuration:
   webserver:
-    privileged: false
     http_port: 8080
     https_port: 8443
+    privileged: false
+  webserver_hostname: hostname-to-use:8443
 ```
 
 #### Offline Installation using Local Connection
@@ -284,24 +287,30 @@ source release/profile
 `bin/datarobot services restart` on each machine after completing installation on all machines.
 
 
+If an upgrade has been performed, migrate the database schema:
+
+```bash
+/opt/datarobot/sbin/datarobot-migrate-db
+```
+
 An initial admin user can be created by running:
 
 ```bash
 /opt/datarobot/sbin/datarobot-create-admin
 ```
 
-* You can now open the DataRobot application in your web browser by pointing it to `http://[INSTALL SERVER FQDN OR IP ADDRESS]` and logging in using the credentials printed out by the previous command. You should use this account for creating new users and modifying user permissions only.
-
-If this is a Hadoop installation, refer to the [Hadoop Installation](./hadoop-install.md) section to continue with the installation process.
-
 ## Complete and Test
 
 Application server installation complete!
 
 If this is a Linux-only installation, DataRobot is now ready to use.
-Please refer to the Administration Manual to learn how to administer your installation.
+If this is a Hadoop installation, refer to the [Hadoop Installation](./hadoop-install.md) section to continue with the installation process.
+
+* You can now open the DataRobot application in your web browser by pointing it to `http://[INSTALL SERVER FQDN OR IP ADDRESS]` and logging in using the credentials printed out by the previous command. You should use this account for creating new users and modifying user permissions only.
 
 Sample datasets can be downloaded as follows:
 
 * <https://s3.amazonaws.com/datarobot_public_datasets/10k_diabetes.xlsx> (use _"readmitted"_ as your target variable)
 * <https://s3.amazonaws.com/datarobot_test/kickcars-sample-200.csv> (use _"isBadBuy"_ as your target variable)
+
+Please refer to the Administration Manual to learn how to administer your installation.
