@@ -26,5 +26,13 @@ Next, configure DataRobot with the following properties:
 * Check `PREFER_HTTPFS`.
 * set `HTTPFS_HOST` to `http(s)://hostname:14000` or your HttpFS load balancer.
 
+## Loadbalanced HTTPFS
+
+When httpfs is loadbalanced, e.g. you have multiple httpfs servers behind one name you should set `HTTPFS_HOST` to the loadbalancer hostname and set `SECURITY_CONTAINER_USE_DELEGATION_TOKENS` to `False`.
+
+## Delegation tokens
+
+You can use `SECURITY_CONTAINER_USE_DELEGATION_TOKENS` setting in cloudera manager/ambari to change if DataRobot will use delegation tokens to access httpfs. 
+By setting the mentioned setting to `False` you can disable delegation tokens and use plain kerberos auth.
 
 
