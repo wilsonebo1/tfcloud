@@ -53,7 +53,6 @@ application server cluster, whether or not using Hadoop.
 | 5000  | TCP      | Docker Registry   |
 | 5445  | TCP      | IDE Client Broker |
 | 5446  | TCP      | IDE Client Worker |
-| 5544  | UDP      | Audit Logs |
 | 5672  | TCP      | RabbitMQ |
 | 6379  | TCP      | Redis |
 | 6556  | TCP      | Resource Proxy Subscriber |
@@ -65,6 +64,7 @@ application server cluster, whether or not using Hadoop.
 | 8002  | TCP      | DataRobot v1 API |
 | 8004  | TCP      | DataRobot v2 API |
 | 8011  | TCP      | DataRobot Socket.IO Server |
+| 8018  | UDP      | Analytics Broker |
 | 8023  | TCP      | DataRobot Upload Server |
 | 8033  | TCP      | DataRobot Diagnostics Server |
 | 8097  | TCP      | DataRobot Prediction Optimization Application |
@@ -294,7 +294,6 @@ All of these are listed in one or more of the above tables.
 |5432|TCP|Model Management|Model Management|modmonrsyslogmaster, modmonworker and publicapi|
 |5445|TCP|IDE Client Broker|All Cluster Nodes|All Cluster Nodes|
 |5446|TCP|IDE Client Worker|All Cluster Nodes|All Cluster Nodes|
-|5544|UDP|Audit Logs|All Cluster Nodes|All Cluster Nodes|
 |5672|TCP|RabbitMQ|All Cluster Nodes|All Cluster Nodes|
 |6379|TCP|Redis|Data Servers|All Cluster Nodes|
 |6556|TCP|Resource Proxy Subscriber|Application Servers|All Cluster Nodes|
@@ -316,6 +315,7 @@ All of these are listed in one or more of the above tables.
 |8002|TCP|DataRobot v1 API|Application Servers|Application Servers|
 |8004|TCP|DataRobot v2 API|Application Servers|Application Servers|
 |8011|TCP|DataRobot Socket.IO Server|Application Servers|Application Servers|
+|8018|UDP|Analytics Broker|Analytics Broker Node|All Cluster Nodes|
 |8020|TCP|NameNode IPC Port|All Hadoop Nodes|Application Servers|
 |8023|TCP|DataRobot Upload Server|Application Servers|Application Servers|
 |8027|TCP|Hadoop Configuration Sync|Application Servers|Hadoop Manager Node|
