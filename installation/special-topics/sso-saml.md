@@ -37,7 +37,7 @@ There are following settings in advanced configuration:
 
 * `User Session Length (sec)` - Session cookie expiration time. Default is month
 * `SP Initiated Method` - SAML metod which is used to start authentication negotiation
-* `IdP Initiated Method` - SAML method which is used to move user to DataRobot after successfull authentication
+* `IdP Initiated Method` - SAML method which is used to move user to DataRobot after successful authentication
 * `Identify Provider Metadata` - XML document with integration specific information (for the case IdP doesn't provide `IdP Metadata URL`)
 
 <img src="images/sso-saml-configuration.png" alt="SSO SAML Configuration" style="border: 1px solid black;" width="500" />
@@ -46,4 +46,4 @@ There are following settings in advanced configuration:
 
 After SSO is configured, Single Sign-On button appears on sign in screen. User is redirected to Identity Provider's authentication page after clicking on it.
 
-User is redirected to DataRobot after successfull sign on.
+User is redirected to DataRobot after successful sign on.
