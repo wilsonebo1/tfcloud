@@ -39,7 +39,6 @@
   * [VPC Installation](special-topics/vpc-installation.md)
     * [Configuration changes](special-topics/vpc-installation.md#file-storage-configuration-changes)
     * [IAM role policy settings](special-topics/vpc-installation.md#iam-role-policy-settings)
-    * [Instance size recommendations](special-topics/vpc-installation.md#instance-size-recommendation-10gb-specific)
   * [Model Management](special-topics/model-management.md)
   * [HA Web Services](special-topics/ha-web-services.md)
   * [SAML SSO Integration](special-topics/sso-saml.md)

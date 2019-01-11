@@ -36,7 +36,7 @@ If you prefer to use keys, or are connecting to an S3-compatible API, you will a
 Example of IAM role policy for S3 access.
 
 Note: the resource path composed as concatenation of `S3_BUCKET` and `FILE_STORAGE_PREFIX` values.
-In this example `S3_BUCKET=vpc_installation`: 
+In this example `S3_BUCKET=vpc_installation`:
 
 ```json
 {
@@ -71,10 +71,3 @@ In this example `S3_BUCKET=vpc_installation`:
     ]
 }
 ```
-
-### Instance size recommendation (10Gb specific)
-
-For details, refer to the "Memory Optimized" tab on [AWS EC2 Instances](h​ttps://aws.amazon.com/ec2/instance-types)
-
-For modeling services it is recommended to use `r4.2xlarge` AWS instances (61 Gb RAM).
-The general formula to compute per-worker RAM size is six times the on-disk dataset size. DataRobot does not use extensive on-disk caching for the modeling service, so 100Gb is a good default. 
