@@ -3,6 +3,8 @@
 This section describes the software and infrastructure requirements for running the DataRobot application.
 It assumes you have provisioned sufficient hardware resources to run large computational workloads.
 
+The servers and or server instances that are provisioned are expected to be dedicated to DataRobot Enterprise and not running other software products not in direct support of DataRobot Enterprise.
+
 # Linux Application Server {#linux-requirements}
 
 ## Linux Distribution
