@@ -308,7 +308,6 @@ servers:
   - rsyslog
   - jobretryservice
   - logstash
-  - metricspublisher
 
   # Brokers and Proxies
   - edabroker
@@ -316,9 +315,14 @@ servers:
   - idebroker
   - queueproxy
   - resourceproxy
+  - rabbit
+  - taskmanager
 
   # Additional optional services
+  - idebroker
   - ideworker
+  - diagnostics
+  - tableauextension
 
 # HA Web services
 - hosts:
@@ -352,8 +356,8 @@ servers:
   - 192.168.0.8
   - 192.168.0.9
   services:
-  - secureworker
-  - edaworker
+  - execmanager
+  - resourcemonitor
   - datasetsservicequickworker0
   - datasetsservicequickworker1
   - datasetsserviceworker0
