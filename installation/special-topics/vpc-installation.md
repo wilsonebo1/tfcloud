@@ -71,3 +71,14 @@ In this example `S3_BUCKET=vpc_installation`:
     ]
 }
 ```
+
+### Allowing unverified SSL
+If there is a customer environment that needs to connect to their own object storage using unverified SSL, add this to the config.yaml:
+
+```yaml
+---
+app_configuration:
+  drenv_override:
+    S3_VALIDATE_CERTS: False
+    ALLOW_SELF_SIGNED_CERTS: True
+```
