@@ -117,7 +117,7 @@ Administration ports necessary for Cloudera Manager.
 
 | Port  | Protocol | Component|
 |------:|:---------|:---------|
-| 22    | TCP      | SSH Access |
+| 22    | TCP      | SSH Access to Cloudera Manager. Required only during install or upgrade |
 | 7180  | TCP      | Cloudera Manager web interface |
 | 7183  | TCP      | Cloudera Manager web interface (TLS enabled) |
 
@@ -127,8 +127,9 @@ Administration ports necessary for Ambari Manager.
 
 | Port  | Protocol | Component|
 |------:|:---------|:---------|
-| 22    | TCP      | SSH Access |
+| 22    | TCP      | SSH Access to Ambari server. Required only during install or upgrade |
 | 8080  | TCP      | Ambari Manager web interface |
+| 8443  | TCP      | Ambari Manager web interface (TLS enabled) |
 
 
 ### Communication Within the Hadoop Cluster
@@ -149,18 +150,22 @@ configuration.
 
 Example ports include:
 
-| Port       | Protocol | Component|
-|-----------:|:---------|:---------|
-| 2888       | TCP      | Zookeeper Quorum Port |
-| 3888       | TCP      | Zookeeper Election Port |
-| 8030-8050  | TCP      | YARN Ports |
-| 8088       | TCP      | YARN ResourceManager HTTP |
-| 8090       | TCP      | YARN ResourceManager HTTPs |
-| 8188       | TCP      | YARN Timeline Server HTTP |
-| 8190       | TCP      | YARN Timeline Server HTTPS |
-| 10200      | TCP      | YARN Timeline Server RPC |
-| 14000      | TCP      | HTTPFS data transfer (if HTTPFS is enabled)|
-| 14001      | TCP      | HTTPFS administration (if HTTPFS is enabled)|
+| Port       | Protocol | Hadoop Configuration Variable | Component|
+|-----------:|:---------|:------------------------------|:---------|
+| 2888       | TCP      | | Zookeeper Quorum Port |
+| 3888       | TCP      | | Zookeeper Election Port |
+| 8030       | TCP      | `yarn.resourcemanager.scheduler.address` | YARN Scheduler Port |
+| 8031       | TCP      | `yarn.resourcemanager.resource-tracker.address` | YARN Resource Tracker Port |
+| 8042       | TCP      | `yarn.nodemanager.webapp.address` | YARN NodeManager Webapp Address |
+| 8044       | TCP      | `yarn.nodemanager.webapp.https.address` | YARN NodeManager HTTPS |
+| 8088       | TCP      | `yarn.resourcemanager.webapp.address` | YARN ResourceManager HTTP |
+| 8090       | TCP      | `yarn.resourcemanager.webapp.https.address` | YARN ResourceManager HTTPS |
+| 8188       | TCP      | `yarn.timeline-service.webapp.address` | YARN Timeline Server HTTP |
+| 8190       | TCP      | `yarn.timeline-service.webapp.https.address` | YARN Timeline Server HTTPS |
+| 10200      | TCP      | `yarn.timeline-service.address` | YARN Timeline Server RPC |
+| 14000      | TCP      | `hdfs.httpfs.http.port` | HTTPFS data transfer (if HTTPFS is enabled)|
+| 14001      | TCP      | `hdfs.httpfs.admin.port` | HTTPFS administration (if HTTPFS is enabled)|
+| 5432       | TCP      | | PostgreSQL port in case of using Hive with PorstgreSQL or other services, which require DB|
 
 #### Additional Cloudera Ports
 
@@ -173,7 +178,8 @@ Example ports include:
 | Port       | Protocol | Component|
 |-----------:|:---------|:---------|
 | 7182-7186  | TCP      | Cloudera Internal Communication |
-| 7190-7191  | TCP/UDP  | Cloudera P2P Parcel Distribution |
+| 7190-7191  | TCP      | Cloudera P2P Parcel Distribution |
+| 9994-9999  | TCP      | Cloudera Monitor Services |
 
 ### Communication from Hadoop Cluster to Application Servers
 
@@ -217,10 +223,8 @@ Both Cloudera and Ambari use these ports.
 | Port  | Protocol | Hadoop Configuration Variable | Component |
 |------:|:---------|:------------------------------|:----------|
 | 2181  | TCP      | `clientPort`                  | ZooKeeper client port |
-| 7678  | TCP      | Not configurable              | Worker Broker Client  |
 | 7680  | TCP      | Not configurable              | DataRobot Application Manager |
 | 8020  | TCP      | `fs.default.name`, `fs.defaultFS` | NameNode IPC Port |
-| 8027  | TCP      | Not configurable              | Hadoop Configuration Sync |
 | 8485  | TCP      | `dfs.journalnode.rpc-address` | Required if using HA HDFS |
 | 9001  | TCP      | Not configurable              | ETL Controller |
 | 50020 | TCP      | `dfs.datanode.ipc.address` | HDFS Metadata operations |
@@ -237,12 +241,7 @@ These ports are only used on DataRobot 4.2.1 and above.
 
 | Port  | Protocol | Hadoop Configuration Variable | Component |
 |------:|:---------|:------------------------------|:----------|
-| 44011 | TCP      | Not configurable              | DataRobot YARN Application Master Stats |
-| 44012 | TCP      | Not configurable              | DataRobot YARN Application Master Stats |
-| 44013 | TCP      | Not configurable              | DataRobot YARN Application Master Stats |
-| 44014 | TCP      | Not configurable              | DataRobot YARN Application Master Stats |
-| 44015 | TCP      | Not configurable              | DataRobot YARN Application Master Stats |
-| 44016 | TCP      | Not configurable              | DataRobot YARN Application Master Stats |
+| 44011-44016 | TCP      | Not configurable              | DataRobot YARN Application Master Stats |
 
 #### Additional Cloudera Ports
 
@@ -252,9 +251,12 @@ These ports are used by Cloudera in addition to the common ports.
 |------:|:---------|:------------------------------|:----------|
 | 1004  | TCP      | `dfs.datanode.address` | Data transfer (HDFS HA) |
 | 1006  | TCP      | `dfs.datanode.http.address`| Data transfer without HTTPS (HDFS HA) |
-| 2552  | TCP      |                               | Cloudera Log Publisher |
 | 7180  | TCP      |                               | Cloudera Manager web interface |
 | 7183  | TCP      |                               | Cloudera Manager web interface (TLS enabled) |
+| 8032  | TCP      | `yarn.resourcemanager.address` | For application submissions |
+| 8033  | TCP      | `yarn.resourcemanager.admin.address` | YARN ResourceManager admin address |
+| 8040  | TCP      | `yarn.nodemanager.localizer.address` | YARN NodeManager localizer address |
+| 8041  | TCP      | `yarn.nodemanager.address` | Address of the YARN NodeManager |
 
 #### Additional Ambari Ports
 
@@ -264,7 +266,10 @@ These ports are used by Ambari in addition to the common ports.
 |------:|:---------|:------------------------------|:----------|
 | 1019  | TCP      | `dfs.datanode.address` | Data transfer (HDFS HA) |
 | 1022  | TCP      | `dfs.datanode.http.address` | Data transfer without HTTPS (HDFS HA) |
+| 8050  | TCP      | `yarn.resourcemanager.address` | For application submissions |
 | 8080  | TCP      |                             | Ambari Manager web interface |
+| 8141  | TCP      | `yarn.resourcemanager.admin.address` | YARN ResourceManager admin address |
+| 45454 | TCP      | `yarn.nodemanager.address` | Address of the YARN NodeManager |
 | 50010 | TCP      | `dfs.datanode.address` | Data transfer |
 | 50075 | TCP      | `dfs.datanode.http.address` | Data transfer without HTTPS |
 
@@ -274,107 +279,103 @@ All of these are listed in one or more of the above tables.
 
 |Port|Protocol|Component|Target Node|Source|
 |---:|:-------|:--------|:----------|:-----|
-|22|TCP|SSH Access|All Cluster Nodes|Provisioner/Admin|
-|80|TCP|HTTP|Application Web Servers (not secure)|End users, All Cluster Nodes|
+|22|TCP|SSH Access|Application Servers, Cloudera Manager, Ambari Manager|Provisioner/Admin|
+|80|TCP|HTTP (not secure)|Application Web Servers|End users, All Cluster Nodes|
 |111|TCP/UDP|Gluster Portmapper Service (non-Hadoop only)|Data Servers|All Cluster Nodes|
-|443|TCP|HTTPS|Application Web Servers (TLS)|End users, All Cluster Nodes|
-|1004|TCP|Data transfer (HDFS HA) (Cloudera only)|All Hadoop Nodes|Application Servers|
-|1006|TCP|Data transfer without HTTPS (HDFS HA) (Cloudera only)|All Hadoop Nodes|Application Servers|
-|1019|TCP|Data transfer (HDFS HA) (Ambari only)|All Hadoop Nodes|Application Servers|
-|1022|TCP|Data transfer without HTTPS (HDFS HA) (Ambari only)|All Hadoop Nodes|Application Servers|
+|443|TCP|HTTPS (TLS)|Application Web Servers|End users, All Cluster Nodes|
+|1004|TCP|Data transfer (HDFS HA) (Cloudera only)|Cloudera workers|Application Servers|
+|1006|TCP|Data transfer without HTTPS (HDFS HA) (Cloudera only)|Cloudera workers|Application Servers|
+|1019|TCP|Data transfer (HDFS HA) (Ambari only)|Hortonworks workers|Application Servers|
+|1022|TCP|Data transfer without HTTPS (HDFS HA) (Ambari only)|Hortonworks workers|Application Servers|
 |1514|UDP|Application Web|Provisioner/Admin|All Cluster Nodes|
 |1514|TCP|Logging|Model Management|Dedicated Prediction Workers|
-|2181|TCP|ZooKeeper client port|All Hadoop Nodes|Application Servers|
-|2552|TCP|Cloudera Log Publisher (Cloudera only)|All Hadoop Nodes|Application Servers|
-|2888|TCP|Zookeeper Quorum Port|All Hadoop Nodes|All Hadoop Nodes|
-|3000|TCP|DataRobot Prediction Optimization User Interface|All Cluster Nodes|All Cluster Nodes|
-|3003|TCP|DataRobot Tableau Extensions Service|All Cluster Nodes|All Cluster Nodes|
-|3888|TCP|Zookeeper Election Port|All Hadoop Nodes|All Hadoop Nodes|
-|5000|TCP|Docker Registry|All Cluster Nodes|All Cluster Nodes|
+|2181|TCP|ZooKeeper client port|Hadoop workers|Application Servers|
+|2888|TCP|Zookeeper Quorum Port|Hadoop workers|Hadoop workers|
+|3000|TCP|DataRobot Prediction Optimization User Interface|Application Web Servers|End users|
+|3003|TCP|DataRobot Tableau Extensions Service|Application Web Servers|Application Servers|
+|3888|TCP|Zookeeper Election Port|Hadoop workers|Hadoop workers|
+|5000|TCP|Docker Registry|Application Servers|Application Servers|
 |5432|TCP|Model Management|Model Management|modmonrsyslogmaster, modmonworker and publicapi|
-|5445|TCP|IDE Client Broker|All Cluster Nodes|All Cluster Nodes|
-|5446|TCP|IDE Client Worker|All Cluster Nodes|All Cluster Nodes|
-|5672|TCP|RabbitMQ|All Cluster Nodes|All Cluster Nodes|
+|5432|TCP|PostgreSQL for Hive or other services|All Hadoop Nodes|Hadoop workers|
+|5445|TCP|IDE Client Broker|Application Servers|Application Servers|
+|5446|TCP|IDE Client Worker|Application Servers|Application Servers|
+|5672|TCP|RabbitMQ|RabbitMQ node|All Cluster Nodes|
 |6379|TCP|Redis|Data Servers|All Cluster Nodes|
 |6556|TCP|Resource Proxy Subscriber|Application Servers|All Cluster Nodes|
 |6557|TCP|Resource Proxy Publisher|Application Servers|Application Servers|
 |6558|TCP|Queue Proxy Subscriber|Application Servers|All Cluster Nodes|
 |6559|TCP|Queue Proxy Publisher|Application Servers|Application Servers|
-|7180|TCP|Cloudera Manager web interface (CDH only) (not secure)|All Hadoop Nodes|Application Servers/Provisioner/Admin|
-|7182|TCP|Cloudera Internal Communication (CDH only)|All Hadoop Nodes|All Hadoop Nodes|
-|7183|TCP|Cloudera Manager web interface (CDH only) (TLS enabled)|All Hadoop Nodes|Application Servers/Provisioner/Admin|
-|7184|TCP|Cloudera Internal Communication|All Hadoop Nodes (CDH only)|All Hadoop Nodes|
-|7185|TCP|Cloudera Internal Communication|All Hadoop Nodes (CDH only)|All Hadoop Nodes|
-|7186|TCP|Cloudera Internal Communication|All Hadoop Nodes (CDH only)|All Hadoop Nodes|
-|7190|TCP/UDP|Cloudera P2P Parcel Distribution|All Hadoop Nodes (CDH only)|All Hadoop Nodes|
-|7191|TCP/UDP|Cloudera P2P Parcel Distribution|All Hadoop Nodes (CDH only)|All Hadoop Nodes|
-|7678|TCP|Worker Broker Client (Hadoop only)|All Cluster Nodes|All Cluster Nodes|
-|7680|TCP|DataRobot Application Manager|All Hadoop Nodes|Application Servers|
+|7180|TCP|Cloudera Manager web interface (CDH only) (not secure)|Cloudera Manager|Provisioner/Admin|
+|7182|TCP|Cloudera Internal Communication (CDH only)|Cloudera Manager|All Cloudera Nodes|
+|7183|TCP|Cloudera Manager web interface (CDH only) (TLS enabled)|Cloudera Manager|Provisioner/Admin|
+|7184|TCP|Cloudera Internal Communication|Cloudera Manager|All Cloudera Nodes|
+|7185|TCP|Cloudera Internal Communication|Cloudera Manager|All Cloudera Nodes|
+|7186|TCP|Cloudera Internal Communication|Cloudera Manager|All Cloudera Nodes|
+|7190|TCP|Cloudera P2P Parcel Distribution|All Cloudera Nodes|All Cloudera Nodes|
+|7191|TCP|Cloudera P2P Parcel Distribution|All Cloudera Nodes|All Cloudera Nodes|
+|7680|TCP|DataRobot Application Manager|Hadoop workers|Application Servers|
 |8000|TCP|DataRobot Flask Application|Application Servers|Application Servers|
 |8001|TCP|DataRobot v0 API|Application Servers|Application Servers|
 |8002|TCP|DataRobot v1 API|Application Servers|Application Servers|
 |8004|TCP|DataRobot v2 API|Application Servers|Application Servers|
 |8011|TCP|DataRobot Socket.IO Server|Application Servers|Application Servers|
 |8018|UDP|Analytics Broker|Analytics Broker Node|All Cluster Nodes|
-|8020|TCP|NameNode IPC Port|All Hadoop Nodes|Application Servers|
+|8020|TCP|NameNode IPC Port|Hadoop workers|Application Servers|
 |8023|TCP|DataRobot Upload Server|Application Servers|Application Servers|
-|8027|TCP|Hadoop Configuration Sync|Application Servers|Hadoop Manager Node|
-|8030|TCP|YARN Ports|All Hadoop Nodes|All Hadoop Nodes|
-|8031|TCP|YARN Ports|All Hadoop Nodes|All Hadoop Nodes|
-|8032|TCP|YARN Ports|All Hadoop Nodes|All Hadoop Nodes|
-|8033|TCP|YARN Ports|All Hadoop Nodes|All Hadoop Nodes|
-|8034|TCP|YARN Ports|All Hadoop Nodes|All Hadoop Nodes|
-|8035|TCP|YARN Ports|All Hadoop Nodes|All Hadoop Nodes|
-|8036|TCP|YARN Ports|All Hadoop Nodes|All Hadoop Nodes|
-|8037|TCP|YARN Ports|All Hadoop Nodes|All Hadoop Nodes|
-|8038|TCP|YARN Ports|All Hadoop Nodes|All Hadoop Nodes|
-|8039|TCP|YARN Ports|All Hadoop Nodes|All Hadoop Nodes|
-|8040|TCP|YARN Ports|All Hadoop Nodes|All Hadoop Nodes|
-|8041|TCP|YARN Ports|All Hadoop Nodes|All Hadoop Nodes|
-|8042|TCP|YARN Ports|All Hadoop Nodes|All Hadoop Nodes|
-|8043|TCP|YARN Ports|All Hadoop Nodes|All Hadoop Nodes|
-|8044|TCP|YARN Ports|All Hadoop Nodes|All Hadoop Nodes|
-|8045|TCP|YARN Ports|All Hadoop Nodes|All Hadoop Nodes|
-|8046|TCP|YARN Ports|All Hadoop Nodes|All Hadoop Nodes|
-|8048|TCP|YARN Ports|All Hadoop Nodes|All Hadoop Nodes|
-|8049|TCP|YARN Ports|All Hadoop Nodes|All Hadoop Nodes|
-|8050|TCP|YARN Ports|All Hadoop Nodes|All Hadoop Nodes|
-|8056|TCP|YARN Ports|All Hadoop Nodes|All Hadoop Nodes|
-|8080|TCP|Ambari Manager web interface (Ambari only)|All Hadoop Nodes|Application Servers|
-|8088|TCP|YARN ResourceManager HTTP|All Hadoop Nodes|All Hadoop Nodes|
-|8090|TCP|YARN ResourceManager HTTPs|All Hadoop Nodes|All Hadoop Nodes|
-|8097|TCP|DataRobot Prediction Optimization Application|All Cluster Nodes|All Cluster Nodes|
-|8100|TCP|DataRobot Datasets Service API|All Cluster Nodes|All Cluster Nodes|
-|8188|TCP|YARN Timeline Service webapp HTTP|YARN Timeline Service host|All Hadoop Nodes|
-|8190|TCP|YARN Timeline Service webapp HTTPS|YARN Timeline Service host|All Hadoop Nodes|
+|8031|TCP|YARN Resourcemanager Resource Tracker (HDP)|Hortonworks workers|Hortonworks workers|
+|8027|TCP|Hadoop Configuration Sync|Application Servers|Hadoop workers|
+|8030|TCP|YARN Resourcemanager Scheduler|Hadoop workers|Hadoop workers|
+|8031|TCP|YARN Resourcemanager Resource Tracker (CDH)|Hadoop workers|Hadoop workers|
+|8032|TCP|YARN Resourcemanager Address(CDH)|Cloudera workers|Cloudera workers|
+|8033|TCP|YARN Resourcemanager Admin (CDH)|Cloudera workers|Cloudera workers|
+|8040|TCP|YARN NodeManager Localizer (CDH)|Cloudera workers|Cloudera workers|
+|8041|TCP|YARN NodeManager Address (CDH)|Cloudera workers|Cloudera workers|
+|8042|TCP|YARN NodeManager WebApp|Hadoop workers|Hadoop workers|
+|8044|TCP|YARN NodeManager HTTPS (CDH)|Cloudera workers|Cloudera workers|
+|8050|TCP|YARN Resourcemanager Address(HDP)|Hortonworks workers|Hortonworks workers|
+|8080|TCP|Ambari Manager web interface (Ambari only)|Ambari Manager|Application Servers|
+|8088|TCP|YARN ResourceManager HTTP|Hadoop workers|Application Web Servers|
+|8090|TCP|YARN ResourceManager HTTPs|Hadoop workers|Application Web Servers|
+|8097|TCP|DataRobot Prediction Optimization Application|Application Servers|Application Servers|
+|8100|TCP|DataRobot Datasets Service API|Application Servers|Application Servers|
+|8141|TCP|YARN Resourcemanager Admin (HDP)|Hortonworks workers|Hortonworks Nodes|
+|8188|TCP|YARN Timeline Service webapp HTTP|Hadoop workers|Hadoop workers|
+|8190|TCP|YARN Timeline Service webapp HTTPS|Hadoop workers|Hadoop workers|
 |8433|TCP|Datarobot diagnostics (TLS)|Application Servers|Administrators|
-|8485|TCP|Required if using HA HDFS|All Hadoop Nodes|Application Servers|
+|8443|TCP|Ambari Manager web interface secured (Ambari only)|Ambari Manager|Application Servers|
+|8485|TCP|Required if using HA HDFS|Hadoop workers|Application Servers|
 |8833|TCP|Datarobot diagnostics (not secure)|Application Servers|Administrators|
-|9001|TCP|ETL Controller|All Hadoop Nodes|Application Servers|
+|9001|TCP|ETL Controller|Hadoop workers|Application Servers|
 |9090|TCP|DataRobot Availability Monitor|Application Servers|Application Servers|
-|9494|TCP|DataRobot PNGExport Service|All Cluster Nodes|All Cluster Nodes|
-|10200|TCP|YARN Timeline Service RPC|YARN Timeline Service host|All Hadoop Nodes|
-|14000|TCP|HTTPFS data transfer (if HTTPFS is enabled)|HDFS data nodes|All Cluster Nodes|
-|14001|TCP|HTTPFS administration (if HTTPFS is enabled)|HDFS data nodes|All Cluster Nodes|
+|9494|TCP|DataRobot PNGExport Service|Application Servers|Application Servers|
+|9994|TCP|Cloudera Host Monitor's query API|Cloudera Manager|Cloudera workers|
+|9995|TCP|Cloudera Host Monitor, listening for agent messages|Cloudera Manager|Cloudera workers|
+|9996|TCP|Cloudera Service Monitor's query API|Cloudera Manager|Cloudera workers|
+|9997|TCP|Cloudera Service Monitor, listening for agent messages|Cloudera Manager|Cloudera workers|
+|9998|TCP|Cloudera Activity Monitor's query API|Cloudera Manager|Cloudera workers|
+|9999|TCP|Cloudera Activity Monitor, listening for agent messages|Cloudera Manager|Cloudera workers|
+|10200|TCP|YARN Timeline Service RPC|Hadoop workers|Hadoop workers|
+|14000|TCP|HTTPFS data transfer (if HTTPFS is enabled)|Hadoop workers|All Cluster Nodes|
+|14001|TCP|HTTPFS administration (if HTTPFS is enabled)|Hadoop workers|All Cluster Nodes|
 |15672|TCP|RabbitMQ HTTP Interface|RabbitMQ node|Application Servers|
 |24007|TCP|Gluster Daemon|Data Servers|All Cluster Nodes|
 |24008|TCP|Gluster Management|Data Servers|All Cluster Nodes|
 |24009|TCP|Gluster Brick|Data Servers|All Cluster Nodes|
 |26379|TCP|Redis Sentinel|Data Servers|Application Servers|
 |27017|TCP|MongoDB|Data Servers|All Cluster Nodes|
-|44011|TCP|DataRobot YARN Application Master Stats (DataRobot 4.2.1 and above)|All Hadoop Nodes|Application Servers|
-|44012|TCP|DataRobot YARN Application Master Stats (DataRobot 4.2.1 and above)|All Hadoop Nodes|Application Servers|
-|44013|TCP|DataRobot YARN Application Master Stats (DataRobot 4.2.1 and above)|All Hadoop Nodes|Application Servers|
-|44014|TCP|DataRobot YARN Application Master Stats (DataRobot 4.2.1 and above)|All Hadoop Nodes|Application Servers|
-|44015|TCP|DataRobot YARN Application Master Stats (DataRobot 4.2.1 and above)|All Hadoop Nodes|Application Servers|
-|44016|TCP|DataRobot YARN Application Master Stats (DataRobot 4.2.1 and above)|All Hadoop Nodes|Application Servers|
-|44017|TCP|DataRobot YARN Application Master Stats (DataRobot 4.2.1 and above)|All Hadoop Nodes|Application Servers|
+|44011|TCP|DataRobot YARN Application Master Stats (DataRobot 4.2.1 and above)|Hadoop workers|Application Servers|
+|44012|TCP|DataRobot YARN Application Master Stats (DataRobot 4.2.1 and above)|Hadoop workers|Application Servers|
+|44013|TCP|DataRobot YARN Application Master Stats (DataRobot 4.2.1 and above)|Hadoop workers|Application Servers|
+|44014|TCP|DataRobot YARN Application Master Stats (DataRobot 4.2.1 and above)|Hadoop workers|Application Servers|
+|44015|TCP|DataRobot YARN Application Master Stats (DataRobot 4.2.1 and above)|Hadoop workers|Application Servers|
+|44016|TCP|DataRobot YARN Application Master Stats (DataRobot 4.2.1 and above)|Hadoop workers|Application Servers|
+|45454|TCP|YARN NodeManager Address (HDP)|Hortonworks workers|Hortonworks workers|
 |49152|TCP|Gluster Brick|Data Servers|All Cluster Nodes|
-|50010|TCP|Data transfer (Ambari only)|All Hadoop Nodes|Application Servers|
-|50020|TCP|HDFS Metadata operations|All Hadoop Nodes|Application Servers|
-|50070|TCP|NameNode Web UI without HTTPS|All Hadoop Nodes|Application Servers|
-|50075|TCP|Data transfer without HTTPS (Ambari only)|All Hadoop Nodes|Application Servers|
-|50090|TCP|Secondary NameNode without HTTPS|All Hadoop Nodes|Application Servers|
-|50091|TCP|Secondary NameNode with HTTPS|All Hadoop Nodes|Application Servers|
-|50470|TCP|NameNode Web UI with HTTPS|All Hadoop Nodes|Application Servers|
-|50475|TCP|Data Transfer with HTTPS|All Hadoop Nodes|Application Servers|
+|50010|TCP|Data transfer (Ambari only)|Hortonworks workers|Application Servers|
+|50020|TCP|HDFS Metadata operations|Hadoop workers|Application Servers|
+|50070|TCP|NameNode Web UI without HTTPS|Hadoop workers|Application Servers|
+|50075|TCP|Data transfer without HTTPS (Ambari only)|Hortonworks workers|Application Servers|
+|50090|TCP|Secondary NameNode without HTTPS|Hadoop workers|Application Servers|
+|50091|TCP|Secondary NameNode with HTTPS|Hadoop workers|Application Servers|
+|50470|TCP|NameNode Web UI with HTTPS|Hadoop workers|Application Servers|
+|50475|TCP|Data Transfer with HTTPS|Hadoop workers|Application Servers|

@@ -6,3 +6,5 @@ _book/*
 *.html
 test-results.xml
 */node_modules/*
+*.pyc
+.cache
