@@ -227,6 +227,7 @@ These ports are only used on DataRobot 4.2.1 and above.
 #### Additional Cloudera Ports
 
 These ports are used by Cloudera in addition to the common ports.
+Following ports are for CDH5.x. Please, see section below for changes in CDH6.x.
 
 | Port  | Protocol | Hadoop Configuration Variable | Component |
 |------:|:---------|:------------------------------|:----------|
@@ -238,6 +239,20 @@ These ports are used by Cloudera in addition to the common ports.
 | 8033  | TCP      | `yarn.resourcemanager.admin.address` | YARN ResourceManager admin address |
 | 8040  | TCP      | `yarn.nodemanager.localizer.address` | YARN NodeManager localizer address |
 | 8041  | TCP      | `yarn.nodemanager.address` | Address of the YARN NodeManager |
+
+#### Changes in CDH 6.x
+
+There are multiple services, default ports of which were changed in CDH 6.x.
+Please, use these ports if you're using CDH6.x.
+
+| CDH6.x port | CDH5.x port | Protocol | Hadoop Configuration Variable | Component |
+|------------:|------------:|:---------|:------------------------------|:----------|
+| 9866        | 1004        | TCP      | `dfs.datanode.address` | Data transfer (HDFS HA) |
+| 9864        | 1006        | TCP      | `dfs.datanode.http.address`| Data transfer without HTTPS (HDFS HA) |
+| 9867        | 50020       | TCP      | `dfs.datanode.ipc.address` | HDFS Metadata operations |
+| 9870        | 50070       | TCP      | `dfs.namenode.http-address` | NameNode Web UI without HTTPS |
+| 9871        | 50470       | TCP      | `dfs.namenode.https-address`  | NameNode Web UI with HTTPS |
+| 9865        | 50475       | TCP      | `dfs.datanode.https.address`  | Data Transfer with HTTPS |
 
 #### Additional Ambari Ports
 
@@ -322,6 +337,12 @@ All of these are listed in one or more of the above tables.
 |9001|TCP|ETL Controller|Hadoop workers|Application Servers|
 |9090|TCP|DataRobot Availability Monitor|Application Servers|Application Servers|
 |9494|TCP|DataRobot PNGExport Service|Application Servers|Application Servers|
+|9866|TCP|Data transfer (HDFS HA) (CDH 6.x)|Cloudera workers|Application Servers|
+|9864|TCP|Data transfer without HTTPS (HDFS HA) (CDH 6.x)|Cloudera workers|Application Servers|
+|9867|TCP|HDFS Metadata operations (CDH 6.x)|Cloudera workers|Application Servers|
+|9870|TCP|NameNode Web UI without HTTPS (CDH 6.x)|Cloudera workers|Application Servers|
+|9871|TCP|NameNode Web UI with HTTPS (CDH 6.x)|Cloudera workers|Application Servers|
+|9865|TCP|Data Transfer with HTTPS (CDH 6.x)|Cloudera workers|Application Servers|
 |9994|TCP|Cloudera Host Monitor's query API|Cloudera Manager|Cloudera workers|
 |9995|TCP|Cloudera Host Monitor, listening for agent messages|Cloudera Manager|Cloudera workers|
 |9996|TCP|Cloudera Service Monitor's query API|Cloudera Manager|Cloudera workers|
