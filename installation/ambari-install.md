@@ -155,6 +155,15 @@ If you use [Transparent Encryption in HDFS](http://hadoop.apache.org/docs/stable
 
 <img src="images/ambari-restart-services.png" alt="" style="border: 1px solid black;" width="600"/>
 
+### Update YARN configuration (Ambari 2.7+)
+In Ambari 2.7 (HDP3) an additional parameter must be set in YARN configuration
+which allows the _datarobot_ user to submit YARN applications:
+
+1. Go to the configuration of the YARN service (the same way as for HDFS).
+2. Search for the `yarn.scheduler.capacity.root.default.acl_submit_applications` parameter.
+3. Add the datarobot user to the comma-separated list.
+4. Save configuration changes and restart YARN with all dependent services.
+
 ## Distribute Parcel to Hosts
 
 There are a few different possibilities for distributing parcel to hosts.
