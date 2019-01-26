@@ -320,3 +320,18 @@ details={"containerNodeAdress":"ip-10-50-178-21.ec2.internal:8042",
 "requests":"ArrayBuffer()"}
 ```
 By itself this log message may appear on a system under load due to [YARN-1902](https://issues.apache.org/jira/browse/YARN-1902) and is not considered problematic.
+
+### Note about Ambari 2.7 (HDP3)
+
+Configuring this parameter for YARN in Ambari is simple: just go to the YARN
+configuration page and set the following parameter to _Enabled_:
+
+<img src="images/ambari-cpu-scheduling.png" alt="" style="border: 1px solid black;" width="150"/>
+
+In Ambari versions starting from 2.7, this parameter is also set in the
+Capacity Scheduler advanced configuration.
+
+To verify that this parameter is set correctly, search YARN configuration 
+for the `yarn.scheduler.capacity.resource-calculator` parameter and ensure it's 
+set to `org.apache.hadoop.yarn.util.resource.DominantResourceCalculator` or unset completely.
+Otherwise this parameter will overwrite the value set in the UI toggle.
