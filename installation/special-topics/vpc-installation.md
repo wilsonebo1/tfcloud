@@ -72,6 +72,99 @@ In this example `S3_BUCKET=vpc_installation`:
 }
 ```
 
+### S3 Ingestion
+DataRobot allows customers to ingest objects from S3 without making them public. The only configuration needed for this to work is to give the cluster access to the S3 bucket or object, which can be done via AWS Credentials, IAM roles as mentioned above or AWS S3 Bucket Policy.
+
+We recommend creating a dedicated bucket and adding a S3 read-only statement to the AWS IAM Role policy mentioned above. This adds the required permission the cluster needs to ingest objects directly from AWS S3.
+
+#### S3 Ingestion with AWS IAM Role policy
+```json
+{
+    "Sid": "AllowReadOnlyAccessToS3Bucket",
+    "Effect": "Allow",
+    "Action": [
+        "s3:GetObject"
+    ],
+    "Resource": [
+        "arn:aws:s3:::examplebucket/*"
+        ]
+}
+```
+
+Example of a complete AWS IAM Role Policy that allows S3 storage & S3 Ingestion,
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AllowAccessToProduction",
+            "Effect": "Allow",
+            "Action": [
+                "s3:DeleteObject",
+                "s3:Get*",
+                "s3:PutObject",
+                "s3:ReplicateDelete",
+                "s3:ListMultipartUploadParts"
+            ],
+            "Resource": [
+                "arn:aws:s3:::vpc_installation/data/*"
+            ]
+        },
+        {
+            "Sid": "AllowListBucketsProduction",
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket",
+                "s3:ListBucketVersions",
+                "s3:ListAllMyBuckets"
+            ],
+            "Resource": [
+                "arn:aws:s3:::*"
+            ]
+        },
+        {
+            "Sid": "AllowReadOnlyAccessToS3Bucket",
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::examplebucket/*"
+            ]
+        }
+    ]
+}
+```
+
+#### S3 Ingestion with AWS S3 Bucket Policy
+Another way to apply the required AWS S3 permisson for ingesting objects from S3 without making them public is with a AWS S3 Bucket policy. This policy allows the AWS IAM Role created above read-only access
+```json
+{
+	"Version": "2012-10-17",
+	"Statement": [
+		{
+			"Action": [
+                "s3:GetObject"
+			],
+			"Effect": "Allow",
+			"Principal": {
+				"AWS": [
+					"arn:aws:iam::AWS_ACCOUNT_ID:role/S3_STORAGE_IAM_ROLE_MENTIONED_ABOVE",
+				]
+			},
+			"Resource": [
+                "arn:aws:s3:::examplebucket/*"
+			]
+		}
+	]
+}
+```
+
+Once this is configured, users may click on the "URL" button at the "Create Project" screen and enter the full S3 URL. For example: s3://bucket-name/file-name.csv
+
+After clicking the "Create New Project" button the DataRobot will start the import by creating a signed URL for the S3 resource with a duration of 10 minutes.
+
 ### Allowing unverified SSL
 If there is a customer environment that needs to connect to their own object storage using unverified SSL, add this to the config.yaml:
 
