@@ -42,6 +42,7 @@
   * [Model Management](special-topics/model-management.md)
   * [HA Web Services](special-topics/ha-web-services.md)
   * [SAML SSO Integration](special-topics/sso-saml.md)
+  * [Quick Workers for Low Latency Jobs](special-topics/quick-workers-jobs-on-edge-node.md)
 
 ## Additional Information
 
