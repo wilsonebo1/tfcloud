@@ -43,7 +43,7 @@ Authentication flow is the following:
 
 One needs to set values of many configuration options in order to integrate DataRobot with an LDAP server. Those values depend on the configuration and schema of customer's LDAP server.
 
-There is an interactive LDAP Configuration Tool that can help to streamline this process. Please contact customer support to get a copy of LDAP Configuration Tool.
+There is an interactive LDAP Configuration Tool located at `./bin/datarobot-ldap-config` that can help to streamline this process.
 
 ## Configuration
 
