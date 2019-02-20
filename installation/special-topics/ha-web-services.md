@@ -50,7 +50,7 @@ On the Application Load Balancer, we add 3 listeners:
 ### AWS Infrastructure Requirements
 
 The following infrastructure will be required or set up during the installation process:
-* 3+ EC2 instances for web services
+* 2+ EC2 instances for web services
 * Amazon ALB
 * Amazon target groups
 * Amazon Route53 record pointing to the load balancer
