@@ -110,6 +110,30 @@ On upgrade to version 4.5 the following required changes must be made to `config
 2. Find the instance of `secureworker` service.
   * If the `secureworker` service was on a different node than the `execmanager` service, replace `execmanager` with `execmanagereda` and `secureworker` with `execmanagersw` to retain the same workload distribution.
 
+On upgrade to version 5.0 the following required changes must be made to `config.yaml`:
+
+1. On Hadoop installations, add the new `execmanagerqw` service to one of the nodes in your environment. It processes some lightweight jobs which were executed on Hadoop in previous versions. You may have multiple instances of this service on different nodes. Example:
+    
+    ```yaml
+    
+    ---
+    servers:
+    # Web server
+    - services:
+      - nginx
+      # ...
+      - execmanagerqw
+    ```
+
+2. On Hadoop installations, set the new flag `SKIP_DSS_REST_AND_NEXT_STEPS_SERVICES` to `true` to enable `execmanagerqw`.
+    ```yaml
+    
+    ---
+    app_configuration:
+        drenv_override:
+            SKIP_DSS_REST_AND_NEXT_STEPS_SERVICES: true
+    ```
+
 ### Update Network configuration
 
 On upgrade to version 4.3, the following changes to the open ports between hosts must be made:
