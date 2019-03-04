@@ -76,6 +76,7 @@ These ports are only required if the referenced feature has been purchased and e
 |------:|:---------|:----------|
 | 5432  | TCP      | Model Management |
 | 1514  | TCP      | Model Management |
+| 3181  | TCP      | Model Management |
 
 ## Hadoop Installations
 
@@ -286,6 +287,7 @@ All of these are listed in one or more of the above tables.
 |1514|TCP|Logging|Model Management|Dedicated Prediction Workers|
 |2181|TCP|ZooKeeper client port|Hadoop workers|Application Servers|
 |2888|TCP|Zookeeper Quorum Port|Hadoop workers|Hadoop workers|
+|3181|TCP|DataRobot Patroni Zookeeper client port|Application Servers|Patroni instances|
 |3888|TCP|Zookeeper Election Port|Hadoop workers|Hadoop workers|
 |5432|TCP|Model Management|Model Management|modmonrsyslogmaster, modmonworker and publicapi|
 |5432|TCP|PostgreSQL for Hive or other services|All Hadoop Nodes|Hadoop workers|

@@ -95,6 +95,7 @@ These ports are only required if the referenced feature has been purchased and e
 |------:|:---------|:----------|
 | 5432  | TCP      | Model Management |
 | 1514  | TCP      | Model Management |
+| 3181  | TCP      | Model Management |
 
 ## Hadoop Installations
 
@@ -308,6 +309,7 @@ All of these are listed in one or more of the above tables.
 |2888|TCP|Zookeeper Quorum Port|Hadoop workers|Hadoop workers|
 |3000|TCP|DataRobot Prediction Optimization User Interface|Application Web Servers|End users|
 |3003|TCP|DataRobot Tableau Extensions Service|Application Web Servers|Application Servers|
+|3181|TCP|DataRobot Patroni Zookeeper client port|Application Servers|Patroni instances|
 |3888|TCP|Zookeeper Election Port|Hadoop workers|Hadoop workers|
 |5000|TCP|Docker Registry|Application Servers|Application Servers|
 |5432|TCP|Model Management|Model Management|modmonrsyslogmaster, modmonworker and publicapi|
