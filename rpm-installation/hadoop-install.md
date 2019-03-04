@@ -1,6 +1,6 @@
 # Hadoop Installation Instructions
 
-DataRobot can integrate with Cloudera Hadoop distribution.
+DataRobot can integrate with Cloudera and Hortonworks Hadoop distributions.
 
 ## Create Config Files
 
@@ -8,14 +8,14 @@ To enable this integration, first create `hadoop-configuration.yaml` and `config
 
 ### hadoop-configuration.yaml
 
-Place a file like the following in `/opt/datarobot/DataRobot-4.5.x/`
+Place a file like the following in `/opt/datarobot/DataRobot-5.0.x/`
 
 ```yaml
 # FILE: hadoop-configuration.yaml
 ---
 cluster_name: <name of hadoop cluster>
 manager_address: <address of Hadoop Manager>
-manager_type: cloudera
+manager_type: <ambari or cloudera>
 # Optional
 # cm_api_version: <cloudera manager api version>
 # Set these to true if the Hadoop Manager is using SSL/TLS
@@ -23,7 +23,7 @@ use_tls: false
 ignore_ca: false
 ```
 
-More information about the SSL/TLS keys can be found in the [TLS Guide](installation/special-topics/tls.md#cm-tls)
+More information about the SSL/TLS keys can be found in the [TLS Guide](special-topics/tls.md#cm-tls)
 
 Verify your file is correctly configured with
 
@@ -34,18 +34,19 @@ chmod 0600 hadoop-configuration.yaml
 
 ### config.yaml
 
-Copy a sample YAML configuration file to `/opt/datarobot/DataRobot-4.5.x/config.yaml`.
+Copy a sample YAML configuration file to `/opt/datarobot/DataRobot-5.0.x/config.yaml`.
 
-You can find a sample Cloudera `config.yaml` file in `example-configs/single-node-poc.hadoop.yaml`. Modify the sample to suit your
+You can find a sample Cloudera `config.yaml` file in `example-configs/multi-node.hadoop.yaml`. Modify the sample to suit your
 environment.
 
 Contact DataRobot support for help with this file.
 
 ## Hadoop Installation
 
-Now, use the following sections install DataRobot on Hadoop.
+Now, use the following sections to install DataRobot on Hadoop.
 
 * [Cloudera Installation](cloudera-install.md)
+* [Hortonworks Installation](ambari-install.md)
 
 When complete, proceed to synchronize configuration.
 
@@ -62,7 +63,7 @@ servers and the Hadoop cluster.
 * Start the configuration synchronization process.
 
 ```bash
-cd /opt/datarobot/DataRobot-4.5.x/
+cd /opt/datarobot/DataRobot-5.0.x/
 source release/profile
 ./bin/datarobot hadoop-sync
 ```

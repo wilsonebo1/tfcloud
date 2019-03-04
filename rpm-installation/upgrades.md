@@ -17,12 +17,14 @@ However, they will require service downtime for the DataRobot application.
 
 ```bash
 systemctl stop datarobot.target
+systemctl stop datarobot-hadoop-config-sync
 ```
 
 * Alternatively, if on RHEL6, stop all DataRobot services:
 
 ```bash
 initctl stop datarobot.target
+initctl stop datarobot-hadoop-config-sync
 ```
 
 * Remove all DataRobot service files:
@@ -80,7 +82,7 @@ On upgrade to version 4.4 the following required changes must be made to `config
 
 1. (Not common) If the `secureworker` service was on a different node than the `execmanager` service, replace `execmanager` with `execmanagereda` and add `execmanagersw` to the node with `secureworker` to retain the same workload distribution. In most configurations, the `secureworker` service is on the same node as the `execmanager` service, and in this case no changes are needed to the configuration.
 
-On upgrade to version 4.5 the following required changes must be made to `config.yaml` for non Hadoop installs:
+On upgrade to version 5.0 the following required changes must be made to `config.yaml` for non Hadoop installs:
 
 1. Remove the instance of the `securebroker` service.
 
@@ -120,7 +122,7 @@ On upgrade to version 4.4, the following changes to the open ports between hosts
 | Add               | 15672 | TCP      | RabbitMQ HTTP Interface|
 
 
-On upgrade to version 4.5, the following changes to the open ports between hosts must be made:
+On upgrade to version 5.0, the following changes to the open ports between hosts must be made:
 
 
 | Action            | Port  | Protocol | Component            |

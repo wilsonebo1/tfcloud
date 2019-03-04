@@ -70,7 +70,7 @@ servers.
 * On all nodes, run the following commands:
 
 ```bash
-cd /opt/datarobot/DataRobot-4.5.x/
+cd /opt/datarobot/DataRobot-5.0.x/
 sudo yum localinstall -y --nogpgcheck \
     release/docker-packages/RedHat-7/prereqs/*.rpm
 sudo yum localinstall -y --nogpgcheck \

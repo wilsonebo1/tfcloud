@@ -13,9 +13,9 @@ ssh datarobot@[APPLICATION SERVER IP ADDRESS]
 * Transfer the installation files from the application server to the Cloudera Manager server:
 
 ```bash
-scp ~/hadoop/DataRobot-4.5.x*.{jar,parcel,parcel.sha} \
+scp ~/hadoop/DataRobot-5.0.x*.{jar,parcel,parcel.sha} \
     [CLOUDERA MANAGER SERVER IP ADDRESS]:/tmp
-scp ~/hadoop/DataRobot-4.5.x*.{jar,parcel,parcel.sha} \
+scp ~/hadoop/DataRobot-5.0.x*.{jar,parcel,parcel.sha} \
     [CLOUDERA MANAGER SERVER IP ADDRESS]:/tmp
 ```
 
@@ -28,14 +28,14 @@ ssh [USERNAME]@[CLOUDERA MANAGER IP ADDRESS]
 * Move the CSD file:
 
 ```bash
-sudo mv /tmp/DataRobot-4.5.x/*.jar /opt/cloudera/csd/
+sudo mv /tmp/DataRobot-5.0.x/*.jar /opt/cloudera/csd/
 ```
 
 * Change the ownership of the installation files:
 
 ```bash
 sudo chown cloudera-scm:cloudera-scm \
-    /opt/cloudera/csd/DataRobot-4.5.x*.jar
+    /opt/cloudera/csd/DataRobot-5.0.x*.jar
 ```
 
 * Change the permissions of the installation file:
@@ -47,13 +47,13 @@ sudo chmod 644 /opt/cloudera/csd/DataRobot-3.*.jar
 * Move the parcel file:
 
 ```bash
-sudo mv /tmp/DataRobot-4.5.x*.parcel /opt/cloudera/parcel-repo
+sudo mv /tmp/DataRobot-5.0.x*.parcel /opt/cloudera/parcel-repo
 ```
 
 * Move the parcel file's SHA:
 
 ```bash
-sudo mv /tmp/DataRobot-4.5.x*.parcel.sha /opt/cloudera/parcel-repo
+sudo mv /tmp/DataRobot-5.0.x*.parcel.sha /opt/cloudera/parcel-repo
 ```
 
 **NOTE**: The CDH 5.4.0 and 5.5.0 .sha files have different formats.
@@ -61,23 +61,23 @@ sudo mv /tmp/DataRobot-4.5.x*.parcel.sha /opt/cloudera/parcel-repo
 The CDH 5.4.0 format is `SHA PARCEL_FILENAME`:
 
 ```
-# FILE: DataRobot-4.5.x-release-el6.parcel.sha
-80e5223337d8978432ccae99ffea55f92e4fb4b9 DataRobot-4.5.x-release-el6.parcel
+# FILE: DataRobot-5.0.x-release-el6.parcel.sha
+80e5223337d8978432ccae99ffea55f92e4fb4b9 DataRobot-5.0.x-release-el6.parcel
 ```
 
 CDH 5.5.0 and later **must only contain the SHA**,
 _without the space and filename_, for example:
 
 ```
-# FILE: DataRobot-4.5.x-release-el6.parcel.sha
+# FILE: DataRobot-5.0.x-release-el6.parcel.sha
 80e5223337d8978432ccae99ffea55f92e4fb4b9
 ```
 
 **NOTE**: This means you must remove the space and filename from the sha, for example:
 
 ```bash
-cat /tmp/DataRobot-4.5.x-release.el6.parcel | cut -d ' ' -f 1 \
-| sudo tee /opt/cloudera/parcel-repo/DataRobot-4.5.x-release.el6.parcel
+cat /tmp/DataRobot-5.0.x-release.el6.parcel | cut -d ' ' -f 1 \
+| sudo tee /opt/cloudera/parcel-repo/DataRobot-5.0.x-release.el6.parcel
 ```
 
 * Change the ownership of the parcel file:

@@ -70,7 +70,7 @@ os_configuration:
     enabled: false
 ```
 
-* Remove the file `/opt/datarobot/DataRobot-4.5.x/secrets.yaml` if it exists.
+* Remove the file `/opt/datarobot/DataRobot-5.0.x/secrets.yaml` if it exists.
 
 * Execute `./bin/datarobot install`
 
