@@ -171,6 +171,15 @@ The mongo storage engine has been upgraded to WiredTiger.
 Customers upgrading from prior releases will need to go through a data upgrade process.
 See [Mongo Data Upgrade](special-topics/mongo-data-upgrade.md) for additional details.
 
+### Upgrade Model Monitoring and Management
+
+Starting with DataRobot release 5.0, model monitoring and management is receiving vast performance 
+and scaling improvements. As a consequence of this improvement, all historical data is no longer 
+visible in existing deployments. _The data has not been removed, only archived._ Any deployment data
+created on release 4.4.1 of DataRobot (or later) can be migrated into the new model monitoring and 
+management storage tables by performing a data upgrade process. See [Model Management Data 
+Upgrade](special-topics/model-management-data-upgrade.md) for additional details.  
+
 ## Cloudera Preparation
 
 * Log into the Cloudera Manager.

@@ -40,6 +40,7 @@
     * [Configuration changes](special-topics/vpc-installation.md#file-storage-configuration-changes)
     * [IAM role policy settings](special-topics/vpc-installation.md#iam-role-policy-settings)
   * [Model Management](special-topics/model-management.md)
+    * [Model Management Data Upgrade](special-topics/model-management-data-upgrade.md)
   * [HA Web Services](special-topics/ha-web-services.md)
   * [SAML SSO Integration](special-topics/sso-saml.md)
   * [Quick Workers for Low Latency Jobs](special-topics/quick-workers-jobs-on-edge-node.md)
