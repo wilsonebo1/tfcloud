@@ -134,10 +134,13 @@ On upgrade to version 5.0, the following changes to the open ports between hosts
 
 Starting with DataRobot release 5.0, model monitoring and management is receiving vast performance 
 and scaling improvements. As a consequence of this improvement, all historical data is no longer 
-visible in existing deployments. _The data has not been removed, only archived._ Any deployment data
-created on release 4.4.1 of DataRobot (or later) can be migrated into the new model monitoring and 
-management storage tables by performing a data upgrade process. See [Model Management Data 
-Upgrade](special-topics/model-management-data-upgrade.md) for additional details.  
+visible in existing deployments, and drift tracking has been disabled for them. The data has not 
+been removed, only archived. **In order to continue tracking drift for existing deployment, you will 
+need to re-enable drift tracking for each of them.** Any deployment data created on release 4.4.1 of 
+DataRobot (or later) can be migrated into the new model monitoring and management storage tables by 
+performing a data upgrade process. See 
+[Model Management Data Upgrade](special-topics/model-management-data-upgrade.md) for additional 
+details.  
 
 ## Cloudera Preparation
 

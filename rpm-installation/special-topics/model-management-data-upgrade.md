@@ -7,6 +7,11 @@ created on release 4.4.1 of DataRobot (or later) can be migrated into the new mo
 management storage tables. The DataRobot installation includes a tool to automatically perform this
 data migration.
 
+Additionally, as part of the improvement, the upgrade to DataRobot release 5.0 disables drift 
+tracking for all existing deployments. **In order to continue tracking drift for existing 
+deployments, you will need to re-enable drift tracking for each of them.** This step can be 
+performed via the DataRobot UI or the `trackingSettings` endpoint of the API. 
+
 ## Upgrade Overview
 
 The model monitoring data upgrade tool copies data from archived tables in the DataRobot PostgreSQL
