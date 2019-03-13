@@ -28,3 +28,4 @@
   * [Password Policies](special-topics/password-policies.md)
   * [Network File System (NFS)](special-topics/nfs.md)
   * [Model Management](special-topics/model-management.md)
+  * [Data ingestion from Google Cloud Storage](special-topics/ingest-from-google-cloud-storage.md)

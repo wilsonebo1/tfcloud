@@ -44,6 +44,7 @@
   * [HA Web Services](special-topics/ha-web-services.md)
   * [SAML SSO Integration](special-topics/sso-saml.md)
   * [Quick Workers for Low Latency Jobs](special-topics/quick-workers-jobs-on-edge-node.md)
+  * [Data ingestion from Google Cloud Storage](special-topics/ingest-from-google-cloud-storage.md)
 
 ## Additional Information
 
