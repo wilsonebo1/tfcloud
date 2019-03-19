@@ -104,14 +104,6 @@ On upgrade to version 5.0 the following required changes must be made to `config
       - execmanagerqw
     ```
 
- 2. On Hadoop installations, set the new flag `SKIP_DSS_REST_AND_NEXT_STEPS_SERVICES` to `true` to enable `execmanagerqw`.
-    ```yaml
-    
-    ---
-    app_configuration:
-        drenv_override:
-            SKIP_DSS_REST_AND_NEXT_STEPS_SERVICES: true
-
 ### Update Network configuration
 
 On upgrade to version 4.4, the following changes to the open ports between hosts must be made:
