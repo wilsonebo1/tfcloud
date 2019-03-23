@@ -24,6 +24,7 @@
   * [Database Password Protection](special-topics/database-passwords.md)
   * [Wiredtiger Memory Configuration](special-topics/wiredtiger-memory-configuration.md)
   * [Integration with LDAP](special-topics/ldap.md)
+  * [Integration with PAM](special-topics/pam.md)
   * [Exported Model File Validation](special-topics/model-export-validation.md)
   * [Password Policies](special-topics/password-policies.md)
   * [Network File System (NFS)](special-topics/nfs.md)

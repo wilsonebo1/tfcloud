@@ -30,7 +30,6 @@
   * [Database Password Protection](special-topics/database-passwords.md)
   * [Wiredtiger Memory Configuration](special-topics/wiredtiger-memory-configuration.md)
   * [Integration with LDAP](special-topics/ldap.md)
-  * [Integration with PAM](special-topics/pam.md)
   * [SELinux](special-topics/selinux.md)
   * [Disk quota](special-topics/disk-quota.md)
   * [Standalone Predictions](special-topics/standalone-predictions.md)
