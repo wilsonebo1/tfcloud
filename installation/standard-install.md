@@ -278,7 +278,7 @@ DataRobot Installation Complete.
 * Run the command to generate the initial admin account for the DataRobot application:
 
 ```bash
-docker exec -it app create_initial_admin.sh
+./bin/datarobot users reset-admin-credentials
 ```
 
 ## Complete and Test

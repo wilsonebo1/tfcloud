@@ -87,7 +87,7 @@ the application server that restarts services.
 * Generate the initial admin account for the DataRobot application:
 
 ```bash
-docker exec app create_initial_admin.sh
+./bin/datarobot users reset-admin-credentials
 ```
 
 You can now open the DataRobot application in your web browser by pointing it
