@@ -63,6 +63,16 @@ rpm -qa | grep -i datarobot | xargs --no-run-if-empty yum erase -y
 
 ### Update configuration files
 
+#### Carry over old files
+
+You will need to first copy the following files, if present, from your previous installation into the new installation directory:
+
+* `config.yaml`
+* `hadoop-configuration.yaml`
+* `secrets.yaml`
+
+#### Apply modifications to configuration files
+
 Your `config.yaml` will need to be updated.
 
 Look at the file in `example-configs` most relevant to your install target.
