@@ -86,7 +86,7 @@ and use the syslog driver for container logs.
 
 To do so, modify the daemon options on all Edge Node servers.
 
-### Docker 1.13+
+### Docker
 
 * Modify the file `/etc/docker/daemon.json` with the following:
 
@@ -102,34 +102,26 @@ To do so, modify the daemon options on all Edge Node servers.
 }
 ```
 
-### Docker Before 1.13
-
-* Modify the file `/etc/sysconfig/docker` with the following:
-
-```bash
-# File snippet: /etc/sysconfig/docker
-OPTIONS='--selinux-enabled --log-driver=syslog --group=docker --storage-driver=overlay'
-INSECURE_REGISTRY='--insecure-registry <IP of application server>:5000'
-```
-
-* Restart the Docker service to apply changes:
-
-```bash
-sudo systemctl restart docker
-```
-
 ### Docker Permissions
 
 Ensure that your install user has permissions to run Docker commands.
 
-The file `/var/run/docker.sock` should be owned by a group that your DataRobot
-user is in. By default the file will be owned by the `docker` group. If it
-isn’t, or you would like to use a different group name, run the following
-on all nodes with your choices of group name and DataRobot user name:
+The file `/var/run/docker.sock` should be owned by a group that your DataRobot user is in.
+By default the file will be owned by the `docker` group.
+If you would like to use a different group name, run the following on all nodes with your choices of group name and DataRobot user name:
+
+Modify your `/etc/docker/daemon.json` to include the following:
+
+```json
+{
+    "group": "mydockergroup"
+}
+```
+
 
 ```bash
-sudo groupadd docker
-sudo usermod -aG docker datarobot
+sudo groupadd mydockergroup
+sudo usermod -aG mydockergroup datarobot
 sudo service docker restart
 ```
 
@@ -142,6 +134,12 @@ docker info
 ```
 
 You should see information about Docker’s configuration.
+
+Now add the following parameter to the root level of your `config.yaml` file:
+
+```yaml
+docker_group_name: mydockergroup
+```
 
 ## Docker-py
 

@@ -134,7 +134,7 @@ DataRobot requires proxyuser settings in both secure (= Kerberos enabled) and no
 
 * Scroll to the top of the screen and click the **Cloudera Manager** logo in the top-left corner of the page.
 
-* Click on the name of the **HDFS** service in the panel on the left side of the scree
+* Click on the name of the **HDFS** service in the panel on the left side of the screen.
 
 * Click on **Configuration** in the menu.
 

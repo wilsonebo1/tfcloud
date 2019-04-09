@@ -66,7 +66,7 @@ There is an interactive LDAP Configuration Tool located at `./bin/datarobot-ldap
 - **`USER_AUTH_LDAP_BIND_PASSWORD`** - password for the service LDAP account
 - **`USER_AUTH_LDAP_SEARCH_BASE_DN`** - LDAP node that contains all the DR users, (e.g. `OU=Users,DC=example,DC=org`)
 - **`USER_AUTH_LDAP_SEARCH_SCOPE`** - LDAP search scope (ONELEVEL or SUBTREE, default is SUBTREE)
-- **`USER_AUTH_LDAP_SEARCH_FILTER`** - LDAP search query (default: `(cn=$username)`)
+- **`USER_AUTH_LDAP_SEARCH_FILTER`** - LDAP search query (default: `(cn=$username), LDAP = (&(objectClass=user)(uid=$username)), AD = (&(objectClass=user)(sAMAccountName=$username))`)
 
 ### Configuring DataRobot to Send Email Notifications
 

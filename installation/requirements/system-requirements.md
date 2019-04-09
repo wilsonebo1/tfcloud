@@ -21,7 +21,7 @@ You must have access to a shell (`/bin/bash` is preferred).
 ## Docker
 
 DataRobot supports Docker version 1.10 and greater.
-RPM distributions of Docker Engine 18.03 Community Edition are provided in your installation artifact and will be installed automatically if your server does not already have Docker.
+RPM distributions of Docker Engine 18.09 Community Edition are provided in your installation artifact and will be installed automatically if your server does not already have Docker.
 
 DataRobot ships files and scripts necessary to run a Docker registry containing all images used by the application, so access to Docker Hub or other public registries is not required.
 
@@ -33,7 +33,7 @@ It is important to properly configure Docker storage drivers.
 By default, DataRobot will use the `overlay` storage driver.
 
 **NOTE**: Docker requires a filesystem with `d_type` enabled for proper operation.
-If you are using an `xfs` filesystem, it must be formatted with `d_type=true`.
+If you are using an `xfs` filesystem, it must be formatted with `ftype=1`.
 
 One possibility is to use a separate block device or logical volume (e.g. LVM) with Docker.
 Consult Docker documentation for more details or contact DataRobot Customer Support.
@@ -55,7 +55,7 @@ This user must have access to the following:
 
 ```bash
 useradd --create-home --uid 1234 datarobot # uid can be any valid uid
-mkdir -p /opt/datarobot /opt/datarobot/DataRobot-4.x.x
+mkdir -p /opt/datarobot /opt/datarobot/DataRobot-5.x.x
 chown -R datarobot:datarobot /opt/datarobot
 ```
 
@@ -204,7 +204,7 @@ ln -s /data/mydatarobot/docker /var/lib/docker
 
 | Description | Filename | Notes |
 |:------------|:---------|:------|
-| DataRobot Distribution | DataRobot-RELEASE-4.x.x.tar.gz | A tarball containing all files required for DataRobot installation |
+| DataRobot Distribution | DataRobot-RELEASE-5.x.x.tar.gz | A tarball containing all files required for DataRobot installation |
 
 ## Limits
 

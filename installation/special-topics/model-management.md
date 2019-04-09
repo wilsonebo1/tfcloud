@@ -29,6 +29,7 @@ One more server is needed for model management data collection and processing:
 ```yaml
 - services:
   - pgsql
+  - modmonscheduler
   - modmonworker
   hosts:
   - z.z.z.z

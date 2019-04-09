@@ -1,6 +1,7 @@
 # Database Password Protection
 
-DataRobot uses two databases for internal operations, Redis, and MongoDB.
+DataRobot uses two databases for internal operations; Redis, and MongoDB.
+Postgres may also be enabled for premium Model Monitoring functionality.
 
 Password-enforced access to these databases may optionally be enabled using the following instructions.
 
@@ -8,7 +9,7 @@ Password-enforced access to these databases may optionally be enabled using the 
 
 ### Before Installation
 
-To enable password protection on both MongoDB and Redis, simply add the following settings to your `config.yaml`.
+To enable password protection on databases, simply add the following settings to your `config.yaml`.
 
 ```yaml
 ---

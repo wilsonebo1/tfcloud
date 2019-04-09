@@ -107,7 +107,7 @@ For data storage nodes (running `HDFS`, etc.), we recommend a minimum of 4TB of 
 
 | Description | Filename | Notes |
 |:------------|:---------|:------|
-| DataRobot Distribution | DataRobot-RELEASE-4.x.x.tar.gz | A tarball containing all files required for DataRobot installation |
+| DataRobot Distribution | DataRobot-RELEASE-5.x.x.tar.gz | A tarball containing all files required for DataRobot installation |
 
 ## Additional requirements
 
