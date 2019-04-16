@@ -66,3 +66,20 @@ each deployment directly correlate to upgrade runtime.
 
 Expect the migration to take around one minute per 15k predictions migrated. This may vary depending
 on your data.
+
+### Purging archived data
+
+Once all deployments have been migrated, data from the archived tables can be purged by executing 
+the following command:
+
+```bash
+/opt/datarobot/sbin/datarobot-purge-modmon-data --purge-before 9999-12-31
+```
+
+If it is desirable to keep newer archived data and purge older archived data, this script can be run 
+with any `--purge-before` date and it will only purge archived data from before the specified date.
+For example, all archived data prior to 2019 can be purged by executing the following command:
+
+```bash
+/opt/datarobot/sbin/datarobot-purge-modmon-data --purge-before 2019-01-01
+```

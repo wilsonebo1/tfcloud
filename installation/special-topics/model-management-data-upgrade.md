@@ -31,19 +31,28 @@ application.
 * It can upgrade all deployments in a DataRobot installation or only selected deployments.
 
 ## Using the upgrade tool
+
+All model monitoring tools must be run from within the `modmonworker` Docker container.
+In order to prepare to run the tool:
+1. Connect to the server running `modmonworker` via SSH.
+2. Connect to the running Docker container with the following command:
+
+```bash
+sudo docker exec -it modmonworker /bin/bash
+```
  
 After DataRobot has been upgraded to release 5.0 (or later), options for running the tool can be 
 viewed by issuing the following command:
 
 ```bash
-/opt/datarobot/sbin/datarobot-migrate-modmon-data --help
+sbin/datarobot-migrate-modmon-data --help
 ```
 
 For DataRobot installations containing fewer than one million predictions, DataRobot recommends 
 simply migrating all deployments to the new schema using the following command:
 
 ```bash
-/opt/datarobot/sbin/datarobot-migrate-modmon-data --verbose
+sbin/datarobot-migrate-modmon-data --verbose
 ```
 
 For larger DataRobot installations, you may wish to migrate only selected deployments to new tables
@@ -51,7 +60,7 @@ in order to speed up overall migration runtime. To migrate selected deployments,
 command (replacing the listed deployment IDs with those from your DataRobot installation):
 
 ```bash
-/opt/datarobot/sbin/datarobot-migrate-modmon-data --verbose --deployment-ids 5c756bb09219fd13ad19fe18 5c756bb09219fd13ad19fe19
+sbin/datarobot-migrate-modmon-data --verbose --deployment-ids 5c756bb09219fd13ad19fe18 5c756bb09219fd13ad19fe19
 ```
 
 Deployment IDs can be retrieved from the URL of any page displaying information about the 
@@ -66,3 +75,20 @@ each deployment directly correlate to upgrade runtime.
 
 Expect the migration to take around one minute per 15k predictions migrated. This may vary depending
 on your data.
+
+### Purging archived data
+
+Once all deployments have been migrated, data from the archived tables can be purged by executing 
+the following command:
+
+```bash
+sbin/datarobot-purge-modmon-data --purge-before 9999-12-31
+```
+
+If it is desirable to keep newer archived data and purge older archived data, this script can be run 
+with any `--purge-before` date and it will only purge archived data from before the specified date.
+For example, all archived data prior to 2019 can be purged by executing the following command:
+
+```bash
+sbin/datarobot-purge-modmon-data --purge-before 2019-01-01
+```
