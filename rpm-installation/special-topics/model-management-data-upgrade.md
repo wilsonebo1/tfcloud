@@ -73,7 +73,7 @@ Once all deployments have been migrated, data from the archived tables can be pu
 the following command:
 
 ```bash
-/opt/datarobot/sbin/datarobot-purge-modmon-data --purge-before 9999-12-31
+/opt/datarobot/sbin/datarobot-purge-modmon-data --purge-all
 ```
 
 If it is desirable to keep newer archived data and purge older archived data, this script can be run 
