@@ -127,6 +127,17 @@ os_configuration:
 The `multi-node.linux.yaml` file has a full set of sample configurations for reference purposes.
 The `example-configs/config-variables.md` file has a comprehensive set of documented configuration values.
 
+#### Accept Oracle Java License
+
+Accept the Oracle Binary Code License terms and allow DataRobot to install Oracle Java Development Kit 10 by adding `accept_oracle_bcl_terms: yes` to your `config.yaml`.
+The license terms can be found on [Oracle's website](http://www.oracle.com/technetwork/java/javase/terms/license/index.html).
+
+```yaml
+# Example config.yaml snippet
+---
+accept_oracle_bcl_terms: yes
+```
+
 #### SSL/TLS Encryption
 
 Note: if your DataRobot installation is accessed from the Internet, as opposed to a internal network, you _must_ use TLS (Transport Layer Security) encryption to prevent exposing data and unauthorized access to your cluster.
