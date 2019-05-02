@@ -20,6 +20,7 @@
 * [Hadoop Pre-Flight Checks](pre-flight-checks.md#hadoop-checks)
 * [Advanced Configuration](special-topics/README.md)
   * [TLS](special-topics/tls.md)
+  * [Security Best Practices](special-topics/security.md)
   * [KMS Integration](special-topics/kms.md)
   * [HttpFS](special-topics/httpfs.md)
   * [Unprivileged Application User](special-topics/admin-user.md)
