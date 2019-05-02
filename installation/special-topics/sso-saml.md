@@ -42,6 +42,19 @@ There are following settings in advanced configuration:
 
 <img src="images/sso-saml-configuration.png" alt="SSO SAML Configuration" style="border: 1px solid black;" width="500" />
 
+### User impersonation
+
+In order to enable user impersonation on environments with SAML SSO please put the following to `config.yaml`:
+
+```yaml
+---
+app_configuration:
+    drenv_override:
+        ENABLE_USER_IMPERSONATION: true
+```
+
+The username to use for impersonation will be take from attribute `impersonation_user` of SAML response.
+
 ## Sign In
 
 After SSO is configured, Single Sign-On button appears on sign in screen. User is redirected to Identity Provider's authentication page after clicking on it.

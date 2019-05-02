@@ -234,9 +234,9 @@ drwx-wx-wx   - hive      supergroup          0 2017-10-16 11:43 /tmp/hive
 drwxrwxrwt   - mapred    hadoop              0 2017-10-16 11:42 /tmp/logs
 ```
 
-## Check LDAP Impersonation
+## Check Impersonation
 
-In environments with LDAP or user impersonation, ensure the `datarobot` user can successfully impersonate Unix users:
+In environments with user impersonation (LDAP, SAML), ensure the `datarobot` user can successfully impersonate Unix users:
 
 ```bash
 WEBHDFS_HOST=webhdfs.internal.com
