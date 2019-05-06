@@ -319,6 +319,10 @@ An example logrotate configuration is below. Modify it to suit your needs.
 }
 ```
 
+## SELinux
+
+Follow these steps [here](selinux.md#SELinux-Unpriviledged-User) in order to install the DataRobot SELinux policy.
+
 ## Crontab
 
 DataRobot servers cache temporary files to speed up certain operations,

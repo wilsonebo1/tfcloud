@@ -98,3 +98,19 @@ sudo semanage fcontext -a -t syslogd_var_lib_t "/opt/datarobot/logs(/.*)?"
 sudo restorecon -R -v /opt/datarobot/logs
 sudo service rsyslog restart
 ```
+
+## SELinux Unpriviledged User {#SELinux-Unpriviledged-User}
+
+How to manually apply SELinux policy when setup-dependencies doesn't work as sudoer (as root)
+```bash
+datarobot_selinux_policy_version=6
+datarobot_selinux_policy_path=~/datarobot_selinux_policies/version_"${datarobot_selinux_policy_version}"
+mkdir -p $datarobot_selinux_policy_path # create directory
+cp /opt/tmp/ansible/roles/datarobot-selinux-policy/templates/datarobot_selinux_policy "${datarobot_selinux_policy_path}"/datarobot.te # copy DataRobot type enforcement file
+cd ${datarobot_selinux_policy_path}
+sed -i "s/{{ datarobot_selinux_policy_version }}/${datarobot_selinux_policy_version}/g" datarobot.te # replace jinja with version number
+sed -i '/{#.*#}/d' datarobot.te # delete first line
+checkmodule -M -m datarobot.te -o datarobot.mod # execute checkmodule
+semodule_package -o datarobot.pp -m datarobot.mod # build semodule package
+semodule -i datarobot.pp # install semodule package
+```
