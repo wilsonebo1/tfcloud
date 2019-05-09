@@ -18,6 +18,9 @@ new-queue.RABBITMQ_URL_QUEUE=amqp://datarobot:drrmqpass@<app_node_host>:5672/que
 DATAROBOT_HOME=<path_to_extracted_code>
 tempstore.host=<app_node_host>
 ZK_QUORUM=<zk_quorum>
+CONFIGURATION_API_ENDPOINT=http://<app_node_host>:8027/getconfig
+# default value: defaultkey or verify with Hadoop team for encryption_key
+CONFIGURATION_API_ENCRYPTION_KEY=defaultkey
 
 # Fields which are usually customized:
 DSSMMW_CONTAINER_MEM=30000
@@ -36,6 +39,7 @@ SECURE_WORKER_CONTAINER_MEM=30000
 SECURE_WORKER_CONTAINER_VCORES=1
 
 # Do not adjust the following fields unless you are sure you have to
+CONFIGURATION_API_POLL_FREQUENCY_IN_SECONDS=10
 SO_SCORING_CONTAINER_MEM=4096
 SO_SCORING_CONTAINER_VCORES=1
 SO_SPARK_CALC_STRATEGY=heuristic
@@ -64,6 +68,7 @@ SECURITY_CONTAINER_USE_DELEGATION_TOKENS=true
 tempstore.port=6379
 YARN_CPU_SCHEDULING=false
 yarn_queue=default
+
 ```
 
 Copy `datarobot.sh` to the working directory and make it executable.
@@ -90,6 +95,10 @@ export DATAROBOT_CUSTOM_KEYTAB_FILE=/home/datarobot/datarobot.keytab
 export HADOOP_CONF_DIR=/etc/hadoop/conf.empty/
 export HADOOP_CONFIG_ENCRYPTION_KEY=defaultkey
 export CONTAINER_CONFIG_FILE=/home/datarobot/datarobot-master.conf
+export CONFIGURATION_API_ENDPOINT=http://<app_node_host>:8027/getconfig
+# default value: defaultkey or verify with Hadoop team for encryption_key
+export CONFIGURATION_API_ENCRYPTION_KEY=defaultkey
+export CONFIGURATION_API_POLL_FREQUENCY_IN_SECONDS=10
 ```
 
 Please use `screen` (or any similar tool) to run `datarobot.sh` in the background,
