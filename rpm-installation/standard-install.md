@@ -98,7 +98,7 @@ Contact DataRobot Support if you have any questions about settings in this file.
 * Run the following command to install the base DataRobot system and installer
 
 ```bash
-sudo yum localinstall release/datarobot-rpms/datarobot-system-*.rpm
+sudo yum localinstall release/datarobot-rpms/datarobot*
 ```
 
 ### Enable DataRobot CLI Environment
