@@ -32,7 +32,9 @@ If using `s3` storage type, you must addtionally set
 
 `S3_CALLING_FORMAT`: Defaults to SubdomainCallingFormat. Valid values are limited to: SubdomainCallingFormat, VHostCallingFormat, OrdinaryCallingFormat and ProtocolIndependentOrdinaryCallingFormat
 
-You may addtionally set the `S3_HOST` and `S3_REGION` variables if you want to explicitly specify which region you run on, or if you are using a storage provider which provides an S3-compatible API.
+`S3_HOST`: ip or hostname of the S3 appliance, no longer optional field post V4 implementation
+
+You may addtionally set the `S3_REGION` variable if you want to explicitly specify which region you run on, or if you are using a storage provider which provides an S3-compatible API.
 
 `S3_IS_SECURE`: Whether or not the service is using HTTPS - The True value, which is the Default, has only been tested in AWS S3
 
