@@ -15,7 +15,7 @@
 * [Security](README.md#security)
 	* [LDAP](README.md#ldap)
 * [About config.yaml](README.md#about-configyaml)
-  
+
 
 # Part II: Managing the Platform
 
@@ -25,7 +25,7 @@
 	* [Changing your password](managing-platform.md#changing-your-password)
 	* [Deactivating user accounts](managing-platform.md#deactivating-user-accounts)
 
-	
+
 * [Common Admin Tasks](managing-platform.md#common-admin-tasks)
 	* [Activity monitor](managing-platform.md#activity-monitor)
 	* [Administrative settings on Jupyter](managing-platform.md#administrative-settings-on-jupyter)
@@ -52,7 +52,10 @@
 		* [DataRobot](managing-platform.md#datarobot)
 		* [Nagios configuration](managing-platform.md#nagios-configuration)
 		* [Nagios health check](managing-platform.md#nagios-health-check)
-		* [Customer Usage Report](managing-platform.md#customer-usage-report)
+		* [Activity Monitor Report](monitoring-user-activity.md)
+			* [App Usage activity report](report-app-usageactivity.md)
+			* [Admin Usage activity report](report-admin-usageactivity.md)
+			* [Pred Usage activity report](report-pred-usageactivity.md)
 		* [Availability monitoring](managing-platform.md#availability-monitoring)
 	* [Managing projects](managing-platform.md#managing-projects)
 		* [Permanently deleting projects](managing-platform.md#permanently-deleting-projects)
@@ -61,5 +64,3 @@
 		* [Standalone servers](managing-platform.md#standalone-servers)
 		* [Assigning admin functions](managing-platform.md#assigning-admin-functions)
 		* [Import to scoring engine cluster](managing-platform.md#import-to-scoring-engine-cluster)
-
-	
