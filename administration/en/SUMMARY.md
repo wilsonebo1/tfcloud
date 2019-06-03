@@ -56,7 +56,7 @@
 			* [App Usage activity report](report-app-usageactivity.md)
 			* [Admin Usage activity report](report-admin-usageactivity.md)
 			* [Pred Usage activity report](report-pred-usageactivity.md)
-		* [Availability monitoring](managing-platform.md#availability-monitoring)
+		* [Resource monitoring](monitoring-resources.md)
 	* [Managing projects](managing-platform.md#managing-projects)
 		* [Permanently deleting projects](managing-platform.md#permanently-deleting-projects)
 		* [Restoring projects](managing-platform.md#restoring-projects)

@@ -319,12 +319,6 @@ _Nagios - Health Check_
 DataRobot periodically and proactively checks the health of the on-premise customers to ensure that any potential problem(s) can be identified early, preventing any potential blocker issues.
 On DataRobot, Nagios has access to the AvailabilityMonitor REST API. It can tell the service to do something on your behalf and returns result of what it did. Having these two components communicate with each other allows for easy and accurate checks.
 
-
-<a name="availability-monitoring"></a>
-###Availability Monitoring
-Requesting the health of DataRobot initially relied on smoke tests and manual UAT in order to tell if any of the installed clusters was running properly. Even though those tactics were challenging, the information was valuable for both the users and the organizations. So, the Availability Monitor was created as a new service deployed alongside DataRobot.
-The Availability Monitor on DataRobot provides general information to customers about the current state of the application such as whether the it is ready to do work, how many users are connected, and which users they are. It also contains specific information about the status of components: what is expected to be running, and what is currently running. With this service in place, the Admin can easily track user activity on each project, and know when DataRobot has available resources to begin working.
-
 <a name="managing-projects"></a>
 Managing projects
 -----------------
