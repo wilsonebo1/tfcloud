@@ -441,18 +441,31 @@ Seeing this means that the feature has been successfully applied, and this user 
 ###Import to scoring engine cluster
 1. Click the profile icon on the top right corner of the application screen, and select “Manage Predictions” from the dropdown menu:
 
-![](images/manage-predictions-option.png)
+	![](images/manage-predictions-option.png)
 
 2. Click “Import Model” at the top of the page. This will open an import dialog:
 
-![](images/import-models-button.png)
+	![](images/import-models-button.png)
 
 3. Select a .drmodel file to import by either dragging it onto the screen, or by clicking the “Browse Model” button to locate the file and add it from there. You can also cancel the import at this time, by simply clicking “Cancel Import”. When the file import is complete, the model will appear on the ***Manage Predictions*** page:
 
-![](images/upload-model-import.png)
+	![](images/upload-model-import.png)
 
 4. Click on the imported model listed on the screen, which will expand it – showing a snippet of that model’s source code. You can now use the model code to make predictions on a standalone predictions environment:
 
-![](images/imported-model-code-snippet.png)
+	![](images/imported-model-code-snippet.png)
 
 5. Click “Show full snippet” at the bottom of the code screen to view the entire source code for the model.
+
+
+<a name="restricting-access-to-jdbc-data-stores"></a>
+Restricting access to JDBC Data Stores
+--------------------------------------
+
+When using Kerberos authentication for JDBC, you can control access to data stores through validation and variable substitution.
+
+You can restrict the ability to create and modify JDBC Data Stores that utilize impersonation to only those users with the permission "Can create impersonated Data Store". Within cluster configuration (config.yaml), you can define impersonated keywords that are used by any installed drivers that support impersonation. These keywords could be used to define operations considered "dangerous" and therefore permitted to only select users. By default, no impersonation keywords are defined.
+
+When a user attempts to create or modify a JDBC Data Store and there are impersonation keywords defined for the installation, DataRobot determines if the URI includes any of the keywords. If the URI includes one or more of the keywords and the user has the "Can create impersonated Data Store" permission, they are allowed to create or modify the JDBC Data Store. If keywords are included in the URI but the user does not have the "Can create impersonated Data Store" permission, then DataRobot will not allow the request to create or modify the JDBC Data Store.
+
+The variable substitution syntax,`${datarobot_read_username}`, provides another way to control access to drivers. If that variable is included in the URI when trying to ingest from the data source/data store, DataRobot replaces it with the impersonated account associated with the logged in user.

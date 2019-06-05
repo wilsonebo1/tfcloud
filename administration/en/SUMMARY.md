@@ -64,3 +64,4 @@
 		* [Standalone servers](managing-platform.md#standalone-servers)
 		* [Assigning admin functions](managing-platform.md#assigning-admin-functions)
 		* [Import to scoring engine cluster](managing-platform.md#import-to-scoring-engine-cluster)
+	* [Restricting access to JDBC Data Stores](managing-platform.md#restricting-access-to-jdbc-data-stores)
