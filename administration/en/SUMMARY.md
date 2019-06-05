@@ -24,7 +24,7 @@
 	* [Setting user permissions](managing-platform.md#setting-user-permissions)
 	* [Changing your password](managing-platform.md#changing-your-password)
 	* [Deactivating user accounts](managing-platform.md#deactivating-user-accounts)
-
+* [How users contact you](managing-platform.md#how-users-contact-you)
 
 * [Common Admin Tasks](managing-platform.md#common-admin-tasks)
 	* [Activity monitor](managing-platform.md#activity-monitor)

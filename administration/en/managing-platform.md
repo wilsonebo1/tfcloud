@@ -95,6 +95,17 @@ You can also disable a user by going into any user’s profile and clicking the 
 
 ![](images/enable-disable-user-profile.png)
 
+
+<a name="how-users-contact-you"></a>
+How users contact you
+-----------------------
+When users have questions or issues, they can contact you through the megaphone ![](images/bullhorn.png#nostyle) in the upper right navigation.
+
+![](images/help-resources.png)
+
+They can ask questions and report bugs through dialogs available from this dropdown. As part of contacting you, users may be able to send screenshots of their UI unless support for sending screenshots has been disabled within cluster configuration.
+
+
 <a name="common-admin-tasks"></a>
 Common Admin Tasks
 ------------------
