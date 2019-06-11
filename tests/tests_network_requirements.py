@@ -47,12 +47,21 @@ def get_ports_from_lines(lines):
 
 @pytest.mark.parametrize('test_file', NR_FILES)
 def test_table_and_description_match(test_file):
+    """Verify that ports listed in the 'All Ports' table are found in the description sections above, and vice versa. """
+
     table_line = '## All Ports In One Table\n'
     with open(test_file) as f:
         lines = f.readlines()
+
+    # Get the line number where the "All Ports" table starts
     table_position = lines.index(table_line)
+
+    # Fetch all of the ports in the description section of the document
     description_ports = get_ports_from_lines(lines[:table_position])
+
+    # Fetch all of the ports in the "All Ports" section of the document
     table_ports = get_ports_from_lines(lines[table_position:])
+
     assert len(description_ports) > 0, 'No ports were found in the description'
     assert len(table_ports) > 0, 'No ports were found in the table'
     not_in_table = description_ports - table_ports
