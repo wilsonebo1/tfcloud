@@ -2,6 +2,8 @@
 Monitoring Worker Resources
 =============================
 
+**NOTE:** Must have Admin Setting "Enable Resource Monitor".
+
 # Monitoring modeling worker usage
 
 The Resource Monitor provides users with visibility into DataRobot's active modeling workers across the installation. It provides general information about the current state of the application, such as whether it is ready to do work and which users are connected. It also contains specific information about the status of components: what is expected to be running and what is currently running. With this service in place, an Admin can easily track user activity on each project and know when DataRobot has available resources to begin working.
@@ -14,7 +16,7 @@ The monitor provides an estimation of where and when you are expending DataRobot
 
 Additionally, monitoring resources over time helps to determine whether your organization has the correct number of modeling workers to meet usage needs.
 
-Access the Resource Monitor (if you have the correct permissions) from the Account Settings dropdown:
+Access the Resource Monitor from the Account Settings dropdown:
 
 ![](images/resource-monitor-enable.png)
 
@@ -25,22 +27,22 @@ The Resource Monitor reports on the system’s queue and workers, both overall a
 Term | Description
 ----- | -----------
 Jobs | The tasks DataRobot completes with workers, such as model building and certain calculations. Statistics are based on jobs.
-Secure worker | Jobs displayed in the Worker Queue, such as model building or Feature Impact calculations. Other worker tasks, for example, EDA, are not <em>secure</em> worker jobs.
+Modeling worker | Jobs displayed in the Worker Queue, such as model building or Feature Impact calculations. Other worker tasks, for example, EDA, do not use modeling workers.
 In Progress (or running) | A job that has received a worker and is currently executing on the worker.
 Waiting for resources (or waiting for worker) | A job that is ready to execute, but has not yet received a worker. These jobs appear as “Waiting for worker” in the Processing section of the Worker Queue.
 Queued | A job that is in the queue but is not ready to execute. These jobs appear in the Queue section of the Worker Queue.
 Active User | A user that is the owner of at least one in-progress or waiting job.
 
-Specifically, the Resource Monitor provides the number of currently running jobs, number of allowed concurrent jobs, and number of jobs waiting for a worker. Additionally, the tool provides information on which specific users are employing system resources. The Resource Monitor differs slightly between Docker and Hadoop installations. Refer to your organization's installation type, below, for details.
+Specifically, the Resource Monitor provides the number of currently running jobs, number of allowed concurrent jobs, and number of jobs waiting for a worker. Additionally, the tool provides information on which specific users are employing system resources. The Resource Monitor differs slightly between Standalone and Hadoop-integrated installations. Refer to your organization's installation type, below, for details.
 
 <a name="docker"></a>
-## Using the Resource Monitor in a Dockerized installation
+## Using the Resource Monitor in a Standalone installation
 
-The Resource Monitor in a Docker installation provides an at-a-glance view of secure-worker jobs requested of DataRobot.
+The Resource Monitor in a standalone installation provides an at-a-glance view of modeling-worker jobs requested of DataRobot.
 
 ![](images/resource-monitor-docker.png)
 
-The following table describes the fields displayed by the Docker version of the Resource Monitor. You can use the options of the refresh function to redisplay results at any time.
+The following table describes the fields displayed by the standalone version of the Resource Monitor. You can use the options of the refresh function to redisplay results at any time.
 
 
 <table>
@@ -80,7 +82,7 @@ The following table describes the fields displayed by the Docker version of the 
     <td align="center" colspan="2"><em>Users and current activity</em></td>
      <tr>
     <td>Active now</td>
-    <td>Number of users with a job running or waiting that requires a secure worker. This value matches the total of the <em>In use</em> and <em>Jobs waiting</em> fields.</td>
+    <td>Number of users with a job running or waiting that requires a modeling worker. This value matches the total of the <em>In use</em> and <em>Jobs waiting</em> fields.</td>
   </tr>
   <tr>
     <td>Worker usage by user</td>
@@ -90,9 +92,11 @@ The following table describes the fields displayed by the Docker version of the 
 
 
 <a name="hadoop"></a>
-## Using the Resource Monitor in a Hadoop installation
+## Using the Resource Monitor in a Hadoop-integrated installation
 
-The Resource Monitor in a Hadoop installation provides two types of usage reports. The top half of the display reports on all DataRobot jobs in Hadoop (including, for example, EDA), not just secure worker jobs. The bottom half reports only secure-worker jobs, such as model building or Feature Impact calculations. As a result, the top half and bottom half metrics may not match, which is not an indication of error.
+In a Hadoop-integrated cluster environment, workers are run within the Hadoop cluster and YARN manages all modeling worker allocation. These are not managed by DataRobot.
+
+The Resource Monitor in a Hadoop-integrated installation provides two types of usage reports. The top half of the display reports on all DataRobot jobs in Hadoop (including, for example, EDA), not just modeling worker jobs. The bottom half reports only modeling-worker jobs, such as model building or Feature Impact calculations. As a result, the top half and bottom half metrics may not match, which is not an indication of error.
 
 When you submit a job in Hadoop, DataRobot first checks the request against your organization's license (defining the number of Hadoop jobs that can run concurrently). Once under the DataRobot job limit, DataRobot submits the job to Hadoop, where it competes for Hadoop resources from among all applications making Hadoop service requests. In other words, allowance by DataRobot to run does not translate to availability on the system-wide Hadoop cluster. DataRobot can measure and report on jobs submitted but cannot provide statistics on its own position within the cluster requests or the status of whether a job is waiting or running.
 
@@ -133,7 +137,7 @@ The following table describes the fields displayed by the Hadoop version of the 
     <td align="center" colspan="2"><em>Users and current activity</em></td>
      <tr>
     <td>Active now</td>
-    <td>Number of users with a job running or waiting that requires a secure worker.</td>
+    <td>Number of users with a job running or waiting that requires a modeling worker.</td>
   </tr>
   <tr>
     <td>Worker usage by user</td>
@@ -156,4 +160,4 @@ The <em>Users and current activity</em> section reports on users that are active
 <a name="refresh"></a>
 ## Using the refresh function
 
-DataRobot refreshes the Resource Monitor display at the interval selected from the dropdown. Expand the dropdown to change the interval or click the REFRESH NOW button to immediately update the page.
+DataRobot refreshes the Resource Monitor display at the interval selected from the dropdown. Expand the dropdown to change the interval or click the Refresh Now button to immediately update the page.
