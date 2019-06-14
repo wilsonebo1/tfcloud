@@ -60,3 +60,80 @@ The username to use for impersonation will be take from attribute `impersonation
 After SSO is configured, Single Sign-On button appears on sign in screen. User is redirected to Identity Provider's authentication page after clicking on it.
 
 User is redirected to DataRobot after successful sign on.
+
+## Advanced SSO Configuration
+
+Some advanced configuration options are not exposed in UI and are
+available via admin SSO configuration API.
+
+In order to use that API administrator needs to have regular SSO
+management permissions and grab API token from own profile in UI
+(referred as `<API_TOKEN>` below).
+
+### Encrypted Request
+
+In order to enable authentication request signing please
+
+1. put your encryption certificate and key files into `/opt/datarobot/DataRobot-5.0.x/etc/certs/`,
+2. configure the application:
+
+    ```
+    curl '<DATAROBOT_ENDPOINT>/api/v2/admin/sso/saml/configuration/global/' -X PATCH -H 'Content-Type: application/json;charset=UTF-8' -H 'Authorization: Token <API_TOKEN>' --data-binary '
+    {
+        "advancedConfiguration": {
+            "samlClientConfiguration": {
+                "service": {
+                    "sp": {
+                        "authn_requests_signed": true,
+                    }
+                },
+                "key_file" : "/opt/datarobot/etc/certs/key.pem",
+                "cert_file" : "/opt/datarobot/etc/certs/cert.pem"
+            }
+        }
+    }'
+    ```
+
+### Encrypted Response
+
+If SAML identity provider ecnrypts response assertions, please
+
+1. put your encryption certificate and key files into `/opt/datarobot/DataRobot-5.0.x/etc/certs/`,
+2. configure the application to use that certificate:
+
+    ```
+    curl '<DATAROBOT_ENDPOINT>/api/v2/admin/sso/saml/configuration/global/' -X PATCH -H 'Content-Type: application/json;charset=UTF-8' -H 'Authorization: Token <API_TOKEN>' --data-binary '
+    {
+        "advancedConfiguration": {
+            "samlClientConfiguration": {
+                "encryption_keypairs" : [
+                    {
+                        "key_file" : "/opt/datarobot/etc/certs/key.pem",
+                        "cert_file" : "/opt/datarobot/etc/certs/cert.pem"
+                    }
+                ]
+            }
+        }
+    }'
+    ```
+
+#### Encrypted Response with Okta
+
+When using encrypted assertions with Okta, please additionally specify `id_attr_name`:
+
+```
+curl '<DATAROBOT_ENDPOINT>/api/v2/admin/sso/saml/configuration/global/' -X PATCH -H 'Content-Type: application/json;charset=UTF-8' -H 'Authorization: Token <API_TOKEN>' --data-binary '
+{
+    "advancedConfiguration": {
+        "samlClientConfiguration": {
+            "encryption_keypairs" : [
+                {
+                    "key_file" : "/opt/datarobot/etc/certs/key.pem",
+                    "cert_file" : "/opt/datarobot/etc/certs/cert.pem"
+                }
+            ],
+            "id_attr_name" : "Id"
+        }
+    }
+}'
+```
