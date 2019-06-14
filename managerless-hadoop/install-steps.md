@@ -18,7 +18,7 @@ new-queue.RABBITMQ_URL_QUEUE=amqp://datarobot:drrmqpass@<app_node_host>:5672/que
 DATAROBOT_HOME=<path_to_extracted_code>
 tempstore.host=<app_node_host>
 ZK_QUORUM=<zk_quorum>
-CONFIGURATION_API_ENDPOINT=http://<app_node_host>:8027/getconfig
+CONFIGURATION_API_ENDPOINT=http://<app_node_host>/hadoopconfig/getconfig
 # default value: defaultkey or verify with Hadoop team for encryption_key
 CONFIGURATION_API_ENCRYPTION_KEY=defaultkey
 
@@ -95,7 +95,7 @@ export DATAROBOT_CUSTOM_KEYTAB_FILE=/home/datarobot/datarobot.keytab
 export HADOOP_CONF_DIR=/etc/hadoop/conf.empty/
 export HADOOP_CONFIG_ENCRYPTION_KEY=defaultkey
 export CONTAINER_CONFIG_FILE=/home/datarobot/datarobot-master.conf
-export CONFIGURATION_API_ENDPOINT=http://<app_node_host>:8027/getconfig
+export CONFIGURATION_API_ENDPOINT=http://<app_node_host>/hadoopconfig/getconfig
 # default value: defaultkey or verify with Hadoop team for encryption_key
 export CONFIGURATION_API_ENCRYPTION_KEY=defaultkey
 export CONFIGURATION_API_POLL_FREQUENCY_IN_SECONDS=10
