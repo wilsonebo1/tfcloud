@@ -25,7 +25,7 @@ Some of the common tasks you may need to perform while maintaining your DataRobo
 <a name="platform-configuration-settings"></a>
 Understanding your Platform Configuration
 -----------------------------------------
-Premium Products and Enabled Features are those set within the cluster configuration. Through this page you can see which products and features are set for your cluster; if you need to make any changes to any of these settings, contact Customer Support.
+Premium Products and Enabled Features are those set within the cluster configuration. In the **Manage Settings** page (available from  User Profile, **Change Permissions**), you can see which products and features are set for your cluster; if you need to make any changes to any of these settings, contact Customer Support.
 
 ### Premium Products
 
@@ -37,22 +37,25 @@ Product   | Description   |
 **Time Series** | Automates the development of sophisticated time series models that predict the future values of a data series based on its history and trend.
 
 ### Enabled Configuration Features
-Features enabled across the cluster are configured within the cluster configuration (`config.yaml`). These features are enabled for all users in the cluster, are not configurable via the UI, and cannot be set on a per-user basis. Features that may be enabled for your cluster:
+Features enabled across the cluster are configured within the cluster configuration (`config.yaml`). These features are enabled for all users in the cluster, are not configurable via the UI, and cannot be set on a per-user basis. The settings shown here may be expected for  a typical cluster configuration:
 
 Feature   | Description   |
 --------- | ------------- |
 (\*\*) **Enable Compliance Documentation** | Enables ability to generate and download Compliance Documentation. (**NOTE**: Starting with version 4.4, compliance documentation is enabled as part of the base product.)
-**Disable Model Management** | Turns off Model Management functionality
 **Enable multi-job Feature Impact** | Enables splitting feature impact computation into multiple queue jobs; the feature impact jobs can be split and run on multiple workers
 **Enable Autopilot Run Entity** | Enables support for tracking autopilot run information
-**Enable Hadoop Deployment** | Enables Scoring on Hadoop from the leaderboard; applies to Hadoop deployments only
-**Show Uncensored Blueprints** | Enables uncensored blueprints, which are required for compliance documentation (for reference, in Managed API Cloud deployments, uncensored blueprints are disabled by default)
+**Enable MMM Aggregation Features** | Enables MMM features that rely on aggregations
+**Enable Time Series Zero-Inflated Modeling** | Enables support for zero-inflated modeling for Time-Series projects
+**Enable MMM Improved Integrations Tab** | Enables access to the improved MMM Integrations tab (for model deployments)
+**Show Uncensored Blueprints** | Enables uncensored blueprints, which are required for compliance documentation (for reference, in Managed API Cloud deployments uncensored blueprints are disabled by default)
+**Enable do-not-derive for time series** | Enables the ability to set an individual feature as "do-not-derive", excluding it from feature derivation. Any feature that is not specified is handled using the standard time series feature engineering framework for creating a modeling dataset
+**Enable Time Series Non Regular Datetime Modeling** | Enables non-regular datetime modeling for Time Series projects (for example, this enables time series projects to be built using datasets with irregular timestamps)
 **Enable Advanced Tuning via the API** | Enables Advanced Tuning API to be used for non-Eureqa models; note that Advanced Tuning API is always enabled for Eureqa-based models
-**Enable DataRobot Prime** | Enables ability to download executable code that approximates a model so predictions may be made on data outside of DataRobot.
+**Enable DataRobot Prime** | Enables the ability to download executable code that approximates a model so predictions may be made on data outside of DataRobot
 (\*) **Enable Optional Multi-Factor Auth** | Enables support for opt-in features for multi-factor authentication
 (\*) **Enable MMM email notification settings** | Enables support for email notifications (as part of prediction deployments)
 (\*) **Classification & Regression** | Enables access to ordinary regression classification functionality; applies only when ordinary regression and classification functionality is present on the cluster
-(\*) **Enable MMM training predictions** | Enables numerous data science improvements and features, including: PSI improvements, Covariate analysis, prediction explanations, feature impact, accuracy decay improvement, etc.
+(\*) **Disable MMM training predictions** | Disables numerous data science improvements and features, including: PSI improvements, Covariate analysis, prediction explanations, feature impact, accuracy decay improvement, etc.
 
 (\*) denotes features enabled by default for all for on-premise, or private/hybrid cloud deployments
 
