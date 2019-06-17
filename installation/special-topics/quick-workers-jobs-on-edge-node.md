@@ -1,12 +1,12 @@
 # Quick Workers Jobs on EDGE node
 
-When DataRobot is deployed to heavily used Hadoop clusters, it might take 
-some time to allocate containers for jobs. This may lead to poor user experience. 
-If this is the case, we recommend using pre-allocated containers 
-(also known as Quick Workers) for the jobs that are responsible for creating 
+When DataRobot is deployed to heavily used Hadoop clusters, it might take
+some time to allocate containers for jobs. This may lead to poor user experience.
+If this is the case, we recommend using pre-allocated containers
+(also known as Quick Workers) for the jobs that are responsible for creating
 new projects and coordinating autopilot.
 
-Quick Workers containers are regular containers which listen to messages 
+Quick Workers containers are regular containers which listen to messages
 from Application Master and execute "quick" jobs.
 
 In DataRobot 5.0 they were replaced with a new execution manager `execmanagerqw` on the EDGE node.

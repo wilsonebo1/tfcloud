@@ -10,7 +10,7 @@ On the install node, logged in as the DataRobot user, run the following to verif
 
 ```bash
 sudo su dradmin
-cd /opt/datarobot/DataRobot-5.0.x/
+cd /opt/datarobot/DataRobot-5.1.x/
 source release/profile
 ./bin/inventory --list
 ./bin/ansible -i ./bin/inventory -m shell -a 'uptime' all

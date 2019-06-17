@@ -17,6 +17,10 @@ os_configuration:
     secrets_enforced: true
 ```
 
+*NOTE*: If doing an upgrade or re-install where password protection was used before,
+make sure to copy over `secrets.yaml` into the installation directory (beside
+`config.yaml`) before proceeding, to use pre-existing passwords!
+
 ### After Installation
 
 To enable or change passwords after installing DataRobot, follow these steps.
@@ -51,7 +55,7 @@ os_configuration:
     secrets_enforced: false
 ```
 
-* Remove the file `/opt/datarobot/DataRobot-5.0.x/secrets.yaml` if it exists.
+* Remove the file `/opt/datarobot/DataRobot-5.1.x/secrets.yaml` if it exists.
 
 * Execute:
 

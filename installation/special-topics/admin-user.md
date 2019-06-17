@@ -1,9 +1,9 @@
 # Unprivileged User Installation
 
 DataRobot requires escalated privileges to install dependency packages,
-configure Docker, and configure logging on your system.
+configure system limits, and configure logging on your system.
 
-If you can't enable passwordless sudo for the DataRobot service user, you
+If you can't enable passwordless `sudo` for the DataRobot service user, you
 may either specify a separate 'admin user' (to be referred to as `dradmin`)
 or manually perform the Manual Configuration steps.
 
@@ -54,7 +54,8 @@ You can use these instructions once the initial OS configuration and user setup
 is complete and the DataRobot installation media is downloaded and extracted on
 the install node.
 
-After performing these steps, verify everything is working correctly with
+{% block admin_user_docker %}
+After performing these steps, verify everything is working correctly with:
 
 ```bash
 ./bin/datarobot health cluster-checks
@@ -70,7 +71,7 @@ servers.
 * On all nodes, run the following commands:
 
 ```bash
-cd /opt/datarobot/DataRobot-5.0.x/
+cd /opt/datarobot/DataRobot-5.1.x/
 sudo yum localinstall -y --nogpgcheck \
     release/docker-packages/RedHat-7/prereqs/*.rpm
 sudo yum localinstall -y --nogpgcheck \
@@ -118,7 +119,6 @@ Modify your `/etc/docker/daemon.json` to include the following:
 }
 ```
 
-
 ```bash
 sudo groupadd mydockergroup
 sudo usermod -aG mydockergroup datarobot
@@ -154,7 +154,6 @@ to all application servers.
 sudo yum localinstall -y \
 release/docker-packages/docker-py-packages/rpm/*.rpm
 ```
-
 * Add the `docker-py` libraries to site-packages so they are accessible.
 (**NOTE**: `cp` may print an error about backports directory.
 This can be safely ignored.)
@@ -163,6 +162,7 @@ This can be safely ignored.)
 sudo cp -d /usr/lib/python2.7/dist-packages/* \
     /usr/lib/python2.7/site-packages/
 ```
+{% endblock %}
 
 ## Directories
 
@@ -190,11 +190,10 @@ mkdir -p data \
 
 ## Logging
 
-RSYLSOG is used to collect logs from all running Docker applications and the
-Cloudera cluster. Docker forwards `STDOUT` and `STDERR` from all containers to
-the local host’s syslog via the `daemon` logging facility. RSYSLOG filters
-these logs and writes them to local files as well as forwarding them to a
-central syslog server.
+RSYLSOG is used to collect logs from all running DataRobot services and the
+hadoop cluster. Services forward `STDOUT` and `STDERR` to the local host's
+syslog via the `daemon` logging facility. RSYSLOG filters these logs and writes them to
+local files as well as forwarding them to a central syslog server.
 
 To configure RSYSLOG, add files to `/etc/rsyslog.d/` on each node.
 

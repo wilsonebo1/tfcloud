@@ -24,7 +24,7 @@ Single Sign-On should be configured on both Identity Provider and DataRobot side
 ### Identity Provider configuration
 
 Identity Providers implement their own dashborads, so customer should reach IdP's documentation to integrate DataRobot. IdP requires from DataRobot sign in and sign out urls. They are represented on the `Manage SSO` page under `Single Sign-On URL` and `Single Sign-Out URL` settings.
-DataRobot expects to receive username and email from the identity provider. IdP should be configured so that the SAML response contains `username` attribute (mandatory) and `email` attribute (optional, recommended). 
+DataRobot expects to receive username and email from the identity provider. IdP should be configured so that the SAML response contains `username` attribute (mandatory) and `email` attribute (optional, recommended).
 
 ### DataRobot configuration
 
@@ -74,66 +74,58 @@ management permissions and grab API token from own profile in UI
 
 In order to enable authentication request signing please
 
-1. put your encryption certificate and key files into `/opt/datarobot/DataRobot-5.0.x/etc/certs/`,
+1. put your encryption certificate and key files into `/opt/datarobot/DataRobot-5.1.x/etc/certs/`,
 2. configure the application:
 
-    ```
-    curl '<DATAROBOT_ENDPOINT>/api/v2/admin/sso/saml/configuration/global/' -X PATCH -H 'Content-Type: application/json;charset=UTF-8' -H 'Authorization: Token <API_TOKEN>' --data-binary '
-    {
-        "advancedConfiguration": {
-            "samlClientConfiguration": {
-                "service": {
-                    "sp": {
-                        "authn_requests_signed": true,
-                    }
-                },
-                "key_file" : "/opt/datarobot/etc/certs/key.pem",
-                "cert_file" : "/opt/datarobot/etc/certs/cert.pem"
-            }
-        }
-    }'
-    ```
+```bash
+curl '<DATAROBOT_ENDPOINT>/api/v2/admin/sso/saml/configuration/global/' -X PATCH -H 'Content-Type: application/json;charset=UTF-8' -H 'Authorization: Token <API_TOKEN>' --data-binary '
+{
+  "advancedConfiguration": {
+    "samlClientConfiguration": {
+      "service": {"sp": {"authn_requests_signed": true}},
+      "key_file" : "/opt/datarobot/etc/certs/key.pem",
+      "cert_file" : "/opt/datarobot/etc/certs/cert.pem"
+    }
+  }
+}'
+```
 
 ### Encrypted Response
 
 If SAML identity provider ecnrypts response assertions, please
 
-1. put your encryption certificate and key files into `/opt/datarobot/DataRobot-5.0.x/etc/certs/`,
+1. put your encryption certificate and key files into `/opt/datarobot/DataRobot-5.1.x/etc/certs/`,
 2. configure the application to use that certificate:
 
-    ```
-    curl '<DATAROBOT_ENDPOINT>/api/v2/admin/sso/saml/configuration/global/' -X PATCH -H 'Content-Type: application/json;charset=UTF-8' -H 'Authorization: Token <API_TOKEN>' --data-binary '
-    {
-        "advancedConfiguration": {
-            "samlClientConfiguration": {
-                "encryption_keypairs" : [
-                    {
-                        "key_file" : "/opt/datarobot/etc/certs/key.pem",
-                        "cert_file" : "/opt/datarobot/etc/certs/cert.pem"
-                    }
-                ]
-            }
-        }
-    }'
-    ```
+```bash
+curl '<DATAROBOT_ENDPOINT>/api/v2/admin/sso/saml/configuration/global/' -X PATCH -H 'Content-Type: application/json;charset=UTF-8' -H 'Authorization: Token <API_TOKEN>' --data-binary '
+{
+  "advancedConfiguration": {
+    "samlClientConfiguration": {
+      "encryption_keypairs" : [{
+        "key_file" : "/opt/datarobot/etc/certs/key.pem",
+        "cert_file" : "/opt/datarobot/etc/certs/cert.pem"
+      }]
+    }
+  }
+}'
+```
 
 #### Encrypted Response with Okta
 
 When using encrypted assertions with Okta, please additionally specify `id_attr_name`:
 
-```
+```bash
 curl '<DATAROBOT_ENDPOINT>/api/v2/admin/sso/saml/configuration/global/' -X PATCH -H 'Content-Type: application/json;charset=UTF-8' -H 'Authorization: Token <API_TOKEN>' --data-binary '
 {
-    "advancedConfiguration": {
-        "samlClientConfiguration": {
-            "encryption_keypairs" : [
-                {
-                    "key_file" : "/opt/datarobot/etc/certs/key.pem",
-                    "cert_file" : "/opt/datarobot/etc/certs/cert.pem"
-                }
-            ],
-            "id_attr_name" : "Id"
-        }
+  "advancedConfiguration": {
+    "samlClientConfiguration": {
+      "encryption_keypairs" : [{
+        "key_file" : "/opt/datarobot/etc/certs/key.pem",
+        "cert_file" : "/opt/datarobot/etc/certs/cert.pem"
+      }],
+      "id_attr_name" : "Id"
     }
+  }
 }'
 ```

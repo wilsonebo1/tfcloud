@@ -11,6 +11,15 @@ during your upgrade.
 None of these steps will cause you to lose any data or application state.
 However, they will require service downtime for the DataRobot application.
 
+### Preserve secrets
+
+If `secrets_enforced` was true from a previous install, and user/password
+authentication is used for services, then the files driving secrets should
+be preserved. Namely the file `secrets.yaml` from the installation directory
+(which  has `config.yaml` in it), must be copied and preserved for the upgrade
+(e.g. copy `secrets.yaml` from previous installation into the new installation
+directory).
+
 ### Remove old files and services
 
 * Stop and remove all containers:
@@ -123,17 +132,27 @@ On upgrade to version 5.0 the following required changes must be made to `config
 On upgrade to version 5.0 the following required changes must be made to `config.yaml`:
 
 1. On Hadoop installations, add the new `execmanagerqw` service to one of the nodes in your environment. It processes some lightweight jobs which were executed on Hadoop in previous versions. You may have multiple instances of this service on different nodes. Example:
-    
-    ```yaml
-    
-    ---
-    servers:
-    # Web server
-    - services:
-      - nginx
-      # ...
-      - execmanagerqw
-    ```
+
+```yaml
+---
+servers:
+# Web server
+- services:
+  - nginx
+  # ...
+  - execmanagerqw
+```
+
+On upgrade to version 5.1 the following required changes must be made to `config.yaml`:
+
+1. If SAML is used, move SAML certifications to `/opt/datarobot/etc/certs/saml/`.
+
+After making this change, existing database records will need to be updated in the `sso_configuration` collection.
+You will need to update document keys, _for all existing records_, to point to the new paths:
+
+  * advanced_configuration.saml_client_configuration.key_file
+  * advanced_configuration.saml_client_configuration.cert_file
+
 
 ### Update Network configuration
 
@@ -164,7 +183,6 @@ On upgrade to version 5.0, the following changes to the open ports between hosts
 | Optionally Remove | 5556  | TCP      | Secure Worker Broker |
 
 
-
 ### Upgrade mongo data
 
 Starting with DataRobot release 4.2 the version of mongo has been upgraded from 2.4 to 3.4.
@@ -174,15 +192,15 @@ See [Mongo Data Upgrade](special-topics/mongo-data-upgrade.md) for additional de
 
 ### Upgrade Model Monitoring and Management
 
-Starting with DataRobot release 5.0, model monitoring and management is receiving vast performance 
-and scaling improvements. As a consequence of this improvement, all historical data is no longer 
-visible in existing deployments, and drift tracking has been disabled for them. The data has not 
-been removed, only archived. **In order to continue tracking drift for existing deployment, you will 
-need to re-enable drift tracking for each of them.** Any deployment data created on release 4.4.1 of 
-DataRobot (or later) can be migrated into the new model monitoring and management storage tables by 
-performing a data upgrade process. See 
-[Model Management Data Upgrade](special-topics/model-management-data-upgrade.md) for additional 
-details.  
+Starting with DataRobot release 5.0, model monitoring and management is receiving vast performance
+and scaling improvements. As a consequence of this improvement, all historical data is no longer
+visible in existing deployments, and drift tracking has been disabled for them. The data has not
+been removed, only archived. **In order to continue tracking drift for existing deployment, you will
+need to re-enable drift tracking for each of them.** Any deployment data created on release 4.4.1 of
+DataRobot (or later) can be migrated into the new model monitoring and management storage tables by
+performing a data upgrade process. See
+[Model Management Data Upgrade](special-topics/model-management-data-upgrade.md) for additional
+details.
 
 ## Cloudera Preparation
 

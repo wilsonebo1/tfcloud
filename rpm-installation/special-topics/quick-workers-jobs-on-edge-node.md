@@ -1,0 +1,1 @@
+../../installation/special-topics/quick-workers-jobs-on-edge-node.md
