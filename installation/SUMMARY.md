@@ -49,3 +49,7 @@
 ## Additional Information
 
 * [Addendum](addendum.md)
+
+## Copyright
+
+* [Copyright](copyright.md)

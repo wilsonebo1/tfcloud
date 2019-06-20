@@ -62,4 +62,6 @@
 		* [管理機能の割り当て](managing-platform.md#assigning-admin-functions)
 		* [スコアリングエンジンクラスターへのインポート](managing-platform.md#import-to-scoring-engine-cluster)
 
-	
+## Copyright
+
+* [Copyright](copyright.md)
