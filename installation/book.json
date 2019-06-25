@@ -1,9 +1,12 @@
 {
     "root": "./",
+    "gitbook":"3.2.2",
     "title": "DataRobot Installation Manual",
     "description": "This manual describes how to install and configure your on-premise DataRobot installation.",
     "author": "DataRobot, Inc.",
-    "plugins": [],
-    "pluginsConfig": {
-    }
+    "variables":
+    {
+      "defaultfoot": "&copy; DataRobot, Inc. 2019. All Rights Reserved." 
+    },
+   "plugins": ["theme-defaultfoot"]       
 }

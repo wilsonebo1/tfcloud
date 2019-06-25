@@ -37,6 +37,3 @@
 		* [Restoring projects](managing-projects.md#restoring-projects)
 	* [Restricting access to JDBC Data Stores](managing-platform.md#restricting-access-to-jdbc-data-stores)
 
-## Copyright
-
-* [Copyright](copyright.md)

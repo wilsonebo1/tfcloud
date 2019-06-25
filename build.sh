@@ -41,6 +41,7 @@ function _clean {
     docker images --filter="dangling=true" -q \
         | xargs --no-run-if-empty docker rmi
     docker rm $(docker stop $TEST_CONTAINER) 2>/dev/null
+    find . -type d -name _book -exec rm -rf {} \;
     set +x
     set -e
 }
