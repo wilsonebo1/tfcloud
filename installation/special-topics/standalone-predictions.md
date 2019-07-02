@@ -1,6 +1,6 @@
 # Standalone Predictions
 
-DataRobot ships with a Standalone Scoring Engine (SSE) which is used for generating predictions independently from the rest of DataRobot services.
+When a Dedicated Prediction Engine is Licensed from DataRobot an alternate configuration of the Dedicated prediction engine (DPE) is the Standalone Scoring Engine (SSE) which is used for generating predictions independently from the rest of DataRobot services.
 SSE clusters run only the services required to run prediction API servers using an imported `*.drx` model file, namely `scoringengine` and `dedicatedpredictionnginx`, plus an optional `gluster` service for distributed storage.
 
 Sections below explain how to perform an installation of DataRobot with just standalone scoring services.
