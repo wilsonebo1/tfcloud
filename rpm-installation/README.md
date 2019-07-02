@@ -1,4 +1,4 @@
-# DataRobot Installation and Administration Guide
+# DataRobot Installation and Configuration Guide
 
 Welcome to the DataRobot Administration Guide.
 
