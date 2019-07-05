@@ -52,8 +52,6 @@ at least 5GB of available space.
 |DataRobot Master YARN AM|1|1|1|2|Y|Required|
 |Modeling containers|8|0|8|60|N|Required|
 |EDA containers|8|0|2|60|N|Required|
-|DSS container|8|0|1|.004|N|Only required if `execmanagerqw` is not used|
-|Next Steps container|8|0|1|.002|N|Only required if `execmanagerqw` is not used|
 |DataRobot Master|NA|2|2|4|Y|Taking the role of different DSS and next steps tasks.|
 
 {% block optional_scalable_ingest_requirements %}
