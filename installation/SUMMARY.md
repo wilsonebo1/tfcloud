@@ -26,6 +26,7 @@
   * [Unprivileged Application User](special-topics/admin-user.md)
     * [Separate Install user](special-topics/admin-user.md#admin-user)
     * [Docker Configuration](special-topics/admin-user.md#install-docker)
+    * [Docker Networking](special-topics/docker-networks.md)
     * [Directory Creation](special-topics/admin-user.md#directories)
     * [Logging](special-topics/admin-user.md#logging)
   * [Database Password Protection](special-topics/database-passwords.md)

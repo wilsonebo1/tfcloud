@@ -44,6 +44,13 @@ eba209849502
 rm -rf /opt/datarobot/DataRobot/
 ```
 
+* Remove DataRobot Docker networks
+
+```bash
+docker network rm dr-ide
+docker network rm dr-usermodel
+```
+
 * Stop the Docker daemon:
 
 ```bash
@@ -77,6 +84,7 @@ rm -rf /opt/datarobot/registry
 
 ```bash
 rm -rf /opt/datarobot/etc/
+rm /etc/docker/daemon.json
 ```
 
 * Remove old temporary package files:
@@ -143,6 +151,7 @@ servers:
   - execmanagerqw
 ```
 
+
 On upgrade to version 5.1 the following required changes must be made to `config.yaml`:
 
 1. If SAML is used, move SAML certifications to `/opt/datarobot/etc/certs/saml/`.
@@ -152,6 +161,10 @@ You will need to update document keys, _for all existing records_, to point to t
 
   * advanced_configuration.saml_client_configuration.key_file
   * advanced_configuration.saml_client_configuration.cert_file
+
+On upgrade to version 5.2 the following changes should be considered:
+
+1. `config.yaml` now supports customizing Docker networks. See [Docker Networking](special-topics/docker-networks.md)
 
 
 ### Update Network configuration
