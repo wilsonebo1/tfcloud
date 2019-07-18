@@ -77,6 +77,8 @@ These ports are only required if the referenced feature has been purchased and e
 | 5432  | TCP      | Model Management |
 | 1514  | TCP      | Model Management |
 | 3181  | TCP      | Model Management |
+| 4000  | TCP      | Model Management - HA Postgres |
+| 5433  | TCP      | Model Management - HA Postgres |
 
 ## Hadoop Installations
 
@@ -307,8 +309,10 @@ All of these are listed in one or more of the above tables.
 |2888|TCP|Zookeeper Quorum Port|Hadoop workers|Hadoop workers|
 |3181|TCP|DataRobot Patroni Zookeeper client port|Application Servers|Patroni instances|
 |3888|TCP|Zookeeper Election Port|Hadoop workers|Hadoop workers|
+|4000|TCP|PostgreSQL in HA Mode|Data Servers|Application Servers|
 |5432|TCP|Model Management|Model Management|modmonrsyslogmaster, modmonworker and publicapi|
 |5432|TCP|PostgreSQL for Hive or other services|All Hadoop Nodes|Hadoop workers|
+|5433|TCP|PostgreSQL in HA Mode|Data Servers|Application Servers|
 |5672|TCP|RabbitMQ|RabbitMQ node|All Cluster Nodes|
 |6379|TCP|Redis|Data Servers|All Cluster Nodes|
 |6556|TCP|Resource Proxy Subscriber|Application Servers|All Cluster Nodes|

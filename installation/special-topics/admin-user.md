@@ -213,7 +213,19 @@ $UDPServerRun 1514
 $template DRJSON_MSG,"%msg:8:999999999%\n"
 $template DSSJSON_MSG,"%msg:9:999999999%\n"
 $template DRMJSON_MSG,"%msg:9:999999999%\n"
+$template ETLJSON_MSG,"%msg:9:999999999%\n"
+$template DRAUDIT_MSG,"%msg:20:999999999%\n"
+$template POUXJSON_MSG,"%msg:10:999999999%\n"
+$template YARNPLAIN_MSG,"%msg:9:999999999%\n"
+
 $template JSON_MSG,"%msg%\n"
+
+# Set logs to be owned by datarobot
+# To avoid all other rsyslog configs being set to datarobot,
+#    we set to root at the bottom of this config.
+
+$FileOwner datarobot
+$FileGroup datarobot
 
 :msg, contains, "DRAUDIT-gon0DRO4Pb" /opt/datarobot/logs/audit.log
 & /opt/datarobot/logs/all.log
@@ -234,6 +246,28 @@ $template JSON_MSG,"%msg%\n"
 :msg, contains, "NGINXJSONLOGS" /opt/datarobot/logs/nginx.log
 & /opt/datarobot/logs/all.log
 & ~
+
+:msg, contains, "PREDAPINGINXJSONLOGS" /opt/datarobot/logs/nginx.log
+& /opt/datarobot/logs/all.log
+& ~
+
+:msg, contains, "POUXJSON" /opt/datarobot/logs/poux.log
+& /opt/datarobot/logs/all.log
+& ~
+
+:msg, contains, "YARNPLAIN" /opt/datarobot/logs/hadoop-containers.log
+& /opt/datarobot/logs/all.log
+& ~
+
+:app-name, contains, "pngexportworker" /opt/datarobot/logs/pngexport.log;JSON_MSG
+& /opt/datarobot/logs/all.log
+& ~
+
+# This sets FileOwner and FileGroup to root/adm for 53+ level services
+# Better than accidentally being set to datarobot
+
+$FileOwner root
+$FileGroup root
 ```
 
 On all other servers, write the following file:
@@ -243,10 +277,21 @@ On all other servers, write the following file:
 $template DRJSON_MSG,"%msg:8:999999999%\n"
 $template DSSJSON_MSG,"%msg:9:999999999%\n"
 $template DRMJSON_MSG,"%msg:9:999999999%\n"
+$template ETLJSON_MSG,"%msg:9:999999999%\n"
+$template DRAUDIT_MSG,"%msg:20:999999999%\n"
+$template POUXJSON_MSG,"%msg:10:999999999%\n"
+$template YARNPLAIN_MSG,"%msg:9:999999999%\n"
+
 $template JSON_MSG,"%msg%\n"
 
+# Set logs to be owned by datarobot
+# To avoid all other rsyslog configs being set to datarobot,
+#    we set to root at the bottom of this config.
 
-:msg, contains, "DRAUDIT-gon0DRO4Pb" @LOG_SERVER:1514;DRJSON_MSG
+$FileOwner datarobot
+$FileGroup datarobot
+
+:msg, contains, "DRAUDIT-gon0DRO4Pb" @LOG_SERVER:1514;DRAUDIT_MSG
 & /opt/datarobot/logs/audit.log
 & /opt/datarobot/logs/all.log
 & ~
@@ -266,10 +311,51 @@ $template JSON_MSG,"%msg%\n"
 & /opt/datarobot/logs/all.log
 & ~
 
+:msg, contains, "ETLJSON" @LOG_SERVER:1514;ETLJSON_MSG
+& /opt/datarobot/logs/dssetl.log
+& /opt/datarobot/logs/all.log
+& ~
+
 :msg, contains, "NGINXJSONLOGS" @LOG_SERVER:1514;JSON_MSG
 & /opt/datarobot/logs/nginx.log
 & /opt/datarobot/logs/all.log
 & ~
+
+:msg, contains, "PREDAPINGINXJSONLOGS" @LOG_SERVER:1514;JSON_MSG
+& /opt/datarobot/logs/nginx.log
+& /opt/datarobot/logs/all.log
+& ~
+
+:msg, contains, "POUXJSON" @LOG_SERVER:1514;POUXJSON_MSG
+& /opt/datarobot/logs/poux.log
+& /opt/datarobot/logs/all.log
+& ~
+
+:msg, contains, "YARNPLAIN" @LOG_SERVER:;YARNPLAIN_MSG
+& /opt/datarobot/logs/hadoop-containers.log
+& /opt/datarobot/logs/all.log
+& ~
+
+:app-name, contains, "pngexportworker" @LOG_SERVER:1514;JSON_MSG
+& /opt/datarobot/logs/pngexport.log
+& /opt/datarobot/logs/all.log
+& ~
+
+:app-name, contains, "appsconductor" @LOG_SERVER:1514;JSON_MSG
+& /opt/datarobot/logs/appsconductor.log
+& /opt/datarobot/logs/all.log
+& ~
+
+:app-name, contains, "appsconductor" @LOG_SERVER:1514;JSON_MSG
+& /opt/datarobot/logs/appsconductor.log
+& /opt/datarobot/logs/all.log
+& ~
+
+# This sets FileOwner and FileGroup to root/adm for 53+ level services
+# Better than accidentally being set to datarobot
+
+$FileOwner root
+$FileGroup root
 ```
 
 Substitute `LOG_SERVER` with the IP address or hostname of the server

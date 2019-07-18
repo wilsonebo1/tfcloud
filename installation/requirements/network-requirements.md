@@ -96,6 +96,8 @@ These ports are only required if the referenced feature has been purchased and e
 | 5432  | TCP      | Model Management |
 | 1514  | TCP      | Model Management |
 | 3181  | TCP      | Model Management |
+| 4000  | TCP      | Model Management - HA Postgres |
+| 5433  | TCP      | Model Management - HA Postgres |
 
 ## Hadoop Installations
 
@@ -335,9 +337,11 @@ All of these are listed in one or more of the above tables.
 |3181|TCP|DataRobot Patroni Zookeeper client port|Application Servers|Patroni instances|
 |3306|TCP|MySQL server port, which Hive uses by default|Hortonworks workers|Hortonworks workers|
 |3888|TCP|Zookeeper Election Port|Hadoop workers|Hadoop workers|
+|4000|TCP|PostgreSQL in HA Mode|Data Servers|Application Servers|
 |5000|TCP|Docker Registry|Application Servers|Application Servers|
 |5432|TCP|Model Management|Model Management|modmonrsyslogmaster, modmonworker and publicapi|
 |5432|TCP|PostgreSQL for Hive or other services|All Hadoop Nodes|Hadoop workers|
+|5433|TCP|PostgreSQL in HA Mode|Data Servers|Application Servers|
 |5445|TCP|IDE Client Broker|Application Servers|Application Servers|
 |5446|TCP|IDE Client Worker|Application Servers|Application Servers|
 |5672|TCP|RabbitMQ|RabbitMQ node|All Cluster Nodes|
