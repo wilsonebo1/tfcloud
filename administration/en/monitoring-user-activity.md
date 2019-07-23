@@ -2,15 +2,11 @@
 Monitoring User Activity
 ==========================
 
-**NOTE:** Must have Admin Setting "Enable Activity Monitoring".
+**NOTE:** Must have Admin Setting "Enable Activity Monitoring."
 
 The User Activity Monitor provides users with a tool for accessing and analyzing the various usage data DataRobot collects during model development, deployment, and predictions.
 
-You can use this information to understand how DataRobot is being used, troubleshoot model or prediction errors, monitor user activities, and more. User activity data is available for review online and can be downloaded for offline use as CSV files. Filters enable you to access and limit data records to specified timeframes, users, and projects. Additionally, you can exclude sensitive "identifying information" like user names, IP addresses, project names, etc. from generated reports. The information provided in these reports proves invaluable to DataRobot Support when understanding your deployed system and resolving issues.
-
-Access the User Activity Monitor from the Account Settings dropdown:
-
-![](images/useractivitymonitor-enable.png)
+You can use this information to understand how DataRobot is being used, troubleshoot model or prediction errors, monitor user activities, and more. User activity data is available for review online and can be downloaded for offline use as CSV files. Filters enable you to access and limit data records to specified timeframes, users, and projects. Additionally, you can exclude sensitive "identifying information" like usernames, IP addresses, project names, etc. from generated reports. The information provided in these reports proves invaluable to DataRobot Support when understanding your deployed system and resolving issues.
 
 ## Types of user activity data
 DataRobot continually collects information around user and system events, and makes this information available to you as reports you can view online and download from the User Activity Monitor. Three types of user activity are available: Admin, App, and Prediction. Filters enable you to restrict the user activity data in a report to specific users and projects during defined time ranges. In addition, you can export selected user activity data to CSV files.
@@ -20,6 +16,21 @@ Report type | Description
 [Admin Usage](report-admin-usageactivity.md) | Provides a report of all Admin-initiated audited events. Information provided by this report can identify who modified an organization or an account and what changes were made.
 [App Usage](report-app-usageactivity.md) | Provides information related to model development. This report can show models by user and identify the most commonly created types of models and projects, average time spent fitting each type of model, etc.
 [Prediction Usage](report-pred-usageactivity.md) | Provides a report with data around predictions and deployments. Information provided by this report can show how many models a user deployed, how predictions are being used, error codes generated for prediction requests, which model types generate the most predictions, and more.
+
+## Accessing the User Activity Monitor
+
+There are two ways to access the User Activity Monitor. If you access it from the Account Settings dropdown,
+
+![](images/useractivitymonitor-enable.png)
+
+then you have access to all data in all reports. If you access it from the **User Profile** page (from **View Activity**),
+
+![](images/useractivity-userprofile-viewactivity.png)
+
+then you have access to data recorded for the related user. The User Activity Monitor opens to show recorded application data for the related user (by User ID). You can return to the User Profile through the link below the **Search** button:
+
+![](images/useractivitymonitor-returnuserprofile.png)
+
 
 ## Viewing user activity and events
 When you open the User Activity Monitor, you see the 50 most recent application usage events for all users by default (with the most recent event listed first). You can change the displayed report and view different report data.
