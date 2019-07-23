@@ -35,7 +35,7 @@ Component| Description of use
 
 ### Searching report preview
 
-Use values in the Search dialog to filter the data returned for the selected online report view. Specify the filter values and click **Search** to apply the filter(s); the User Activity Monitor preview updates to show all records related to the filters. Note that these search values apply to the online report preview only.
+Use values in the Search dialog to filter the data returned for the selected online report view. Specify the filter values and click **Search** to apply the filter(s); the User Activity Monitor preview updates to show all records related to the filters. Note that these search values apply to the online report preview only. Click **Reset** to view all available data without any search filters.
 
 ![](images/useractivitymonitor-2.png)
 
@@ -43,34 +43,34 @@ Use values in the Search dialog to filter the data returned for the selected onl
 
 Component | Description of use
 -------- | ----------------------
-(1) | You can filter by a User ID and/or Project ID as follows: You can filter App Usage activity and Prediction Usage activity reports using either, or both, of these filters; you can filter the Admin Usage activity report by User ID. (If needed, you can copy the UID or Project ID values from the report preview and paste in the related search field(s).)
+(1) | You can filter by a Username or User ID or and/or Project ID as follows: You can filter App Usage activity and Prediction Usage activity reports using either, or both, of these filters; you can filter the Admin Usage activity report by Username or User ID only. (If needed, you can copy the Username, UID, or Project ID values from the report preview and paste in the related search field(s).)
 (2) | If checked, <em>identifying information</em> about users, projects, datasets, organizations, and so forth are shown in the preview. If DataRobot Customer Support will be accessing this report, you may consider this information "sensitive" and choose to exclude (hide) it. The columns will show in the report without values. (See the description of each report to determine the identifying information for that report ( [Admin Usage](report-admin-usageactivity.md), [App Usage](report-app-usageactivity.md), [Prediction Usage](report-pred-usageactivity.md).)
-(3) | Use **Time Range** to limit the number of records shown in the preview. You can select one of the predefined time ranges, such as **Last month**, or you can specify a custom time range using the datetime picker. (See "Previewing the Prediction Usage activity report" for the restrictions when previewing the Prediction Usage activity report.) If not selected, this defaults to show one year of records.
-**Search** | Use to generate the online preview of the report using the selected search filters.
+(3) | Use **Time Range** to limit the number of records shown in the preview. You can select one of the predefined time ranges, such as **Last month**, or you can specify a custom time range using the date picker. (See "Previewing the Prediction Usage activity report" for the restrictions when previewing the Prediction Usage activity report.) If not selected, this defaults to show one year of records.
+**Search** or **Reset** | Use to generate the online preview of the report using the selected search filters, or to clear filters to view all available records.
 
 ![](images/useractivitymonitor-datetime.png)
 
-To specify a custom range, click the **Start Date** field, use the calendar and time controls to select the starting date and time for the records, and then click **OK**. Repeat these steps for the **End Date**.
+To specify a custom range, click the **Start Date (UTC)** field, use the calendar controls to select the starting date for the records. Repeat for the **End Date (UTC)** field. Click **Start** to apply the custom date range filter.
 
 <a name="preview-predreport"></a>
 ### Previewing the Prediction Usage activity report
 
- DataRobot can display (online report preview) up to 24 hours of data for the Prediction Usage activity report. When applying a time range search filter for the Prediction Usage activity report, select **Last day** or define a custom time range of 24 hours or less. Note that this applies only when previewing the Prediction Usage activity report online; when downloading Prediction Usage activity report data, you can select any of the **Time Range** values provided in the **Export reports as CSV** dialog.
+ DataRobot can display (online report preview) up to 24 hours of data for the Prediction Usage activity report. When applying a time range search filter for the Prediction Usage activity report, select **Last day** or **Custom range** (and select a specific day). Note that this applies only when previewing the Prediction Usage activity report online; when downloading Prediction Usage activity report data, you can select any of the **Time Range** values provided in the **Export reports as CSV** dialog.
 
 <a name="exportcsv"></a>
-## Saving and downloading user activity data
+## Downloading reports of activity data
 
-Use **Export CSV** to generate and download selected usage activity reports. When exporting reports, you will be prompted to filter records for report download. (The search fields for report preview do not also filter records for report download.)
+Use **Export CSV** to generate and download selected usage activity reports. When exporting reports, you are prompted to filter records to include in the download. (The search fields for report preview do not also filter records for report download.)
 
 ![](images/useractivitymonitor-exportcsv.png)
 
-The **Export reports as CSV** dialog prompts you to configure and download reports.
+The **Export reports as CSV** dialog prompts you to configure and download reports of user activity data.
 
 Component | Description
 ------ | -----------
 (1) | Use the checkbox to include or exclude identifying information in the downloaded report.
-(2) | Specify the time range of records you want to include in the report. The end time for each of these ranges is the current time. For example, **Last day** will create reports with data starting from 24 hours ago and ending at the current time. If not selected, this defaults to show one year of records.
+(2) | Specify the time range of records you want to include in the report. The end time for each of these ranges is the current day. For example, **Last day** will create reports with data starting from 24 hours ago and ending at the current time. The default selection downloads records generated over the past year.
 (3) | Select one or more reports to download.
-(4) | Click **Download CSV** to save the selected report(s) to your local machine. When the report(s) have  downloaded successfully, you will see the message "Report generation was successful".
+(4) | Click **Download CSV** to save the selected report(s) to your local machine. The length of time for the download to complete depends on the time range (amount of data) and number of reports included. When the report(s) have downloaded successfully, you see the message "Report generation was successful."
 
 Whether you select to include one or all reports in the export, DataRobot creates an archive file (ZIP file) and downloads that to your local machine. The file is named with a randomly-generated hash value and the current date (year-month-day). Within the ZIP file, you will find CSV files for the usage reports you selected for download. The filename for each of the CSV reports includes the DataRobot version number, current date, and type of data for the report.
