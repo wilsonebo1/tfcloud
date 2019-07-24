@@ -68,6 +68,15 @@ There is an interactive LDAP Configuration Tool located at `./bin/datarobot-ldap
 - **`USER_AUTH_LDAP_SEARCH_SCOPE`** - LDAP search scope (ONELEVEL or SUBTREE, default is SUBTREE)
 - **`USER_AUTH_LDAP_SEARCH_FILTER`** - LDAP search query (default: `(cn=$username), LDAP = (&(objectClass=user)(uid=$username)), AD = (&(objectClass=user)(sAMAccountName=$username))`)
 
+### Configuration Options for S3 Impersonation
+
+See [User-Specific IAM Role Usage](./ingest-from-aws-s3-storage.md#user-specific-iam-role-usage) for more details on S3 Impersonation
+
+- **`ENABLE_S3_ROLE_ASSUMPTION`** - Bool value to enable S3 role assumption (default: False)
+- **`USER_AUTH_LDAP_ATTR_S3_ROLE_ARNS`** - The name of the ldap attribute containing zero or more Amazon Resource Name(s) (ARN) that should be utilized when ingesting data for the DataRobot user. When multiple ARNs are specified for a user, they will be tried iteratively until one with access to the object is located.
+- **`S3_ROLE_ASSUMPTION_DEFAULT`** - An optional ARN to add to the user specific list of ARNs supplied via ldap
+- **`S3_ROLE_ASSUMPTION_SESSION_PREFIX`** - String prefix to add to AWS session names when assuming roles for ingest; see [Assumed Session Names](./ingest-from-aws-s3-storage.md#assumed-session-names) for more details (default: DATAROBOT-APP)
+
 ### Configuring DataRobot to Send Email Notifications
 
 Use **`USER_AUTH_LDAP_MAPPING_EMAIL_ADDRESS`** configuration option to configure DataRobot to send email notifications to users with LDAP accounts.
