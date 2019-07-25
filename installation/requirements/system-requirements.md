@@ -169,7 +169,7 @@ which wget  # Should output a path to wget
 DataRobot requires a minimum of free disk space in these locations:
 
 - DataRobot Home Directory (default `/opt/datarobot`) - 80 GiB
-- Docker Data Directory (default `/varlib/docker`) - 30 GiB
+- Docker Data Directory (default `/var/lib/docker`) - 30 GiB
 
 For data storage nodes (running `gluster`, `HDFS`, etc.), we recommend a minimum of 4TB of free space for production-ready systems.
 
