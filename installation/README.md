@@ -1,6 +1,6 @@
 # DataRobot Installation and Configuration Guide
 
-Welcome to the DataRobot Administration Guide.
+Welcome to the DataRobot Installation and Configuration Guide.
 
 This manual describes how to install, configure, and maintain your DataRobot
 installation.

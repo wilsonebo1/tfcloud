@@ -47,6 +47,10 @@
   * [Data ingestion from Amazon AWS S3 Storage](special-topics/ingest-from-aws-s3-storage.md)
   * [Data ingestion from Google Cloud Storage](special-topics/ingest-from-google-cloud-storage.md)
 
+## Administration
+
+  * [Manage the Cluster](manage-installation.md)
+
 ## Additional Information
 
 * [Addendum](addendum.md)
