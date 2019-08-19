@@ -46,42 +46,20 @@ directories and sockets.
 
 On an selinux enabled system, DataRobot will automatically install a compatible selinux policy during installation of dependencies (e.g., running `./bin/datarobot setup-dependencies`).
 
-The installed policy will be similar to the one shown below:
+## SELinux Unpriviledged User {#SELinux-Unpriviledged-User}
 
-```
-# FILE: datarobot.te
-module datarobot 4.0;
-require {
-    type docker_t;
-    type logrotate_t;
-    type svirt_lxc_net_t;
-    type syslogd_t;
-    type unlabeled_t;
-    type unreserved_port_t;
-    type usr_t;
-    class chr_file { rename unlink };
-    class dir { add_name create read relabelfrom relabelto remove_name rename reparent rmdir setattr write };
-    class fifo_file setattr;
-    class file { append create getattr ioctl link open relabelfrom relabelto rename setattr unlink write };
-    class lnk_file { create relabelfrom relabelto rename setattr unlink };
-    class chr_file { rename unlink };
-    class sock_file { create setattr };
-    class udp_socket name_bind;
-    class unix_stream_socket connectto;
-}
-
-allow svirt_lxc_net_t docker_t:fifo_file setattr;
-allow svirt_lxc_net_t docker_t:unix_stream_socket connectto;
-allow svirt_lxc_net_t usr_t:dir { add_name create relabelfrom relabelto remove_name rename reparent rmdir setattr write };
-allow svirt_lxc_net_t usr_t:file { create link relabelfrom relabelto rename setattr unlink write };
-allow svirt_lxc_net_t usr_t:chr_file { rename unlink };
-allow svirt_lxc_net_t usr_t:lnk_file { create relabelfrom relabelto rename setattr unlink };
-allow svirt_lxc_net_t usr_t:sock_file { create setattr };
-
-allow logrotate_t unlabeled_t:dir read;
-allow syslogd_t unlabeled_t:dir { add_name write };
-allow syslogd_t unlabeled_t:file { append create getattr ioctl open write };
-allow syslogd_t unreserved_port_t:udp_socket name_bind;
+How to manually apply SELinux policy when setup-dependencies doesn't work as sudoer (as root)
+```bash
+datarobot_selinux_policy_version=6
+datarobot_selinux_policy_path=~/datarobot_selinux_policies/version_"${datarobot_selinux_policy_version}"
+mkdir -p $datarobot_selinux_policy_path # create directory
+cp /opt/tmp/ansible/roles/datarobot-selinux-policy/templates/datarobot_selinux_policy "${datarobot_selinux_policy_path}"/datarobot.te # copy DataRobot type enforcement file
+cd ${datarobot_selinux_policy_path}
+sed -i "s/{{ datarobot_selinux_policy_version }}/${datarobot_selinux_policy_version}/g" datarobot.te # replace jinja with version number
+sed -i '/{#.*#}/d' datarobot.te # delete first line
+checkmodule -M -m datarobot.te -o datarobot.mod # execute checkmodule
+semodule_package -o datarobot.pp -m datarobot.mod # build semodule package
+semodule -i datarobot.pp # install semodule package
 ```
 
 ## SELinux Management Requirements
@@ -99,18 +77,4 @@ sudo restorecon -R -v /opt/datarobot/logs
 sudo service rsyslog restart
 ```
 
-## SELinux Unpriviledged User {#SELinux-Unpriviledged-User}
 
-How to manually apply SELinux policy when setup-dependencies doesn't work as sudoer (as root)
-```bash
-datarobot_selinux_policy_version=6
-datarobot_selinux_policy_path=~/datarobot_selinux_policies/version_"${datarobot_selinux_policy_version}"
-mkdir -p $datarobot_selinux_policy_path # create directory
-cp /opt/tmp/ansible/roles/datarobot-selinux-policy/templates/datarobot_selinux_policy "${datarobot_selinux_policy_path}"/datarobot.te # copy DataRobot type enforcement file
-cd ${datarobot_selinux_policy_path}
-sed -i "s/{{ datarobot_selinux_policy_version }}/${datarobot_selinux_policy_version}/g" datarobot.te # replace jinja with version number
-sed -i '/{#.*#}/d' datarobot.te # delete first line
-checkmodule -M -m datarobot.te -o datarobot.mod # execute checkmodule
-semodule_package -o datarobot.pp -m datarobot.mod # build semodule package
-semodule -i datarobot.pp # install semodule package
-```
