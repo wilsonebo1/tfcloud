@@ -60,6 +60,12 @@ servers and the Hadoop cluster.
 
 * SSH into the application server as the DataRobot user.
 
+* Verify that `hadoopconfigsync` container is running
+
+```bash
+docker inspect -f '{{.State.Running}}' hadoopconfigsync
+```
+
 * Start the configuration synchronization process.
 
 ```bash
@@ -97,3 +103,28 @@ credentials printed out by the previous command.
 You should use this account for creating new users and modifying user permissions only.
 
 Installation is now complete.
+
+## Reconfigure
+
+**NOTE**: This section assumes you have completed the Installation process and
+DataRobot is working in Hadoop environment.
+
+**NOTE**: Never modify DataRobot configuration in the Cloudera or Ambari manager interface.
+
+To update configuration that ends with `*_CONTAINER_MEM`, `*_CONTAINER_VCORES` or `*_RACKS`:
+* Remove `datarobot-defaults.conf` and `datarobot-hadoop.conf` from `/opt/datarobot/etc/hadoop/` if they exist.
+* Edit `config.yaml` to reflect your desired changes.
+* Run `./bin/datarobot hadoop-sync` from the application server installer directory.
+
+To update other configuration of a cluster:
+
+* Edit `config.yaml` to reflect your desired changes.
+* Run `./bin/datarobot reconfigure` from the application server installer directory.
+
+To debug configuration in a running container on application server:
+
+```bash
+# get full list of configuration
+docker exec CONTAINER_NAME datarobot-get-config
+# Eg: docker exec hadoopconfigsync datarobot-get-config
+```

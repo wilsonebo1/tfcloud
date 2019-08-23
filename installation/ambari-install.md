@@ -254,3 +254,7 @@ be restarted as part of the `Synchronize Configuration` process.
 ## Synchronize Configuration
 
 Continue by [Synchronizing Configuration](./hadoop-install.md#synchronize-configuration)
+
+## Reconfigure
+
+Continue by [Reconfigure](./hadoop-install.md#reconfigure)

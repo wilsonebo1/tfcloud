@@ -363,4 +363,8 @@ DataRobot service and try to add it again.
 
 ## Synchronize Configuration
 
-Continue by [Synchronizing Configuration](./hadoop-install.md#synchronize-configuration)
+When this is complete, follow the steps documented in [Synchronizing Configuration](./hadoop-install.md#synchronize-configuration)
+
+## Reconfigure
+
+Finally, when you want to change configuration of the system, please follow the steps in [Reconfigure](./hadoop-install.md#reconfigure)
