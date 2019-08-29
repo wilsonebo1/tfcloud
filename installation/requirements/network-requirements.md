@@ -63,6 +63,7 @@ application server cluster, whether or not using Hadoop.
 | 8001  | TCP      | DataRobot v0 API |
 | 8002  | TCP      | DataRobot v1 API |
 | 8004  | TCP      | DataRobot v2 API |
+| 8008  | TCP      | DataRobot OAuth2 API |
 | 8011  | TCP      | DataRobot Socket.IO Server |
 | 8018  | UDP      | Analytics Broker |
 | 8023  | TCP      | DataRobot Upload Server |
@@ -364,6 +365,7 @@ All of these are listed in one or more of the above tables.
 |8001|TCP|DataRobot v0 API|Application Servers|Application Servers|
 |8002|TCP|DataRobot v1 API|Application Servers|Application Servers|
 |8004|TCP|DataRobot v2 API|Application Servers|Application Servers|
+|8008|TCP|DataRobot OAuth2 API|Application Servers|Application Servers|
 |8011|TCP|DataRobot Socket.IO Server|Application Servers|Application Servers|
 |8018|UDP|Analytics Broker|Analytics Broker Node|All Cluster Nodes|
 |8020|TCP|NameNode IPC Port|Hadoop workers|Application Servers|
