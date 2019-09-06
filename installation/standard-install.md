@@ -7,7 +7,7 @@ Refer to supplementary material for any extra configuration requirements, such a
 
 To prepare the cluster for installation, we will create configuration files and install and configure system dependencies.
 
-First, ensure all nodes in your cluster meet the requirements specficied in the [Linux Application Server Requirements](./requirements/system-requirements.md#linux-requirements)
+First, ensure all nodes in your cluster meet the requirements specified in the [Linux Application Server Requirements](./requirements/system-requirements.md#linux-requirements)
 section.
 
 ### SELinux
