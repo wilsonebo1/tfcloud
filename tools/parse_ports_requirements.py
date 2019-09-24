@@ -11,20 +11,21 @@ ALL_HADOOP_NODES = HADOOP_WORKERS + HADOOP_MASTERS
 ALL_APPLICATION_NODES = ['webserver']
 
 TARGET_MAPPING = {
+    'All Cloudera Nodes': ['cdh_master', 'cdh_worker'],
+    'All Hadoop Nodes': ALL_HADOOP_NODES,
+    'Ambari Manager': ['ambari_master'],
+    'Analytics Broker Node': ALL_APPLICATION_NODES,
+    'Application Servers': ALL_APPLICATION_NODES,
     'Application Web Servers': ALL_APPLICATION_NODES,
     'Cloudera Manager': ['cdh_master'],
-    'All Cloudera Nodes': ['cdh_master', 'cdh_worker'],
     'Cloudera workers': ['cdh_worker'],
-    'All Hadoop Nodes': ALL_HADOOP_NODES,
     'Data Servers': ALL_APPLICATION_NODES,
-    'Application Servers': ALL_APPLICATION_NODES,
-    'Ambari Manager': ['ambari_master'],
-    'Provisioner/Admin': ALL_APPLICATION_NODES,
-    'Model Management': ALL_APPLICATION_NODES,
     'Hadoop workers': HADOOP_WORKERS,
+    'Hortonworks workers': ['ambari_worker'],
+    'Model Management': ALL_APPLICATION_NODES,
+    'Patroni Nodes': ['Patroni Nodes', 'Model Management'],
+    'Provisioner/Admin': ALL_APPLICATION_NODES,
     'RabbitMQ node': ALL_APPLICATION_NODES,
-    'Analytics Broker Node': ALL_APPLICATION_NODES,
-    'Hortonworks workers': ['ambari_worker']
 }
 
 

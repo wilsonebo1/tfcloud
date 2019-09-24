@@ -72,13 +72,16 @@ application server cluster, whether or not using Hadoop.
 ### Optional Premium Feature Ports
 These ports are only required if the referenced feature has been purchased and enabled.
 
-| Port  | Protocol | Component |
-|------:|:---------|:----------|
-| 5432  | TCP      | Model Management |
-| 1514  | TCP      | Model Management |
-| 3181  | TCP      | Model Management |
-| 4000  | TCP      | Model Management - HA Postgres |
-| 5433  | TCP      | Model Management - HA Postgres |
+| Port | Protocol | Component                                  |
+|-----:|:---------|:-------------------------------------------|
+| 1514 | TCP      | Model Management                           |
+| 2888 | TCP      | Model Management - Zookeeper               |
+| 3181 | TCP      | Model Management - Zookeeper               |
+| 3888 | TCP      | Model Management - Zookeeper               |
+| 4000 | TCP      | Model Management - HA Postgres             |
+| 5432 | TCP      | Model Management                           |
+| 5433 | TCP      | Model Management - HA Postgres             |
+| 5434 | TCP      | Model Management - HAProxy HA Postgres     |
 
 ## Hadoop Installations
 
@@ -307,12 +310,15 @@ All of these are listed in one or more of the above tables.
 |1514|TCP|Logging|Model Management|Dedicated Prediction Workers|
 |2181|TCP|ZooKeeper client port|Hadoop workers|Application Servers|
 |2888|TCP|Zookeeper Quorum Port|Hadoop workers|Hadoop workers|
-|3181|TCP|DataRobot Patroni Zookeeper client port|Application Servers|Patroni instances|
+|2888|TCP|Zookeeper Quorum Port HA Postgres|Patroni Nodes|Patroni Nodes|
+|3181|TCP|DataRobot Patroni Zookeeper client port|Patroni Nodes|Patroni Nodes|
 |3888|TCP|Zookeeper Election Port|Hadoop workers|Hadoop workers|
-|4000|TCP|PostgreSQL in HA Mode|Data Servers|Application Servers|
+|3888|TCP|Zookeeper Election Port HA Postgres|Patroni Nodes|Patroni Nodes|
+|4000|TCP|PostgreSQL in HA Mode|Patroni Nodes|Patroni Nodes|
 |5432|TCP|Model Management|Model Management|modmonrsyslogmaster, modmonworker and publicapi|
 |5432|TCP|PostgreSQL for Hive or other services|All Hadoop Nodes|Hadoop workers|
-|5433|TCP|PostgreSQL in HA Mode|Data Servers|Application Servers|
+|5433|TCP|PostgreSQL in HA Mode|Patroni Nodes|Patroni Nodes|
+|5434|TCP|HAPRoxy HA Postgres Master Port|Patroni Nodes|Model Management|
 |5672|TCP|RabbitMQ|RabbitMQ node|All Cluster Nodes|
 |6379|TCP|Redis|Data Servers|All Cluster Nodes|
 |6556|TCP|Resource Proxy Subscriber|Application Servers|All Cluster Nodes|
