@@ -314,11 +314,11 @@ All of these are listed in one or more of the above tables.
 |3181|TCP|DataRobot Patroni Zookeeper client port|Patroni Nodes|Patroni Nodes|
 |3888|TCP|Zookeeper Election Port|Hadoop workers|Hadoop workers|
 |3888|TCP|Zookeeper Election Port HA Postgres|Patroni Nodes|Patroni Nodes|
-|4000|TCP|PostgreSQL in HA Mode|Patroni Nodes|Patroni Nodes|
+|4000|TCP|PostgreSQL in HA Mode|Patroni Nodes|Application Servers|
 |5432|TCP|Model Management|Model Management|modmonrsyslogmaster, modmonworker and publicapi|
 |5432|TCP|PostgreSQL for Hive or other services|All Hadoop Nodes|Hadoop workers|
 |5433|TCP|PostgreSQL in HA Mode|Patroni Nodes|Patroni Nodes|
-|5434|TCP|HAPRoxy HA Postgres Master Port|Patroni Nodes|Model Management|
+|5434|TCP|HAProxy HA Postgres Master Port|Application Servers|All Cluster Nodes|
 |5672|TCP|RabbitMQ|RabbitMQ node|All Cluster Nodes|
 |6379|TCP|Redis|Data Servers|All Cluster Nodes|
 |6556|TCP|Resource Proxy Subscriber|Application Servers|All Cluster Nodes|

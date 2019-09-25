@@ -23,7 +23,7 @@ TARGET_MAPPING = {
     'Hadoop workers': HADOOP_WORKERS,
     'Hortonworks workers': ['ambari_worker'],
     'Model Management': ALL_APPLICATION_NODES,
-    'Patroni Nodes': ['Patroni Nodes', 'Model Management'],
+    'Patroni Nodes': ['Application Servers', 'Patroni Nodes'],
     'Provisioner/Admin': ALL_APPLICATION_NODES,
     'RabbitMQ node': ALL_APPLICATION_NODES,
 }

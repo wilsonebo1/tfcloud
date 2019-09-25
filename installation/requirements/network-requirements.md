@@ -347,8 +347,8 @@ All of these are listed in one or more of the above tables.
 |5000|TCP|Docker Registry|Application Servers|Application Servers|
 |5432|TCP|Model Management|Model Management|modmonrsyslogmaster, modmonworker and publicapi|
 |5432|TCP|PostgreSQL for Hive or other services|All Hadoop Nodes|Hadoop workers|
-|5433|TCP|PostgreSQL in HA Mode|Patroni Nodes|Patroni Nodes|
-|5434|TCP|HAProxy HA Postgres Master Port|Patroni Nodes|Model Management|
+|5433|TCP|PostgreSQL in HA Mode|Patroni Nodes|Application Servers|
+|5434|TCP|HAProxy HA Postgres Master Port|Application Servers|All Cluster Nodes|
 |5445|TCP|IDE Client Broker|Application Servers|Application Servers|
 |5446|TCP|IDE Client Worker|Application Servers|Application Servers|
 |5672|TCP|RabbitMQ|RabbitMQ node|All Cluster Nodes|
