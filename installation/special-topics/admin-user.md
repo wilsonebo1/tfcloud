@@ -457,3 +457,43 @@ regularly clean up old files.
 # DataRobot vertex cache cleanup
 0 3 */3 * * find /opt/datarobot/data/app_data/uploads -mtime +14 -exec rm {} \;
 ```
+
+## System Limits
+
+DataRobot requires the ability to open a large number of files simultaineously
+and the ability to leverage large locked-in-memory address spaces. Set the
+following system limits in order to avoid 'Out of Memory' and 'Too Many Open Files'
+errors.
+
+```
+# FILE: /etc/security/limits.d/99-datarobot.conf
+*      -      memlock unlimited
+*      -      nofile  65536
+```
+
+Datarobot also leverages memory-mapped file I/O for processing.  The default
+operating system limits on mmap counts is likely to be too low, which may
+result in out of memory exceptions.  Set the following mmap limits to avoid
+Out of Memory errors.
+
+```
+# FILE: /etc/sysctl.d/99-datarobot.conf
+vm.max_map_count=262144
+```
+
+Dockers running in the datarobot environment will need to open large numbers
+of file simultaineously, as well as accessing locked-in-memory spaces.  Set
+the following Docker service parameters to avoid 'Out of Memory' and
+'Too Many Open Files' errors.
+
+```
+# FILE: /etc/systemd/system/docker.service.d/99-datarobot.conf
+[Service]
+LimitMEMLOCK=infinity
+LimitNOFILE=65536
+Restart=on-failure
+```
+
+**NOTE**: These settings are general recommendations, your installation
+team may ask to increase or change these limits based on your specific
+installation and configuration.
