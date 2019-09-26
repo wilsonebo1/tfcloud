@@ -74,7 +74,7 @@ management permissions and grab API token from own profile in UI
 
 In order to enable authentication request signing please
 
-1. put your encryption certificate and key files into `/opt/datarobot/DataRobot-5.1.x/etc/certs/`,
+1. put your encryption certificate and key files into `/opt/datarobot/DataRobot-5.2.x/etc/certs/`,
 2. configure the application:
 
 ```bash
@@ -94,7 +94,7 @@ curl '<DATAROBOT_ENDPOINT>/api/v2/admin/sso/saml/configuration/global/' -X PATCH
 
 If SAML identity provider ecnrypts response assertions, please
 
-1. put your encryption certificate and key files into `/opt/datarobot/DataRobot-5.1.x/etc/certs/`,
+1. put your encryption certificate and key files into `/opt/datarobot/DataRobot-5.2.x/etc/certs/`,
 2. configure the application to use that certificate:
 
 ```bash

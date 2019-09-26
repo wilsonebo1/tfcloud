@@ -122,7 +122,7 @@ servers:
   - execmanagerqw
 ```
 
-On upgrade to version 5.1 the following required changes must be made to `config.yaml`:
+On upgrade to version 5.2 the following required changes must be made to `config.yaml`:
 
 1. If SAML is used, move SAML certifications to `/opt/datarobot/etc/certs/saml/`.
 
