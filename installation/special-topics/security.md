@@ -85,6 +85,10 @@ Content Security Policy (CSP) is an added layer of security that helps to detect
 These attacks are used for everything from data theft to site defacement to distribution of malware ([source](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)).
 Any resource that is present in the code of the DataRobot web page but not present in CSP header policy will be blocked from loading and execution by web browser.
 
+Use the `csp_report_only` option (boolean) to test the CSP header configuration.
+If it is present in the `webserver` configuration, the header will be added with `-Report-Only` suffix.
+This setting instructs the browser to allow content through and to submit a content report, which is then accessible via DataRobot logs.
+
 ### Configuration example
 To configure this feature you need to add the following to your config.yaml to the `os_configuration.webserver` section:
 
@@ -93,6 +97,27 @@ os_configuration:
   webserver:
     # Configure Content Security Policy header
     add_csp_headers: true
+    allowed_csp_domains:
+      "https://app.myorg.com":
+        all: true
+      "https://cdn.myorg.com":
+        script: true
+        style: true
+        font: true
+        img: true
+      "https://www.gravatar.com/":
+        img: true
+```
+
+### CSP report only configuration example
+To configure the `Content-Security-Policy` header to function in report-only mode, set `csp_report_only` to `true` in the `os_configuration.webserver` section of your `config.yaml`:
+
+```yaml:
+os_configuration:
+  webserver:
+    # Configure Content Security Policy header
+    add_csp_headers: true
+    csp_report_only: true
     allowed_csp_domains:
       "https://app.myorg.com":
         all: true
