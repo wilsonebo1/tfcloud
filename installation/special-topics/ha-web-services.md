@@ -475,6 +475,29 @@ os_configuration:
 ```
 Run `./bin/datarobot setup-dependencies`
 
+#### Large file uploads are failing (`ClientDisconnected: 400 Bad Request``)
+
+One of the reasons that large file uploads can fail is that the ALB `idle_timeout` is shorter than the time that it takes to upload the file; by default a new ALB `idle_timeout` is set to 60 seconds.
+
+If large file uploads are failing, and you're seeing `ClientDisconnected: 400 Bad Request` errors in the logs, you an try increasing the `idle_timeout` setting on the ALBs.
+
+To update `idle_timeout` using the AWS console:
+
+* Open the Amazon EC2 console at https://console.aws.amazon.com/ec2/
+* On the navigation pane, under *LOAD BALANCING*, choose *Load Balancers*
+* Select the load balancer you want to modify
+* On the *Description* tab, choose *Edit attributes*
+* On the *Edit load balancer attributes* page, modify the value for *Idle timeout* to reflect the number of seconds you want the connection to wait for an upload to complete.  The valid range is 1-4000 seconds, the default is 60 seconds.
+* Choose *Save*
+
+To update `idle_timeout` using the AWS CLI:
+
+* Use the _modify-load-balancer-attributes_ command with the `idle_timeout.timeout_seconds` attribute
+
+To configure `idle_timeout` using Terraform:
+
+The Terraform `aws_lb` resource accepts an `idle_timeout` argument
+
 ## Disaster Recovery
 
 In the event an HA Web Server EC2 instance (_not_ the HA Web Services replicas on that instance) goes unhealthy, you must manually recover the instance.

@@ -10,3 +10,4 @@ test-results.xml
 **/node_modules/**
 *.pyc
 .cache
+.pytest_cache
