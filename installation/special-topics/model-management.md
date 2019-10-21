@@ -21,7 +21,7 @@ dedicated prediction servers in the following way:
       MODEL_CACHE_MODE: LRU # Mode for caching models. Options: LRU, latest
 ```
 
-Note that in addition to an example configuration in `multi-node.linux.yaml` we now run one
+Note that in addition to an example configuration in `multi-node.yaml` we now run one
 additional service on dedicated prediction API nodes - `modmonrsyslogmaster`.
 
 One more server is needed for model management data collection and processing:

@@ -117,16 +117,16 @@ First, choose a sample YAML configuration file as a template from the `example-c
 
 * `single-node-poc.linux.yaml`: Single machine Linux install.
 
-* `multi-node.linux.yaml`: Multiple machine Linux install, with additional examples for more complex setups.
+* `multi-node.yaml`: Multiple machine Linux install, with additional examples for more complex setups.
 
 * `single-node-poc.hadoop.yaml`: Single application server install connecting to a Hadoop cluster.
 
-* `multi-node.hadoop.yaml`: Multiple application servers (eg. HA databases or dedicated prediction servers).
+* `multi-node-ha.yaml`: Multiple application servers (eg. HA databases or dedicated prediction servers).
 
 Now, copy it to `/opt/datarobot/DataRobot-5.2.x/config.yaml`:
 
 ```bash
-cp example-configs/multi-node.linux.yaml config.yaml
+cp example-configs/multi-node.yaml config.yaml
 chmod 0600 config.yaml
 ```
 
@@ -167,7 +167,6 @@ os_configuration:
 
 **NOTE**: Hostnames (aside from `webserver_location`, if specified), must be IPv4 addresses.
 
-The `multi-node.linux.yaml` file has a full set of sample configurations for reference purposes.
 The `example-configs/config-variables.md` file has a comprehensive set of documented configuration values.
 
 #### Configure Storage

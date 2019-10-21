@@ -36,7 +36,7 @@ chmod 0600 hadoop-configuration.yaml
 
 Copy a sample YAML configuration file to `/opt/datarobot/DataRobot-5.2.x/config.yaml`.
 
-You can find a sample Cloudera `config.yaml` file in `example-configs/multi-node.hadoop.yaml`. Modify the sample to suit your
+You can find a sample Cloudera `config.yaml` file in `example-configs/hadoop-multi-node.yaml`. Modify the sample to suit your
 environment.
 
 Contact DataRobot support for help with this file.
