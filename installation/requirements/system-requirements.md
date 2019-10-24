@@ -30,7 +30,7 @@ Documentation for Docker can be found at <https://docs.docker.com>.
 ### Docker Storage
 
 It is important to properly configure Docker storage drivers.
-By default, DataRobot will use the `overlay` storage driver.
+By default, DataRobot will use the `overlay2` storage driver.
 
 **NOTE**: Docker requires a filesystem with `d_type` enabled for proper operation.
 If you are using an `xfs` filesystem, it must be formatted with `ftype=1`.

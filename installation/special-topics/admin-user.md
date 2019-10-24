@@ -97,7 +97,7 @@ To do so, modify the daemon options on all Edge Node servers.
     "insecure-registries": [
         "<IP of application server>:5000"
     ],
-    "storage-driver": "overlay",
+    "storage-driver": "overlay2",
     "selinux-enabled": true,
     "log-driver": "syslog"
 }
