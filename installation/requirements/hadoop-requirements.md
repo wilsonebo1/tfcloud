@@ -89,7 +89,7 @@ at least 5GB of available space.
 {% block ambari_requirements %}
 ## Ambari Requirements
 
-* If your cluster is based on Hortonworks, it must be version 2.3, 2.4, 2.5 or 2.6. HDP 3.0 support was added in 5.1.
+* The DataRobot Platform support Hortonworks Data Platform (HDP) versions 2.3, 2.4, 2.5, 2.6, and 3.0.
 * Ambari cluster must be running on CentOS/RHEL version 6.4 or greater on the X86_64 Architecture.
 
 ### Required files
