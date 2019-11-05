@@ -53,7 +53,11 @@ application server cluster, whether or not using Hadoop.
 | 5000  | TCP      | Docker Registry   |
 | 5445  | TCP      | IDE Client Broker |
 | 5446  | TCP      | IDE Client Worker |
+| 5671  | TCP      | RabbitMQ TLS |
+| 5671  | TCP      | HAProxy HA RabbitMQ TLS* |
 | 5672  | TCP      | RabbitMQ |
+| 5672  | TCP      | HAProxy HA RabbitMQ* | |
+| 5673  | TCP      | HA RabbitMQ* |
 | 6379  | TCP      | Redis |
 | 6556  | TCP      | Resource Proxy Subscriber |
 | 6557  | TCP      | Resource Proxy Publisher |
@@ -72,9 +76,17 @@ application server cluster, whether or not using Hadoop.
 | 8100  | TCP      | DataRobot Datasets Service API |
 | 9090  | TCP      | DataRobot Availability Monitor |
 | 9494  | TCP      | DataRobot PNGExport Service |
-| 15672 | TCP      | RabbitMQ HTTP Interface |
+| 15671 | TCP      | RabbitMQ Management HTTPS Interface |
+| 15671 | TCP      | HAProxy HA RabbitMQ HTTPS Interface* |
+| 15672 | TCP      | RabbitMQ Management HTTP Interface |
+| 15672 | TCP      | HAProxy HA RabbitMQ Management HTTP Interface* |
+| 15673 | TCP      | HA RabbitMQ Management HTTP(S) Interface* |
 | 26379 | TCP      | Redis Sentinel |
+| 25672 | TCP      | HA RabbitMQ inter-node communication* |
 | 27017 | TCP      | MongoDB |
+
+&ast; High availability configuration only
+
 
 ### Gluster Ports
 
@@ -217,13 +229,15 @@ Hadoop Servers => Application Servers
 | 80    | TCP      | HTTP traffic for config sync (TLS not enabled on edge node) |
 | 443   | TCP      | HTTPS traffic for config sync (TLS enabled on edge node) |
 | 1514  | UDP      | Application Web |
-| 5672  | TCP      | RabbitMQ |
+| 5671  | TCP      | RabbitMQ (TLS enabled on edge node) |
+| 5672  | TCP      | RabbitMQ (TLS not enabled on edge node) |
 | 6379  | TCP      | Redis |
 | 6556  | TCP      | Resource Proxy Subscriber |
 | 6558  | TCP      | Queue Proxy Subscriber |
 | 8027  | TCP      | Hadoop Configuration Sync |
 | 8100  | TCP      | DataRobot DataSets Service API |
-| 15672 | TCP      | RabbitMQ HTTP Interface |
+| 15671 | TCP      | RabbitMQ HTTPS Interface (TLS enabled on edge node) |
+| 15672 | TCP      | RabbitMQ HTTP Interface (TLS not enabled on edge node) |
 | 26379 | TCP      | Redis Sentinel |
 | 27017 | TCP      | MongoDB |
 
@@ -351,7 +365,11 @@ All of these are listed in one or more of the above tables.
 |5434|TCP|HAProxy HA Postgres Master Port|Application Servers|All Cluster Nodes|
 |5445|TCP|IDE Client Broker|Application Servers|Application Servers|
 |5446|TCP|IDE Client Worker|Application Servers|Application Servers|
+|5671|TCP|RabbitMQ (TLS)|RabbitMQ node|All Cluster Nodes|
+|5671|TCP|HAProxy HA RabbitMQ (TLS) Port|Application Servers|All Cluster Nodes|
 |5672|TCP|RabbitMQ|RabbitMQ node|All Cluster Nodes|
+|5672|TCP|HAProxy HA RabbitMQ|Application Servers|All Cluster Nodes|
+|5673|TCP|RabbitMQ HA (TLS/non-TLS)|RabbitMQ node|Application Servers|
 |6379|TCP|Redis|Data Servers|All Cluster Nodes|
 |6556|TCP|Resource Proxy Subscriber|Application Servers|All Cluster Nodes|
 |6557|TCP|Resource Proxy Publisher|Application Servers|Application Servers|
@@ -426,10 +444,15 @@ All of these are listed in one or more of the above tables.
 |10200|TCP|YARN Timeline Service RPC|Hadoop workers|Hadoop workers|
 |14000|TCP|HTTPFS data transfer (if HTTPFS is enabled)|Hadoop workers|All Cluster Nodes|
 |14001|TCP|HTTPFS administration (if HTTPFS is enabled)|Hadoop workers|All Cluster Nodes|
+|15671|TCP|RabbitMQ HTTPS Interface|RabbitMQ node|Application Servers|
+|15671|TCP|HAProxy HA RabbitMQ HTTPS Interface|Application Servers|Application Servers|
 |15672|TCP|RabbitMQ HTTP Interface|RabbitMQ node|Application Servers|
+|15672|TCP|HAProxy HA RabbitMQ HTTP Interface|Application Servers|Application Servers|
+|15673|TCP|RabbitMQ HTTP(S) Interface in HA mode|RabbitMQ node|Application Servers|
 |24007|TCP|Gluster Daemon|Data Servers|All Cluster Nodes|
 |24008|TCP|Gluster Management|Data Servers|All Cluster Nodes|
 |24009|TCP|Gluster Brick|Data Servers|All Cluster Nodes|
+|25672|TCP|RabbitMQ HA inter-node communication port|RabbitMQ node|RabbitMQ node|
 |26379|TCP|Redis Sentinel|Data Servers|Application Servers|
 |27017|TCP|MongoDB|Data Servers|All Cluster Nodes|
 |44011|TCP|DataRobot YARN Application Master Stats (DataRobot 4.2.1 and above)|Hadoop workers|Application Servers|
