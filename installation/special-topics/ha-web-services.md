@@ -308,6 +308,7 @@ servers:
   - rsyslog
   - jobretryservice
   - logstash
+  - haproxy
 
   # Brokers and Proxies
   - edabroker
@@ -315,7 +316,6 @@ servers:
   - idebroker
   - queueproxy
   - resourceproxy
-  - rabbit
   - taskmanager
 
   # Additional optional services
@@ -348,6 +348,7 @@ servers:
   - gluster
   - mongo
   - redis
+  - rabbit
   - sentinel
 
 # Workers
@@ -412,10 +413,43 @@ os_configuration:
   webserver_hostname: https://datarobot-public.company.org
 ```
 
+
 _**Important note:**_ the endpoint for an ALB must always be a full URL, with proper protocol prefix (HTTPS if secure listeners are used and HTTP otherwise).
 
 Now for the `servers/hosts` section: for the regular multinode deployment config it must contain the list of cluster nodes with services deployed on them, this is also true for HA deployment - if you want to have a scalable service replica on a node - put its name into the list of services for that node, simple as that.
  The only requirement is that the `nginx` service must be _**always**_ installed with scaled services.
+
+
+If you would like to add in clusterd RabbitMQ nodes you'll need to add two addtional services to your config.yaml, these sections have been added to the sample config above
+
+```yaml
+servers:
+# Non-HA services
+- hosts:
+  - 192.168.0.0
+  services:
+  - provisioner
+
+  # Cluster monitoring and infrastructure
+  - availabilitymonitor
+  - rsyslog
+  - jobretryservice
+  - logstash
+  - haproxy # added to support clusterd RabbitMQ nodes, multple proxies will be supported in a later release
+...
+# HA Databases
+- hosts:
+  - 192.168.0.1
+  - 192.168.0.2
+  - 192.168.0.3
+  services:
+  - gluster
+  - mongo
+  - redis
+  - rabbit  # added here to cluster RabbitMQ nodes
+  - sentinel
+```
+
 
 ## Verifying the Setup
 
