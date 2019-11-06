@@ -116,13 +116,24 @@ In particular, focus on the user, group, and SSH key settings near the top of th
 # Example config.yaml snippet
 ---
 os_configuration:
-    user: datarobot
-    group: datarobot
-    private_ssh_key_path: /home/datarobot/.ssh/id_rsa
-    ...
+  user: datarobot
+  group: datarobot
+  private_ssh_key_path: /home/datarobot/.ssh/id_rsa
+  ...
 ```
 
-**NOTE**: Hostnames (aside from `webserver_location`, if specified), must be IPv4 addresses.
+**NOTE**: Hostnames (aside from `webserver_location`, if specified), must be IPv4 addresses or DNS hostnames routing to IPv4 addresses.
+
+If DNS hostnames are used for `hosts` in `config.yaml`, an additional value must be set:
+
+```yaml
+# Example config.yaml snippet
+---
+os_configuration:
+  web_api_ip: ip
+```
+
+Where `ip` is the IPv4 address of the host running the `internalapi` service.
 
 The `example-configs/config-variables.md` file has a comprehensive set of documented configuration values.
 
@@ -198,6 +209,7 @@ It should take several minutes to complete.
 ./bin/datarobot setup-dependencies
 ```
 A successful run of this command will finish with:
+
 ```bash
 Playbook completed successfully
 DataRobot dependencies setup completely.
@@ -208,7 +220,9 @@ DataRobot dependencies setup completely.
 ```bash
 ./bin/datarobot run-registry
 ```
+
 A successful run of this command will finish with:
+
 ```bash
 Playbook completed successfully
 DataRobot registry setup complete.
