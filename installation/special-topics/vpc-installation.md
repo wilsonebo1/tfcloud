@@ -1,5 +1,32 @@
 # VPC Installation
 
+## Microsoft Azure
+### Azure Blob Service as backend storage
+
+`FILE_STORAGE_PREFIX`: Represents the prefix after the root path applied to all paths in the file storage medium.
+
+`FILE_STORAGE_TYPE`: To use Azure Blob service set to `azure_blob`.
+
+`config.yaml` snippet:
+
+```yaml
+---
+app_configuration:
+  drenv_override:
+    FILE_STORAGE_TYPE: azure_blob
+    AZURE_BLOB_STORAGE_CONTAINER_NAME: <blob_container_name>
+    AZURE_BLOB_STORAGE_ACCOUNT_NAME: <storage_account_name>
+    AZURE_BLOB_STORAGE_ACCOUNT_KEY: <storage_account_secret_key>
+```
+
+`AZURE_BLOB_STORAGE_CONTAINER_NAME` : Name of existing container. DataRobot will store all files within this container.
+
+`AZURE_BLOB_STORAGE_ACCOUNT_NAME` : Name of existing Azure Blob Storage Account.
+
+`AZURE_BLOB_STORAGE_ACCOUNT_KEY` : Secret key string for accessing `AZURE_BLOB_STORAGE_ACCOUNT_NAME`. Refer to the [Azure documentation](https://docs.microsoft.com/en-us/azure/storage/common/storage-configure-connection-string) to create the account key.
+
+`AZURE_BLOB_STORAGE_CONNECTION_STRING` : An alternative way of configuring access. Instead of filling AZURE_BLOB_STORAGE_ACCOUNT_NAME and AZURE_BLOB_STORAGE_ACCOUNT_KEY values, you can use only this value. Refer to the Azure [view and copy a connection string](https://docs.microsoft.com/en-us/azure/storage/common/storage-configure-connection-string?toc=%2fazure%2fstorage%2fblobs%2ftoc.json#view-and-copy-a-connection-string). This allows you to connect to not only to Azure Blob Storage itself, but to various storage emulators or API compatible 3rd-party services.
+
 ## AWS
 ### File storage configuration changes
 
