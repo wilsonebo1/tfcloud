@@ -21,7 +21,7 @@ If the DataRobot are outside of the Google Cloud or you wish to specify the acco
 ### DataRobot application configuration
 If you are using the service account method for access management, the application credentials is not necessary.  If a keyfile is used, set the following environmental variables:
 
-`GOOGLE_APPLICATION_CREDENTIALS`: Full path to the keyfile (i.e. /home/user/Downloads/[FILE_NAME].json)
+`GOOGLE_STORAGE_APPLICATION_CREDENTIALS`: Full path to the keyfile (i.e. /home/user/Downloads/[FILE_NAME].json)
 
 `GOOGLE_PROJECT_NAME`: Name of the project from Google Cloud Console
 

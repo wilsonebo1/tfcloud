@@ -128,3 +128,28 @@ app_configuration:
     S3_VALIDATE_CERTS: False
     ALLOW_SELF_SIGNED_CERTS: True
 ```
+
+## Google Cloud Storage
+### Google Cloud Storage as backend storage
+
+`FILE_STORAGE_PREFIX`: Represents the prefix after the root path applied to all paths in the file storage medium.
+
+`FILE_STORAGE_TYPE`: To use Google Cloud Storage set to `google`.
+
+`config.yaml` snippet:
+
+```yaml
+---
+app_configuration:
+  drenv_override:
+    FILE_STORAGE_PREFIX: /data/
+    FILE_STORAGE_TYPE: google
+    GOOGLE_STORAGE_BUCKET: <bucket name>
+    GOOGLE_STORAGE_APPLICATION_CREDENTIALS: <path to keyfile>
+```
+
+`GOOGLE_STORAGE_BUCKET` : Name of an existing bucket. DataRobot will store all files within this bucket.
+
+`GOOGLE_STORAGE_APPLICATION_CREDENTIALS` : Path to a google service account credentials file, must be present on all cluster nodes.
+
+`GOOGLE_STORAGE_KEYFILE_CONTENTS` : The google service account credentials keyfile contents, base64 encoded. May be specified in place of `GOOGLE_STORAGE_APPLICATION_CREDENTIALS`; this is more convenient than copying files to all cluster nodes, but it is also less secure.
