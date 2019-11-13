@@ -27,6 +27,39 @@ app_configuration:
 
 `AZURE_BLOB_STORAGE_CONNECTION_STRING` : An alternative way of configuring access. Instead of filling AZURE_BLOB_STORAGE_ACCOUNT_NAME and AZURE_BLOB_STORAGE_ACCOUNT_KEY values, you can use only this value. Refer to the Azure [view and copy a connection string](https://docs.microsoft.com/en-us/azure/storage/common/storage-configure-connection-string?toc=%2fazure%2fstorage%2fblobs%2ftoc.json#view-and-copy-a-connection-string). This allows you to connect to not only to Azure Blob Storage itself, but to various storage emulators or API compatible 3rd-party services.
 
+#### Authenticate DataRobot using Service Principal credentials
+
+Instead of using a shared key, DataRobot can connect to the Azure Blob Service using Service Principal credentials. Refer to Microsoft's [How to: Use the portal to create an Azure AD application and service principal that can access resources](https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal).That document will explain how to register a new application, get an Application (Client) and Tenant IDs, and generate a secret key string.  These values must be set in `config.yaml` as AZURE_CLIENT_ID, AZURE_TENANT_ID, and AZURE_CLIENT_SECRET. Your application must be assigned as `Storage Blob Data Contributor` to Storage Account.
+
+`config.yaml` snippet:
+
+```yaml
+---
+app_configuration:
+  drenv_override:
+    FILE_STORAGE_TYPE: azure_blob
+    AZURE_BLOB_STORAGE_CONTAINER_NAME: <blob_container_name>
+    AZURE_BLOB_STORAGE_ACCOUNT_NAME: <storage_account_name>
+    AZURE_TENANT_ID: <azure_tenant_id>
+    AZURE_CLIENT_ID: <azure_client_id>
+    AZURE_CLIENT_SECRET: <service_principal_secret_key>
+```
+
+#### Grant DataRobot virtual machine access to an Azure Storage container
+
+Granting DataRobot access allows you to avoid using any kind of credentials directly. See the Microsoft documentation to learn [how to grant access](https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/tutorial-linux-vm-access-storage#grant-your-vm-access-to-an-azure-storage-container) to your storage account for a specific virtual machine or virtual machine scale set. The `Storage Blob Data Contributor` role is required to read and write data into the container.
+
+`config.yaml` snippet:
+
+```yaml
+---
+app_configuration:
+  drenv_override:
+    FILE_STORAGE_TYPE: azure_blob
+    AZURE_BLOB_STORAGE_CONTAINER_NAME: <blob_container_name>
+    AZURE_BLOB_STORAGE_ACCOUNT_NAME: <storage_account_name>
+```
+
 ## AWS
 ### File storage configuration changes
 
