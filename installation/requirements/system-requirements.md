@@ -21,11 +21,98 @@ You must have access to a shell (`/bin/bash` is preferred).
 ## Docker
 
 DataRobot supports Docker version 1.10 and greater.
+
 RPM distributions of Docker Engine 18.09 Community Edition are provided in your installation artifact and will be installed automatically if your server does not already have Docker.
+We recommend using this version.
 
 DataRobot ships files and scripts necessary to run a Docker registry containing all images used by the application, so access to Docker Hub or other public registries is not required.
 
 Documentation for Docker can be found at <https://docs.docker.com>.
+
+### Dependencies
+
+We also ship dependencies related to DataRobot's use of docker. These will be installed by the installer.
+
+If you have automated operating system updates, it is important to prevent the updates from installing different versions of any of the following packages:
+
+```
+container-selinux
+containerd.io
+docker-ce
+docker-ce-cli
+libnvidia-container-tools
+libnvidia-container1
+nvidia-container-runtime
+nvidia-container-toolkit
+nvidia-docker2
+python-docker-pycreds
+python-websocket-client
+python2-docker
+python2-requests
+python2-six
+```
+
+For example, for Centos/RHEL systems, these packages can be excluded from package updates in `/etc/yum.conf`.
+
+```
+[main]
+# add below line under main section of /etc/yum.conf
+exclude=container-selinux* containerd.io* docker-ce* docker-ce-cli* libnvidia-container-tools* libnvidia-container1* nvidia-container-runtime* nvidia-container-toolkit* nvidia-docker2* python-docker-pycreds* python-websocket-client* python2-docker* python2-requests* python2-six*
+```
+
+*NOTE:* These dependencies themselves may have additional system dependencies. Any package referenced as a dependency *must not be uninstalled*. These packages and versions may differ on different systems based on operating system distro and version (even minor/patch versions).
+
+For example, for Centos/RHEL systems, after these packages are installed, these package dependencies can be checked with:
+
+```bash
+for x in \
+    container-selinux \
+    containerd.io \
+    docker-ce \
+    docker-ce-cli \
+    libnvidia-container-tools \
+    libnvidia-container1 \
+    nvidia-container-runtime \
+    nvidia-container-toolkit \
+    nvidia-docker2 \
+    python-docker-pycreds \
+    python-websocket-client \
+    python2-docker \
+    python2-requests \
+    python2-six; \
+do yum deplist $x | grep provider \
+    | sed -e 's/.*provider: //' -e 's/ .*//' -e 's/\..*//' ; \
+done | sort | uniq
+```
+
+Example output (this may differ based on operating system distro and version):
+
+```
+bash
+container-selinux
+device-mapper-libs
+glibc
+iptables
+iptables-services
+libcgroup
+libseccomp
+libselinux-utils
+libtool-ltdl
+policycoreutils
+policycoreutils-python
+python
+python-requests
+python-six
+sed
+selinux-policy
+selinux-policy-minimum
+selinux-policy-mls
+selinux-policy-targeted
+systemd
+systemd-libs
+tar
+xz
+```
 
 ### Docker Storage
 
