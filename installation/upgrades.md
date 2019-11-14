@@ -195,6 +195,15 @@ On upgrade to version 5.0, the following changes to the open ports between hosts
 | Optionally Remove | 5558  | TCP      | Secure Worker Broker Client |
 | Optionally Remove | 5556  | TCP      | Secure Worker Broker |
 
+Starting with the 5.3 release of DataRobot, RabbitMQ supports  high  availability 
+
+| Action            | Port  | Protocol | Component            |
+|:------------------|------:|:---------|:---------------------|
+| HA RabbitMQ enabled | 5673  | TCP    | high availability port |
+| HA RabbitMQ enabled | 15673 | TCP    | high availability port |
+| HA RabbitMQ enabled | 25672 | TCP    | high availability port |
+ 
+
 
 ### Upgrade mongo data
 
@@ -227,3 +236,8 @@ details.
 * Log into the Ambari Manager.
 * Stop the DataRobot service.
 * Delete the DataRobot service.
+
+## RabbitMQ high availability 
+
+Starting with DataRobot 5.3, it's possible  to enable clustered RabbitMQ to enhance durabiliy. If HA RabbitMQ is enabled, 
+it will be necessary to add the port exceptions mentioned above. See [High Availability RabbitMQ](special-topics/rabbitmq-ha.md) for addtional details.

@@ -47,6 +47,7 @@
   * [Model Management](special-topics/model-management.md)
     * [Model Management Data Upgrade](special-topics/model-management-data-upgrade.md)
   * [HA Web Services](special-topics/ha-web-services.md)
+  * [High Availability RabbitMQ](special-topics/rabbitmq-ha.md)
   * [SAML SSO Integration](special-topics/sso-saml.md)
   * [Data ingestion from Amazon AWS S3 Storage](special-topics/ingest-from-aws-s3-storage.md)
   * [Data ingestion from Google Cloud Storage](special-topics/ingest-from-google-cloud-storage.md)
