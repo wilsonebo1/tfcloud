@@ -101,6 +101,21 @@ internal ports are required.
 | 24009 | TCP      | Gluster Brick |
 | 49152 | TCP      | Gluster Brick |
 
+### MinIO Ports
+
+If using `minio` as a data backend, e.g. in non-Hadoop installs, additional
+internal ports are required.
+
+| Port  | Protocol | Component  |
+|------:|:---------|:-----------|
+| 9000  | TCP/UDP  | MinIO Port |
+
+If using `minio` in an HA configuration, additional internal ports are required
+
+| Port  | Protocol | Component     |
+|------:|:---------|:--------------|
+| 9002  | TCP/UDP  | MinIO HA Port |
+
 ### Optional Premium Feature Ports
 These ports are only required if the referenced feature has been purchased and enabled.
 
@@ -423,8 +438,10 @@ All of these are listed in one or more of the above tables.
 |8485|TCP|JournalNode RPC Port|Hadoop workers|Hadoop workers|
 |8670|TCP|Ambari Agent ping port|Hortonworks workers|Ambari Manager|
 |8833|TCP|Datarobot diagnostics (not secure)|Application Servers|Administrators|
+|9000|TCP|MinIO Port|Data Servers|All Cluster Nodes|
 |9000|TCP|Cloudera Manager Agent HTTP port|Cloudera workers|Cloudera Manager|
 |9001|TCP|ETL Controller|Hadoop workers|Application Servers|
+|9002|TCP|MinIO HA Port|Data Servers|All Cluster Nodes|
 |9083|TCP|Hive metastore port|Hortonworks workers|Hortonworks workers|
 |9090|TCP|DataRobot Availability Monitor|Application Servers|Application Servers|
 |9494|TCP|DataRobot PNGExport Service|Application Servers|Application Servers|

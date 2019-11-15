@@ -435,7 +435,7 @@ servers:
   - rsyslog
   - jobretryservice
   - logstash
-  - haproxy # added to support clusterd RabbitMQ nodes, multple proxies will be supported in a later release
+  - haproxy # added to support clusterd RabbitMQ and MinIO nodes, multple proxies will be supported in a later release
 ...
 # HA Databases
 - hosts:
@@ -443,7 +443,7 @@ servers:
   - 192.168.0.2
   - 192.168.0.3
   services:
-  - gluster
+  - minio
   - mongo
   - redis
   - rabbit  # added here to cluster RabbitMQ nodes

@@ -66,7 +66,7 @@ app_configuration:
 `FILE_STORAGE_PREFIX`: Represents the prefix applied to all paths in the file storage medium after the root path.
 
 `FILE_STORAGE_TYPE`: For Cloudera installations set to `hdfs` (WebHDFS storage driver) or `hdfs3` (native HDFS storage driver).
-For Dockerized installations, set to `gluster_api` (Dockerized Gluster storage) or `s3` (AWS S3 storage).
+For Dockerized installations, set to `s3` (Dockerized MinIO storage); you can also use `s3` for AWS storage.
 
 `config.yaml` snippet:
 

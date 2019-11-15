@@ -36,4 +36,6 @@
 		* [Permanently deleting projects](managing-projects.md#permanently-deleting-projects)
 		* [Restoring projects](managing-projects.md#restoring-projects)
 	* [Restricting access to JDBC Data Stores](managing-platform.md#restricting-access-to-jdbc-data-stores)
+* [Migrating from Gluster to MinIO](gluster-migration.md)
+
 
