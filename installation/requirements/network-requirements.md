@@ -87,6 +87,16 @@ application server cluster, whether or not using Hadoop.
 
 &ast; High availability configuration only
 
+### Non-Hadoop Worker Ports
+
+For non-Hadoop installs, additional internal ports are required for
+DataRobot workers.
+
+| Port  | Protocol | Component |
+|------:|:---------|:----------|
+| 5555  | TCP      | Worker Broker Client |
+| 5556  | TCP      | Worker Broker |
+
 
 ### Gluster Ports
 
@@ -380,6 +390,8 @@ All of these are listed in one or more of the above tables.
 |5434|TCP|HAProxy HA Postgres Master Port|Application Servers|All Cluster Nodes|
 |5445|TCP|IDE Client Broker|Application Servers|Application Servers|
 |5446|TCP|IDE Client Worker|Application Servers|Application Servers|
+|5555|TCP|Worker Broker Client (non-Hadoop only)|Application Servers|Application Servers|
+|5556|TCP|Worker Broker (non-Hadoop only)|Application Servers|Application Servers|
 |5671|TCP|RabbitMQ (TLS)|RabbitMQ node|All Cluster Nodes|
 |5671|TCP|HAProxy HA RabbitMQ (TLS) Port|Application Servers|All Cluster Nodes|
 |5672|TCP|RabbitMQ|RabbitMQ node|All Cluster Nodes|

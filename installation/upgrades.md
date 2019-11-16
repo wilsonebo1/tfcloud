@@ -175,8 +175,6 @@ On upgrade to version 4.3, the following changes to the open ports between hosts
 | Action            | Port  | Protocol | Component            |
 |:------------------|------:|:---------|:---------------------|
 | Add               | 5672  | TCP      | RabbitMQ |
-| Optionally Remove | 5555  | TCP      | Worker Broker Client |
-| Optionally Remove | 5556  | TCP      | Worker Broker |
 
 
 On upgrade to version 4.4, the following changes to the open ports between hosts must be made:
@@ -195,14 +193,14 @@ On upgrade to version 5.0, the following changes to the open ports between hosts
 | Optionally Remove | 5558  | TCP      | Secure Worker Broker Client |
 | Optionally Remove | 5556  | TCP      | Secure Worker Broker |
 
-Starting with the 5.3 release of DataRobot, RabbitMQ supports  high  availability 
+Starting with the 5.3 release of DataRobot, RabbitMQ supports  high  availability
 
 | Action            | Port  | Protocol | Component            |
 |:------------------|------:|:---------|:---------------------|
 | HA RabbitMQ enabled | 5673  | TCP    | high availability port |
 | HA RabbitMQ enabled | 15673 | TCP    | high availability port |
 | HA RabbitMQ enabled | 25672 | TCP    | high availability port |
- 
+
 
 
 ### Upgrade mongo data
