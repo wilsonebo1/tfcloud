@@ -202,14 +202,6 @@ Starting with the 5.3 release of DataRobot, RabbitMQ supports  high  availabilit
 | HA RabbitMQ enabled | 25672 | TCP    | high availability port |
 
 
-
-### Upgrade mongo data
-
-Starting with DataRobot release 4.2 the version of mongo has been upgraded from 2.4 to 3.4.
-The mongo storage engine has been upgraded to WiredTiger.
-Customers upgrading from prior releases will need to go through a data upgrade process.
-See [Mongo Data Upgrade](special-topics/mongo-data-upgrade.md) for additional details.
-
 ### Upgrade Model Monitoring and Management
 
 Starting with DataRobot release 5.0, model monitoring and management is receiving vast performance
@@ -235,7 +227,7 @@ details.
 * Stop the DataRobot service.
 * Delete the DataRobot service.
 
-## RabbitMQ high availability 
+## RabbitMQ high availability
 
-Starting with DataRobot 5.3, it's possible  to enable clustered RabbitMQ to enhance durabiliy. If HA RabbitMQ is enabled, 
+Starting with DataRobot 5.3, it's possible  to enable clustered RabbitMQ to enhance durabiliy. If HA RabbitMQ is enabled,
 it will be necessary to add the port exceptions mentioned above. See [High Availability RabbitMQ](special-topics/rabbitmq-ha.md) for addtional details.
