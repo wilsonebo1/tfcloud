@@ -22,6 +22,7 @@
   * [TLS](special-topics/tls.md)
   * [Security Best Practices](special-topics/security.md)
   * [KMS Integration](special-topics/kms.md)
+  * [Custom ports for webserver](special-topics/custom-ports.md)
   * [HttpFS](special-topics/httpfs.md)
   * [Unprivileged Application User](special-topics/admin-user.md)
     * [Separate Install user](special-topics/admin-user.md#admin-user)
