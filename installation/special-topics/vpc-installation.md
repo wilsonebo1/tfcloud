@@ -7,6 +7,8 @@
 
 `FILE_STORAGE_TYPE`: To use Azure Blob service set to `azure_blob`.
 
+Note: For existing DataRobot installations, when `FILE_STORAGE_TYPE` configuration setting gets changed to `azure_blob`, DataRobot will not be able to access previously existing files. In order to continue using them, existing data must be manually migrated into Microsoft Blob Storage. Microsoft offers a few options to perform this migration, described in the [Storage migration FAQ](https://docs.microsoft.com/en-us/azure/storage/common/storage-migration-faq). See also [Get started with AzCopy](https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy-v10) and [Mount Blob storage as a file system on Linux](https://docs.microsoft.com/en-us/azure/storage/blobs/storage-how-to-mount-container-linux).
+
 `config.yaml` snippet:
 
 ```yaml
