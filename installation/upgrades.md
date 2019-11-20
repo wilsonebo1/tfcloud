@@ -227,7 +227,15 @@ details.
 * Stop the DataRobot service.
 * Delete the DataRobot service.
 
-## RabbitMQ high availability
+### RabbitMQ high availability
 
 Starting with DataRobot 5.3, it's possible  to enable clustered RabbitMQ to enhance durabiliy. If HA RabbitMQ is enabled,
 it will be necessary to add the port exceptions mentioned above. See [High Availability RabbitMQ](special-topics/rabbitmq-ha.md) for addtional details.
+
+### Gluster Migration to MinIO
+
+Starting with DataRobot 5.3, the Gluster storage backend has been deprecated and will be removed
+from the DataRobot Platform in a future release.  Customers upgrading from prior releases should
+plan to migrate data from Gluster to another storage backend.  See
+[Gluster Migration](special-topics/gluster-migration.md) for details on how to migrate to the
+new MinIO storage backend.
