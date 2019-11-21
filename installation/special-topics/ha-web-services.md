@@ -345,7 +345,7 @@ servers:
   - 192.168.0.2
   - 192.168.0.3
   services:
-  - gluster
+  - minio
   - mongo
   - redis
   - rabbit

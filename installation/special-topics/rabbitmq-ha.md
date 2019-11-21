@@ -69,7 +69,7 @@ servers:
   - publicapi
   - rsyslog
   - sentinel
-  - gluster
+  - minio
   - idebroker
   - ideworker
   - logstash
@@ -86,7 +86,7 @@ servers:
   - securebroker
   - sentinel
   - taskmanager
-  - gluster
+  - minio
 - app_configuration:
   hosts:
   - 192.168.1.3
@@ -103,7 +103,7 @@ servers:
   - sentinel
   - datasetsservicequickworker1
   - datasetsserviceworker1
-  - gluster
+  - minio
 ```
 #### Sample config.yaml (after RabbitHA enabled) 
 ```
@@ -151,7 +151,7 @@ servers:
   - publicapi
   - rsyslog
   - sentinel
-  - gluster
+  - minio
   - idebroker
   - ideworker
   - logstash
@@ -169,7 +169,7 @@ servers:
   - securebroker
   - sentinel
   - taskmanager
-  - gluster
+  - minio
 - app_configuration:
   hosts:
   - 192.168.1.3
@@ -186,19 +186,19 @@ servers:
   - sentinel
   - datasetsservicequickworker1
   - datasetsserviceworker1
-  - gluster
+  - minio
 ```
 
-#### Advanced verification of RabbitMQ HA 
+#### Advanced verification of RabbitMQ HA
 
-Once you have edited your config.yaml and followed the normal upgrade procedure, you can verify RabbitMQ HA is working with the following steps: 
+Once you have edited your config.yaml and followed the normal upgrade procedure, you can verify RabbitMQ HA is working with the following steps:
 
 1. Open your config.yaml
 2. locate a host running RabbitMQ
 3. Login to that host via ssh
-4. Execute the following: 
-   * `docker exec --user user rabbit rabbitmqctl cluster_status` 
-5. you should receive output similar to 
+4. Execute the following:
+   * `docker exec --user user rabbit rabbitmqctl cluster_status`
+5. you should receive output similar to
 ```
    Cluster status of node rabbit@192.168.1.3
 [{nodes,[{disc,['rabbit@192.168.1.2','rabbit@192.168.1.3']}]},

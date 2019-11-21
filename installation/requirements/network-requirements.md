@@ -100,6 +100,9 @@ DataRobot workers.
 
 ### Gluster Ports
 
+**NOTE**: Gluster has been deprecated as of the 5.3 release and will be completely removed
+in a future release.  Please consider using MinIO instead.
+
 If using `gluster` as a data backend, e.g. in non-Hadoop installs, additional
 internal ports are required.
 
