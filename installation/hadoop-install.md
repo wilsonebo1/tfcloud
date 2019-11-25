@@ -1,36 +1,12 @@
 # Hadoop Installation Instructions
 
+**NOTE**: This section assumes you have completed the installation process on application server.
+
 DataRobot can integrate with Cloudera and Hortonworks Hadoop distributions.
 
 ## Create Config Files
 
-To enable this integration, first create `hadoop-configuration.yaml` and `config.yaml`.
-
-### hadoop-configuration.yaml
-
-Place a file like the following in `/opt/datarobot/DataRobot-5.2.x/`
-
-```yaml
-# FILE: hadoop-configuration.yaml
----
-cluster_name: <name of hadoop cluster>
-manager_address: <address of Hadoop Manager>
-manager_type: <ambari or cloudera>
-# Optional
-# cm_api_version: <cloudera manager api version>
-# Set these to true if the Hadoop Manager is using SSL/TLS
-use_tls: false
-ignore_ca: false
-```
-
-More information about the SSL/TLS keys can be found in the [TLS Guide](special-topics/tls.md#cm-tls)
-
-Verify your file is correctly configured with
-
-```bin
-chmod 0600 hadoop-configuration.yaml
-./bin/datarobot validate
-```
+To enable this integration, first create `config.yaml`.
 
 ### config.yaml
 
@@ -48,41 +24,8 @@ Now, use the following sections to install DataRobot on Hadoop.
 * [Cloudera Installation](cloudera-install.md)
 * [Hortonworks Installation](ambari-install.md)
 
-When complete, proceed to synchronize configuration.
-
-## Synchronize Configuration
-
-**NOTE**: This section assumes you have completed the [Linux Installation](standard-install.md) portion of the installation process, and
-the [Hadoop Installation](hadoop-install.md#hadoop-installation) process.
-
-Now, DataRobot needs to synchronize configuration between the application
-servers and the Hadoop cluster.
-
-* SSH into the application server as the DataRobot user.
-
-* Verify that `hadoopconfigsync` container is running
-
-```bash
-docker inspect -f '{{.State.Running}}' hadoopconfigsync
-```
-
-* Start the configuration synchronization process.
-
-```bash
-cd /opt/datarobot/DataRobot-5.2.x/
-./bin/datarobot hadoop-sync
-```
-
-When prompted, enter credentials to access the Hadoop Manager.
-Credentials can also be passed as environment variables or CLI arguments.
-
-The user you authenticate with must have permissions to modify configuration
-of the DataRobot service and restart services. The provisioner will post configuration
-information to the Hadoop Manager and trigger a restart of the DataRobot service.
-
-* When the DataRobot service restarts, it copies configuration files to the
-application server, which triggers a configuration synchronization process on
-the application server that restarts services.
+* When the DataRobot service starts, it copies configuration files (datarobot-hadoop.conf, kerberos configs)
+to the application server, which restarts services on application server.
 
 * Verify that the installation and configuration have successfully completed:
 
@@ -111,12 +54,7 @@ DataRobot is working in Hadoop environment.
 
 **NOTE**: Never modify DataRobot configuration in the Cloudera or Ambari manager interface.
 
-To update configuration that ends with `*_CONTAINER_MEM`, `*_CONTAINER_VCORES` or `*_RACKS`:
-* Remove `datarobot-defaults.conf` and `datarobot-hadoop.conf` from `/opt/datarobot/etc/hadoop/` if they exist.
-* Edit `config.yaml` to reflect your desired changes.
-* Run `./bin/datarobot hadoop-sync` from the application server installer directory.
-
-To update other configuration of a cluster:
+To update configuration of a cluster:
 
 * Edit `config.yaml` to reflect your desired changes.
 * Run `./bin/datarobot reconfigure` from the application server installer directory.

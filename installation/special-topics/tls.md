@@ -31,17 +31,3 @@ If your certificates are signed by an internal Certificate Authority, you will n
         VERIFY_SSL: false
 ```
 This will not disable SSL/TLS; all traffic to the web server will still be encrypted.
-
-## Hadoop Manager TLS {#cm-tls}
-
-If your Hadoop Manager is secured with TLS, set the following flags in your `hadoop-configuration.yaml` file:
-
-```yaml
-    # hadoop-configuration.yaml snippet
-    use_tls: true
-    ignore_ca: true
-```
-
-`use_tls: true` will enable TLS connections to your manager server.
-
-`ignore_ca: true` will ignore certificate validation errors in the event your server's TLS certificate is signed by a custom Certificate Authority.

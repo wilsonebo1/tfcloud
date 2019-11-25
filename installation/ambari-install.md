@@ -223,11 +223,11 @@ http://[IP OF SIMPLE WEBSERVER]:[SERVER PORT]/DataRobot-[PARCEL VERSION].parcel
 
 <img src="images/ambari-select-yarn.png" alt="" style="border: 1px solid black;" width="600"/>
 
-6. Provide the URL to the parcel package in the `datarobot-env` configuration:
+6. Provide the URL to the parcel package and datarobot install directory in the `datarobot-env` configuration:
 
 <img src="images/ambari-parcel-url.png" alt="" style="border: 1px solid black;" width="600"/>
 
-7. Set up all required parameters and provide the license in the `datarobot-master`
+7. Set up all required parameters (App Node Location, License) in the `datarobot-master`
 configuration:
 
 <img src="images/ambari-required-params.png" alt="" style="border: 1px solid black;" width="600"/>
@@ -238,7 +238,7 @@ configuration:
 
 * For [HttpFS](https://hadoop.apache.org/docs/stable/hadoop-kms/index.html), set the following (options not shown in screen above):
   - Check the `PREFER_HTTPFS` field and fill in a value for `HTTPFS_HOST`, specifying the HttpFS destination (for example, 'https://hostname:14000').
-  
+
 8. Click **Next**.
 
 9. If the cluster is secured by Kerberos, provide the admin credentials:
@@ -247,13 +247,7 @@ configuration:
 
 10. Proceed to the installation.
 
-Ambari should report that all DataRobot services were installed successfully, but will show that `Datarobot Master`
-is stopped.  It will also show that Restart is required.  It is not necessary to perform the restart now.  Services will
-be restarted as part of the `Synchronize Configuration` process.
-
-## Synchronize Configuration
-
-Continue by [Synchronizing Configuration](./hadoop-install.md#synchronize-configuration)
+Ambari should report that all DataRobot services were installed successfully.
 
 ## Reconfigure
 

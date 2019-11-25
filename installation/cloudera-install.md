@@ -314,6 +314,8 @@ available DataNode using the same procedure.
 * Click in the **DataRobot License Key** text field and paste in the text from
 your DataRobot license key.
 
+* Click in the **App Node Location** text field and key in the IP or DNS of application server. Example: http://10.0.0.1
+
 * Edit container memory and vcores settings as appropriate for your cluster.
 
 We recommend at least 60GB of RAM for `MMW` and `SECURE_WORKER` containers
@@ -360,10 +362,6 @@ DataRobot service and try to add it again.
 * The DataRobot Master Service should be marked in green, indicating "Good Health."
 
 * Hosts should display "1 Good Health."
-
-## Synchronize Configuration
-
-When this is complete, follow the steps documented in [Synchronizing Configuration](./hadoop-install.md#synchronize-configuration)
 
 ## Reconfigure
 
