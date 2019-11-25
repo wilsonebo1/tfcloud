@@ -166,16 +166,67 @@ app_configuration:
 
 ## Google Cloud Storage
 ### Google Cloud Storage as backend storage
-#### Automatically configure the application using the `config.yaml`
 
-`config.yaml` snippet:
+There are several ways to configure DataRobot to access Google Cloud Storage depending on how credentials will be supplied.
+Refer to the description with each subsection below to determine which is the best fit for a particular installation.
+
+The following values are common and must be set for all methods of supplying credentials:
+
+`FILE_STORAGE_TYPE`: To use Google Cloud Storage set to `google`.
+
+`GOOGLE_STORAGE_BUCKET` : Name of an existing bucket. DataRobot will store all files within this bucket.
+
+`FILE_STORAGE_PREFIX`: Provides a prefix DataRobot will apply to all paths for files stored in the bucket.
+
+`GOOGLE_STORAGE_CREDENTIALS_SOURCE` : Specifies how the credentials will be provided to DataRobot, see the examples below.
+
+For the examples using a "keyfile", follow [these instructions](https://cloud.google.com/iam/docs/creating-managing-service-account-keys#iam-service-account-keys-create-console)
+to create and download a JSON key file for the appropriate service account.
+
+
+#### Configure the application running in GCE using the `config.yaml`
+
+Google can provide ["Application Default Credentials (ADC)"](https://cloud.google.com/docs/authentication/production)
+to software running on a GCE instance.
+The GCE instance must be [configured with a default service account](https://cloud.google.com/compute/docs/access/create-enable-service-accounts-for-instances)
+in order for this to work.
+This method is the most convenient and secure because google will manage all credentials outside the
+instance, so plain-text credentials will not be stored.
+
+Example `config.yaml` snippet:
+
+```yaml
+---
+app_configuration:
+  drenv_override:
+    FILE_STORAGE_PREFIX: /data/
+    FILE_STORAGE_TYPE: google
+    GOOGLE_STORAGE_BUCKET: <bucket name>
+    GOOGLE_STORAGE_CREDENTIALS_SOURCE: adc
+```
+
+`GOOGLE_STORAGE_CREDENTIALS_SOURCE` : Must be `adc` to select `ADC`.
+
+The google standard `GOOGLE_APPLICATION_CREDENTIALS` environment variable is also supported with this method,
+however it is the system administrator's responsibility to ensure it is defined on all nodes in the cluster.
+See the `GOOGLE_STORAGE_KEYFILE_PATH` example below for similar functionality provided by DataRobot.
+
+
+#### Configure the application with an automatically distributed file using the `config.yaml`
+
+This will take care of everything that is needed to install a configured version of DataRobot cluster
+with Google Storage as a storage backend. Note that `google_storage_keyfile_path` needs to point to a
+Google service account credentials JSON file *on the file system of the provisioner host*.
+The keyfile must be uploaded to the provisioner using `scp` or any other preferred method.
+
+Example `config.yaml` snippet:
 
 ```yaml
 ---
 os_configuration:
   storage:
     use_google_storage_application: true
-    google_storage_credentials_filename: /opt/tmp/creds.json
+    google_storage_keyfile_path: /opt/tmp/creds.json
 
 app_configuration:
   drenv_override:
@@ -184,21 +235,18 @@ app_configuration:
     GOOGLE_STORAGE_BUCKET: <bucket name>
 ```
 
-`FILE_STORAGE_PREFIX`: Represents the prefix after the root path applied to all paths in the file storage medium.
+`use_google_storage_application` : must be "true" to enable google credentials distribution
 
-`FILE_STORAGE_TYPE`: To use Google Cloud Storage set to `google`.
+`google_storage_keyfile_path` : set to the path of the keyfile on the filesystem of the provisioner host
 
-`GOOGLE_STORAGE_BUCKET` : Name of an existing bucket. DataRobot will store all files within this bucket.
 
-This will take care of everything that is needed to install a configured version of DataRobot cluster
-with Google Storage as a storage backend. Note that `google_storage_credentials_filename` needs to point to a
-Google service account credentials JSON file *on the file system of the provisioner host*.
-You can download it in the GCP console in `IAM & Admin -> Service accounts` and then upload it to the provisioner using
-`scp` or any other preferred method.
+#### Configure the application with base64 encoded credentials using the `config.yaml`
 
-Optionally, instead of uploading the file you can specify the file contents as base64-encoded string in the `config.yaml` directly and
-it will be automatically processed and written to a file on each host's file system in the cluster.
-Instead of specifying `google_storage_credentials_filename`you'll need to specify `google_storage_credentials_file_contents`. Example:
+As an alternative to uploading the file, you can specify the file contents as base64-encoded string
+in the `config.yaml` and it will be automatically processed and written to a file on each host's file
+system in the cluster.
+
+Example `config.yaml` snippet:
 
 ```yaml
 ---
@@ -256,10 +304,19 @@ app_configuration:
     GOOGLE_STORAGE_BUCKET: <bucket name>
 ```
 
-#### Manually configure DataRobot using `drenv_override`
+`use_google_storage_application` : must be "true" to enable google credentials distribution
 
-To perform the configuration manually, e.g. in case `sftp`/`rsync` between hosts is not possible and the installer will not be able to
-automatically distribute the Google Credentials file between the hosts in the cluster, follow the example below:
+`google_storage_keyfile_contents` : set to the base64-encoded contents of the JSON keyfile
+
+
+#### Configure DataRobot with a manually distributed credentials file using `drenv_override`
+
+In case `sftp`/`rsync` between hosts is not possible, the installer will not be able to automatically
+distribute the Google Credentials file between the hosts in the cluster.
+Using some other mechanism, the keyfile must be manually distributed to the same path on all nodes,
+and this path must be supplied in the configuration.
+
+Example `config.yaml` snippet:
 
 ```yaml
  app_configuration:
@@ -267,15 +324,10 @@ automatically distribute the Google Credentials file between the hosts in the cl
      FILE_STORAGE_PREFIX: /data/
      FILE_STORAGE_TYPE: google
      GOOGLE_STORAGE_BUCKET: <bucket name>
-     GOOGLE_STORAGE_APPLICATION_CREDENTIALS: <path to keyfile>
+     GOOGLE_STORAGE_CREDENTIALS_SOURCE: path
+     GOOGLE_STORAGE_KEYFILE_PATH: <path to keyfile>
  ```
 
-`FILE_STORAGE_PREFIX`: Represents the prefix after the root path applied to all paths in the file storage medium.
+`GOOGLE_STORAGE_CREDENTIALS_SOURCE` : Must be `path` to select `GOOGLE_STORAGE_KEYFILE_PATH`.
 
-`FILE_STORAGE_TYPE`: To use Google Cloud Storage set to `google`.
-
-`GOOGLE_STORAGE_BUCKET` : Name of an existing bucket. DataRobot will store all files within this bucket.
-
-`GOOGLE_STORAGE_APPLICATION_CREDENTIALS` : Path to a google service account credentials file, must be present on all cluster nodes.
-
-`GOOGLE_STORAGE_KEYFILE_CONTENTS` : The google service account credentials keyfile contents, base64 encoded. May be specified in place of `GOOGLE_STORAGE_APPLICATION_CREDENTIALS`; this is more convenient than copying files to all cluster nodes, but it is also less secure.
+`GOOGLE_STORAGE_KEYFILE_PATH` : Path to a google service account credentials file, must be present on all cluster nodes.
