@@ -20,6 +20,23 @@ be preserved. Namely the file `secrets.yaml` from the installation directory
 (e.g. copy `secrets.yaml` from previous installation into the new installation
 directory).
 
+### Preserve installer encryption key and encrypted config values
+
+The DataRobot installer may make use internally of encryption and write 
+encrypted values to disk to avoid preserving them in plaintext.
+
+This is possible even if `secrets_enforced` is not set to true.
+
+In the installation directory, the file `.secrets-key` (n.b. this is a hidden file) 
+and the directory and all contents of `secrets/` (not to be confused with 
+secrets.yaml) must be preserved and copied into the new installation directory.
+
+Some features using this functionality may be severaly hampered if this
+data is not kept intact between installations, e.g. the user credential storage
+system stores an encryption key in this manner.
+If the key is not preserved on a re-install or upgrade, any previously stored
+credentials would no longer be accessible by the app.
+
 ### Remove old files and services
 
 * Stop and remove all containers:
