@@ -256,3 +256,5 @@ from the DataRobot Platform in a future release.  Customers upgrading from prior
 plan to migrate data from Gluster to another storage backend.  See
 [Gluster Migration](special-topics/gluster-migration.md) for details on how to migrate to the
 new MinIO storage backend.
+
+**NOTE**: MinIO provides encryption-at-rest for data stored in the `minio` service and creates a `minio_sse_master_key` as part of the installation/upgrade process.  The `minio_see_master_key` is set, and managed, by the DataRobot secrets system and should be regularly backed up.  If this key is lost, access to the data stored in the `minio` subsystem will become inaccessible.  All care should be taken to avoid misplacing or losing the `minio_sse_master_key` as it cannot be regenerated without incurring data loss.

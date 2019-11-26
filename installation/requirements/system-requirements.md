@@ -260,6 +260,10 @@ DataRobot requires a minimum of free disk space in these locations:
 
 For data storage nodes (running `minio`, `HDFS`, etc.), we recommend a minimum of 4TB of free space for production-ready systems.
 
+## MinIO Encryption Key
+
+MinIO provides encryption-at-rest for data stored in the `minio` service and creates a `minio_sse_master_key` as part of the installation/upgrade process.  The `minio_see_master_key` is set, and managed, by the DataRobot secrets system and should be regularly backed up.  If this key is lost, access to the data stored in the `minio` subsystem will become inaccessible.  All care should be taken to avoid misplacing or losing the `minio_sse_master_key` as it cannot be regenerated without incurring data loss.
+
 ## Directories
 
 ### DataRobot Home Directory

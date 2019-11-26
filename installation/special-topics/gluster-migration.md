@@ -10,6 +10,8 @@ Gluster is still supported in the DataRobot 5.3 release, and it is recommended t
 
 You must have installed DataRobot 5.3 or later in order to proceed with these migration procedures.
 
+**NOTE**: MinIO provides encryption-at-rest for data stored in the `minio` service and creates a `minio_sse_master_key` as part of the installation/upgrade process.  The `minio_see_master_key` is set, and managed, by the DataRobot secrets system and should be regularly backed up.  If this key is lost, access to the data stored in the `minio` subsystem will become inaccessible.  All care should be taken to avoid misplacing or losing the `minio_sse_master_key` as it cannot be regenerated without incurring data loss.
+
 <a name="add-minio"></a>
 Add MinIO Services
 ------------------
