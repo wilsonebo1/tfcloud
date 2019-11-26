@@ -29,21 +29,21 @@ sudo sed -i --follow-symlinks 's/SELINUX=enforcing/SELINUX=permissive/' /etc/sys
 ### Copy Artifact
 
 * Copy the DataRobot package to a directory on the install server.
-In this install guide we will assume the directory is `/opt/datarobot/DataRobot-5.2.x/`.
-If you use a different directory, replace `/opt/datarobot/DataRobot-5.2.x/` in the following commands with your directory.
+In this install guide we will assume the directory is `/opt/datarobot/DataRobot-5.3.x/`.
+If you use a different directory, replace `/opt/datarobot/DataRobot-5.3.x/` in the following commands with your directory.
 
 Ensure the destination has at least 15 GB of free space for the file and its extracted contents:
 
 ```bash
 scp DataRobot-RELEASE-*.tar.gz \
-    datarobot@[INSTALL SERVER IP]:/opt/datarobot/DataRobot-5.2.x/
+    datarobot@[INSTALL SERVER IP]:/opt/datarobot/DataRobot-5.3.x/
 ```
 
 Also transfer the sha1sum file, to verify the integrity of the installation package:
 
 ```bash
 scp DataRobot-RELEASE-*.tar.gz.sha1sum \
-    datarobot@[INSTALL SERVER IP]:/opt/datarobot/DataRobot-5.2.x/
+    datarobot@[INSTALL SERVER IP]:/opt/datarobot/DataRobot-5.3.x/
 ```
 
 * Run the following commands from an SSH session on the install server.
@@ -57,7 +57,7 @@ ssh datarobot@[INSTALL SERVER IP]
 Execute all the following commands from this directory:
 
 ```bash
-cd /opt/datarobot/DataRobot-5.2.x/
+cd /opt/datarobot/DataRobot-5.3.x/
 ```
 
 * Verify the integrity of the transferred installation package:
@@ -69,13 +69,13 @@ sha1sum -c DataRobot-RELEASE*.tar.gz.sha1sum
 If the installation package was transferred without error, you will see a message similar to the following:
 
 ```bash
-DataRobot-RELEASE-5.2.x.tar.gz: OK
+DataRobot-RELEASE-5.3.x.tar.gz: OK
 ```
 
 If the file was corrupted, you will see a message similar to the following:
 
 ```bash
-DataRobot-RELEASE-5.2.x.tar.gz: FAILED
+DataRobot-RELEASE-5.3.x.tar.gz: FAILED
 sha1sum: WARNING: 1 computed checksum did NOT match
 ```
 
@@ -99,7 +99,7 @@ First, choose a sample YAML configuration file as a template from the `example-c
 
 * `multi-node-ha.yaml`: Multiple application servers.
 
-Now, copy it to `/opt/datarobot/DataRobot-5.2.x/config.yaml`:
+Now, copy it to `/opt/datarobot/DataRobot-5.3.x/config.yaml`:
 
 ```bash
 cp example-configs/multi-node.yaml config.yaml

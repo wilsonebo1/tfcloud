@@ -179,7 +179,7 @@ You will need to update document keys, _for all existing records_, to point to t
   * advanced_configuration.saml_client_configuration.key_file
   * advanced_configuration.saml_client_configuration.cert_file
 
-On upgrade to version 5.2 the following changes should be considered:
+On upgrade to version 5.3 the following changes should be considered:
 
 1. `config.yaml` now supports customizing Docker networks. See [Docker Networking](special-topics/docker-networks.md)
 

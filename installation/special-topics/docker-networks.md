@@ -2,7 +2,7 @@
 
 ## Overview
 
-Starting in DataRobot version 5.2, networking for Docker-based installs is now configurable. Two additional
+Starting in DataRobot version 5.3, networking for Docker-based installs is now configurable. Two additional
 configuration options have been added to aid in advanced network customization. Typically these options will be set in 
 order to avoid network routing overlap. 
 
