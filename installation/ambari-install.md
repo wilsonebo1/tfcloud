@@ -11,8 +11,7 @@ ssh [USERNAME]@[EDGE NODE IP ADDRESS]
 Transfer the installation files from the edge node to the Ambari Manager:
 
 ```bash
-scp ~/hadoop/datarobot-ambari-*.tar.gz \
-.  [AMBARI MANAGER SERVER IP ADDRESS]:/tmp
+scp ~/hadoop/DataRobot-RELEASE-hadoop-*.tar [AMBARI MANAGER SERVER IP ADDRESS]:/tmp
 ```
 
 ## Configure DataRobot Service for Ambari
@@ -27,7 +26,9 @@ Extract Ambari configuration descriptor:
 
 ```bash
 cd /tmp
-tar xvf datarobot-ambari-*.tar.gz
+tar xvf DataRobot-RELEASE-hadoop-*.tar
+cd ambari
+tar xvf datarobot-ambari-*-RELEASE.tar.gz
 ```
 
 Copy Ambari configuration descriptor to services directories:

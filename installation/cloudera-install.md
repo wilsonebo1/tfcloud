@@ -10,13 +10,10 @@ Follow the steps in the sections below to install DataRobot on your Cloudera clu
 ssh datarobot@[APPLICATION SERVER IP ADDRESS]
 ```
 
-* Transfer the installation files from the application server to the Cloudera Manager server:
+* Transfer the installation files from the application server to the Cloudera Manager server if it has not already been done:
 
 ```bash
-scp ~/hadoop/DataRobot-5.3.x*.{jar,parcel,parcel.sha} \
-    [CLOUDERA MANAGER SERVER IP ADDRESS]:/tmp
-scp ~/hadoop/DataRobot-5.3.x*.{jar,parcel,parcel.sha} \
-    [CLOUDERA MANAGER SERVER IP ADDRESS]:/tmp
+scp ~/hadoop/DataRobot-RELEASE-hadoop-*.tar [CLOUDERA MANAGER SERVER IP ADDRESS]:/tmp
 ```
 
 * Connect to the Cloudera Manager Server via SSH:
@@ -25,35 +22,50 @@ scp ~/hadoop/DataRobot-5.3.x*.{jar,parcel,parcel.sha} \
 ssh [USERNAME]@[CLOUDERA MANAGER IP ADDRESS]
 ```
 
+* Untar the hadoop install files:
+
+```bash
+tar xvf /tmp/DataRobot-RELEASE-hadoop-*.tar
+```
+
 * Move the CSD file:
 
 ```bash
-sudo mv /tmp/DataRobot-5.3.x/*.jar /opt/cloudera/csd/
+sudo mv /tmp/csd/*.jar /opt/cloudera/csd/
 ```
 
 * Change the ownership of the installation files:
 
 ```bash
-sudo chown cloudera-scm:cloudera-scm \
-    /opt/cloudera/csd/DataRobot-5.3.x*.jar
+sudo chown cloudera-scm:cloudera-scm /opt/cloudera/csd/DataRobot-*.jar
 ```
 
 * Change the permissions of the installation file:
 
 ```bash
-sudo chmod 644 /opt/cloudera/csd/DataRobot-3.*.jar
+sudo chmod 644 /opt/cloudera/csd/DataRobot-*.jar
 ```
 
-* Move the parcel file:
+* Move the parcel file and the parcel sha file:
 
 ```bash
-sudo mv /tmp/DataRobot-5.3.x*.parcel /opt/cloudera/parcel-repo
+sudo mv /tmp/parcel/DataRobot-* /opt/cloudera/parcel-repo
 ```
 
-* Move the parcel file's SHA:
+* Rename the parcel file and the parcel sha file (you must replace _x_ with the appropriate release number):
+
+For RHEL 6:
 
 ```bash
-sudo mv /tmp/DataRobot-5.3.x*.parcel.sha /opt/cloudera/parcel-repo
+sudo mv /opt/cloudera/parcel-repo/Datarobot-5.3.x-RELEASE-any.parcel /opt/cloudera/parcel-repo/Datarobot-5.3.x-RELEASE-el6.parcel
+sudo mv /opt/cloudera/parcel-repo/Datarobot-5.3.x-RELEASE-any.parcel.sha /opt/cloudera/parcel-repo/Datarobot-5.3.x-RELEASE-el6.parcel.sha
+```
+
+For RHEL 7:
+
+```bash
+sudo mv /opt/cloudera/parcel-repo/Datarobot-5.3.x-RELEASE-any.parcel /opt/cloudera/parcel-repo/Datarobot-5.3.x-RELEASE-el7.parcel
+sudo mv /opt/cloudera/parcel-repo/Datarobot-5.3.x-RELEASE-any.parcel.sha /opt/cloudera/parcel-repo/Datarobot-5.3.x-RELEASE-el7.parcel.sha
 ```
 
 **NOTE**: The CDH 5.4.0 and 5.5.0 .sha files have different formats.
@@ -80,13 +92,13 @@ cat /tmp/DataRobot-5.3.x-release.el6.parcel | cut -d ' ' -f 1 \
 | sudo tee /opt/cloudera/parcel-repo/DataRobot-5.3.x-release.el6.parcel
 ```
 
-* Change the ownership of the parcel file:
+* Change the ownership of the parcel file and parcel sha file:
 
 ```bash
 sudo chown cloudera-scm:cloudera-scm /opt/cloudera/parcel-repo/DataRobot-*
 ```
 
-* Change permissions on the parcel file:
+* Change permissions on the parcel file and parcel sha file:
 
 ```bash
 sudo chmod 644 /opt/cloudera/parcel-repo/DataRobot-*
