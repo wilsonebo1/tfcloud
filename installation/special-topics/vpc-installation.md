@@ -183,6 +183,10 @@ The following values are common and must be set for all methods of supplying cre
 For the examples using a "keyfile", follow [these instructions](https://cloud.google.com/iam/docs/creating-managing-service-account-keys#iam-service-account-keys-create-console)
 to create and download a JSON key file for the appropriate service account.
 
+**Note**: notice that `GOOGLE_STORAGE_CREDENTIALS_SOURCE` is not specified in some of the `drenv_override` example sections bellow.
+When using [Configure the application with an automatically distributed file using the `config.yaml`](#configure-the-application-running-in-gce-using-the-configyaml) or [Configure the application with base64 encoded credentials using the config.yaml](#configure-the-application-with-an-automatically-distributed-file-using-the-configyaml) the installer will take care of setting the right
+`GOOGLE_STORAGE_CREDENTIALS_SOURCE` in the DataRobot's environment, so it can be ommited in the `drenv_override` section.
+
 
 #### Configure the application running in GCE using the `config.yaml`
 
@@ -253,7 +257,7 @@ Example `config.yaml` snippet:
 os_configuration:
   storage:
     use_google_storage_application: true
-    google_storage_credentials_file_contents: |
+    google_storage_keyfile_contents: |
         CnsKICAidHlwZSI6ICJzZXJ2aWNlX2FjY291bnQiLAogICJwcm9qZWN0X2lkIjogInBpdm90YWwt
         cHVycG9zZS0yNTUyMTIiLAogICJwcml2YXRlX2tleV9pZCI6ICJlYzE2MzBmOWZjNDA1NjJmZDRl
         ODNmYjZjOWY1YzQ4MzVlOTdlMGJiIiwKICAicHJpdmF0ZV9rZXkiOiAiLS0tLS1CRUdJTiBQUklW
