@@ -51,6 +51,8 @@ docker start gluster
 docker start minio
 ```
 
+**NOTE**: It is important that all of the `gluster` and `minio` services are started; distributed data requires all of the nodes to be available for both backup and restore activities.
+
 All other services should be offline at this time.
 
 <a name="gluster-backup"></a>
@@ -64,12 +66,22 @@ Backing up the Gluster instance should occur on an instance with Gluster already
 
 You will need a directory large enough to accommodate a backup of the Gluster filesystem.  Testing has shown that compression will typically reduce the size of a Gluster backup by 20%, backing up without compression is significantly faster but requires as much space as the Gluster filesystem consumes.
 
+You only need to execute the backup against a single `gluster` service; the backup command will backup the entire Gluster filesystem across all operational nodes.  Any `gluster` service is acceptable for this backup activity.
+
 The following command will initiate a Gluster backup to the `/opt/datarobot/data/backups` directory, with compression disabled:
 `/opt/datarobot/DataRobot/sbin/datarobot-manage-gluster -b /opt/datarobot/data/backups -n backup`
 
 This command will create a new file `/opt/datarobot/data/backups/datarobot-gluster-backup-<date>.tar` where `<date>` is today's date in the format `YYYY-DD-MM`.
 
 You can verify that the backup is still in progress by checking the processes running on the host system; `ps -elf | grep " [t]ar "` will show a running tar process performing the backup.
+
+**NOTE**: If you are running the backup while the DataRobot Platform is still in operation you may see notices similar to the following; these notices simply mean that the application is changing files while the backup occurs.  If you are running a practice backup this is expected; if you expect your application to be offline during the backup it means the application has not yet been shut down completely.
+
+```bash
+tar: <directory>: file changed as we read it
+tar: <filename>: file changed as we read it
+
+```
 
 Once the backup is complete you can validate that the backup contains all of the files in the Gluster filesystem with the following command:
 `/opt/datarobot/DataRobot/sbin/datarobot-manage-gluster -b /opt/datarobot/data/backups -n validate-backup`
@@ -145,7 +157,7 @@ Remove the Gluster storage, typically located in `/opt/datarobot/data/gluster`; 
 <a name="minio-restore"></a>
 Restoring a Gluster Backup to MinIO
 ---------------------------------
-Restoring to MinIO should occur on an instance with MinIO already running on it. `docker ps | grep minio` should return a running minio docker container.
+Restoring to MinIO should occur on an instance with MinIO already running on it. `docker ps | grep minio` should return a running minio docker container.  You only need to perform a restore against a single `minio` service as MinIO will handle replicating the data to all available nodes.  Any `minio` instance is acceptable for the restore process.
 
 **NOTE**: Restoring up a large dataset can take a significant amount of time, so it is recommended that a terminal multiplexer (e.g. `tmux` or `screen`) are used to manage this restore. This will prevent accidental disconnection from interrupting a restore and allow you to check the status of the restore.
 
