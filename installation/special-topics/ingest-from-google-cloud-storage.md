@@ -19,13 +19,19 @@ If you are using DataRobot from inside the Google Cloud, configure the DataRobot
 If the DataRobot are outside of the Google Cloud or you wish to specify the account used to connect, obtain an authentication keyfile from the Google Cloud and upload it to the server running DataRobot.
 
 ### DataRobot application configuration
-If you are using the service account method for access management, the application credentials is not necessary.  If a keyfile is used, set the following environmental variables:
 
-`GOOGLE_STORAGE_APPLICATION_CREDENTIALS`: Full path to the keyfile (i.e. /home/user/Downloads/[FILE_NAME].json)
+First of all, the Google Storage Ingestion flag needs to be enabled:
+
+`ENABLE_GS_INGESTION`: Must be set to `True`
+
+If you are using the service account method for access management, the application credentials is not necessary. Google SDK is using a strategy called Application Default Credentials (ADC), which is documented [here](https://cloud.google.com/docs/authentication/production) to automatically determine the credentials to use for signing requests.
+
+If you'd like to specify a keyfile explcitly, set the following environmental variables:
+
+`GOOGLE_STORAGE_CREDENTIALS`: Full path to the keyfile (i.e. /home/user/Downloads/[FILE_NAME].json)
 
 `GOOGLE_PROJECT_NAME`: Name of the project from Google Cloud Console
 
-`ENABLE_GS_INGESTION`: Must be set to `True`
 
 ## Implementation Option Two
 Option two for Google Cloud Storage relies on Google Cloud Storage implementation of AWS S3 protocol, also known as Interoperability feature.
