@@ -12,6 +12,86 @@ You must have installed DataRobot 5.3 or later in order to proceed with these mi
 
 **NOTE**: MinIO provides encryption-at-rest for data stored in the `minio` service and creates a `minio_sse_master_key` as part of the installation/upgrade process.  The `minio_see_master_key` is set, and managed, by the DataRobot secrets system and should be regularly backed up.  If this key is lost, access to the data stored in the `minio` subsystem will become inaccessible.  All care should be taken to avoid misplacing or losing the `minio_sse_master_key` as it cannot be regenerated without incurring data loss.
 
+
+<a name="migration-quickstart"></a>
+Quickstart Migration
+--------------------
+Add `minio` to `config.yaml`, set `secrets_enforced` to `true`, and start `minio` services:
+
+```yaml
+    # config.yaml snippet
+    os_configuration:
+      secrets_enforced: true
+```
+
+```yaml
+    # config.yaml snippet
+      services:
+      - gluster
+      - minio
+      ...
+```
+
+```bash
+bin/datarobot reconfigure
+```
+
+Shut down the DataRobot Application:
+```bash
+bin/datarobot services stop
+```
+
+Start the Gluster and MinIO dockers on all of the data nodes by running the following commands on all data backend nodes:
+```bash
+docker start gluster
+docker start minio
+```
+
+Backup the Gluster Instance:
+```bash
+/opt/datarobot/DataRobot/sbin/datarobot-manage-gluster -b /opt/datarobot/data/backups -n backup
+```
+
+Restore the Backup to MinIO:
+```bash
+/opt/datarobot/DataRobot/sbin/datarobot-manage-gluster -b /opt/datarobot/data/backups -n restore-s3
+```
+
+Stop and remove the `gluster` containers on each Gluster host and stop MinIO with the following commands:
+```bash
+   docker stop gluster
+   docker rm gluster
+   docker stop minio
+```
+
+Modify your `config.yaml` to remove `gluster` from the DataRobot configuration and change `FILE_STORAGE_TYPE` to `s3`:
+
+```yaml
+    # config.yaml snippet
+      services:
+      - minio
+      ...
+```
+```yaml
+# config.yaml snippet
+app_configuration:
+  drenv_override:
+    FILE_STORAGE_TYPE: s3
+    ...
+```
+
+Reconfigure and restart the DataRobot instance:
+```bash
+bin/datarobot setup-dependencies
+docker start registry
+bin/datarobot install --skip-copy-code
+```
+
+
+<a name="Details"></a>
+Details
+-------
+
 <a name="add-minio"></a>
 Add MinIO Services
 ------------------
@@ -121,7 +201,7 @@ Modify your `config.yaml` to remove `gluster` from the DataRobot configuration.
 ```yaml
     # config.yaml snippet
       services:
-      - gluster
+      - minio
       ...
 ```
 
