@@ -1,0 +1,1 @@
+../../installation/special-topics/ingest-from-azure-blob-storage.md
