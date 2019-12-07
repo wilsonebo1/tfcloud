@@ -180,12 +180,16 @@ The following values are common and must be set for all methods of supplying cre
 
 `GOOGLE_STORAGE_CREDENTIALS_SOURCE` : Specifies how the credentials will be provided to DataRobot, see the examples below.
 
+`ENABLE_GS_INGESTION` : Set to `True` to enable google storage ingest.
+
 For the examples using a "keyfile", follow [these instructions](https://cloud.google.com/iam/docs/creating-managing-service-account-keys#iam-service-account-keys-create-console)
 to create and download a JSON key file for the appropriate service account.
 
-**Note**: notice that `GOOGLE_STORAGE_CREDENTIALS_SOURCE` is not specified in some of the `drenv_override` example sections bellow.
+**Note**: notice that `GOOGLE_STORAGE_CREDENTIALS_SOURCE` is not specified in some of the `drenv_override` example sections below.
 When using [Configure the application with an automatically distributed file using the `config.yaml`](#configure-the-application-running-in-gce-using-the-configyaml) or [Configure the application with base64 encoded credentials using the config.yaml](#configure-the-application-with-an-automatically-distributed-file-using-the-configyaml) the installer will take care of setting the right
-`GOOGLE_STORAGE_CREDENTIALS_SOURCE` in the DataRobot's environment, so it can be ommited in the `drenv_override` section.
+`GOOGLE_STORAGE_CREDENTIALS_SOURCE` in the DataRobot's environment, so it can be omitted in the `drenv_override` section.
+
+**Note**: if google storage is to be used for backend storage and data ingest, both features share the same service account configuration.
 
 
 #### Configure the application running in GCE using the `config.yaml`
@@ -207,13 +211,10 @@ app_configuration:
     FILE_STORAGE_TYPE: google
     GOOGLE_STORAGE_BUCKET: <bucket name>
     GOOGLE_STORAGE_CREDENTIALS_SOURCE: adc
+    ENABLE_GS_INGESTION: <True|False>
 ```
 
-`GOOGLE_STORAGE_CREDENTIALS_SOURCE` : Must be `adc` to select `ADC`.
-
-The google standard `GOOGLE_APPLICATION_CREDENTIALS` environment variable is also supported with this method,
-however it is the system administrator's responsibility to ensure it is defined on all nodes in the cluster.
-See the `GOOGLE_STORAGE_KEYFILE_PATH` example below for similar functionality provided by DataRobot.
+`GOOGLE_STORAGE_CREDENTIALS_SOURCE` : Must be `adc` to select Application Default Credentials.
 
 
 #### Configure the application with an automatically distributed file using the `config.yaml`
@@ -237,6 +238,7 @@ app_configuration:
     FILE_STORAGE_PREFIX: /data/
     FILE_STORAGE_TYPE: google
     GOOGLE_STORAGE_BUCKET: <bucket name>
+    ENABLE_GS_INGESTION: <True|False>
 ```
 
 `use_google_storage_application` : must be "true" to enable google credentials distribution
@@ -306,6 +308,7 @@ app_configuration:
     FILE_STORAGE_PREFIX: /data/
     FILE_STORAGE_TYPE: google
     GOOGLE_STORAGE_BUCKET: <bucket name>
+    ENABLE_GS_INGESTION: <True|False>
 ```
 
 `use_google_storage_application` : must be "true" to enable google credentials distribution
@@ -323,15 +326,16 @@ and this path must be supplied in the configuration.
 Example `config.yaml` snippet:
 
 ```yaml
- app_configuration:
-   drenv_override:
-     FILE_STORAGE_PREFIX: /data/
-     FILE_STORAGE_TYPE: google
-     GOOGLE_STORAGE_BUCKET: <bucket name>
-     GOOGLE_STORAGE_CREDENTIALS_SOURCE: path
-     GOOGLE_STORAGE_KEYFILE_PATH: <path to keyfile>
+app_configuration:
+  drenv_override:
+    FILE_STORAGE_PREFIX: /data/
+    FILE_STORAGE_TYPE: google
+    GOOGLE_STORAGE_BUCKET: <bucket name>
+    GOOGLE_STORAGE_CREDENTIALS_SOURCE: path
+    GOOGLE_STORAGE_KEYFILE_PATH: /opt/datarobot/etc/credentials/<keyfile.json>
+    ENABLE_GS_INGESTION: <True|False>
  ```
 
 `GOOGLE_STORAGE_CREDENTIALS_SOURCE` : Must be `path` to select `GOOGLE_STORAGE_KEYFILE_PATH`.
 
-`GOOGLE_STORAGE_KEYFILE_PATH` : Path to a google service account credentials file, must be present on all cluster nodes.
+`GOOGLE_STORAGE_KEYFILE_PATH` : Path to a google service account credentials file, must be present on all cluster nodes and containers (in `/opt/datarobot/etc/credentials/` is suggested).
