@@ -50,10 +50,6 @@ application server cluster, whether or not using Hadoop.
 | 1514  | UDP      | Application Web   |
 | 5672  | TCP      | RabbitMQ |
 | 6379  | TCP      | Redis |
-| 6556  | TCP      | Resource Proxy Subscriber |
-| 6557  | TCP      | Resource Proxy Publisher |
-| 6558  | TCP      | Queue Proxy Subscriber |
-| 6559  | TCP      | Queue Proxy Publisher |
 | 8000  | TCP      | DataRobot Flask Application |
 | 8001  | TCP      | DataRobot v0 API |
 | 8002  | TCP      | DataRobot v1 API |
@@ -204,8 +200,6 @@ Hadoop Servers => Application Servers
 | 1514  | UDP      | Application Web |
 | 5672  | TCP      | RabbitMQ |
 | 6379  | TCP      | Redis |
-| 6556  | TCP      | Resource Proxy Subscriber |
-| 6558  | TCP      | Queue Proxy Subscriber |
 | 8027  | TCP      | Hadoop Configuration Sync |
 | 8100  | TCP      | DataRobot DataSets Service API |
 | 26379 | TCP      | Redis Sentinel |
@@ -321,10 +315,6 @@ All of these are listed in one or more of the above tables.
 |5434|TCP|HAProxy HA Postgres Master Port|Application Servers|All Cluster Nodes|
 |5672|TCP|RabbitMQ|RabbitMQ node|All Cluster Nodes|
 |6379|TCP|Redis|Data Servers|All Cluster Nodes|
-|6556|TCP|Resource Proxy Subscriber|Application Servers|All Cluster Nodes|
-|6557|TCP|Resource Proxy Publisher|Application Servers|Application Servers|
-|6558|TCP|Queue Proxy Subscriber|Application Servers|All Cluster Nodes|
-|6559|TCP|Queue Proxy Publisher|Application Servers|Application Servers|
 |7180|TCP|Cloudera Manager web interface (CDH only) (not secure)|Cloudera Manager|Provisioner/Admin|
 |7182|TCP|Cloudera Internal Communication (CDH only)|Cloudera Manager|All Cloudera Nodes|
 |7183|TCP|Cloudera Manager web interface (CDH only) (TLS enabled)|Cloudera Manager|Provisioner/Admin|
