@@ -14,13 +14,13 @@ function _gitbook {
     mkdir -p $BUILD_DIR
 
     pushd $BOOK_DIR
-        echo "Working in $(pwd)"
-        set -x
-        gitbook install
-        gitbook build 
-        gitbook pdf ./ ${BUILD_DIR}/${pdfname}
+    echo "Working in $(pwd)"
+    set -x
+    gitbook install
+    gitbook build
+    gitbook pdf ./ ${BUILD_DIR}/${pdfname}
 
-        set +x
+    set +x
 
     popd
 }

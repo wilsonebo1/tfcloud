@@ -1,8 +1,0 @@
-_book/*
-*/_book/*
-*.pdf
-*.sw[lmnop]
-*.log
-*.html
-test-results.xml
-*/node_modules/*
