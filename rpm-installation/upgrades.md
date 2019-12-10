@@ -22,13 +22,13 @@ directory).
 
 ### Preserve installer encryption key and encrypted config values
 
-The DataRobot installer may make use internally of encryption and write 
+The DataRobot installer may make use internally of encryption and write
 encrypted values to disk to avoid preserving them in plaintext.
 
 This is possible even if `secrets_enforced` is not set to true.
 
-In the installation directory, the file `.secrets-key` (n.b. this is a hidden file) 
-and the directory and all contents of `secrets/` (not to be confused with 
+In the installation directory, the file `.secrets-key` (n.b. this is a hidden file)
+and the directory and all contents of `secrets/` (not to be confused with
 secrets.yaml) must be preserved and copied into the new installation directory.
 
 Some features using this functionality may be severaly hampered if this

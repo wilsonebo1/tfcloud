@@ -1,8 +1,14 @@
+# -*- coding: utf-8 -*-
+"""Tool to parse ports from network requirements."""
+from __future__ import absolute_import, print_function
+
 import json
+import re
+
 from collections import defaultdict
 
 import click
-import re
+
 
 PROTOCOLS = ['tcp', 'udp']
 HADOOP_WORKERS = ['cdh_worker', 'ambari_worker']
@@ -49,10 +55,9 @@ def parse(network_requirements):
         line = network_requirements.readline()
     # Read horizontal bar
     network_requirements.readline()
-    data = defaultdict(lambda: defaultdict(
-        lambda: defaultdict(lambda: defaultdict(list))))
+    data = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: defaultdict(list))))
     for line in network_requirements:
-        _h, port, documented_protocol, comment, dst, src, _t = line.split('|')
+        _, port, documented_protocol, _, dst, src, _ = line.split('|')
 
         for protocol in PROTOCOLS:
             if protocol in documented_protocol.lower():
@@ -60,11 +65,11 @@ def parse(network_requirements):
                 for target in targets:
                     for trgt in TARGET_MAPPING[target]:
                         scope = 'internal' if src == dst else 'all'
-                        data[trgt]['sg_open_ports'][protocol][scope].append(
-                            int(port))
+                        data[trgt]['sg_open_ports'][protocol][scope].append(int(port))
 
     print(json.dumps(data))
 
 
 if __name__ == '__main__':
+    # pylint: disable=no-value-for-parameter
     parse()

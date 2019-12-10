@@ -22,13 +22,13 @@ directory).
 
 ### Preserve installer encryption key and encrypted config values
 
-The DataRobot installer may make use internally of encryption and write 
+The DataRobot installer may make use internally of encryption and write
 encrypted values to disk to avoid preserving them in plaintext.
 
 This is possible even if `secrets_enforced` is not set to true.
 
-In the installation directory, the file `.secrets-key` (n.b. this is a hidden file) 
-and the directory and all contents of `secrets/` (not to be confused with 
+In the installation directory, the file `.secrets-key` (n.b. this is a hidden file)
+and the directory and all contents of `secrets/` (not to be confused with
 secrets.yaml) must be preserved and copied into the new installation directory.
 
 Some features using this functionality may be severaly hampered if this
@@ -258,3 +258,13 @@ plan to migrate data from Gluster to another storage backend.  See
 new MinIO storage backend.
 
 **NOTE**: MinIO provides encryption-at-rest for data stored in the `minio` service and creates a `minio_sse_master_key` as part of the installation/upgrade process.  The `minio_see_master_key` is set, and managed, by the DataRobot secrets system and should be regularly backed up.  If this key is lost, access to the data stored in the `minio` subsystem will become inaccessible.  All care should be taken to avoid misplacing or losing the `minio_sse_master_key` as it cannot be regenerated without incurring data loss.
+
+### Mongo Version and Old DataRobot Versions
+
+Starting with DataRobot release 5.3, the old mongo 2.3->3.4 upgrade tooling has been deprecated. This tooling automatically converted old mongo data into WiredTiger format and made other changes.
+
+As a consequence of this change, for customers on 4.0.x (or earlier releases), they will require upgrading to a version before 5.3.x before upgrading to 5.3.x.
+
+For example, a customer on 4.0.x and mongo 2.4 could be upgraded to 4.4.x or 5.2.x first. This will bring them up to mongo 3.4. Then they could be upgraded to 5.3.x (or later), upgrading to mongo 3.6 (or later).
+
+It is expected that trying to install mongo 3.6 or later on a system using old mongo data (not previously upgraded to 3.4 and WiredTiger), that the DataRobot mongo service/containers will fail to start, or otherwise yield error messages in the logs about "WiredTiger" or incompatible/unreadable mongo data.
