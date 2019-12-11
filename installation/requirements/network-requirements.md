@@ -125,6 +125,7 @@ If using `minio` in an HA configuration, additional internal ports are required
 |------:|:---------|:--------------|
 | 9002  | TCP/UDP  | MinIO HA Port |
 
+
 ### Optional Premium Feature Ports
 These ports are only required if the referenced feature has been purchased and enabled.
 
@@ -138,6 +139,8 @@ These ports are only required if the referenced feature has been purchased and e
 | 5432 | TCP      | Model Management |
 | 5433 | TCP      | Model Management - HA Postgres |
 | 5434 | TCP      | Model Management - HAProxy HA Postgres |
+| 9200 | TCP      | Elasticsearch for AI Catalog |
+| 9300 | TCP      | Elasticsearch Internode Communication |
 
 ## Hadoop Installations
 
@@ -449,6 +452,8 @@ All of these are listed in one or more of the above tables.
 |9002|TCP|MinIO HA Port|Data Servers|All Cluster Nodes|
 |9083|TCP|Hive metastore port|Hortonworks workers|Hortonworks workers|
 |9090|TCP|DataRobot Availability Monitor|Application Servers|Application Servers|
+|9200|TCP|Elasticsearch for AI Catalog|Elasticsearch Nodes|Application Servers|
+|9300|TCP|Elasticsearch Internode Communication|Elasticsearch Nodes|Elasticsearch Nodes|
 |9494|TCP|DataRobot PNGExport Service|Application Servers|Application Servers|
 |9866|TCP|Data transfer (HDFS HA) (CDH 6.x)|Cloudera workers|Application Servers|
 |9864|TCP|Data transfer without HTTPS (HDFS HA) (CDH 6.x)|Cloudera workers|Application Servers|

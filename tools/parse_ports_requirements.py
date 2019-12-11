@@ -26,6 +26,7 @@ TARGET_MAPPING = {
     'Cloudera Manager': ['cdh_master'],
     'Cloudera workers': ['cdh_worker'],
     'Data Servers': ALL_APPLICATION_NODES,
+    'Elasticsearch Nodes': ['elasticsearch'],
     'Hadoop workers': HADOOP_WORKERS,
     'Hortonworks workers': ['ambari_worker'],
     'Model Management': ALL_APPLICATION_NODES,
