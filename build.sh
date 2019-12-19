@@ -1,12 +1,28 @@
 #!/usr/bin/env bash
 
+# Script to build and test install guide PDFs.
+#
+# By default, will use pre-built image from ECR.
+#
+# To build PDFs and run tests, run:
+#
+#     ./build.sh test
+#
+# To build a new image, run:
+#
+#     REBUILD_IMAGE=1 ./build.sh push
+#
+
 set -euo pipefail
 IFS=$'\n\t'
 
-ALL_BOOKS="installation rpm-installation managerless-hadoop"
+GUIDES="${GUIDES:-""}"
 IMAGE_NAME=dr-gitbook
+FULL_IMAGE_NAME=docker.hq.datarobot.com/datarobot/dr-gitbook:latest
 TEST_CONTAINER=gitbook-test
 
+# set REBUILD_IMAGE to rebuild and push image
+REBUILD_IMAGE="${REBUILD_IMAGE:-""}"
 
 function _error() {
     >&2 printf "\e[31mERROR: $@\e[00m\n"
@@ -32,16 +48,29 @@ function _build() {
     set +x
 }
 
+function _push() {
+    set +x
+    _note "Pushing $IMAGE_NAME"
+    if [ -z "$REBUILD_IMAGE" ]; then
+        2>&1 echo "Must set REBUILD_IMAGE to rebuild and push!"
+        exit 1
+    else
+        set -x
+        docker tag $IMAGE_NAME $FULL_IMAGE_NAME
+        dockerwise push $FULL_IMAGE_NAME
+        set +x
+    fi
+}
+
 
 function _clean {
     set +x
     _note "Cleaning up dangling images and test container"
     set +e
     set -x
-    docker images --filter="dangling=true" -q \
-        | xargs --no-run-if-empty docker rmi
-    docker rm $(docker stop $TEST_CONTAINER) 2>/dev/null
-    find . -type d -name _book -exec rm -rf {} \;
+    docker images --filter="dangling=true" -q | xargs --no-run-if-empty docker rmi 2>/dev/null
+    docker rm $(docker stop $TEST_CONTAINER 2>/dev/null) 2>/dev/null
+    find . -type d -name _book -exec rm -rf {} \; 2>/dev/null
     set +x
     set -e
 }
@@ -58,26 +87,21 @@ function _test {
     local oldIFS=$IFS
     IFS=' '
 
+    echo "Pulling $FULL_IMAGE_NAME"
+    docker pull $FULL_IMAGE_NAME
+
     rm -rf output/*
-    for book_dir in $ALL_BOOKS; do
-        local book=$(echo $book_dir | sed -e 's#\/#-#')
-        set -x
-        echo "Building book: $book"
-        docker run --rm --name $TEST_CONTAINER \
-               --user=$UID \
-               -i \
-               -e "BOOK=$book" \
-               -e "BOOK_DIR=$book_dir" \
-               -e "BUILD_DIR=/tmp/gitbook/output" \
-               -e "HOME=/tmp/" \
-               -e "REFNAME=$refname" \
-               -e "USER_ID=$user_id" \
-               -w /tmp/gitbook \
-               -v $(pwd):/tmp/gitbook \
-               -v $(pwd)/gitbook.sh:/tmp/gitbook.sh $IMAGE_NAME \
-               /tmp/gitbook.sh
-        set +x
-    done
+    docker run --rm --name $TEST_CONTAINER --user=$UID -i \
+        -e "GUIDES=$GUIDES" \
+        -e "HOME=/tmp/" \
+        -e "REFNAME=$refname" \
+        -e "USER_ID=$user_id" \
+        -w /tmp/gitbook \
+        -v $(pwd):/tmp/gitbook \
+        -v $(pwd)/gitbook.sh:/tmp/gitbook.sh $FULL_IMAGE_NAME \
+        /tmp/gitbook.sh
+    set +x
+
     IFS=$oldIFS
     cat > test-results.xml <<EOF
 <?xml version="1.0" encoding="utf-8"?>
@@ -116,11 +140,21 @@ function _run_target() {
             set -x
             _clean $args
             set +x ;;
-        test*)
-            _note "Running Test"
+        push)
+            _note "Building and Pushing"
+            if [ -z "$REBUILD_IMAGE" ]; then
+                2>&1 echo "Must set REBUILD_IMAGE to rebuild and push!"
+                exit 1
+            fi
             set -x
             _clean
             _build $args
+            _push
+            set +x ;;
+        test*)
+            _note "Running Tests"
+            set -x
+            _clean
             _test
             set +x
             ;;

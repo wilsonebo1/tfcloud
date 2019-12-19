@@ -3,26 +3,43 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-export REFNAME=${REFNAME:-$(git reflog | head -n 1 | cut -d ' ' -f1)}
+if [ -z "${GUIDES:-""}" ]; then
+    echo "Defaulting to all guides."
+    set -f
+    declare -a "GUIDES=( installation rpm-installation managerless-hadoop )"
+    set +f
+else
+    set -f
+    declare -a "GUIDES=( $GUIDES )"
+    set +f
+fi
+
+BUILD_DIR="/tmp/gitbook/output"
+DATE="$(date +%Y-%m-%d)"
+REFNAME="${REFNAME:-$(git reflog | head -n 1 | cut -d ' ' -f1)}"
+
+mkdir -p "$BUILD_DIR"
 
 function _gitbook {
-    local pdfname=$BOOK-guide-$(date +%Y-%m-%d)-$REFNAME.pdf
+    local guide_dir="/tmp/gitbook/$GUIDE"
+    local pdf_file
+    pdf_file="${BUILD_DIR}/${GUIDE}-guide-${DATE}-${REFNAME}.pdf"
 
-    echo "Building $BOOK book in $BOOK_DIR as $UID"
-    echo "and saving output to $BUILD_DIR"
-
-    mkdir -p $BUILD_DIR
-
-    pushd $BOOK_DIR
-    echo "Working in $(pwd)"
+    echo "Building $GUIDE guide in $guide_dir as $UID and saving output to $pdf_file"
     set -x
+    mkdir -p "$guide_dir"
+    cd "$guide_dir" || exit 1
     gitbook install
-    gitbook build
-    gitbook pdf ./ ${BUILD_DIR}/${pdfname}
-
+    gitbook pdf ./ "$pdf_file"
     set +x
-
-    popd
 }
 
-_gitbook
+function _gitbook_all {
+    echo "Building guides (" "${GUIDES[@]}" ")"
+    # shellcheck disable=SC2068
+    for GUIDE in ${GUIDES[@]}; do
+        _gitbook
+    done
+}
+
+_gitbook_all

@@ -78,7 +78,7 @@ app_configuration:
   drenv_override:
     AWS_ACCESS_KEY_ID: <key>
     AWS_SECRET_ACCESS_KEY: <redacted>
-    FILE_STORAGE_PREFIX: /data/
+    FILE_STORAGE_PREFIX: data/
     FILE_STORAGE_TYPE: s3
     MULTI_PART_S3_UPLOAD: false
     S3_BUCKET: <bucket>
@@ -207,7 +207,7 @@ Example `config.yaml` snippet:
 ---
 app_configuration:
   drenv_override:
-    FILE_STORAGE_PREFIX: /data/
+    FILE_STORAGE_PREFIX: data/
     FILE_STORAGE_TYPE: google
     GOOGLE_STORAGE_BUCKET: <bucket name>
     GOOGLE_STORAGE_CREDENTIALS_SOURCE: adc
@@ -235,7 +235,7 @@ os_configuration:
 
 app_configuration:
   drenv_override:
-    FILE_STORAGE_PREFIX: /data/
+    FILE_STORAGE_PREFIX: data/
     FILE_STORAGE_TYPE: google
     GOOGLE_STORAGE_BUCKET: <bucket name>
     ENABLE_GS_INGESTION: <True|False>
@@ -305,7 +305,7 @@ os_configuration:
 
 app_configuration:
   drenv_override:
-    FILE_STORAGE_PREFIX: /data/
+    FILE_STORAGE_PREFIX: data/
     FILE_STORAGE_TYPE: google
     GOOGLE_STORAGE_BUCKET: <bucket name>
     ENABLE_GS_INGESTION: <True|False>
@@ -328,7 +328,7 @@ Example `config.yaml` snippet:
 ```yaml
 app_configuration:
   drenv_override:
-    FILE_STORAGE_PREFIX: /data/
+    FILE_STORAGE_PREFIX: data/
     FILE_STORAGE_TYPE: google
     GOOGLE_STORAGE_BUCKET: <bucket name>
     GOOGLE_STORAGE_CREDENTIALS_SOURCE: path
