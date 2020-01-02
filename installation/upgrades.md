@@ -268,3 +268,7 @@ As a consequence of this change, for customers on 4.0.x (or earlier releases), t
 For example, a customer on 4.0.x and mongo 2.4 could be upgraded to 4.4.x or 5.2.x first. This will bring them up to mongo 3.4. Then they could be upgraded to 5.3.x (or later), upgrading to mongo 3.6 (or later).
 
 It is expected that trying to install mongo 3.6 or later on a system using old mongo data (not previously upgraded to 3.4 and WiredTiger), that the DataRobot mongo service/containers will fail to start, or otherwise yield error messages in the logs about "WiredTiger" or incompatible/unreadable mongo data.
+
+### Elasticsearch Backup and Restore
+
+Starting with DataRobot release 5.1, Elasticsearch is provided as a storage mechanism for the AI Catalog premium feature. If AI Catalogs are part of the DataRobot installation it is recommended that the DataRobot installation is [configured for elasticsearch backup/restore](special-topics/configure-elasticsearch-backup-restore.md) as part of the upgrade process.

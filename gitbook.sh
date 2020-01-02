@@ -6,7 +6,7 @@ IFS=$'\n\t'
 if [ -z "${GUIDES:-""}" ]; then
     echo "Defaulting to all guides."
     set -f
-    declare -a "GUIDES=( installation rpm-installation managerless-hadoop )"
+    declare -a "GUIDES=( backup-restore installation rpm-installation managerless-hadoop )"
     set +f
 else
     set -f

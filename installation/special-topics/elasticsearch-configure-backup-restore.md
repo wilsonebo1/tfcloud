@@ -10,14 +10,14 @@ A snapshot is a backup taken from a running Elasticsearch cluster. You can take 
 Snapshots are taken incrementally. This means that when creating a snapshot of an index Elasticsearch will avoid copying any data that is already stored in the repository as part of an earlier snapshot of the same index. Therefore it can be efficient to take snapshots of your cluster quite frequently.
 
 ### Repository
-Before performing a snapshot and restore, a snapshot repository must be registered. A repository can contain multiple snapshots of the same cluster. 
+Before performing a snapshot and restore, a snapshot repository must be registered. A repository can contain multiple snapshots of the same cluster.
 
 ### Restore
 Given a snapshot, the indices in the snapshot can be restored to a functioning cluster. It is possible to restore a snapshot made from one cluster to another cluster and the new cluster doesn't have to have the same size or topology. However, the version of the new cluster should be the same or newer (only 1 major version of elasticsearch newer) than the cluster that was used to create the snapshot.
 
 ### DataRobot Snapshot/Repository Defaults
 DataRobot default snapshot file are named `"snapshot-<timestamp>.tar.gz"` with the timestamp of when the snapshot was taken when running the `"backup cli"`.
-DataRobot Default repository settings define `("type": "fs")` using the shared file system to store snapshots in the `"location"`. 
+DataRobot Default repository settings define `("type": "fs")` using the shared file system to store snapshots in the `"location"`.
 ```bash
 {
   "DR_ES" : {
@@ -29,7 +29,7 @@ DataRobot Default repository settings define `("type": "fs")` using the shared f
   }
 }
 ```
-In section [Steps to backup/restore from old to new cluster](Steps-to-backup/restore-from-old-to-new-cluster), creating a snapshot thru the `Backup CLI` and restoring a snapshot thru the `Restore CLI` will be demonstrated.
+The Backup and Restore Guide provides instructions for creating a snapshot thru the `Backup CLI` and restoring a snapshot thru the `Restore CLI`.
 
 ## Enable Backup/Restore Functionality
 1. Add this to config.yaml
@@ -97,64 +97,3 @@ sudo docker rm $(sudo docker ps -a -q)
 ```bash
 ./bin/datarobot install
 ```
-
-### Steps to backup/restore from old to new cluster
-The following steps can be used to perform backup and restore of data between any Elasticsearch clusters, whether you are going to or from a single node or HA configuration. When backing up or restoring to an HA elasticsearch cluster, you must first configure an NFS server and clients.
-1. Make sure that the Elasticsearch repository exists. The output is info about the registered repository.
-```bash
-curl -X GET "localhost:9200/_snapshot/DR_ES?pretty"
-```
-2. On host machine being backed up:
-```bash
-docker exec --user user -it elasticsearch /bin/bash
-sbin/datarobot-manage-elasticsearch backup
-# this is a successful output:
-<time-stamp> - tools.manager.elasticsearch - INFO - Creating "/opt/datarobot-runtime/data/elasticsearch/backup/snapshot-<timestamp>.tar.gz"
-# the backup directory is mounted to "/opt/datarobot/data/elasticsearch/backup/" on the host
-```
-3. scp the tar.gz file over to new host machine
-4. On new host machine, move the snapshot tar.gz file to `$DATAROBOT_HOME/data/backup directory` then untar the `snapshot-<timestamp>.tar.gz` file at "$DATAROBOT_HOME/data/backup" and it will populate the `$DATAROBOT_HOME/data/backup/elasticsearch` directory. Make sure that the tar.gz is owned by the datarobot user. 
-```bash
-cd $DATAROBOT_HOME/data/backup
-tar -zxf snapshot-<timestamp>.tar.gz
-```
-5. Call restore CLI
-```bash
-docker exec -it elasticsearch /bin/bash
-sbin/datarobot-manage-elasticsearch restore
-```
-6. Check that the indices were transferred over
-```bash
-curl -X GET "localhost:9200/_cat/indices?v&pretty" # checks for all indices
-curl -X GET "localhost:9200/catalog/_search?q=*&pretty" # checks the catalog index for everything
-```
-
-### List of API calls to make for verification/debugging purposes:
-```bash
-# return info about the registered repository
-curl -X GET "localhost:9200/_snapshot/DR_ES?pretty"
-# check all snapshots in repo
-curl -X GET "localhost:9200/_snapshot/DR_ES/_all?pretty"
-# close all indices
-curl -XPOST "localhost:9200/_all/_close"
-# open all indices
-curl -XPOST "localhost:9200/_all/_open"
-# delete all indices
-curl -XDELETE "localhost:9200/_all"
-# return high level stats for all indices
-curl -X GET "localhost:9200/_stats?pretty"
-# return stats for an index
-curl -X GET "localhost:9200/<index_name>/_stats?pretty"
-# return setting info for an index
-curl -X GET "localhost:9200/<index_name>/_settings?pretty"
-# get cluster health status
-curl -X GET "localhost:9200/_cluster/health?wait_for_status=yellow&timeout=50s&pretty"
-```
-
-### Understanding Elasticsearch status reports:
-Red: Some or all of (primary) shards are not ready.
-Yellow: Elasticsearch has allocated all of the primary shards, but some/all of the replicas have not been allocated.
-Green: Great. Your cluster is fully operational. Elasticsearch is able to allocate all shards and replicas to machines within the cluster.
-
-### Reference
-<https://www.elastic.co/guide/en/elasticsearch/reference/6.4/modules-snapshots.html#_restoring_to_a_different_cluster>

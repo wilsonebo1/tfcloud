@@ -18,7 +18,7 @@
 * [Pre-Flight Checks](pre-flight-checks.md)
 * [Hadoop Pre-Flight Checks](pre-flight-checks.md#hadoop-checks)
 * [Advanced Configuration](special-topics/README.md)
-  * [Backup/Restore](special-topics/backup-restore.md)
+  * [Configuring Elasticsearch Backup/Restore](special-topics/configure-elasticsearch-backup-restore.md)
   * [TLS](special-topics/tls.md)
   * [Security Best Practices](special-topics/security.md)
   * [KMS Integration](special-topics/kms.md)

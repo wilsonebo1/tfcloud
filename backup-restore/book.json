@@ -1,0 +1,12 @@
+{
+  "root": "./",
+  "gitbook": "3.2.2",
+  "title": "DataRobot Backup and Restore Guide",
+  "description": "This guide describes how to backup and restore your on-premise DataRobot installation.",
+  "author": "DataRobot, Inc",
+  "variables":
+  {
+    "defaultfoot": "&copy; DataRobot, Inc. 2019. All Rights Reserved."
+  },
+  "plugins": ["theme-defaultfoot"]
+}
