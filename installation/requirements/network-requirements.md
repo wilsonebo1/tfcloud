@@ -68,6 +68,7 @@ application server cluster, whether or not using Hadoop.
 | 8018  | UDP      | Analytics Broker |
 | 8023  | TCP      | DataRobot Upload Server |
 | 8033  | TCP      | DataRobot Diagnostics Server |
+| 8051  | TCP      | TileServer GL |
 | 8097  | TCP      | DataRobot Prediction Optimization Application |
 | 8100  | TCP      | DataRobot Datasets Service API |
 | 9090  | TCP      | DataRobot Availability Monitor |
@@ -429,6 +430,7 @@ All of these are listed in one or more of the above tables.
 |8042|TCP|YARN NodeManager WebApp|Hadoop workers|Hadoop workers|
 |8044|TCP|YARN NodeManager HTTPS (CDH)|Cloudera workers|Cloudera workers|
 |8050|TCP|YARN Resourcemanager Address(HDP)|Hortonworks workers|Hortonworks workers|
+|8051|TCP|TileServer GL|Application Servers|Application Servers|
 |8080|TCP|Ambari Manager web interface (Ambari only)|Ambari Manager|Application Servers|
 |8088|TCP|YARN ResourceManager HTTP|Hadoop workers|Application Web Servers|
 |8090|TCP|YARN ResourceManager HTTPs|Hadoop workers|Application Web Servers|
