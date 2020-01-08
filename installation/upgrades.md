@@ -181,7 +181,11 @@ You will need to update document keys, _for all existing records_, to point to t
 
 On upgrade to version 5.3 the following changes should be considered:
 
-1. `config.yaml` now supports customizing Docker networks. See [Docker Networking](special-topics/docker-networks.md)
+* `config.yaml` now supports customizing Docker networks. See [Docker Networking](special-topics/docker-networks.md)
+* If secrets are enabled, remove the erlang cookie on all RabbitMQ hosts (located by inspecting your config.yaml) host after services have been stopped. 
+  These nodes will be labeled Rabbit in config.yaml.
+  1. ensure that all datarobot services are stopped
+  2. ```mv /opt/datarobot/data/rabbit/data/.erlang.cookie /opt/datarobot/data/rabbit/data/erlang.cookie.bak```
 
 
 ### Update Network configuration
