@@ -1,7 +1,15 @@
 # Kubernetes Installation Instructions
 
 Starting in DataRobot 5.3 DataRobot can install kubernetes cluster on AWS or GCP and run 
-Custom Models on it.  
+Custom Models on it.
+
+Install order:
+
+1. DR dependencies
+2. Run-registry
+2. Kubernetes
+3. [LRS operator](./special-topics/lrs-operator-configuration.md#automatic-lrs-operator-installation-using-datarobot-installer)
+4. Datarobot  
 
 ## AWS  
 
@@ -17,7 +25,8 @@ by the administrators of the account and you should have the following list
 of values/files from them:
 
 * VPC ID (`vpc-id`)
-* IDs for 3 VPC subnets (`subnet-1` `subnet-2` `subnet-3`)
+* IDs for 3 private VPC subnets (`subnet-1` `subnet-2` `subnet-3`) - could be any internal subnets
+* IDs for 3 public VPC subnets (`pub-subnet-1` `pub-subnet-2` `pub-subnet-3`) - [VPC with Public and Private Subnets (NAT)](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Scenario2.html)
 * Cluster name (`<cluster-name>`)
 * AWS region (`aws-region`)
 * SSH Key file (`<cluster-name>.pem`) 
@@ -33,12 +42,21 @@ of values/files from them:
   * `<cluster_name>-k8s-cert-manager` (arn)
   * `<cluster_name>-k8s-ec2-srcdst` (arn)
   * `<cluster_name>-k8s-external-dns` (arn)
+* Email for the Let's Encrypt (LE). (`<email>`) it could be any existing email. Will be used 
+by Let's Encrypt service to send notifications. It's better to use some of our email to get notified 
+in case of any issues with the client Let's Encrypt.  
+* Registry password. (`<registry_password>`) Password to be used for custom models registry inside a 
+Kubernetes installation. We recommend to use password generator to choose one. 
+* Registry username. (`<registry_username>`) User to be used for custom models registry inside a 
+ Kubernetes installation. We recommend to use `<cluste_name>` as one.
 
 Account preparation described in the separate document.  
 
 ### Copy required files
 
-Copy `<cluster-name>.pem` to the `/opt/tmp/kubernetes`
+Copy `<cluster-name>.pem` to the `/kubernetes` under installation folder 
+(`/opt/datarobot/DataRobot-5.3.0/kubernetes/<cluster-name>.pem`, for example). Change permissions 
+to the file to `600`.
 
 ### Preparing DataRobot `config.yaml`
 
@@ -54,10 +72,9 @@ app_configuration:
     LONG_RUNNING_SERVICES_INGRESS_SSL_REDIRECT: true
     LONG_RUNNING_SERVICES_USE_OPERATOR: true
     LONG_RUNNING_SERVICES_OPERATOR_INSTANCE_NAME: dsp-lrs-operator
-    CLIENT_VERSION: 3feafd4
     CUSTOM_MODELS_FQDN: custom-model-<cluster-name>-dsp.<public-domain-zone>
     ENABLE_PIPELINE: true
-    EXECUTION_ENVIRONMENTS_DOCKER_IMAGE_NAME: docker:topsecret@repo-<cluster-name>-dsp.<public-domain-zone>/datarobot/ee
+    EXECUTION_ENVIRONMENTS_DOCKER_IMAGE_NAME: <registry_username>:<registry_password>@repo-<cluster-name>-dsp.<public-domain-zone>/datarobot/ee
     KUBECONFIG_PATH: /opt/datarobot-runtime/etc/kubeconfig/kubeconfig
 
 kubernetes:
@@ -87,19 +104,20 @@ kubernetes:
         kibana_password: DataRobot
         kibana_username: DataRobot
         letsencrypt-environment: prod
-        letsencrypt-user-email: ultramarines@datarobot.com
+        letsencrypt-user-email: <email>
         private-domain-zone: <private-dns-zone-name>
         public-domain-zone: <public-dns-zone-name>
-        ssh_key_path: /opt/tmp/kubernetes/<cluster-name>.pem
+        ssh_key_path: <cluster-name>.pem
         ssh_key_name: <cluster-name>
         subnets: <subnet-id-1> <subnet-id-2> <subnet-id-3>
+        public_subnets: <pub-subnet-id-1> <pub-subnet-id-2> <pub-subnet-id-3>
         vpc_id: <vpc-id>
       datascience_platform:
         domain_zone: <public-dns-zone-name>
         registry_hostname: repo-<cluster-name>-dsp
-        registry_password: topsecret
+        registry_password: <registry_password>
         registry_storage_bytes: 53687091200
-        registry_username: docker
+        registry_username: <registry_username>
       extension: datascience_platform
       plugin: aws
   enable: true
@@ -143,6 +161,13 @@ ServiceAccount credentials key file saved as `<*.JSON>` with AdministratorAccess
 * Copy `<*>` (private ssh key) to the `/opt/tmp/kubernetes`
 * Copy `<*>.pub` to the `/opt/tmp/kubernetes`
 * Copy `<*>.JSON` to the `/opt/tmp/kubernetes`
+* Email for the Let's Encrypt (LE). (`<email>`) it could be any existing email. Will be used 
+by Let's Encrypt service to send notifications. It's better to use some of our email to get notified 
+in case of any issues with the client Let's Encrypt.  
+* Registry password. (`<registry_password>`) Password to be used for custom models registry inside a 
+Kubernetes installation. We recommend to use password generator to choose one. 
+* Registry username. (`<registry_username>`) User to be used for custom models registry inside a 
+ Kubernetes installation. We recommend to use `<cluste_name>` as one.
 
 ### Preparing DataRobot `config.yaml`
 
@@ -158,10 +183,9 @@ app_configuration:
     LONG_RUNNING_SERVICES_INGRESS_SSL_REDIRECT: true
     LONG_RUNNING_SERVICES_USE_OPERATOR: true
     LONG_RUNNING_SERVICES_OPERATOR_INSTANCE_NAME: dsp-lrs-operator
-    CLIENT_VERSION: 3feafd4
     CUSTOM_MODELS_FQDN: custom-model-<cluster-name>-dsp.<public-domain-zone>.<parent-domain-zone>
     ENABLE_PIPELINE: true
-    EXECUTION_ENVIRONMENTS_DOCKER_IMAGE_NAME: docker:topsecret@repo-<cluster-name>-dsp.<public-domain-zone>.<parent-domain-zone>/datarobot/ee
+    EXECUTION_ENVIRONMENTS_DOCKER_IMAGE_NAME: <registry_username>:<registry_password>@repo-<cluster-name>-dsp.<public-domain-zone>.<parent-domain-zone>/datarobot/ee
     KUBECONFIG_PATH: /opt/datarobot-runtime/etc/kubeconfig/kubeconfig
 ...
 kubernetes:
@@ -195,13 +219,13 @@ kubernetes:
         kibana_username: DataRobot
         kibana_password: DataRobot
         letsencrypt-environment: prod
-        letsencrypt-user-email: ultramarines@datarobot.com
+        letsencrypt-user-email: <email>
       datascience_platform:
         domain_zone: <public-domain-zone>.<parent-domain-zone>
         registry_hostname: repo-<cluster-name>-dsp
-        registry_password: topsecret
+        registry_password: <registry_password>
         registry_storage_bytes: 53687091200
-        registry_username: docker
+        registry_username: <registry_username>
       extension: datascience_platform
       plugin: gcp
   enable: true

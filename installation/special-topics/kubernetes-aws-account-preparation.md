@@ -2,8 +2,12 @@
 
 AWS account should be prepared before run installation. 
 
-To prepare account user has to have the AdministratorAccess policy in the account and you should have 
-a public domain name in your possession. We will reference it as *<your_domain>*
+To prepare account user has to have the AdministratorAccess policy in the account. 
+[AWS Credentials Environment Variables](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html) 
+must be set to the environment. 
+
+You should have a public domain name in your possession. We will reference it as **`<your_domain>`**. 
+You may buy a new one, see [Public DNS Zone](#public-dns-zone) chapter.  
  
 As a result of the following step you get:
 * Cluster name
@@ -12,7 +16,9 @@ As a result of the following step you get:
 * CentOS 7 AMI subscription
 * Private DNS Zone in the Route53
 * Public DNS Zone in the Route53 (domain name and Zone ID) 
-* Set of IAM permissions (and their arn)
+* Set of IAM permissions (and their arn)  
+
+This installation doe not support custom certificates for the endpoints. 
 
 ## Choose cluster name
 
@@ -22,7 +28,7 @@ It should be unique per Datarobot installation since we supporting multiple kube
 In this documentation, it will be referenced as `<cluster_name>` 
 `<cluster_name>` can not be longer than 24 characters and must be valid Domain Zone 
 (contains ASCII letters, digits, and hyphens (a-z, A-Z, 0-9, -), but not starting or ending with a 
-hyphen).
+hyphen). We recommend to use lowercase for cluster name everywhere.
 
 ## Account Requirements
 
@@ -42,6 +48,7 @@ The base file name is `<cluster_name>.pem`. Save the private key file in a safe 
 ## AMI
 
 Official CentOS 7 AMI subscription should be purchased in the account. 
+Custom AMI is not supported.  
 You may use [this tutorial](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/paid-amis.html#using-paid-amis-purchasing-paid-ami) or following the next steps:
 
 * Open the Amazon EC2 console at https://console.aws.amazon.com/ec2/
@@ -84,6 +91,15 @@ optionally, a comment.
 
 ### Public DNS Zone
 
+##### Prepare domain
+
+If you already have domain you may skip this part.  
+
+We recommend to buy domain to use with the cluster: [Register a Domain Name](https://aws.amazon.com/getting-started/tutorials/get-a-domain/) 
+We will reference it as `<your_domain>`. 
+
+##### Create cluster DNS Zone
+
 * Sign in to the **AWS Management Console** and open the **Route 53** console at https://console.aws.amazon.com/route53/.
 * Choose **Hosted Zones** in the navigation pane.
 * Choose **Create Hosted Zone**.
@@ -93,7 +109,12 @@ optionally, a comment.
 * Click **Create**.
 * Save **Hosted Zone ID** it would be used later as `<public_zone_id>`
 
-Delegate Zone management. Use [this article](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/CreatingNewSubdomain.html), or follow the steps:
+Write down the **Domain Name** and **Hosted Zone ID**. We will reference them as `<public_domain_name>` 
+and `<public_zone_id>`
+
+##### Delegate Zone management. 
+
+Use [this article](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/CreatingNewSubdomain.html), or follow the steps:
 
 * On the **Hosted Zones page**, choose the radio button (not the name) for the hosted zone.
 * In the right pane, make note of the four servers listed for **Name Servers**. 
@@ -101,8 +122,20 @@ Delegate Zone management. Use [this article](https://docs.aws.amazon.com/Route53
 add NS records for the subdomain to the zone file for the parent domain. In these NS records, 
 specify the four Route 53 name servers that are associated with the hosted zone that you created.
 
-Write down the **Domain Name** and **Hosted Zone ID**. We will reference them as `<public_domain_name>` 
-and `<public_zone_id>`
+Example for the AWS:
+
+* Sign in to the **AWS Management Console** and open the **Route 53** console at https://console.aws.amazon.com/route53/.
+* In the navigation pane, click **Hosted Zones**.
+* On the **Hosted Zones** page, choose the radio button (not the name) for the cluster hosted zone.
+* In the right pane, make note of the four servers listed for **Name Servers**.
+* Copy **Name Servers**
+* Back to the **Hosted Zones** page
+* Choose your domain hosted zone
+* Choose **Create Record Set** button
+* Input `<cluster_name` as name
+* Choose **Type** **NS - Name Server**
+* Post previously copied **Name Servers** to the **Value** field
+* Choose Create
 
 
 ## IAM configuration 
@@ -119,7 +152,15 @@ These are a list of the instance profiles and roles that should be present in th
 * `<cluster_name>`-k8s-autoscaler
 * `<cluster_name>`-k8s-cert-manager
 * `<cluster_name>`-k8s-ec2-srcdst
-* `<cluster_name>`-k8s-external-dns
+* `<cluster_name>`-k8s-external-dns  
+
+**Trusted Relationships** are used to allow etcd/master/worker nodes to assume specific policies 
+when needed.  
+Roles are used to grant specific privileges to specific actors for a set duration of time. 
+So, a role needs two things: permission policies (what resources can be accessed and what actions 
+can be taken) and a trust policy (what entities can assume the role). "`<cluster_name>`-" policies 
+define the permission policy and **Trusted Relationships** define trust policy - so services on 
+nodes could use a policies. 
 
 ### <cluster_name>-k8s-etcd
 
@@ -150,7 +191,7 @@ https://console.aws.amazon.com/iam/home
 * Choose **Review Policy**
 * Enter **`<cluster_name>`-k8s-etcd** as policy name
 * Choose **Create Policy**
-* **Save Role ARN, we will reference it as `<etcd_role_arn>`**
+* **Save Profile ARN, we will reference it as `<etcd_profile_arn>`**
 
 ### <cluster_name>-k8s-master
 
@@ -184,7 +225,7 @@ at https://console.aws.amazon.com/iam/home
         {
             "Sid": "",
             "Effect": "Allow",
-            "Action": "ec2:*SecurityGroup",
+            "Action": "ec2:*SecurityGroup*",
             "Resource": "*"
         },
         {
@@ -222,7 +263,7 @@ at https://console.aws.amazon.com/iam/home
 * Choose **Review Policy**
 * Enter **`<cluster_name>`-k8s-master** as policy name
 * Choose **Create Policy**
-* **Save Role ARN, we will reference it as `<master_role_arn>`**
+* **Save Profile ARN, we will reference it as `<master_profile_arn>`**
 
 ### <cluster_name>-k8s-worker
 
@@ -266,7 +307,7 @@ https://console.aws.amazon.com/iam/home
 * Choose **Review Policy**
 * Enter **`<cluster_name>`-k8s-worker** as policy name
 * Choose **Create Policy**
-* **Save Role ARN, we will reference it as `<worker_role_arn>`**
+* **Save Profile ARN, we will reference it as `<worker_profile_arn>`**
 
 ### <cluster_name>-k8s-base
 
@@ -281,7 +322,7 @@ https://console.aws.amazon.com/iam/home
 * Choose **Add Inline Policy**
 * Select JSON tab
 * Replace Text with the following JSON:
-```
+```json
 { 
  "Version": "2012-10-17",
     "Statement": [
@@ -299,8 +340,8 @@ https://console.aws.amazon.com/iam/home
 * Choose **Create Policy**
 * Choose **Trust Relationship** tab
 * Choose **Edit Trust Relationships**
-* Enter the following JSON to the **Policy Document** field  (replace `<etcd_role_arn>`, 
-`<worker_role_arn>`,  `<master_role_arn>` with the values from the previous steps!):
+* Enter the following JSON to the **Policy Document** field  (replace `<etcd_profile_arn>`, 
+`<worker_profile_arn>`,  `<master_profile_arn>` with the values from the previous steps!):
 ```json
 {
   "Version": "2012-10-17",
@@ -310,9 +351,9 @@ https://console.aws.amazon.com/iam/home
       "Effect": "Allow",
       "Principal": {
         "AWS": [
-          "<etcd_role_arn>",
-          "<worker_role_arn>",
-          "<master_role_arn>"
+          "<etcd_profile_arn>",
+          "<worker_profile_arn>",
+          "<master_profile_arn>"
         ]
       },
       "Action": "sts:AssumeRole"
@@ -336,7 +377,7 @@ https://console.aws.amazon.com/iam/home
 * Select JSON tab
 * Replace Text with the following JSON (replace `<public_zone_id>` with the value from the 
 previous steps!):
-```
+```json
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -364,8 +405,10 @@ previous steps!):
 * Choose **Review Policy**
 * Enter **`<cluster_name>`-k8s-cert-manager** as policy name
 * Choose **Create Policy**
-* Enter the following JSON to the **Policy Document** field  (replace `<etcd_role_arn>`,
- `<worker_role_arn>`, `<master_role_arn>` with the values from the previous steps!):
+* Choose **Trust Relationship** tab
+* Choose **Edit Trust Relationships**
+* Enter the following JSON to the **Policy Document** field  (replace `<etcd_profile_arn>`, 
+`<worker_profile_arn>`,  `<master_profile_arn>` with the values from the previous steps!):
 ```json
 {
   "Version": "2012-10-17",
@@ -375,9 +418,9 @@ previous steps!):
       "Effect": "Allow",
       "Principal": {
         "AWS": [
-          "<etcd_role_arn>",
-          "<worker_role_arn>",
-          "<master_role_arn>"
+          "<etcd_profile_arn>",
+          "<worker_profile_arn>",
+          "<master_profile_arn>"
         ]
       },
       "Action": "sts:AssumeRole"
@@ -416,8 +459,8 @@ at https://console.aws.amazon.com/iam/home
 * Choose **Review Policy**
 * Enter **`<cluster_name>`-k8s-ec2-srcdst** as policy name
 * Choose **Create Policy**
-* Enter the following JSON to the Policy Document field  (replace `<etcd_role_arn>`, 
-`<worker_role_arn>`,  `<master_role_arn>` with the values from the previous steps!):
+* Enter the following JSON to the Policy Document field  (replace `<etcd_profile_arn>`, 
+`<worker_profile_arn>`,  `<master_profile_arn>` with the values from the previous steps!):
 ```json
 {
   "Version": "2012-10-17",
@@ -427,9 +470,9 @@ at https://console.aws.amazon.com/iam/home
       "Effect": "Allow",
       "Principal": {
         "AWS": [
-          "<etcd_role_arn>",
-          "<worker_role_arn>",
-          "<master_role_arn>"
+          "<etcd_profile_arn>",
+          "<worker_profile_arn>",
+          "<master_profile_arn>"
         ]
       },
       "Action": "sts:AssumeRole"
@@ -478,8 +521,8 @@ https://console.aws.amazon.com/iam/home
 * Choose **Review Policy**
 * Enter **`<cluster_name>`-k8s-external-dns** as policy name
 * Choose **Create Policy**
-* Enter the following JSON to the Policy Document field (replace `<etcd_role_arn>`, 
-`<worker_role_arn>`,  `<master_role_arn>` with the values from the previous steps!):
+* Enter the following JSON to the Policy Document field (replace `<etcd_profile_arn>`, 
+`<worker_profile_arn>`,  `<master_profile_arn>` with the values from the previous steps!):
 ```json
 {
   "Version": "2012-10-17",
@@ -489,9 +532,67 @@ https://console.aws.amazon.com/iam/home
       "Effect": "Allow",
       "Principal": {
         "AWS": [
-          "<etcd_role_arn>",
-          "<worker_role_arn>",
-          "<master_role_arn>"
+          "<etcd_profile_arn>",
+          "<worker_profile_arn>",
+          "<master_profile_arn>"
+        ]
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+```
+* Choose **Update Trust Policy**
+
+### <cluster_name>-k8s-autoscaler
+
+* Sign in to the **AWS Management Console** and open the **Identity and Access Management (IAM)** at 
+https://console.aws.amazon.com/iam/home
+* Choose **Role -> Create role**
+* Сhoose **EC2** from the list
+* Choose **Next** until you reach the **Review**
+* Enter **`<cluster_name>`-k8s-autoscaler** as role name
+* Choose **Create role**
+* Get back to newly created role
+* Choose **Add Inline Policy**
+* Select JSON tab
+ ```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "",
+            "Effect": "Allow",
+            "Action": [
+                "autoscaling:TerminateInstanceInAutoScalingGroup",
+                "autoscaling:SetDesiredCapacity",
+                "autoscaling:DescribeTags",
+                "autoscaling:DescribeLaunchConfigurations",
+                "autoscaling:DescribeAutoScalingInstances",
+                "autoscaling:DescribeAutoScalingGroups"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+```
+* Choose **Review Policy**
+* Enter **`<cluster_name>`-k8s-autoscaler** as policy name
+* Choose **Create Policy**
+* Enter the following JSON to the Policy Document field (replace `<etcd_profile_arn>`, 
+`<worker_profile_arn>`, `<master_profile_arn>` with the values from the previous steps!):
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": [
+          "<etcd_profile_arn>",
+          "<worker_profile_arn>",
+          "<master_profile_arn>"
         ]
       },
       "Action": "sts:AssumeRole"
