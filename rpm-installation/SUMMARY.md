@@ -38,3 +38,4 @@
   * [SAML SSO Integration](special-topics/sso-saml.md)
   * [Data ingestion from Google Cloud Storage](special-topics/ingest-from-google-cloud-storage.md)
   * [Data ingestion from Microsoft Azure Blob Storage](special-topics/ingest-from-azure-blob-storage.md)
+  * [Using the MinIO Filestore](special-topics/minio-filestore.md)
