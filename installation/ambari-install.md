@@ -228,7 +228,7 @@ http://[IP OF SIMPLE WEBSERVER]:[SERVER PORT]/DataRobot-[PARCEL VERSION].parcel
 
 <img src="images/ambari-parcel-url.png" alt="" style="border: 1px solid black;" width="600"/>
 
-7. Set up all required parameters (App Node Location, License) in the `datarobot-master`
+7. Set up all required parameters (App Node Location) in the `datarobot-master`
 configuration:
 
 <img src="images/ambari-required-params.png" alt="" style="border: 1px solid black;" width="600"/>

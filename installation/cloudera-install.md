@@ -323,9 +323,6 @@ available DataNode using the same procedure.
 
 * Click **OK** and **Continue**.
 
-* Click in the **DataRobot License Key** text field and paste in the text from
-your DataRobot license key.
-
 * Click in the **App Node Location** text field and key in the IP or DNS of application server. Example: http://10.0.0.1
 
 * Edit container memory and vcores settings as appropriate for your cluster.

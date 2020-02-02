@@ -25,7 +25,6 @@ Export environment variables to launch datarobot.sh:
 ```bash
 export ZK_QUORUM=<zk_quorum>
 export DATAROBOT_PROVISIONING_HOST=<app_node_host>
-export LICENSE_KEY=<dr_license>
 export DATAROBOT_DIRNAME=<parcel_name>
 export PARCEL_PATH=<path_to_the_parcel>
 export DATAROBOT_HOME=$PARCEL_PATH
@@ -47,7 +46,7 @@ export HADOOP_CONFIG_ENCRYPTION_KEY=defaultkey
 Please use `screen` (or any similar tool) to run `datarobot.sh` in the background,
 passing required parameters as follows:
 ```bash
-./datarobot.sh start_master $LICENSE_KEY $DATAROBOT_PROVISIONING_HOST datarobot
+./datarobot.sh start_master $DATAROBOT_PROVISIONING_HOST datarobot
 ```
 
 This will start the application master and restart services on the
