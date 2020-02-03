@@ -471,7 +471,7 @@ errors.
 *      -      nofile  65536
 ```
 
-Datarobot also leverages memory-mapped file I/O for processing.  The default
+DataRobot also leverages memory-mapped file I/O for processing.  The default
 operating system limits on mmap counts is likely to be too low, which may
 result in out of memory exceptions.  Set the following mmap limits to avoid
 Out of Memory errors.
@@ -480,6 +480,18 @@ Out of Memory errors.
 # FILE: /etc/sysctl.d/99-datarobot.conf
 vm.max_map_count=262144
 ```
+
+DataRobot is not certified to work in environments running IPv6.  Use the following sysctl settings to disable IPv6 on all hosts running DataRobot services.
+
+```
+#FILE: /etc/sysctl.d/99-datarobot.conf
+net.ipv6.conf.all.disable_ipv6=1
+net.ipv6.conf.default.disable_ipv6=1
+```
+
+Load the `/etc/sysctl.d/99-datarobot.conf` sysctl parameters on each system running DataRobot services using the following command.
+
+`sysctl -p /etc/sysctl.d/99-datarobot.conf`
 
 Dockers running in the datarobot environment will need to open large numbers
 of file simultaineously, as well as accessing locked-in-memory spaces.  Set

@@ -7,6 +7,10 @@ Ambari, it is mentioned explicitly.
 In Hadoop-based installs, the **"application servers"** are any edge-node
 servers, running DataRobot services _outside of Hadoop_.
 
+**NOTE**: DataRobot is not certified to run on systems with IPv6 enabled. All `config.yaml` settings
+should use IPv4, and IPv6 is disabled during `setup-dependencies`.  Re-enabling IPv6 may result in
+unexpected behavior.
+
 
 ## End User
 
