@@ -26,7 +26,7 @@ docker start gluster
 Backup the Gluster Instance on any one of the data backend nodes with the following command:
 
 ```bash
-/opt/datarobot/DataRobot/sbin/datarobot-manage-gluster -b /opt/datarobot/data/backups -n backup
+/opt/datarobot/bin/datarobot-manage-gluster -b /opt/datarobot/data/backups/gluster -n backup
 ```
 
 Stop the Gluster dockers on all of the data nodes by running the following command on all data backend nodes:
@@ -40,7 +40,7 @@ docker stop gluster
 ------------------
 **NOTE**: Backing up a large dataset can take a significant amount of time, so it is recommended that a terminal multiplexer (e.g. `tmux` or `screen`) is used to manage this backup. This will prevent accidental disconnection from interrupting a backup and allow you to check the status of the backup.
 
-`/opt/datarobot/DataRobot/sbin/datarobot-manage-gluster` has been provided as a tool to manage Gluster backups. `/opt/datarobot/DataRobot/sbin/datarobot-manage-gluster --help` with display all of the configuration options available.  This document will cover the basic backup procedure; you may need to modify command lines to specifically meet the needs of your backup activity and configuration.
+`/opt/datarobot/bin/datarobot-manage-gluster` has been provided as a tool to manage Gluster backups. `/opt/datarobot/bin/datarobot-manage-gluster --help` with display all of the configuration options available.  This document will cover the basic backup procedure; you may need to modify command lines to specifically meet the needs of your backup activity and configuration.
 
 You will need a directory large enough to accommodate a backup of the Gluster filesystem.  Testing has shown that compression will typically reduce the size of a Gluster backup by 20%, backing up without compression is significantly faster but requires as much space as the Gluster filesystem consumes.
 
@@ -53,10 +53,10 @@ docker start gluster
 
 Backing up the Gluster instance should occur on an instance with Gluster already running on it. `docker ps | grep gluster` should return a running gluster docker container.
 
-The following command will initiate a Gluster backup to the `/opt/datarobot/data/backups` directory, with compression disabled:
+The following command will initiate a Gluster backup to the `/opt/datarobot/data/backups/gluster` directory, with compression disabled:
 
 ```bash
-/opt/datarobot/DataRobot/sbin/datarobot-manage-gluster -b /opt/datarobot/data/backups -n backup
+/opt/datarobot/bin/datarobot-manage-gluster -b /opt/datarobot/data/backups/gluster -n backup
 ```
 
 This command will create a new file `/opt/datarobot/data/backups/gluster/datarobot-gluster-backup-<date>.tar` where `<date>` is today's date in the format `YYYY-DD-MM`.
@@ -76,7 +76,7 @@ If compression is not used, the size of the backup tarball will end up being app
 du -sh /opt/datarobot/data/gluster
 
 # watch size of tarball increase to meet size of gluster directory
-watch ls -lh /opt/datarobot/data/backups/
+watch ls -lh /opt/datarobot/data/backups/gluster/
 ```
 
 **NOTE**: If you are running the backup while the DataRobot Platform is still in operation you may see notices similar to the following; these notices simply mean that the application is changing files while the backup occurs.  If you are running a practice backup this is expected; if you expect your application to be offline during the backup it means the application has not yet been shut down completely.
@@ -89,7 +89,7 @@ tar: <filename>: file changed as we read it
 Once the backup is complete you can validate that the backup contains all of the files in the Gluster filesystem with the following command:
 
 ```bash
-/opt/datarobot/DataRobot/sbin/datarobot-manage-gluster -b /opt/datarobot/data/backups -n validate-backup
+/opt/datarobot/bin/datarobot-manage-gluster -b /opt/datarobot/data/backups/gluster -n validate-backup
 ```
 
 This command will compare the files in the backup archive to the files on the gluster filesystem and generate a report of files that are in the filesystem but are not in the backup.  This will tell you how active the system was during backup activities and how much data will not be restored as part of the migration process.

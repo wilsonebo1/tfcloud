@@ -4,11 +4,11 @@ Gluster Migration
 
 As of DataRobot 5.3, Gluster has been deprecated as a storage backend and will be removed in a future version of the DataRobot Platform.  This means existing Gluster deployments will be required to migrate from Gluster to a new S3-compatible backend, MinIO.
 
-Scripts have been provided to backup an existing Gluster deployment and restore it to a running MinIO instance.  These scripts should be run on a host that is currently running Gluster; DataRobot has been removing the `/opt/datarobot/DataRobot` directory and it will not contain scripts on every host.
+Scripts have been provided to backup an existing Gluster deployment and restore it to a running MinIO instance.  These scripts should be run on a host that is currently running Gluster or MinIO; these scripts will not exist on every host.
 
-Gluster is still supported in the DataRobot 5.3 release, and it is recommended that upgrade activities are performed prior to migrating data to the new MinIO backend (i.e. upgrade to 5.3, verify that the upgrade is stable, and then perform the MinIO upgrade).  These tasks do not need to be synchronous, and an extended outage may be required for this backup-and-restore migration.
+Gluster is still supported in the DataRobot 6.0 release, and it is recommended that upgrade activities are performed prior to migrating data to the new MinIO backend (i.e. upgrade to 6.0, verify that the upgrade is stable, and then perform the MinIO upgrade).  These tasks do not need to be synchronous, and an extended outage may be required for this backup-and-restore migration.
 
-You must have installed DataRobot 5.3 or later in order to proceed with these migration procedures.
+You must have installed DataRobot 6.0 or later in order to proceed with these migration procedures.
 
 **NOTE**: MinIO provides encryption-at-rest for data stored in the `minio` service and creates a `minio_sse_master_key` as part of the installation/upgrade process.  The `minio_see_master_key` is set, and managed, by the DataRobot secrets system and should be regularly backed up.  If this key is lost, access to the data stored in the `minio` subsystem will become inaccessible.  All care should be taken to avoid misplacing or losing the `minio_sse_master_key` as it cannot be regenerated without incurring data loss.
 
@@ -63,13 +63,13 @@ docker start gluster minio
 Backup the Gluster Instance:
 
 ```bash
-/opt/datarobot/DataRobot/sbin/datarobot-manage-gluster -b /opt/datarobot/data/backups -n backup
+/opt/datarobot/bin/datarobot-manage-gluster -b /opt/datarobot/data/backups/gluster -n backup
 ```
 
 Restore the Backup to MinIO:
 
 ```bash
-/opt/datarobot/DataRobot/sbin/datarobot-manage-gluster -b /opt/datarobot/data/backups -n restore-s3
+/opt/datarobot/bin/datarobot-manage-gluster -b /opt/datarobot/data/backups/gluster -n restore-s3
 ```
 
 Stop and remove the `gluster` containers on each Gluster host and stop MinIO with the following commands:
@@ -160,19 +160,19 @@ Backing up the Gluster instance should occur on an instance with Gluster already
 
 **NOTE**: Backing up a large dataset can take a significant amount of time, so it is recommended that a terminal multiplexer (e.g. `tmux` or `screen`) are used to manage this backup. This will prevent accidental disconnection from interrupting a backup and allow you to check the status of the backup.
 
-`/opt/datarobot/DataRobot/sbin/datarobot-manage-gluster` has been provided as a tool to manage Gluster backups. `/opt/datarobot/DataRobot/sbin/datarobot-manage-gluster --help` with display all of the configuration options available.  This document will cover the basic backup procedure; you may need to modify command lines to specifically meet the needs of your backup activity and configuration.
+`/opt/datarobot/bin/datarobot-manage-gluster` has been provided as a tool to manage Gluster backups. `/opt/datarobot/bin/datarobot-manage-gluster --help` with display all of the configuration options available.  This document will cover the basic backup procedure; you may need to modify command lines to specifically meet the needs of your backup activity and configuration.
 
 You will need a directory large enough to accommodate a backup of the Gluster filesystem.  Testing has shown that compression will typically reduce the size of a Gluster backup by 20%, backing up without compression is significantly faster but requires as much space as the Gluster filesystem consumes.
 
 You only need to execute the backup against a single `gluster` service; the backup command will backup the entire Gluster filesystem across all operational nodes.  Any `gluster` service is acceptable for this backup activity.
 
-The following command will initiate a Gluster backup to the `/opt/datarobot/data/backups` directory, with compression disabled:
+The following command will initiate a Gluster backup to the `/opt/datarobot/data/backups/gluster` directory, with compression disabled:
 
 ```bash
-/opt/datarobot/DataRobot/sbin/datarobot-manage-gluster -b /opt/datarobot/data/backups -n backup
+/opt/datarobot/bin/datarobot-manage-gluster -b /opt/datarobot/data/backups/gluster -n backup
 ```
 
-This command will create a new file `/opt/datarobot/data/backups/datarobot-gluster-backup-<date>.tar` where `<date>` is today's date in the format `YYYY-DD-MM`.
+This command will create a new file `/opt/datarobot/data/backups/gluster/datarobot-gluster-backup-<date>.tar` where `<date>` is today's date in the format `YYYY-DD-MM`.
 
 You can verify that the backup is still in progress by checking the processes running on the host system:
 
@@ -189,7 +189,7 @@ If compression is not used, the size of the backup tarball will end up being app
 du -sh /opt/datarobot/data/gluster
 
 # watch size of tarball increase to meet size of gluster directory
-watch ls -lh /opt/datarobot/data/backups/
+watch ls -lh /opt/datarobot/data/backups/gluster
 ```
 
 **NOTE**: If you are running the backup while the DataRobot Platform is still in operation you may see notices similar to the following; these notices simply mean that the application is changing files while the backup occurs.  If you are running a practice backup this is expected; if you expect your application to be offline during the backup it means the application has not yet been shut down completely.
@@ -202,7 +202,7 @@ tar: <filename>: file changed as we read it
 Once the backup is complete you can validate that the backup contains all of the files in the Gluster filesystem with the following command:
 
 ```bash
-/opt/datarobot/DataRobot/sbin/datarobot-manage-gluster -b /opt/datarobot/data/backups -n validate-backup
+/opt/datarobot/bin/datarobot-manage-gluster -b /opt/datarobot/data/backups/gluster -n validate-backup
 ```
 
 This command will compare the files in the backup archive to the files on the gluster filesystem and generate a report of files that are in the filesystem but are not in the backup.  This will tell you how active the system was during backup activities and how much data will not be restored as part of the migration process.
@@ -216,17 +216,17 @@ Restoring a Gluster instance should occur on an instance with Gluster already ru
 
 **NOTE**: Restoring up a large dataset can take a significant amount of time, so it is recommended that a terminal multiplexer (e.g. `tmux` or `screen`) are used to manage this restore. This will prevent accidental disconnection from interrupting a restore and allow you to check the status of the restore.
 
-`/opt/datarobot/DataRobot/sbin/datarobot-manage-gluster` has been provided as a tool to manage Gluster restores. `/opt/datarobot/DataRobot/sbin/datarobot-manage-gluster --help` with display all of the configuration options available.  This document will cover the basic restore procedure; you may need to modify command lines to specifically meet the needs of your restore activity and configuration.
+`/opt/datarobot/bin/datarobot-manage-gluster` has been provided as a tool to manage Gluster restores. `/opt/datarobot/bin/datarobot-manage-gluster --help` with display all of the configuration options available.  This document will cover the basic restore procedure; you may need to modify command lines to specifically meet the needs of your restore activity and configuration.
 
-The following command will initiate a Gluster restore from an archive created on January 1, 2019, without compression, and stored in the /opt/datarobot/data/backups directory:
-`/opt/datarobot/DataRobot/sbin/datarobot-manage-gluster -b /opt/datarobot/data/backups -f datarobot-gluster-backup-2019-01-01.tar -n restore`
+The following command will initiate a Gluster restore from an archive created on January 1, 2019, without compression, and stored in the `/opt/datarobot/data/backups/gluster` directory:
+`/opt/datarobot/bin/datarobot-manage-gluster -b /opt/datarobot/data/backups/gluster -f datarobot-gluster-backup-2019-01-01.tar -n restore`
 
 **NOTE**: If the backup was created today you can omit the `-f filename` from the proceeding command.
 
 You can verify that the restore is still in progress by checking the processes running on the host system; `ps -elf | grep " [t]ar "` will show a running tar process performing the restore.
 
 Once the restore is complete you can validate that the restore contains all of the files in the Gluster filesystem with the following command:
-`/opt/datarobot/DataRobot/sbin/datarobot-manage-gluster -b /opt/datarobot/data/backups -f datarobot-gluster-backup-2019-01-01.tar -n validate-backup`
+`/opt/datarobot/bin/datarobot-manage-gluster -b /opt/datarobot/data/backups/gluster -f datarobot-gluster-backup-2019-01-01.tar -n validate-backup`
 
 This command will compare the files in the archive to the files on the gluster filesystem and generate a report of files that are in the filesystem but are not in the archive.  This will confirm that all backed-up files were restored to the gluster filesystem.
 
@@ -270,7 +270,9 @@ If you do not have enough storage to support an active Gluster installation, a G
 Remove the Gluster storage, typically located in `/opt/datarobot/data/gluster`; a privileged user (someone who can become root) can remove the entire directory with the following command:
 
 ```bash
-rm -rf /opt/datarobot/data/gluster
+mkdir -p /opt/datarobot/gluster-tmp
+rsync --archive --delete /opt/datarobot/gluster-tmp /opt/datarobot/data/gluster
+rm -rf /opt/datarobot/data/gluster /opt/datarobot/gluster-tmp
 ```
 
 <a name="minio-restore"></a>
@@ -285,14 +287,14 @@ Restoring to MinIO should occur on an instance with MinIO already running on it.
 To display all of the configuration options available, run:
 
 ```bash
-/opt/datarobot/DataRobot/sbin/datarobot-manage-gluster --help
+/opt/datarobot/bin/datarobot-manage-gluster --help
 ```
 
-The following command will initiate a restore to MinIO from an archive created on January 1, 2019, without compression, and stored in the `/opt/datarobot/data/backups` directory:
+The following command will initiate a restore to MinIO from an archive created on January 1, 2019, without compression, and stored in the `/opt/datarobot/data/backups/gluster` directory:
 
 ```bash
-/opt/datarobot/DataRobot/sbin/datarobot-manage-gluster \
-    -b /opt/datarobot/data/backups \
+/opt/datarobot/bin/datarobot-manage-gluster \
+    -b /opt/datarobot/data/backups/gluster \
     -f datarobot-gluster-backup-2019-01-01.tar \
     -n restore-s3
 ```
