@@ -223,6 +223,8 @@ Search the list of parcels for the row labeled **DataRobot**:
 
 <img src="./images/cdh-parcels.png" alt="CDH Parcels" style="border: 1px solid black;"/>
 
+**Note**: If the **DataRobot** parcel does not show up on the list, follow the [instruction](./ambari-install.md#run-temporary-webserver) in Ambari installation to use temporary webserver to distribute the parcel via remote url.
+
 * If the rightmost side of that row contains a button labeled **Download**,
 click it and wait for the action to complete.
 

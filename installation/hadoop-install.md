@@ -17,6 +17,29 @@ environment.
 
 Contact DataRobot support for help with this file.
 
+## Hadoop Upgrade
+
+**NOTE**: Skip this section if DataRobot is being installed for the first time.
+
+* Stop DataRobot service via Cloudera/Ambari UI
+
+* Remove any existing datarobot-defaults.conf, datarobot-hadoop.conf on Hadoop node which runs DataRobot Master service.
+
+```bash
+# ssh into the Hadoop node which runs DataRobot Master
+find / -name "datarobot-defaults.conf" -delete
+find / -name "datarobot-hadoop.conf" -delete
+# Remove any existing files
+```
+
+* Remove CSD files of old DataRobot service on cloudera master node before parcel distribution.
+
+```bash
+# ssh into the Hadoop node which runs Cloudera Master
+find / -name "DataRobot*.jar"
+# Remove any existing files
+```
+
 ## Hadoop Installation
 
 Now, use the following sections to install DataRobot on Hadoop.
