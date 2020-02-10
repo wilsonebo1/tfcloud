@@ -13,9 +13,25 @@ To enable the MinIO Filestore Backend, [Database Password Protection](database-p
 Add the `minio` service to your `config.yaml`:
 ```yaml
 # config.yaml snippet
+[...]
 servers:
+  [...]
   - services:
+    [...]
     - minio
+	[...]
+```
+
+If local file storage was previously used, also confirm that `FILE_STORAGE_TYPE` is set to `local`:
+```yaml
+#config.yaml snippet
+[...]
+app_configuration:
+  [...]
+  drenv_override:
+    [...]
+    FILE_STORAGE_TYPE: local
+    [...]
 ```
 
 **NOTE**: MinIO will provide a highly-available repository if multiple `minio` services are configured.  Adding more `minio` services will increase the resiliency of the solution; it is recommended that you add a `minio` service to each data node in your DataRobot cluster.
@@ -27,7 +43,7 @@ bin/datarobot setup-dependencies
 
 Run the following command on the provisioner host as the `datarobot` user:
 ```bash
-bin/datarobot --pre-configure
+bin/datarobot install --pre-configure
 ```
 
 From the provisioner, as a user with `sudo` access, restart the DataRobot Platform services:
@@ -47,24 +63,37 @@ bin/datarobot services restart
 
 Verify the MinIO service is healthy by running the following command on each host with the `minio` service defined:
 
-CentOS 6 or RHEL 6
 ```bash
-service datarobot-minio status
+curl localhost:9090/v1/health/?service=minio
 ```
 
-CentOS 7 or RHEL 7
-```bash
-systemctl status datarobot-minio
-```
+If local storage was previously used in this installation, follow the [Migrating Local Data to Minio](migrating-local-data-to-minio.md) instructions in this guide.
+
 
 ### If passwordless ssh has not been configured
 
-Add the `minio` service to your `config.yaml` on each host in the DataRobot cluster:
+Add the `minio` service to your `config.yaml`:
 ```yaml
 # config.yaml snippet
+[...]
 servers:
+  [...]
   - services:
+    [...]
     - minio
+	[...]
+```
+
+If local file storage was previously used, also confirm that `FILE_STORAGE_TYPE` is set to `local`:
+```yaml
+#config.yaml snippet
+[...]
+app_configuration:
+  [...]
+  drenv_override:
+    [...]
+    FILE_STORAGE_TYPE: local
+    [...]
 ```
 
 **NOTE**: MinIO will provide a highly-available repository if multiple `minio` services are configured.  Adding more `minio` services will increase the resiliency of the solution; it is recommended that you add a `minio` service to each data node in your DataRobot cluster.
@@ -76,7 +105,7 @@ bin/datarobot setup-dependencies --limit-hosts <host IP>
 
 Run the following command on a single host in the cluster as the `datarobot` user:
 ```bash
-bin/datarobot --pre-configure --limit-hosts <host IP>
+bin/datarobot install --pre-configure --limit-hosts <host IP>
 ```
 
 As the `datarobot` user, copy `secrets.yaml`, `.secret-key`, and the `secrets\` directory and all of its contents to all the other hosts in the cluster:
@@ -108,12 +137,8 @@ bin/datarobot services restart --limit-hosts <host IP>
 
 Verify the MinIO service is healthy by running the following command on each host with the `minio` service defined:
 
-CentOS 6 or RHEL 6
 ```bash
-service datarobot-minio status
+curl localhost:9090/v1/health/?service=minio
 ```
 
-CentOS 7 or RHEL 7
-```bash
-systemctl status datarobot-minio
-```
+If local storage was previously used in this installation, follow the [Migrating Local Data to Minio](migrating-local-data-to-minio.md) instructions in this guide.

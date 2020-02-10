@@ -9,7 +9,7 @@ Password-enforced access to these databases may optionally be enabled using the 
 
 On each host in the cluster, as a user with `sudo` permissions, link the openssl.cnf distributed with DataRobot to /etc/ssl/openssl.cnf:
 ```bash
-sudo ln -s /opt/tmp/release/venv/etc/ssl/openssl.cnf /etc/ssl/openssl.cnf
+sudo ln -s /opt/datarobot/virtualenvs/datarobot/etc/ssl/openssl.cnf /etc/ssl/openssl.cnf
 ```
 
 ### If passwordless ssh has been configured
@@ -32,7 +32,7 @@ make sure to copy over `secrets.yaml` into the installation directory (beside
 
 Run the following command on the provisioner host as the `datarobot` user:
 ```bash
-bin/datarobot --pre-configure
+bin/datarobot install --pre-configure
 ```
 
 Go to a single `mongo` host and start it in local mode without authentication as the `datarobot` user:
@@ -50,7 +50,6 @@ grep mongo_password secrets.yaml | cut -f2 -d'"'
 
 On that same host, as the `datarobot` user connect to mongo, create the mongo datarobot user, and set the password recorded in the previous step:
 ```bash
-source release/profile
 mongo localhost:27017/admin
 rs.initiate()
 use admin
