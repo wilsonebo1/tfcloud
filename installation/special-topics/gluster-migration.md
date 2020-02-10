@@ -24,9 +24,12 @@ The backup/restore procedure uses `tar`. It is _very_ read and write heavy, and 
 
 It is highly recommended that `overlay2` docker storage is used. In particular, using `devicemapper` (e.g. loopback mode), expect _dramatic_ increase in the time to create a backup and restore. This could take three times as long or longer than if `overlay2` is used!
 
-<a name="migration-quickstart"></a>
-Quickstart Migration
+<a name="incremental-copy"></a>
+Incremental Copy Quickstart Migration
 --------------------
+The majority of this migration can be performed while the DataRobot platform is in use. Incremental data copies will put additional load on disk subsystems, as such it is recommended that application performance is monitored during migration activities.  The Incremental Copy Migration requires twice as much disk space as is used prior to the start of migration: one copy of the data will remain active in Gluster and one copy of the data will be active in MinIO.  At the end of the migration you can delete the data store you will no longer use.
+
+
 Add `minio` to `config.yaml`, set `secrets_enforced` to `true`, and start `minio` services:
 
 ```yaml
@@ -45,6 +48,92 @@ servers:
 ```
 
 ```bash
+bin/datarobot setup-dependencies
+bin/datarobot install --skip-copy-code
+```
+
+Perform the initial synchronization of data:
+
+```bash
+/opt/datarobot/bin/datarobot-manage-gluster gluster-sync-to-minio
+```
+**NOTE**: This step can be performed multiple times and will only copy new data from gluster to minio.  The first time you run this command it will copy all Gluster data to MinIO and may take several hours to complete; the second time you run it only data added after the first synchronization will be copied and the process will be much faster.
+
+Shut down the DataRobot Application:
+
+```bash
+bin/datarobot services stop
+```
+
+Start the Gluster and MinIO dockers on all of the data nodes by running the following commands on all data backend nodes:
+
+```bash
+docker start gluster minio
+```
+
+Run a final incremental copy:
+
+```bash
+/opt/datarobot/bin/datarobot-manage-gluster gluster-sync-to-minio
+```
+
+Stop and remove the `gluster` containers on each Gluster host and stop `minio` containers:
+```bash
+docker rm -f gluster
+docker stop minio
+```
+
+Modify your `config.yaml` to remove `gluster` from the DataRobot configuration and change `FILE_STORAGE_TYPE` to `s3`:
+
+```yaml
+# config.yaml snippet
+servers:
+  - services:
+      - minio
+      ...
+```
+
+```yaml
+# config.yaml snippet
+app_configuration:
+  drenv_override:
+    FILE_STORAGE_TYPE: s3
+    ...
+```
+
+Reconfigure and restart the DataRobot instance:
+
+```bash
+bin/datarobot setup-dependencies
+bin/datarobot run-registry
+bin/datarobot install --skip-copy-code
+```
+
+
+<a name="backup-and-restore"></a>
+Backup and Restore Quickstart Migration
+--------------------
+The majority of this migration should be performed while the DataRobot platform is in offline.  Backup-and-restore migration activities will require two to three times as much storage as is initially in use: one copy is active in gluster, one copy is stored in a backup archive, and one copy is stored in minio. (You can remove the copy in gluster once the backup is complete, requiring only twice as much filesystem space).  The backup-and-restore migration is very effective if you are moving from one cluster to a new cluster; it is recommended that you use the [Incremental Copy](#incremental-copy) mechanism if you are migrating data in the same, live cluster.
+
+Add `minio` to `config.yaml`, set `secrets_enforced` to `true`, and start `minio` services:
+
+```yaml
+# config.yaml snippet
+os_configuration:
+  secrets_enforced: true
+```
+
+```yaml
+# config.yaml snippet
+servers:
+  - services:
+    - gluster
+    - minio
+    ...
+```
+
+```bash
+bin/datarobot setup-dependencies
 bin/datarobot install --skip-copy-code
 ```
 
@@ -63,13 +152,13 @@ docker start gluster minio
 Backup the Gluster Instance:
 
 ```bash
-/opt/datarobot/bin/datarobot-manage-gluster -b /opt/datarobot/data/backups/gluster -n backup
+/opt/datarobot/bin/datarobot-manage-gluster -n backup
 ```
 
 Restore the Backup to MinIO:
 
 ```bash
-/opt/datarobot/bin/datarobot-manage-gluster -b /opt/datarobot/data/backups/gluster -n restore-s3
+/opt/datarobot/bin/datarobot-manage-gluster -n restore-s3
 ```
 
 Stop and remove the `gluster` containers on each Gluster host and stop MinIO with the following commands:
@@ -207,6 +296,8 @@ Once the backup is complete you can validate that the backup contains all of the
 
 This command will compare the files in the backup archive to the files on the gluster filesystem and generate a report of files that are in the filesystem but are not in the backup.  This will tell you how active the system was during backup activities and how much data will not be restored as part of the migration process.
 
+Once the backup archive has been validated, you can 
+
 <a name="gluster-restore"></a>
 Restoring a Backup to Gluster
 -----------------------------
@@ -303,6 +394,23 @@ The following command will initiate a restore to MinIO from an archive created o
 
 The restore will produce a line of output to the terminal for each file restored, and at the end of the restore will list both the total number of files restored and the number of files in the archive to compare and confirm.
 
+You can remove Gluster data files and the backup archive at this time. If you have enough storage you might consider executing this step at a future point in time to recover disk space but after you've confirmed your migration has been successful.
+
+Remove the Gluster storage, typically located in `/opt/datarobot/data/gluster`; a privileged user (someone who can become root) can remove the entire directory with the following command:
+
+```bash
+mkdir -p /opt/datarobot/gluster-tmp
+rsync --archive --delete /opt/datarobot/gluster-tmp /opt/datarobot/data/gluster
+rm -rf /opt/datarobot/data/gluster /opt/datarobot/gluster-tmp
+```
+
+Remove the Gluster backup archive:
+
+```bash
+rm -rf /opt/datarobot/data/backups/gluster
+```
+
+
 <a name="return-to-service"></a>
 Return DataRobot to Service
 ---------------------------
@@ -321,7 +429,6 @@ bin/datarobot install --skip-copy-code
 ```
 
 You can now perform your normal testing to validate the health of the DataRobot installation.
-
 
 <a name="logging-into-minio"></a>
 Logging In to MinIO

@@ -53,6 +53,8 @@
   * [Data ingestion from Google Cloud Storage](special-topics/ingest-from-google-cloud-storage.md)
   * [Data ingestion from Microsoft Azure Blob Storage](special-topics/ingest-from-azure-blob-storage.md)
   * [Migrating from Gluster to MinIO](special-topics/gluster-migration.md)
+    * [Backup and Restore Process](special-topics/gluster-migration.md#backup-and-restore)
+    * [Incremental Copy Process](special-topics/gluster-migration.md#incremental-copy)
 
 ## Administration
 
