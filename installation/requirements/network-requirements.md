@@ -54,6 +54,7 @@ application server cluster, whether or not using Hadoop.
 | 1514  | UDP      | Application Web   |
 | 3000  | TCP      | DataRobot Prediction Optimization User Interface |
 | 3003  | TCP      | DataRobot Tableau Extensions Service |
+| 4369  | TCP      | HAProxy HA RabbitMQ |
 | 5000  | TCP      | Docker Registry   |
 | 5445  | TCP      | IDE Client Broker |
 | 5446  | TCP      | IDE Client Worker |
@@ -63,6 +64,8 @@ application server cluster, whether or not using Hadoop.
 | 5672  | TCP      | HAProxy HA RabbitMQ* | |
 | 5673  | TCP      | HA RabbitMQ* |
 | 6379  | TCP      | Redis |
+| 7001  | TCP      | HAProxy Patroni Instance |
+| 7558  | TCP      | Resource Monitor |
 | 8000  | TCP      | DataRobot Flask Application |
 | 8001  | TCP      | DataRobot v0 API |
 | 8002  | TCP      | DataRobot v1 API |
@@ -75,6 +78,7 @@ application server cluster, whether or not using Hadoop.
 | 8051  | TCP      | TileServer GL |
 | 8097  | TCP      | DataRobot Prediction Optimization Application |
 | 8100  | TCP      | DataRobot Datasets Service API |
+| 9001  | TCP      | Chart Export Service |
 | 9090  | TCP      | DataRobot Availability Monitor |
 | 9494  | TCP      | DataRobot PNGExport Service |
 | 15671 | TCP      | RabbitMQ Management HTTPS Interface |
@@ -388,6 +392,7 @@ All of these are listed in one or more of the above tables.
 |3888|TCP|Zookeeper Election Port|Hadoop workers|Hadoop workers|
 |3888|TCP|Zookeeper Election Port HA Postgres|Patroni Nodes|Patroni Nodes|
 |4000|TCP|PostgreSQL in HA Mode|Patroni Nodes|Patroni Nodes|
+|4369|TCP|Rabbit|Application Servers|Application Servers|
 |5000|TCP|Docker Registry|Application Servers|Application Servers|
 |5432|TCP|Model Management|Model Management|modmonrsyslogmaster, modmonworker and publicapi|
 |5432|TCP|PostgreSQL for Hive or other services|All Hadoop Nodes|Hadoop workers|
@@ -403,6 +408,7 @@ All of these are listed in one or more of the above tables.
 |5672|TCP|HAProxy HA RabbitMQ|Application Servers|All Cluster Nodes|
 |5673|TCP|RabbitMQ HA (TLS/non-TLS)|RabbitMQ node|Application Servers|
 |6379|TCP|Redis|Data Servers|All Cluster Nodes|
+|7001|TCP|HAProxy|Application Servers|Application Servers|
 |7180|TCP|Cloudera Manager web interface (CDH only) (not secure)|Cloudera Manager|Provisioner/Admin|
 |7182|TCP|Cloudera Internal Communication (CDH only)|Cloudera Manager|All Cloudera Nodes|
 |7183|TCP|Cloudera Manager web interface (CDH only) (TLS enabled)|Cloudera Manager|Provisioner/Admin|
@@ -412,6 +418,7 @@ All of these are listed in one or more of the above tables.
 |7190|TCP|Cloudera P2P Parcel Distribution|All Cloudera Nodes|All Cloudera Nodes|
 |7191|TCP|Cloudera P2P Parcel Distribution|All Cloudera Nodes|All Cloudera Nodes|
 |7337|TCP|Spark Shuffle Service Port|Hadoop workers|Hadoop workers|
+|7558|TCP|Resource Monitor|Application Servers|Application Servers|
 |7680|TCP|DataRobot Application Manager|Hadoop workers|Application Servers|
 |8000|TCP|DataRobot Flask Application|Application Servers|Application Servers|
 |8001|TCP|DataRobot v0 API|Application Servers|Application Servers|
@@ -428,7 +435,7 @@ All of these are listed in one or more of the above tables.
 |8030|TCP|YARN Resourcemanager Scheduler|Hadoop workers|Hadoop workers|
 |8031|TCP|YARN Resourcemanager Resource Tracker (CDH)|Hadoop workers|Hadoop workers|
 |8032|TCP|YARN Resourcemanager Address(CDH)|Cloudera workers|Cloudera workers|
-|8033|TCP|YARN Resourcemanager Admin (CDH)|Cloudera workers|Cloudera workers|
+|8033|TCP|YARN Resourcemanager Admin (CDH)|Application Servers, Cloudera workers|Cloudera workers|
 |8040|TCP|YARN NodeManager Localizer (CDH)|Cloudera workers|Cloudera workers|
 |8041|TCP|YARN NodeManager Address (CDH)|Cloudera workers|Cloudera workers|
 |8042|TCP|YARN NodeManager WebApp|Hadoop workers|Hadoop workers|
@@ -455,6 +462,7 @@ All of these are listed in one or more of the above tables.
 |9000|TCP|MinIO Port|Data Servers|All Cluster Nodes|
 |9000|TCP|Cloudera Manager Agent HTTP port|Cloudera workers|Cloudera Manager|
 |9001|TCP|ETL Controller|Hadoop workers|Application Servers|
+|9001|TCP|Chart Export Service|Application Servers|All Cluster Nodes|
 |9002|TCP|MinIO HA Port|Data Servers|All Cluster Nodes|
 |9083|TCP|Hive metastore port|Hortonworks workers|Hortonworks workers|
 |9090|TCP|DataRobot Availability Monitor|Application Servers|Application Servers|

@@ -51,8 +51,11 @@ application server cluster, whether or not using Hadoop.
 | 80    | TCP      | NGINX     |
 | 443   | TCP      | NGINX     |
 | 1514  | UDP      | Application Web   |
+| 4369  | TCP      | HAProxy HA RabbitMQ |
 | 5672  | TCP      | RabbitMQ |
 | 6379  | TCP      | Redis |
+| 7001  | TCP      | HAProxy Patroni Instance |
+| 7558  | TCP      | Resource Monitor |
 | 8000  | TCP      | DataRobot Flask Application |
 | 8001  | TCP      | DataRobot v0 API |
 | 8002  | TCP      | DataRobot v1 API |
@@ -62,6 +65,7 @@ application server cluster, whether or not using Hadoop.
 | 8023  | TCP      | DataRobot Upload Server |
 | 8033  | TCP      | DataRobot Diagnostics Server |
 | 8100  | TCP      | DataRobot Datasets Service API |
+| 9001  | TCP      | Chart Export Service |
 | 9090  | TCP      | DataRobot Availability Monitor |
 | 9494  | TCP      | DataRobot PNGExport Service |
 | 15672 | TCP      | RabbitMQ HTTP Interface |
@@ -315,12 +319,14 @@ All of these are listed in one or more of the above tables.
 |3888|TCP|Zookeeper Election Port|Hadoop workers|Hadoop workers|
 |3888|TCP|Zookeeper Election Port HA Postgres|Patroni Nodes|Patroni Nodes|
 |4000|TCP|PostgreSQL in HA Mode|Patroni Nodes|Application Servers|
+|4369|TCP|Rabbit|Application Servers|Application Servers|
 |5432|TCP|Model Management|Model Management|modmonrsyslogmaster, modmonworker and publicapi|
 |5432|TCP|PostgreSQL for Hive or other services|All Hadoop Nodes|Hadoop workers|
 |5433|TCP|PostgreSQL in HA Mode|Patroni Nodes|Patroni Nodes|
 |5434|TCP|HAProxy HA Postgres Master Port|Application Servers|All Cluster Nodes|
 |5672|TCP|RabbitMQ|RabbitMQ node|All Cluster Nodes|
 |6379|TCP|Redis|Data Servers|All Cluster Nodes|
+|7001|TCP|HAProxy|Application Servers|Application Servers|
 |7180|TCP|Cloudera Manager web interface (CDH only) (not secure)|Cloudera Manager|Provisioner/Admin|
 |7182|TCP|Cloudera Internal Communication (CDH only)|Cloudera Manager|All Cloudera Nodes|
 |7183|TCP|Cloudera Manager web interface (CDH only) (TLS enabled)|Cloudera Manager|Provisioner/Admin|
@@ -329,6 +335,7 @@ All of these are listed in one or more of the above tables.
 |7186|TCP|Cloudera Internal Communication|Cloudera Manager|All Cloudera Nodes|
 |7190|TCP|Cloudera P2P Parcel Distribution|All Cloudera Nodes|All Cloudera Nodes|
 |7191|TCP|Cloudera P2P Parcel Distribution|All Cloudera Nodes|All Cloudera Nodes|
+|7558|TCP|Resource Monitor|Application Servers|Application Servers|
 |7680|TCP|DataRobot Application Master|Hadoop workers|Application Servers|
 |8000|TCP|DataRobot Flask Application|Application Servers|Application Servers|
 |8001|TCP|DataRobot v0 API|Application Servers|Application Servers|
@@ -347,7 +354,7 @@ All of these are listed in one or more of the above tables.
 |8030|TCP|YARN Resourcemanager Scheduler|Hadoop workers|Hadoop workers|
 |8031|TCP|YARN Resourcemanager Resource Tracker (CDH)|Hadoop workers|Hadoop workers|
 |8032|TCP|YARN Resourcemanager Address(CDH)|Cloudera workers|Cloudera workers|
-|8033|TCP|YARN Resourcemanager Admin (CDH)|Cloudera workers|Cloudera workers|
+|8033|TCP|YARN Resourcemanager Admin (CDH)|Application Servers, Cloudera workers|Cloudera workers|
 |8040|TCP|YARN NodeManager Localizer (CDH)|Cloudera workers|Cloudera workers|
 |8041|TCP|YARN NodeManager Address (CDH)|Cloudera workers|Cloudera workers|
 |8042|TCP|YARN NodeManager WebApp|Hadoop workers|Hadoop workers|
@@ -369,6 +376,7 @@ All of these are listed in one or more of the above tables.
 |8833|TCP|Datarobot diagnostics (not secure)|Application Servers|Administrators|
 |9000|TCP|Cloudera Manager Agent HTTP port|Cloudera workers|Cloudera Manager|
 |9001|TCP|ETL Controller|Hadoop workers|Application Servers|
+|9001|TCP|Chart Export Service|Application Servers|All Cluster Nodes|
 |9090|TCP|DataRobot Availability Monitor|Application Servers|Application Servers|
 |9200|TCP|Elasticsearch for AI Catalog|Elasticsearch Nodes|Application Servers|
 |9300|TCP|Elasticsearch Internode Communication|Elasticsearch Nodes|Elasticsearch Nodes|

@@ -14,7 +14,7 @@ PROTOCOLS = ['tcp', 'udp']
 HADOOP_WORKERS = ['cdh_worker', 'ambari_worker']
 HADOOP_MASTERS = ['cdh_master', 'ambari_master']
 ALL_HADOOP_NODES = HADOOP_WORKERS + HADOOP_MASTERS
-ALL_APPLICATION_NODES = ['webserver']
+ALL_APPLICATION_NODES = ['webserver', 'db', 'worker']
 
 TARGET_MAPPING = {
     'All Cloudera Nodes': ['cdh_master', 'cdh_worker'],
@@ -26,13 +26,15 @@ TARGET_MAPPING = {
     'Cloudera Manager': ['cdh_master'],
     'Cloudera workers': ['cdh_worker'],
     'Data Servers': ALL_APPLICATION_NODES,
-    'Elasticsearch Nodes': ['elasticsearch'],
+    # 'Elasticsearch Nodes': ['elasticsearch'],
+    'Elasticsearch Nodes': ALL_APPLICATION_NODES,
     'Hadoop workers': HADOOP_WORKERS,
     'Hortonworks workers': ['ambari_worker'],
     'Model Management': ALL_APPLICATION_NODES,
-    'Patroni Nodes': ['Application Servers', 'Patroni Nodes'],
+    # 'Patroni Nodes': ['Application Servers', 'Patroni Nodes'],
+    'Patroni Nodes': ALL_APPLICATION_NODES,
     'Provisioner/Admin': ALL_APPLICATION_NODES,
-    'RabbitMQ node': ALL_APPLICATION_NODES,
+    'RabbitMQ node': ALL_APPLICATION_NODES
 }
 
 
@@ -65,7 +67,8 @@ def parse(network_requirements):
                 targets = dst.split(', ')
                 for target in targets:
                     for trgt in TARGET_MAPPING[target]:
-                        scope = 'internal' if src == dst else 'all'
+                        # scope = 'internal' if src == dst else 'all'
+                        scope = 'all'
                         data[trgt]['sg_open_ports'][protocol][scope].append(int(port))
 
     print(json.dumps(data))
