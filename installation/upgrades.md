@@ -20,6 +20,12 @@ be preserved. Namely the file `secrets.yaml` from the installation directory
 (e.g. copy `secrets.yaml` from previous installation into the new installation
 directory).
 
+#### Update secrets
+
+In 5.3, secrets enforced clusters began using a shared secret for Rabbitmq which is written
+to an `erlang.cookie` file. Upgrades from <= 5.2 to >= 5.3 must add a `rabbit_cookie: <any_secret_value>`
+value to `secrets.yaml`. 
+
 ### Preserve installer encryption key and encrypted config values
 
 The DataRobot installer may make use internally of encryption and write
