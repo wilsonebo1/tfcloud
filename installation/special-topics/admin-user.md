@@ -458,6 +458,14 @@ regularly clean up old files.
 0 3 */3 * * find /opt/datarobot/data/app_data/uploads -mtime +14 -exec rm {} \;
 ```
 
+In the root user's crontab, put the following line to rebuild iptables rules at reboot
+
+```
+# FILE: root user's crontab
+#Ansible: Recreate execution environment builder iptables rules
+@reboot /opt/datarobot/bin/environment-builder-iptables.sh
+```
+
 ## System Limits
 
 DataRobot requires the ability to open a large number of files simultaineously
