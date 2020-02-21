@@ -89,6 +89,7 @@ application server cluster, whether or not using Hadoop.
 | 26379 | TCP      | Redis Sentinel |
 | 25672 | TCP      | HA RabbitMQ inter-node communication* |
 | 27017 | TCP      | MongoDB |
+| 46379 | TCP      | Redis Proxy Server |
 
 &ast; High availability configuration only
 
@@ -503,6 +504,7 @@ All of these are listed in one or more of the above tables.
 |44015|TCP|DataRobot YARN Application Master Stats (DataRobot 4.2.1 and above)|Hadoop workers|Application Servers|
 |44016|TCP|DataRobot YARN Application Master Stats (DataRobot 4.2.1 and above)|Hadoop workers|Application Servers|
 |45454|TCP|YARN NodeManager Address (HDP)|Hortonworks workers|Hortonworks workers|
+|46379|TCP|Redis Proxy Server|Application Servers|Application Servers|
 |49152|TCP|Gluster Brick|Data Servers|All Cluster Nodes|
 |50010|TCP|Data transfer (Ambari only)|Hortonworks workers|Application Servers|
 |50020|TCP|HDFS Metadata operations|Hadoop workers|Application Servers|

@@ -71,6 +71,7 @@ application server cluster, whether or not using Hadoop.
 | 15672 | TCP      | RabbitMQ HTTP Interface |
 | 26379 | TCP      | Redis Sentinel |
 | 27017 | TCP      | MongoDB |
+| 46379 | TCP      | Redis Proxy Server |
 
 ### Optional Premium Feature Ports
 These ports are only required if the referenced feature has been purchased and enabled.
@@ -405,6 +406,7 @@ All of these are listed in one or more of the above tables.
 |44014|TCP|DataRobot YARN Application Master Stats (DataRobot 4.2.1 and above)|Hadoop workers|Application Servers|
 |44015|TCP|DataRobot YARN Application Master Stats (DataRobot 4.2.1 and above)|Hadoop workers|Application Servers|
 |44016|TCP|DataRobot YARN Application Master Stats (DataRobot 4.2.1 and above)|Hadoop workers|Application Servers|
+|46379|TCP|Redis Proxy Server|Application Servers|Application Servers|
 |50010|TCP|Data transfer (Ambari only)|Hortonworks workers|Application Servers|
 |50020|TCP|HDFS Metadata operations|Hadoop workers|Application Servers|
 |50070|TCP|NameNode Web UI without HTTPS|Hadoop workers|Application Servers|
