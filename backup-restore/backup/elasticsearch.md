@@ -33,7 +33,7 @@ Move the backup to the `backups` directory:
 ```bash
 mkdir -p /opt/datarobot/data/backups/elasticsearch
 mv /opt/datarobot/data/backup/elasticsearch/snapshot-<timestamp>.tar.gz \
-	/opt/datarobot/data/backups/elasticsearch/datarobot-elasticsearch-backup-$(date +%F).tar.gz
+    /opt/datarobot/data/backups/elasticsearch/datarobot-elasticsearch-backup-$(date +%F).tar.gz
 ```
 
 <a name="backup-elasticsearch-quickstart-rpm"></a>
@@ -75,7 +75,7 @@ Move the backup to the `backups` directory:
 ```bash
 mkdir -p /opt/datarobot/data/backups/elasticsearch
 mv /opt/datarobot-runtime/data/elasticsearch/backup/snapshot-<timestamp>.tar.gz \
-	/opt/datarobot/data/backups/elasticsearch/datarobot-elasticsearch-backup-$(date +%F).tar.gz
+    /opt/datarobot/data/backups/elasticsearch/datarobot-elasticsearch-backup-$(date +%F).tar.gz
 ```
 
 

@@ -112,21 +112,21 @@ DataRobot requires proxy-user settings in both secure (= Kerberos enabled) and n
 
 7. In the "Properties" box, add proxyuser properties for DataRobot:
 
-	```bash
-	hadoop.proxyuser.datarobot.groups=*
-	hadoop.proxyuser.datarobot.hosts=*
-	hadoop.proxyuser.datarobot.users=*
-	```
+    ```bash
+    hadoop.proxyuser.datarobot.groups=*
+    hadoop.proxyuser.datarobot.hosts=*
+    hadoop.proxyuser.datarobot.users=*
+    ```
 
-	Adding the above properties enables DataRobot to impersonate any user. These permissions can be narrowed, if needed, via `groups` and `users` but DataRobot must be in the respective lists. 
+    Adding the above properties enables DataRobot to impersonate any user. These permissions can be narrowed, if needed, via `groups` and `users` but DataRobot must be in the respective lists. 
 
 8. (Optional) Add proxyuser properties for YARN. In nonsecure clusters without the Linux Container Executor (LCE) setup, you also need to allow the YARN user to proxy DataRobot.
 
-	```bash
-	hadoop.proxyuser.yarn.groups=datarobot
-	hadoop.proxyuser.yarn.users=datarobot
-	hadoop.proxyuser.yarn.hosts=*
-	```
+    ```bash
+    hadoop.proxyuser.yarn.groups=datarobot
+    hadoop.proxyuser.yarn.users=datarobot
+    hadoop.proxyuser.yarn.hosts=*
+    ```
 
   * (Optional) If you want DataRobot to use [HttpFS](https://hadoop.apache.org/docs/stable/hadoop-kms/index.html) instead of [webhdfs](http://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/WebHDFS.html), add proxyuser properties for HttpFS as described [here](special-topics/httpfs.md).
 

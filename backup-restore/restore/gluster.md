@@ -27,8 +27,8 @@ Backup the Gluster Instance on any one of the data backend nodes with the follow
 
 ```bash
 /opt/datarobot/bin/datarobot-manage-gluster \
-	-b /opt/datarobot/data/backups/gluster \
-	-n restore
+    -b /opt/datarobot/data/backups/gluster \
+    -n restore
 ```
 
 Stop the Gluster dockers on all of the data nodes by running the following command on all data backend nodes:

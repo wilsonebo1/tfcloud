@@ -7,15 +7,15 @@
 * If Kerberos is enabled, a keytab should be created for the `datarobot` user
 * Proxy users should be set in YARN's `core-site.xml`:
 ```
-hadoop.proxyuser.datarobot.users	*
-hadoop.proxyuser.datarobot.hosts	*
-hadoop.proxyuser.datarobot.groups	*
-allowed.system.users	                datarobot
+hadoop.proxyuser.datarobot.users    *
+hadoop.proxyuser.datarobot.hosts    *
+hadoop.proxyuser.datarobot.groups    *
+allowed.system.users                    datarobot
 ```
 * For unsecured hadoop - LCE should be set and it should be allowed to run
 containers on behalf of any user. This can be configured by setting the following properties
 in `yarn-site.xml`:
 ```
-yarn.nodemanager.linux-container-executor.nonsecure-mode.limit-users	false
-yarn.nodemanager.container-executor.class	                        org.apache.hadoop.yarn.server.nodemanager.LinuxContainerExecutor
+yarn.nodemanager.linux-container-executor.nonsecure-mode.limit-users    false
+yarn.nodemanager.container-executor.class                            org.apache.hadoop.yarn.server.nodemanager.LinuxContainerExecutor
 ```

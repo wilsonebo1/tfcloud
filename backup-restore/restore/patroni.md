@@ -25,8 +25,8 @@ docker start patroni
 Restore the Patroni database on the node where the backup archive was previously extracted:
 ```bash
 docker exec -u user -it patroni \
-	python -m tools.manager.pgsql configure \
-	--backup-location=/opt/datarobot-runtime/data/patroni/backup/
+    python -m tools.manager.pgsql configure \
+    --backup-location=/opt/datarobot-runtime/data/patroni/backup/
 ```
 
 Stop the Patroni service on every data node configured to run the `patroni` service:
@@ -76,7 +76,7 @@ Restore the PostgreSQL database on the node previously selected to extract the b
 ```bash
 source /opt/datarobot/etc/profile
 python -m tools.manager.pgsql configure \
-	--backup-location=/opt/datarobot/data/backups/pgsql/
+    --backup-location=/opt/datarobot/data/backups/pgsql/
 ```
 
 As a user with sudo privileges, or as the root user, stop the DataRobot PostgreSQL database service on the data node configured to run `pgsql`:

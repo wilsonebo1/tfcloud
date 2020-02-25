@@ -19,10 +19,10 @@ docker start pgsql
 Restore the PostgreSQL database on the same data node:
 ```bash
 docker run --network host --rm it -u $(id -u) \
-	-v /opt/datarobot/data/backups/pgsql:/opt/datarobot/data/backups/pgsql \
-	$(docker images | grep -m1 datarobot-runtime | awk '{print $1":"$2}') \
-	python -m tools.manager.pgsql configure \
-	--backup-location=/opt/datarobot/data/backups/pgsql/
+    -v /opt/datarobot/data/backups/pgsql:/opt/datarobot/data/backups/pgsql \
+    $(docker images | grep -m1 datarobot-runtime | awk '{print $1":"$2}') \
+    python -m tools.manager.pgsql configure \
+    --backup-location=/opt/datarobot/data/backups/pgsql/
 ```
 
 Stop the `pgsql` container:
@@ -55,7 +55,7 @@ Restore the PostgreSQL datanode running `pgsql`:
 ```bash
 source /opt/datarobot/etc/profile
 python -m tools.manager.pgsql configure \
-	--backup-location=/opt/datarobot/data/backups/pgsql/
+    --backup-location=/opt/datarobot/data/backups/pgsql/
 ```
 
 AS a user with sudo privileges, or as the root user, stop the DataRobot PostgreSQL database service on the data node configured to run `pgsql`:

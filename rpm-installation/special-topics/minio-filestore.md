@@ -19,7 +19,7 @@ servers:
   - services:
     [...]
     - minio
-	[...]
+    [...]
 ```
 
 If local file storage was previously used, also confirm that `FILE_STORAGE_TYPE` is set to `local`:
@@ -81,7 +81,7 @@ servers:
   - services:
     [...]
     - minio
-	[...]
+    [...]
 ```
 
 If local file storage was previously used, also confirm that `FILE_STORAGE_TYPE` is set to `local`:
