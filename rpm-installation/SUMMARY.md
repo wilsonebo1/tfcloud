@@ -18,6 +18,7 @@
 * [Pre-Flight Checks](pre-flight-checks.md)
 * [Hadoop Pre-Flight Checks](pre-flight-checks.md#hadoop-checks)
 * [Advanced Configuration](special-topics/README.md)
+  * [Adjusting Log Verbosity](special-topics/application-log-levels.md)
   * [TLS](special-topics/tls.md)
   * [Security Best Practices](special-topics/security.md)
   * [KMS Integration](special-topics/kms.md)
