@@ -56,6 +56,7 @@
   * [Migrating from Gluster to MinIO](special-topics/gluster-migration.md)
     * [Backup and Restore Process](special-topics/gluster-migration.md#backup-and-restore)
     * [Incremental Copy Process](special-topics/gluster-migration.md#incremental-copy)
+  * [Notification Policies](special-topics/notification-policies.md)
 
 ## Administration
 
