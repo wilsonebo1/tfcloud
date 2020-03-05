@@ -37,6 +37,10 @@ system stores an encryption key in this manner.
 If the key is not preserved on a re-install or upgrade, any previously stored
 credentials would no longer be accessible by the app.
 
+### Preserve Externally Signed TLS Certificates
+
+The DataRobot installer handles distribution of TLS Certificates for both front-end and backend network encryption.  Typically the web-server certificate is issued by a public Certificate Authority and will need to be migrated during the upgrade process.  If this is the case then the `certs/` directory, and all of it's contents, must be copied into the new installation directory.
+
 ### Remove old files and services
 
 * Stop all DataRobot services for RHEL7:
@@ -91,11 +95,14 @@ rpm -qa | grep -i datarobot | xargs --no-run-if-empty yum erase -y
 
 #### Carry over old files
 
-You will need to first copy the following files, if present, from your previous installation into the new installation directory:
+You will need to first copy the following files and directories, if present, from your previous installation into the new installation directory:
 
+* `.secrets-key`
+* `certs/`
 * `config.yaml`
 * `hadoop-configuration.yaml`
 * `secrets.yaml`
+* `secrets/`
 
 #### Apply modifications to configuration files
 

@@ -24,7 +24,7 @@ directory).
 
 In 5.3, secrets enforced clusters began using a shared secret for Rabbitmq which is written
 to an `erlang.cookie` file. Upgrades from <= 5.2 to >= 5.3 must add a `rabbit_cookie: <any_secret_value>`
-value to `secrets.yaml`. 
+value to `secrets.yaml`.
 
 ### Preserve installer encryption key and encrypted config values
 
@@ -42,6 +42,10 @@ data is not kept intact between installations, e.g. the user credential storage
 system stores an encryption key in this manner.
 If the key is not preserved on a re-install or upgrade, any previously stored
 credentials would no longer be accessible by the app.
+
+### Preserve Externally Signed TLS Certificates
+
+The DataRobot installer handles distribution of TLS Certificates for both front-end and backend network encryption.  Typically the web-server certificate is issued by a public Certificate Authority and will need to be migrated during the upgrade process.  If this is the case then the `certs/` directory, and all of it's contents, must be copied into the new installation directory.
 
 ### Remove old files and services
 
@@ -120,11 +124,14 @@ rm -rf /tmp/docker-*
 
 #### Carry over old files
 
-You will need to first copy the following files, if present, from your previous installation into the new installation directory:
+You will need to first copy the following files and directories, if present, from your previous installation into the new installation directory:
 
+* `.secrets-key`
+* `certs/`
 * `config.yaml`
 * `hadoop-configuration.yaml`
 * `secrets.yaml`
+* `secrets/`
 
 #### Apply modifications to configuration files
 
