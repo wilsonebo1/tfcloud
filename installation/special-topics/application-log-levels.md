@@ -15,10 +15,11 @@ To change the application log levels to `WARNING`, modify `config.yaml`:
 [...]
 app_configuration:
   [...]
+  LOGGING_LEVELNAME: WARNING
+  [...]
   drenv_override:
     [...]
     LOG_LEVEL: WARNING
-    LOGGING_LEVELNAME: WARNING
     [...]
   [...]
 [...]
@@ -26,5 +27,6 @@ app_configuration:
 
 Reconfigure the application containers:
 ```bash
+bin/datarobot setup-dependencies
 bin/datarobot reconfigure
 ```
