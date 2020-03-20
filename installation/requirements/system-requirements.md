@@ -20,10 +20,10 @@ You must have access to a shell (`/bin/bash` is preferred).
 
 ## Docker
 
-DataRobot supports Docker version 1.10 and greater.
+DataRobot supports Docker version 18.09 and greater.
 
 RPM distributions of Docker Engine 18.09 Community Edition are provided in your installation artifact and will be installed automatically if your server does not already have Docker.
-We recommend using this version.
+We recommend using the version distributed with DataRobot.
 
 DataRobot ships files and scripts necessary to run a Docker registry containing all images used by the application, so access to Docker Hub or other public registries is not required.
 

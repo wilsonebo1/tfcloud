@@ -63,7 +63,7 @@ After performing these steps, verify everything is working correctly with:
 
 ## Install Docker
 
-Docker Engine version 1.10+ must be installed on all Edge Nodes.
+Docker Engine version 18.09+ must be installed on all Edge Nodes.
 
 * Copy the folder `release/docker-packages/RedHat-7/` to all application
 servers.
