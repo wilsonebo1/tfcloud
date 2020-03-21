@@ -69,7 +69,7 @@ You should now be able to log in to the Ambari UI in your web browser.
 
 ## Provide Additional Configuration
 
-1. Go to the _MapReduce_ service:
+1. Go to the _MapReduce2_ service:
 
 <img src="images/ambari-mapreduce-service.png" alt="" style="border: 1px solid black;" width="200"/>
 

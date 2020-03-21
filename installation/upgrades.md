@@ -181,7 +181,6 @@ servers:
   - execmanagerqw
 ```
 
-
 On upgrade to version 5.1 the following required changes must be made to `config.yaml`:
 
 1. If SAML is used, move SAML certifications to `/opt/datarobot/etc/certs/saml/`.
@@ -192,13 +191,14 @@ You will need to update document keys, _for all existing records_, to point to t
   * advanced_configuration.saml_client_configuration.key_file
   * advanced_configuration.saml_client_configuration.cert_file
 
-On upgrade to version 5.3 the following changes should be considered:
+On upgrade to version 5.3 or higher the following changes should be considered:
 
 * `config.yaml` now supports customizing Docker networks. See [Docker Networking](special-topics/docker-networks.md)
 * If secrets are enabled, remove the erlang cookie on all RabbitMQ hosts (located by inspecting your config.yaml) host after services have been stopped.
   These nodes will be labeled Rabbit in config.yaml.
   1. ensure that all datarobot services are stopped
   2. ```mv /opt/datarobot/data/rabbit/data/.erlang.cookie /opt/datarobot/data/rabbit/data/erlang.cookie.bak```
+* In 5.3, secrets enforced clusters began using a shared secret for Rabbitmq which is written to an `erlang.cookie` file. Upgrades from <= 5.2 to >= 5.3 must add a `rabbit_cookie: <any_secret_value>` value to `secrets.yaml`.
 
 
 ### Update Network configuration
@@ -213,7 +213,6 @@ On upgrade to version 4.3, the following changes to the open ports between hosts
 
 On upgrade to version 4.4, the following changes to the open ports between hosts must be made:
 
-
 | Action            | Port  | Protocol | Component            |
 |:------------------|------:|:---------|:---------------------|
 | Add               | 15672 | TCP      | RabbitMQ HTTP Interface|
@@ -221,11 +220,11 @@ On upgrade to version 4.4, the following changes to the open ports between hosts
 
 On upgrade to version 5.0, the following changes to the open ports between hosts must be made:
 
-
 | Action            | Port  | Protocol | Component            |
 |:------------------|------:|:---------|:---------------------|
 | Optionally Remove | 5558  | TCP      | Secure Worker Broker Client |
 | Optionally Remove | 5556  | TCP      | Secure Worker Broker |
+
 
 Starting with the 5.3 release of DataRobot, RabbitMQ supports  high  availability
 
@@ -263,8 +262,7 @@ details.
 
 ### RabbitMQ high availability
 
-Starting with DataRobot 5.3, it's possible  to enable clustered RabbitMQ to enhance durabiliy. If HA RabbitMQ is enabled,
-it will be necessary to add the port exceptions mentioned above. See [High Availability RabbitMQ](special-topics/rabbitmq-ha.md) for addtional details.
+Starting with DataRobot 5.3, it's possible  to enable clustered RabbitMQ to enhance durabiliy. If HA RabbitMQ is enabled, it will be necessary to add the port exceptions mentioned above. See [High Availability RabbitMQ](special-topics/rabbitmq-ha.md) for details on how to configure RabbitMQ in High Availability mode.
 
 ### Gluster Migration to MinIO
 
@@ -288,4 +286,4 @@ It is expected that trying to install mongo 3.6 or later on a system using old m
 
 ### Elasticsearch Backup and Restore
 
-Starting with DataRobot release 5.1, Elasticsearch is provided as a storage mechanism for the AI Catalog premium feature. If AI Catalogs are part of the DataRobot installation it is recommended that the DataRobot installation is [configured for elasticsearch backup/restore](special-topics/configure-elasticsearch-backup-restore.md) as part of the upgrade process.
+Starting with DataRobot release 5.1, Elasticsearch is provided as a storage mechanism for the AI Catalog premium feature. If AI Catalogs are part of the DataRobot installation it is recommended that the DataRobot installation is configured for elasticsearch backup/restore as part of the upgrade process. Please see the DataRobot Backup/Restore guide for details regarding how to configure elasticsearch for backup and restore activities.

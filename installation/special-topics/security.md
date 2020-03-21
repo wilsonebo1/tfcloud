@@ -2,7 +2,7 @@
 
 ## Introduction
 This guide is designed to help configure DataRobot following security best practices.
-DataRobot is a complex product with a wealth of configuration options -- at the time of writing (April 2019), this  guide covers a small number of them but we hope to extend it over time.
+DataRobot is a complex product with a wealth of configuration options -- at the time of writing (March 2020), this  guide covers a small number of them but we hope to extend it over time.
 
 ## Session expiration
 Leaving web UI sessions active forever is considered to be a security threat.
@@ -41,19 +41,23 @@ For more details you can visit this [MDN article](https://developer.mozilla.org/
 To extract the pin hash from the certificate you need to do one of the following commands based on your certificate format:
 
 ```bash
+# extracting from RSA key file
 openssl rsa -in my-rsa-key-file.key -outform der -pubout \
     | openssl dgst -sha256 -binary \
     | openssl enc -base64
 
+# extracting from Elliptic Curve key file
 openssl ec -in my-ecc-key-file.key -outform der -pubout \
     | openssl dgst -sha256 -binary \
     | openssl enc -base64
 
+# extracting from X.509 Certificate Signing Request file
 openssl req -in my-signing-request.csr -pubkey -noout \
     | openssl pkey -pubin -outform der \
     | openssl dgst -sha256 -binary \
     | openssl enc -base64
 
+# extracting from X.509 Certificate file
 openssl x509 -in my-certificate.crt -pubkey -noout \
     | openssl pkey -pubin -outform der \
     | openssl dgst -sha256 -binary \

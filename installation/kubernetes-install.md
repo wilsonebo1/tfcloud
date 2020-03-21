@@ -55,7 +55,7 @@ Account preparation described in the separate document.
 ### Copy required files
 
 Copy `<cluster-name>.pem` to the `/kubernetes` under installation folder 
-(`/opt/datarobot/DataRobot-5.3.0/kubernetes/<cluster-name>.pem`, for example). Change permissions 
+(`/opt/datarobot/DataRobot-6.x.x/kubernetes/<cluster-name>.pem`, for example). Change permissions 
 to the file to `600`.
 
 ### Preparing DataRobot `config.yaml`

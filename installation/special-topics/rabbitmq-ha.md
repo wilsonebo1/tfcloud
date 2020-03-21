@@ -1,9 +1,8 @@
-# High Availability RabbitMQ  
+# High Availability RabbitMQ
 
 ## Overview
 
-Starting in DataRobot 5.3 we've introduced a method by which it's possible to cluster RabbitMQ. Clustered RabbitMQ provides extra
-durability of queues in the event of a failure. 
+Starting in DataRobot 5.3 we've introduced a method by which it's possible to cluster RabbitMQ. Clustered RabbitMQ provides extra durability of queues in the event of a failure.
 
 ### Architecture
 
@@ -12,19 +11,18 @@ The conceptual architecture for HA RabbitMQ services is as follows:
 <kbd><img src="./images/HA-Rabbit.png" alt="HA Rabbit reference" style="border: 1px solid black;"/></kbd>
 
 In this configuration, we have one "frontend" server which hosts the application server and multiple backends hosting storage services.
-You can find sample configuration(s) both before and after HA Rabbit at the end of this document. 
+You can find sample configuration(s) both before and after HA Rabbit at the end of this document.
 
-#### Upgrade/Adding RabbitMQ HA 
+#### Upgrade/Adding RabbitMQ HA
 
-Clustering of RabbitMQ is dependent on a shared secret, which is written out to the RabbitMQ host machine during standard installs at  
-`/opt/datarobot/data/rabbit/data/.erlang.cookie`. The contents of this file must be the same on all hosts running RabbitMQ for clustering to succeed. In 5.3 we have a default cookie value and secrets enforced can be used to generate and set the same random cookie value on all nodes automatically. Delete the old cookie before proceeding with upgrades or installs (if you are adding RabbitMQ HA). 
+Clustering of RabbitMQ is dependent on a shared secret, which is written out to the RabbitMQ host machine during standard installs at `/opt/datarobot/data/rabbit/data/.erlang.cookie`. The contents of this file must be the same on all hosts running RabbitMQ for clustering to succeed. In 5.3 we have a default cookie value and secrets enforced can be used to generate and set the same random cookie value on all nodes automatically. Delete the old cookie before proceeding with upgrades or installs (if you are adding RabbitMQ HA).
 
-As with any upgrade process at DataRobot, you should prepare for the upgrade by following the upgrade guide located here [Upgrades](../upgrades.md). 
-Ensure that you have good backups before any upgrade procedure. Once you have  solid  backups, you can modify the config.yaml to contain an additional 
+As with any upgrade process at DataRobot, you should prepare for the upgrade by following the upgrade guide located here [Upgrades](../upgrades.md).
+Ensure that you have good backups before any upgrade procedure. Once you have  solid  backups, you can modify the config.yaml to contain an additional
 Rabbit node and a  HAproxy node. Please note that if you have the Patroni service running, you do not need to add an additional HAproxy service to your config.yaml.
-You can find sample config.yaml's before and after here: 
+You can find sample config.yaml's before and after here:
 
-#### Sample config.yaml (before RabbitHA enabled) 
+#### Sample config.yaml (before RabbitHA enabled)
 ```
 app_configuration:
   ENABLE_HADOOP_DEPLOYMENT: false
@@ -105,7 +103,7 @@ servers:
   - datasetsserviceworker1
   - minio
 ```
-#### Sample config.yaml (after RabbitHA enabled) 
+#### Sample config.yaml (after RabbitHA enabled)
 ```
 app_configuration:
   ENABLE_HADOOP_DEPLOYMENT: false

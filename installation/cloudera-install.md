@@ -57,15 +57,15 @@ sudo mv /tmp/parcel/DataRobot-* /opt/cloudera/parcel-repo
 For RHEL 6:
 
 ```bash
-sudo mv /opt/cloudera/parcel-repo/Datarobot-5.3.x-RELEASE-any.parcel /opt/cloudera/parcel-repo/Datarobot-5.3.x-RELEASE-el6.parcel
-sudo mv /opt/cloudera/parcel-repo/Datarobot-5.3.x-RELEASE-any.parcel.sha /opt/cloudera/parcel-repo/Datarobot-5.3.x-RELEASE-el6.parcel.sha
+sudo mv /opt/cloudera/parcel-repo/DataRobot-6.x.x-RELEASE-any.parcel /opt/cloudera/parcel-repo/DataRobot-6.x.x-RELEASE-el6.parcel
+sudo mv /opt/cloudera/parcel-repo/DataRobot-6.x.x-RELEASE-any.parcel.sha /opt/cloudera/parcel-repo/DataRobot-6.x.x-RELEASE-el6.parcel.sha
 ```
 
 For RHEL 7:
 
 ```bash
-sudo mv /opt/cloudera/parcel-repo/Datarobot-5.3.x-RELEASE-any.parcel /opt/cloudera/parcel-repo/Datarobot-5.3.x-RELEASE-el7.parcel
-sudo mv /opt/cloudera/parcel-repo/Datarobot-5.3.x-RELEASE-any.parcel.sha /opt/cloudera/parcel-repo/Datarobot-5.3.x-RELEASE-el7.parcel.sha
+sudo mv /opt/cloudera/parcel-repo/DataRobot-6.x.x-RELEASE-any.parcel /opt/cloudera/parcel-repo/DataRobot-6.x.x-RELEASE-el7.parcel
+sudo mv /opt/cloudera/parcel-repo/DataRobot-6.x.x-RELEASE-any.parcel.sha /opt/cloudera/parcel-repo/DataRobot-6.x.x-RELEASE-el7.parcel.sha
 ```
 
 **NOTE**: The CDH 5.4.0 and 5.5.0 .sha files have different formats.
@@ -73,23 +73,18 @@ sudo mv /opt/cloudera/parcel-repo/Datarobot-5.3.x-RELEASE-any.parcel.sha /opt/cl
 The CDH 5.4.0 format is `SHA PARCEL_FILENAME`:
 
 ```
-# FILE: DataRobot-5.3.x-release-el6.parcel.sha
-80e5223337d8978432ccae99ffea55f92e4fb4b9 DataRobot-5.3.x-release-el6.parcel
+# FILE: DataRobot-6.x.x-RELEASE-el6.parcel.sha
+9304fab63aa02f6e3ebbb27fc1c46f7fdc551c3e DataRobot-6.x.x-RELEASE-el6.parcel
 ```
+
+**NOTE**: This means you must add the filename to the sha file distributed with the DataRobot release
 
 CDH 5.5.0 and later **must only contain the SHA**,
 _without the space and filename_, for example:
 
 ```
-# FILE: DataRobot-5.3.x-release-el6.parcel.sha
-80e5223337d8978432ccae99ffea55f92e4fb4b9
-```
-
-**NOTE**: This means you must remove the space and filename from the sha, for example:
-
-```bash
-cat /tmp/DataRobot-5.3.x-release.el6.parcel | cut -d ' ' -f 1 \
-| sudo tee /opt/cloudera/parcel-repo/DataRobot-5.3.x-release.el6.parcel
+# FILE: DataRobot-6.x.x-RELEASE-el6.parcel.sha
+9304fab63aa02f6e3ebbb27fc1c46f7fdc551c3e
 ```
 
 * Change the ownership of the parcel file and parcel sha file:

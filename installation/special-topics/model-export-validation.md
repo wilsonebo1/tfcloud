@@ -22,6 +22,7 @@ os_configuration:
     cert_file_name: datarobot_codesigning_cert.pem
     ca_file_name: trusted_certificates.pem
     crl_file_name: revoked_certificates.pem
+  secrets_enforced: true
 ```
 
 where
@@ -53,11 +54,6 @@ for details).
 
 [Database Password Protection]: database-passwords.html
 
-```yaml
-os_configuration:
-  secrets_enforced: true
-```
-
 ## Disabling Exported Model File Validation
 
 To disable signing and validation of DataRobot models:
@@ -70,9 +66,6 @@ os_configuration:
     enabled: false
 ```
 
-* Remove the file `/opt/datarobot/DataRobot-5.3.x/secrets.yaml` if it exists.
+* Remove the file `/opt/datarobot/DataRobot-6.x.x/secrets.yaml` if it exists.
 
 * Execute `./bin/datarobot install`
-
-* If your cluster is integrated with Hadoop, you will need to run
-  `./bin/datarobot hadoop-sync`.

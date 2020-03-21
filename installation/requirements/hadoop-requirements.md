@@ -34,8 +34,10 @@ at least 5GB of available space.
 
 ## Hadoop Recommendations
 
-* Using a protected YARN queue for DataRobot will prevent preemption of containers, thus providing greater performance and stability.
-* Enabling ZooKeeper High Availability (HA) will significantly improve DataRobot stability.
+To Improve performance and stability, DataRobot recommends:
+
+* Using a protected YARN queue to prevent preemption of containers
+* Enabling ZooKeeper High Availability (HA)
 
 ### Memory and Compute Requirements
 
@@ -81,9 +83,9 @@ at least 5GB of available space.
 
 | Description | Filename | Notes |
 |:------------|:---------|:------|
-| Hadoop Parcel | `parcel/DataRobot-5.3.x-RELEASE-any.parcel` | Rename the file by replacing `any` with **el7** for CentOS/RHEL 7.x. Rename the file by replacing `any` with **el6** for CentOS/RHEL 6.4. |
-| Hadoop Parcel Checksum | `parcel/DataRobot-5.3.x-RELEASE-any.parcel.sha` | Rename the file by replacing `any` with **el7** for CentOS/RHEL 7.x. Rename the file by replacing `any` with **el6** for CentOS/RHEL 6.4. |
-| Custom Service Descriptor (CSD) | `csd/DataRobot-5.3.x-RELEASE.jar` | Configuration files used to integrate DataRobot with Cloudera. |
+| Hadoop Parcel | `parcel/DataRobot-6.x.x-RELEASE-any.parcel` | Rename the file by replacing `any` with **el7** for CentOS/RHEL 7.x. Rename the file by replacing `any` with **el6** for CentOS/RHEL 6.4. |
+| Hadoop Parcel Checksum | `parcel/DataRobot-6.x.x-RELEASE-any.parcel.sha` | Rename the file by replacing `any` with **el7** for CentOS/RHEL 7.x. Rename the file by replacing `any` with **el6** for CentOS/RHEL 6.4. |
+| Custom Service Descriptor (CSD) | `csd/DataRobot-6.x.x-RELEASE.jar` | Configuration files used to integrate DataRobot with Cloudera. |
 
 {% block ambari_requirements %}
 ## Ambari Requirements
@@ -95,7 +97,7 @@ at least 5GB of available space.
 
 | Description | Filename | Notes |
 |:------------|:---------|:------|
-| Hadoop Parcel | `parcel/DataRobot-5.3.x-RELEASE-any.parcel` | |
-| Hadoop Parcel Checksum | `parcel/DataRobot-5.3.x-RELEASE-any.parcel.sha` | |
+| Hadoop Parcel | `parcel/DataRobot-6.x.x-RELEASE-any.parcel` | |
+| Hadoop Parcel Checksum | `parcel/DataRobot-6.x.x-RELEASE-any.parcel.sha` | |
 | Service Descriptor | `ambari/datarobot-ambari-5.2.2-RELEASE.tar.gz` | Configuration files used to integrate DataRobot with Ambari. |
 {% endblock %}

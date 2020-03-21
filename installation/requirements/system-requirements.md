@@ -142,7 +142,7 @@ This user must have access to the following:
 
 ```bash
 useradd --create-home --uid 1234 datarobot # uid can be any valid uid
-mkdir -p /opt/datarobot /opt/datarobot/DataRobot-5.x.x
+mkdir -p /opt/datarobot /opt/datarobot/DataRobot-6.x.x
 chown -R datarobot:datarobot /opt/datarobot
 ```
 
@@ -295,7 +295,7 @@ ln -s /data/mydatarobot/docker /var/lib/docker
 
 | Description | Filename | Notes |
 |:------------|:---------|:------|
-| DataRobot Distribution | DataRobot-RELEASE-5.x.x.tar.gz | A tarball containing all files required for DataRobot installation |
+| DataRobot Distribution | DataRobot-RELEASE-6.x.x.tar.gz | A tarball containing all files required for DataRobot installation |
 
 ## Limits
 

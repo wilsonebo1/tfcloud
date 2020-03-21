@@ -10,7 +10,7 @@ To enable this integration, first create `config.yaml`.
 
 ### config.yaml
 
-Copy a sample YAML configuration file to `/opt/datarobot/DataRobot-5.3.x/config.yaml`.
+Copy a sample YAML configuration file to `/opt/datarobot/DataRobot-6.x.x/config.yaml`.
 
 You can find a sample Cloudera `config.yaml` file in `example-configs/hadoop-multi-node.yaml`. Modify the sample to suit your
 environment.
