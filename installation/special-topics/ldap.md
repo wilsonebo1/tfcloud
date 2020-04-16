@@ -38,7 +38,9 @@ Authentication flow is the following:
 1. User enters a username in the UI.
 2. `ldapsearch` backend performs an LDAP query using a predefined query pattern (e.g. `(uid=$username)`, `(sAMAccount=$username)`, `(email=$username)` or `((cn=$username)|(foo=bar)))` - DataRobot takes `BIND_DN` / `BIND_PASSWORD` from the configuration for making this query.
 3. If there is exactly one user found, `ldapsearch` takes the appropriate DN from the search results and tries to bind using the password entered by user to check if the password is correct.
-
+4. If `USER_AUTH_LDAP_GROUP_SEARCH_BASE_DN` config value is specified then backend will try to map user group on AD with a Datarobot group by making another request. Query for the group search looks like: 
+`(&(objectClass=groupOfNames)(|(member=cn={username},{base_dn})(member=uid={username},{base_dn})))`. Please note this query applied on the top of value set in `USER_AUTH_LDAP_GROUP_SEARCH_BASE_DN`. 
+In case if backend found group with the same name as group in the DR database, logged user will be automatically assigned to this group.
 ## LDAP Configuration Tool
 
 One needs to set values of many configuration options in order to integrate DataRobot with an LDAP server. Those values depend on the configuration and schema of customer's LDAP server.
