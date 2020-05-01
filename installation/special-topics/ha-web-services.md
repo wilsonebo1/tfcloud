@@ -73,7 +73,7 @@ Name | Protocol | Traffic Port | Health Check Path | Health Check Port | Stickin
 ---- | -------- | ------------ | ----------------- | ----------------- | ----------
 app | HTTP | 80 | /ping | traffic port | Disabled
 publicapi | HTTP | 80 | /api/v2/ping | traffic port | Disabled
-appupluad | HTTP | 80 | /upload/ping | traffic port | Disabled
+appupload | HTTP | 80 | /upload/ping | traffic port | Disabled
 mmqueue | HTTP | 80 | /ping | 8011 | 1 day
 internalapi | HTTP | 80 | /api/v0/ping | traffic port | Disabled
 dss-api | HTTP | 8100 | /status | traffic port | Disabled
