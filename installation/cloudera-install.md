@@ -322,12 +322,9 @@ available DataNode using the same procedure.
 
 * Click in the **App Node Location** text field and key in the IP or DNS of application server. Example: http://10.0.0.1
 
-* Edit container memory and vcores settings as appropriate for your cluster.
+* If custom Java Keystore or Truststore are used on your Hadoop cluster, please update **Custom Java key store's file**, **Custom Java trust store's file** to point to the CA certificate location, as depicted in the screenshot below
 
-We recommend at least 60GB of RAM for `MMW` and `SECURE_WORKER` containers
-and at least eight cores.
-
-<img src="./images/cdh-dr-config.png" alt="CDH DataRobot Config" style="border: 1px solid black;"/>
+<img src="./images/java-opts.png" alt="Java Options to enable custom key store and trust store" style="border: 1px solid black;"/>
 
 * For HA HDFS clusters, set the following (options not shown in screen above):
   - To explicitly pick an active namenode, fill in a value for the `ACTIVE_NAMENODE_ADDRESS` field. If not specified, DataRobot will automatically pick the active namenode.
