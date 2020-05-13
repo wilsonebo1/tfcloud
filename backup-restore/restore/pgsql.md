@@ -7,7 +7,7 @@
 ----------------------------------------------------
 Extract the backup archive on the data node configured to run `pgsql`:
 ```bash
-cd /opt/datarobot/data/backups/pgsql
+cd /opt/datarobot/data/pgsql
 tar -xf /opt/datarobot/data/backups/pgsql/datarobot-pgsql-backup-<backup_date>.tar
 ```
 
@@ -18,11 +18,7 @@ docker start pgsql
 
 Restore the PostgreSQL database on the same data node:
 ```bash
-docker run --network host --rm it -u $(id -u) \
-    -v /opt/datarobot/data/backups/pgsql:/opt/datarobot/data/backups/pgsql \
-    $(docker images | grep -m1 datarobot-runtime | awk '{print $1":"$2}') \
-    python -m tools.manager.pgsql configure \
-    --backup-location=/opt/datarobot/data/backups/pgsql/
+docker exec -it -u $(id -u) pgsql python -m tools.manager.pgsql configure --backup-location /opt/datarobot-runtime/data/postgresql/backup/
 ```
 
 Stop the `pgsql` container:
@@ -35,7 +31,7 @@ docker stop pgsql
 -------------------------------------------------
 Extract the backup archive on the data node configured to run `pgsql`:
 ```bash
-cd /opt/datarobot/data/backups/pgsql
+cd /opt/datarobot/data/pgsql
 tar -xf /opt/datarobot/data/backups/pgsql/datarobot-pgsql-backup-<backup_date>.tar
 ```
 
@@ -55,7 +51,7 @@ Restore the PostgreSQL datanode running `pgsql`:
 ```bash
 source /opt/datarobot/etc/profile
 python -m tools.manager.pgsql configure \
-    --backup-location=/opt/datarobot/data/backups/pgsql/
+    --backup-location=/opt/datarobot/data/pgsql/backup/
 ```
 
 AS a user with sudo privileges, or as the root user, stop the DataRobot PostgreSQL database service on the data node configured to run `pgsql`:

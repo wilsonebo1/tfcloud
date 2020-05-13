@@ -25,8 +25,8 @@ exit
 Create a tar archive of the backed-up MinIO files:
 ```bash
 mkdir -p /opt/datarobot/data/backups/minio
-cd /opt/datarobot/data/minio/backup
-tar -cf /opt/datarobot/data/backups/minio/datarobot-minio-backup-$(date +%F).tar --remove-files ./*
+cd /opt/datarobot/data/minio
+tar -czf /opt/datarobot/data/backups/minio/datarobot-minio-backup-$(date +%F).tar.gz --remove-files ./backup
 ```
 
 Stop the MinIO dockers on all of the data nodes by running the following command on all data backend nodes:

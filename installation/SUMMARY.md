@@ -19,7 +19,7 @@
 * [Hadoop Pre-Flight Checks](pre-flight-checks.md#hadoop-checks)
 * [Advanced Configuration](special-topics/README.md)
   * [Adjusting Log Verbosity](special-topics/application-log-levels.md)
-  * [Configuring Elasticsearch Backup/Restore](special-topics/configure-elasticsearch-backup-restore.md)
+  * [Configuring Elasticsearch Backup/Restore](special-topics/elasticsearch-configure-backup-restore.md)
   * [TLS](special-topics/tls.md)
   * [Security Best Practices](special-topics/security.md)
   * [KMS Integration](special-topics/kms.md)

@@ -9,9 +9,9 @@
 ---------------------------
 Extract the backup archive on any one of the data backend nodes with the following commands:
 ```bash
-mkdir -p /opt/datarobot/data/minio/backup
-cd /opt/datarobot/data/minio/backup
-tar -xvf /opt/datarobot/data/backups/minio/datarobot-minio-backup-<backup_date>.tar
+mkdir -p /opt/datarobot/data/minio
+cd /opt/datarobot/data/minio
+tar -xvf /opt/datarobot/data/backups/minio/datarobot-minio-backup-<backup_date>.tar.gz
 ```
 
 Start the MinIO dockers on all the data nodes by running the following command on all data backend nodes:
@@ -24,7 +24,7 @@ Restore the MinIO cluster on the data node where the backup archive was extracte
 docker exec -u user -it minio bash
 source <(python2 -m config.render -g minio -T "{{minio_env | shexports}}")
 mc config host add minio https://${MINIO_HOST}:${MINIO_PORT} ${MINIO_ACCESS_KEY} ${MINIO_SECRET_KEY} --api S3v4
-mc cp --insecure -r /opt/datarobot-runtime/data/backup minio/${MINIO_BUCKET}
+mc cp --insecure -r /opt/datarobot-runtime/data/backup/ minio/${MINIO_BUCKET}
 exit
 ```
 

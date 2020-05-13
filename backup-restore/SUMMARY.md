@@ -30,4 +30,4 @@
   * [PostgreSQL Restore](restore/pgsql.md)
   * [Patroni Restore](restore/patroni.md)
 * [Elasticsearch Restore](restore/elasticsearch.md)
-* [Start DataRobot](start-datarobot.md)
+* [Start and Reconfigure DataRobot](restore/start-and-reconfigure-datarobot.md)

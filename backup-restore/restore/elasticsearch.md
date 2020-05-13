@@ -8,8 +8,8 @@ The following steps can be used to restore any Elasticsearch cluster, whether yo
 -------------------------------------------------------
 Extract the backup archive on any single node configured to run the `elasticsearch` service:
 ```bash
-cd /opt/datarobot/backup/
-tar -xf /opt/datarobot/backups/elasticsearch/datarobot-elasticsearch-backup-<backup_date>.tar.gz
+cd /opt/datarobot/data/backup/
+tar -xf /opt/datarobot/data/backups/elasticsearch/datarobot-elasticsearch-backup-<backup_date>.tar.gz
 ```
 
 Start the Elasticsearch container on all nodes configured to run `elasticsearch`:

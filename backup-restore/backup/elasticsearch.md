@@ -3,11 +3,6 @@
 ----------------------
 The following steps can be used to backup any Elasticsearch cluster, whether you are going to or from a single node or HA configuration. When backing up an HA Elasticsearch cluster, you must first enable elasticsearch backups, configure an NFS server, and configure NFS clients as described in the Installation and Configuration Guide.
 
-Make sure that the Elasticsearch repository exists. The output is info about the registered repository.
-```bash
-curl -X GET "localhost:9200/_snapshot/DR_ES?pretty"
-```
-
 <a name="backup-elasticsearch-quickstart-docker"></a>
 ## Backup Elasticsearch Quickstart for Docker Installs
 ------------------------------------------------------

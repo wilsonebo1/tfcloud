@@ -5,19 +5,15 @@
 <a name="backup-pgsql-quickstart-docker"></a>
 ## Backup PostgreSQL Quickstart for Docker Installs
 ---------------------------------------------------
-Start the PostgreSQL container on the data node configured to run `pgsql`:
+Start the PostgreSQL container and create the backup directory on the data node configured to run `pgsql`:
 ```bash
 docker start pgsql
+mkdir -p /opt/datarobot/data/pgsql/backup
 ```
 
-Backup the PostgreSQL database on the same data node:
+Backup the PostgreSQL databases on the same data node:
 ```bash
-mkdir -p /opt/datarobot/data/backups/pgsql
-docker run --network host --rm -it -u $(id -u) \
-    -v /opt/datarobot/data/backups/pgsql:/opt/datarobot/data/backups/pgsql \
-    $(docker images | grep -m1 datarobot-runtime | awk '{print $1":"$2}') \
-    python -m tools.manager.pgsql create-backup \
-    --backup-location=/opt/datarobot/data/backups/pgsql/
+docker exec -it -u $(id -u) pgsql python -m tools.manager.pgsql create-backup --backup-location /opt/datarobot-runtime/data/postgresql/backup/
 ```
 
 Stop the `pgsql` container:
@@ -27,8 +23,8 @@ docker stop pgsql
 
 Create a tar archive to consolidate the backup:
 ```bash
-tar -cf /opt/datarobot/data/backups/pgsql/datarobot-pgsql-backup-$(date +%F).tar \
-    --remove-files /opt/datarobot/data/backups/pgsql/*
+cd /opt/datarobot/data/pgsql/
+tar -cf /opt/datarobot/data/backups/pgsql/datarobot-pgsql-backup-$(date +%F).tar --remove-files backup
 ```
 
 <a name="backup-pgsql-quickstart-rpm"></a>
@@ -68,6 +64,7 @@ sudo systemctl stop datarobot-postgres
 
 Create a tar archive to consolidate the backup:
 ```bash
+cd /opt/datarobot/data/backups
 tar -cf /opt/datarobot/data/backups/pgsql/datarobot-pgsql-backup-$(date +%F).tar \
-    --remove-files /opt/datarobot/data/backups/pgsql/*
+    --remove-files pgsql
 ```

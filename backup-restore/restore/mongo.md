@@ -8,6 +8,7 @@
 Extract the tar archive of the backed-up database files:
 ```bash
 mkdir -p /opt/datarobot/data/mongo
+cd /opt/datarobot/data/mongo
 tar -xf /opt/datarobot/data/backups/mongo/datarobot-mongo-backup-<backup_date>.tar
 ```
 
@@ -18,8 +19,7 @@ docker start mongo
 
 Restore the Mongo database on any single `mongo` data node:
 ```bash
-docker exec -u user -it mongo sbin/datarobot-manage-mongo restore \
-    --backup-dir /opt/datarobot-runtime/data/mongo/backup
+docker exec -u user -it mongo sbin/datarobot-manage-mongo restore --backup-dir /opt/datarobot-runtime/data/mongo/backup
 ```
 
 Stop the `mongo` container on every data node configured to run `mongo`:
@@ -50,8 +50,7 @@ sudo systemctl start datarobot-mongo
 
 Restore the Mongo database on any single `mongo` data node:
 ```bash
-/opt/datarobot/app/DataRobot/sbin/datarobot-manage-mongo restore \
-    --backup-dir /opt/datarobot-runtime/data/mongo/backup
+/opt/datarobot/app/DataRobot/sbin/datarobot-manage-mongo restore --backup-dir /opt/datarobot-runtime/data/mongo/backup
 ```
 
 As a user with sudo privileges, or as the root user, stop the `datarobot-mongo` service:
