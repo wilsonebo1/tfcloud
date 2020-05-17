@@ -18,8 +18,10 @@ mkdir -p /opt/datarobot/data/minio/backup
 docker exec -u user -it minio bash
 source <(python2 -m config.render -g minio -T "{{minio_env | shexports}}")
 mc config host add minio https://${MINIO_HOST}:${MINIO_PORT} ${MINIO_ACCESS_KEY} ${MINIO_SECRET_KEY} --api S3v4
+# should result in 'Added `minio` successfully.'
 mc cp --insecure -r minio/${MINIO_BUCKET}/ /opt/datarobot-runtime/data/backup
 exit
+
 ```
 
 Create a tar archive of the backed-up MinIO files:

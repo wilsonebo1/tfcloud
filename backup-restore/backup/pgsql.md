@@ -13,7 +13,8 @@ mkdir -p /opt/datarobot/data/pgsql/backup
 
 Backup the PostgreSQL databases on the same data node:
 ```bash
-docker exec -it -u $(id -u) pgsql python -m tools.manager.pgsql create-backup --backup-location /opt/datarobot-runtime/data/postgresql/backup/
+docker exec -it -u $(id -u) pgsql python -m tools.manager.pgsql create-backup \
+    --backup-location /opt/datarobot-runtime/data/postgresql/backup/
 ```
 
 Stop the `pgsql` container:
@@ -23,6 +24,7 @@ docker stop pgsql
 
 Create a tar archive to consolidate the backup:
 ```bash
+mkdir -p /opt/datarobot/data/backups/pgsql
 cd /opt/datarobot/data/pgsql/
 tar -cf /opt/datarobot/data/backups/pgsql/datarobot-pgsql-backup-$(date +%F).tar --remove-files backup
 ```
