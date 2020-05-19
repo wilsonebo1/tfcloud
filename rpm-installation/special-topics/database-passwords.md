@@ -1,200 +1,56 @@
 # Database Password Protection
 
-DataRobot uses two databases for internal operations; Redis, and MongoDB.
-Postgres may also be enabled for premium Model Monitoring functionality.
+DataRobot uses a number of persistent services (such as databases) for internal operations.
+Each of these services supports password-based authentication, which is recommended.
 
-Password-enforced access to these databases may optionally be enabled using the following instructions.
+All installations include `mongo`, `rabbit`, and `redis`.
+Additionally, `minio` may be used for a storage backend, and `postgres` and `elasticsearch` may be enabled for premium features.
 
 ## Enabling Password Protection
 
-On each host in the cluster, as a user with `sudo` permissions, link the openssl.cnf distributed with DataRobot to /etc/ssl/openssl.cnf:
-```bash
-sudo ln -s /opt/datarobot/virtualenvs/datarobot/etc/ssl/openssl.cnf /etc/ssl/openssl.cnf
-```
+By default, password authentication is disabled for persistent services / databases.
 
-### If passwordless ssh has been configured
+*NOTE*: If doing an upgrade or re-install where password protection was used before, it is _critical_ to copy over `secrets.yaml`, `.secrets.key`, and the `secrets` directory from the previous installation directory into the new installation directory (beside `config.yaml`) before proceeding, to use pre-existing passwords!
 
-Run the following command on the provisioner host as the user with `sudo` access on every node in the cluster:
-```bash
-bin/datarobot setup-dependencies
-```
+### Password Protection
 
-To enable password protection on databases, add the following settings to your `config.yaml`:
+Enabling password protection is recommended. For installations using `minio`, this is required.
+
+Enabling password protection on databases can be accomplished by adding the following settings to your `config.yaml`.
+
 ```yaml
 ---
 os_configuration:
-    secrets_enforced: true
+  secrets_enforced: true
 ```
 
-*NOTE*: If doing an upgrade or re-install where password protection was used before,
-make sure to copy over `secrets.yaml` into the installation directory (beside
-`config.yaml`) before proceeding, to use pre-existing passwords!
+Then proceed with (re-)installation.
 
-Run the following command on the provisioner host as the `datarobot` user:
-```bash
-bin/datarobot install --pre-configure
-```
+### Disabling Password Protection
 
-Go to a single `mongo` host and start it in local mode without authentication as the `datarobot` user:
-```
-cp /opt/datarobot/etc/defaults/datarobot /opt/datarobot/etc/defaults/original_datarobot
-sed -i 's/\(.*EXTRA_MONGO_OPTION.*\)/# \1/' /opt/datarobot/etc/defaults/datarobot
-source release/profile
-/opt/datarobot/app/DataRobot/bin/datarobot-mongo &
-```
+If password protection must be disabled for some reason, and `minio` is not being used, it can be disabled.
 
-Record the mongo password created by the DataRobot installer:
-```bash
-grep mongo_password secrets.yaml | cut -f2 -d'"'
-```
+On the hosts from which you are running installation commands:
 
-On that same host, as the `datarobot` user connect to mongo, create the mongo datarobot user, and set the password recorded in the previous step:
-```bash
-mongo localhost:27017/admin
-rs.initiate()
-use admin
+* Remove the line for `secrets_enforced: true` from `config.yaml`
+* Remove the file `/opt/datarobot/DataRobot-6.x.x/secrets.yaml` if it exists (do not remove `secrets` dir or `.secrets.key`)
 
-# make sure the datarobot user does not yet exist
-db.system.users.findOne({"user": "datarobot"})
-# should return null
+On each host:
 
-# if the datarobot user exists you should drop that user
-# db.dropUser("datarobot")
+* Remove the files in `/opt/datarobot/etc/secrets/*.json` if they exist (do not remove `.enc` files)
 
-# create a new datarobot user using the generated password
-db.createUser({"user": "datarobot", "pwd": "<password-from-secrets.yaml>", "roles": [ "root" ]})
-```
+Then proceed with (re-)installation.
 
-Shut down the mongo database by bringing the process to the foreground and typing Ctrl-C:
-```bash
-fg
-^C
-```
+### Re-enabling Password Protection
 
-Re-enable Mongo Authentication and ensure that `EXTRA_MONGO_OPTIONS` is set:
-```bash
-sed -i 's/.*\(EXTRA_MONGO_OPTION.*\)/export \1/' /opt/datarobot/etc/defaults/datarobot
-grep EXTRA_MONGO /opt/datarobot/etc/defaults/datarobot
-# should return "export EXTRA_MONGO_OPTIONS=' --auth'"
-```
+If password protection is disabled for some reason, it can be re-enabled.
 
-From the provisioner, as a user with `sudo` access, start the DataRobot Platform services:
-```bash
-bin/datarobot services start
-```
+On the hosts from which you are running installation commands:
 
-From the provisioner, as the `datarobot` user, finish the install process:
-```bash
-bin/datarobot install --post-configure
-```
+* Remove the line for `secrets_enforced: false` from `config.yaml`
 
-From the provisioner, as a user with `sudo` access, restart the DataRobot Platform services:
-```bash
-bin/datarobot services restart
-```
+On each host with `mongo`:
 
-Verify that mongo is healthy by running the following command on a host with the `availabilitymonitor` service defined:
-```bash
-curl localhost:9090/v1/health/?service=mongo
-# look for '"healthy": true,' in the output
-```
+* Remove the file `/opt/datarobot/data/mongo/mongo.state.json` if it exists
 
-### If passwordless ssh has not been configured
-
-Run the following command on each host in the cluster as a user who has `sudo` access on that host:
-```bash
-bin/datarobot setup-dependencies --limit-hosts <host IP>
-```
-
-To enable password protection on databases, add the following settings to your `config.yaml`:
-```yaml
----
-os_configuration:
-    secrets_enforced: true
-```
-
-*NOTE*: If doing an upgrade or re-install where password protection was used before,
-make sure to copy over `secrets.yaml` into the installation directory (beside
-`config.yaml`) before proceeding, to use pre-existing passwords!
-
-Run the following command on a single host in the cluster as the `datarobot` user:
-```bash
-bin/datarobot --pre-configure --limit-hosts <host IP>
-```
-
-As the `datarobot` user, copy `secrets.yaml`, `.secret-key`, and the `secrets\` directory and all of its contents to all the other hosts in the cluster:
-```bash
-scp -Cp secrets.yaml <host>:/opt/tmp
-scp -Cp .secret-key <host>:/opt/tmp
-scp -rCp secrets <host>:/opt/tmp
-```
-
-As the `datarobot` user, run the following command on each host in the cluster where you have not yet run this command:
-```bash
-bin/datarobot --pre-configure --limit-hosts <host IP>
-```
-
-Go to a single `mongo` host and start it in local mode without authentication as the `datarobot` user:
-```
-cp /opt/datarobot/etc/defaults/datarobot /opt/datarobot/etc/defaults/original_datarobot
-sed -i 's/\(.*EXTRA_MONGO_OPTION.*\)/# \1/' /opt/datarobot/etc/defaults/datarobot
-source release/profile
-/opt/datarobot/app/DataRobot/bin/datarobot-mongo &
-```
-
-Record the mongo password created by the DataRobot installer:
-```bash
-grep mongo_password secrets.yaml | cut -f2 -d'"'
-```
-
-On that same host, as the `datarobot` user connect to mongo, create the mongo datarobot user, and set the password recorded in the previous step:
-```bash
-source release/profile
-mongo localhost:27017/admin
-rs.initiate()
-use admin
-
-# make sure the datarobot user does not yet exist
-db.system.users.findOne({"user": "datarobot"})
-# should return null
-
-# if the datarobot user exists you should drop that user
-# db.dropUser("datarobot")
-
-# create a new datarobot user using the generated password
-db.createUser({"user": "datarobot", "pwd": "<password-from-secrets.yaml>", "roles": [ "root" ]})
-```
-
-Shut down the mongo database by bringing the process to the foreground and typing Ctrl-C:
-```bash
-fg
-^C
-```
-
-Re-enable Mongo Authentication and ensure that `EXTRA_MONGO_OPTIONS` is set:
-```bash
-sed -i 's/.*\(EXTRA_MONGO_OPTION.*\)/export \1/' /opt/datarobot/etc/defaults/datarobot
-grep EXTRA_MONGO /opt/datarobot/etc/defaults/datarobot
-# should return "export EXTRA_MONGO_OPTIONS=' --auth'"
-```
-
-On each host in the cluster, start the DataRobot services as a user with `sudo` access:
-```bash
-bin/datarobot services start --limit-hosts <host IP>
-```
-
-On each host in the cluster, finish the DataRobot install steps as the `datarobot` user:
-```bash
-bin/datarobot --post-configure --limit-hosts <host IP>
-```
-
-On each host in the cluster, restart the DataRobot services as a user with `sudo` access:
-```bash
-bin/datarobot services restart --limit-hosts <host IP>
-```
-
-Verify that mongo is healthy by running the following command on a host with the `availabilitymonitor` service defined:
-```bash
-curl localhost:9090/v1/health/?service=mongo
-# look for '"healthy": true,' in the output
-```
+Then proceed with (re-)installation.

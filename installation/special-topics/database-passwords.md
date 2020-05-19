@@ -1,61 +1,58 @@
 # Database Password Protection
 
-By default DataRobot uses two databases for internal operations; Redis, and MongoDB.  Postgres may also be enabled for premium Model Monitoring functionality.
+DataRobot uses a number of persistent services (such as databases) for internal operations.
+Each of these services supports password-based authentication, which is recommended.
 
-Password-enforced access to these databases may optionally be enabled using the following instructions.
+All installations include `mongo`, `rabbit`, and `redis`.
+Additionally, `minio` may be used for a storage backend, and `postgres` and `elasticsearch` may be enabled for premium features.
 
-## Enabling Password Protection
+## Password Protection
 
-### Before Installation
+By default, password authentication is enabled for persistent services / databases.
 
-To enable password protection on databases, simply add the following settings to your `config.yaml`.
+*NOTE*: If doing an upgrade or re-install where password protection was used before, it is _critical_ to copy over `secrets.yaml`, `.secrets.key`, and the `secrets` directory from the previous installation directory into the new installation directory (beside `config.yaml`) before proceeding, to use pre-existing passwords!
+
+### Disabling Password Protection
+
+Disabling password protection is not recommended. For installations using `minio`, this is not supported.
+
+Otherwise, disabling password protection on databases can be accomplished by adding the following settings to your `config.yaml`, on the hosts from which you are running installation commands:
 
 ```yaml
 ---
 os_configuration:
-    secrets_enforced: true
+  secrets_enforced: false
 ```
 
-*NOTE*: If doing an upgrade or re-install where password protection was used before, make sure to copy over `secrets.yaml` into the installation directory (beside `config.yaml`) before proceeding, to use pre-existing passwords!
+On the hosts from which you are running installation commands:
 
-### After Installation
+* Remove the file `/opt/datarobot/DataRobot-6.x.x/secrets.yaml` if it exists
+* Remove the files in `/opt/datarobot/DataRobot-6.x.x/secrets/*` if they exist (do not remove `secrets` dir or `.secrets.key`)
 
-To enable or change passwords after installing DataRobot, follow these steps.
+On each host:
 
-* Make the above modification to your `config.yaml` file (set `secrets_enforced` to `true`).
+* Remove the files in `/opt/datarobot/etc/secrets/*.json` if they exist (do not remove `.enc` files)
 
-* Enable secrets with
+Then proceed with (re-)installation.
 
-{% block enable_secrets_command %}
-```bash
-./bin/datarobot install
-```
-{% endblock %}
+### Re-enabling Password Protection
 
-* You should regularly rotate secrets:
+If password protection is disabled for some reason, it can be re-enabled.
+
+On the hosts from which you are running installation commands:
+
+* Remove the line for `secrets_enforced: false` from `config.yaml`
+
+On each host with `mongo`:
+
+* Remove the file `/opt/datarobot/data/mongo/mongo.state.json` if it exists
+
+Then proceed with (re-)installation.
+
+### Secrets Rotation
+
+The passwords used for authentication for databases can be rotated, by running this command from installation host:
 
 ```bash
 ./bin/datarobot rotate-secrets
 ```
-
-## Disabling Password Protection
-
-To disable password protection:
-
-* update your `config.yaml`:
-
-```yaml
----
-os_configuration:
-    secrets_enforced: false
-```
-
-* Remove the file `/opt/datarobot/DataRobot-6.x.x/secrets.yaml` if it exists.
-
-* Execute:
-
-{% block disable_secrets_command %}
-```bash
-./bin/datarobot install
-```
-{% endblock %}
