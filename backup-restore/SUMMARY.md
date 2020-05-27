@@ -4,6 +4,7 @@
 
 ## Backup
 
+* [Secrets Backup](backup/secrets-backup.md)
 * [Stop DataRobot](stop-datarobot.md)
 * [Filestore Backup](backup/filestore.md)
   * [Gluster Backup](backup/gluster.md)
@@ -20,6 +21,7 @@
 ## Restore
 
 * [Distribute Backup Files](distribute-backups.md)
+* [Secrets Restore](restore/secrets-restore.md)
 * [Stop DataRobot](stop-datarobot.md)
 * [Filestore Restore](restore/filestore.md)
   * [Gluster Restore](restore/gluster.md)
