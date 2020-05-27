@@ -456,6 +456,8 @@ regularly clean up old files.
 # FILE: DataRobot user’s crontab
 # DataRobot vertex cache cleanup
 0 3 */3 * * find /opt/datarobot/data/app_data/uploads -mtime +14 -exec rm {} \;
+# DataRobot predictions data spool files cleanup
+0 2 */1 * * test -d /opt/datarobot/data/predictions_data/modmon-stats && find /opt/datarobot/data/predictions_data/modmon-stats -mindepth 1 -mtime +1 -exec rm -rf {} \;
 ```
 
 In the root user's crontab, put the following line to rebuild iptables rules at reboot
