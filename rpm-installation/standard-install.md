@@ -225,6 +225,7 @@ servers:
   - address: 10.1.2.3
     ansible_vars:
       ansible_connection: local
+      ansible_python_interpreter: /opt/datarobot/DataRobot-x.x.x/release/venv/bin/python
 ...
 ```
 
