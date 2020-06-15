@@ -42,3 +42,4 @@
   * [Using the MinIO Filestore](special-topics/minio-filestore.md)
   * [Migrating Local Filestore to MinIO](special-topics/migrating-local-data-to-minio.md)
   * [Notification Policies](special-topics/notification-policies.md)
+  * [BigQuery](special-topics/bigquery.md)
