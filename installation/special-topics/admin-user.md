@@ -151,7 +151,7 @@ to all application servers.
 * Run the following command on all nodes:
 
 ```bash
-sudo yum localinstall -y \
+sudo yum localinstall -y --nogpgcheck \
 release/docker-packages/docker-py-packages/rpm/*.rpm
 ```
 * Add the `docker-py` libraries to site-packages so they are accessible.
