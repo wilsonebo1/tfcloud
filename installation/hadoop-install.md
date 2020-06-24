@@ -23,6 +23,8 @@ Contact DataRobot support for help with this file.
 
 * Stop DataRobot service via Cloudera/Ambari UI
 
+* If the new version is 6.0+ remove DataRobot DSS ETL Quick Worker from the services via Cloudera/Ambari UI since we removed this service from our Hadoop stack started from the 6.0 version.
+
 * Remove any existing datarobot-defaults.conf, datarobot-hadoop.conf on Hadoop node which runs DataRobot Master service.
 
 ```bash
