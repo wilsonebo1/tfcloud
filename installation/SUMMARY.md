@@ -58,6 +58,7 @@
     * [Incremental Copy Process](special-topics/gluster-migration.md#incremental-copy)
   * [Notification Policies](special-topics/notification-policies.md)
   * [BigQuery](special-topics/bigquery.md)
+  * [Tile Server](special-topics/tile-server.md)
 
 ## Administration
 
