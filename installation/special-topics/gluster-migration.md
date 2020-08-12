@@ -6,7 +6,7 @@ As of DataRobot 5.3, Gluster has been deprecated as a storage backend and will b
 
 Scripts have been provided to backup an existing Gluster deployment and restore it to a running MinIO instance.  These scripts should be run on a host that is currently running Gluster or MinIO; these scripts will not exist on every host.
 
-Gluster is still supported in the DataRobot 6.0 release, and it is recommended that upgrade activities are performed prior to migrating data to the new MinIO backend (i.e. upgrade to 6.0, verify that the upgrade is stable, and then perform the MinIO upgrade).  These tasks do not need to be synchronous, and an extended outage may be required for this backup-and-restore migration.
+Gluster is still supported in the DataRobot 6.2 release, and it is recommended that upgrade activities are performed prior to migrating data to the new MinIO backend (i.e. upgrade to 6.2, verify that the upgrade is stable, and then perform the MinIO upgrade).  These tasks do not need to be synchronous, and an extended outage may be required for this backup-and-restore migration.
 
 You must have installed DataRobot 6.0 or later in order to proceed with these migration procedures.
 
