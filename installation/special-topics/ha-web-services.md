@@ -196,7 +196,7 @@ Name | Listener | Forwarding Rule
 ---- | -------- | ---------------
 app | HTTPS:443 | default
 publicapi | HTTPS:443 | /api/v2/\*
-appupluad | HTTPS:443 | /upload/\*
+appupload | HTTPS:443 | /upload/\*
 mmqueue | HTTPS:443 | /socket.io-queue/\*
 internalapi | HTTPS:443 | /api/v0/\*
 dss-api | HTTPS:8100 | default
