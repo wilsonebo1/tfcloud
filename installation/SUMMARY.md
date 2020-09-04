@@ -58,6 +58,7 @@
     * [Incremental Copy Process](special-topics/gluster-migration.md#incremental-copy)
   * [Notification Policies](special-topics/notification-policies.md)
   * [BigQuery](special-topics/bigquery.md)
+  * [Custom Models GitHub and S3 integration](special-topics/custom-models-github-s3-integration.md)
   * [Tile Server](special-topics/tile-server.md)
 
 ## Administration
