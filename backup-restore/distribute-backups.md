@@ -14,7 +14,6 @@ Redis: `/opt/datarobot/data/backups/redis/dump.rdb`
 MongoDB: `/opt/datarobot/data/backups/mongo/datarobot-monogo-backup-<date>.tar`
 PostgreSQL: `/opt/datarobot/data/backups/pgsql/datarobot-pgsql-backup-<date>.tar`
 Patroni: `/opt/datarobot/data/backups/patroni/datarobot-patroni-backup-<date>.tar`
-Elasticsearch: `/opt/datarobot/data/backups/elasticsearch/datarobot-elasticsearch-backup-<date>.tar.gz`
 
 Not all of these files are appropriate for every DataRobot installation, but ensure that each of the defined services included in your configuration are backed up on a regular basis.
 

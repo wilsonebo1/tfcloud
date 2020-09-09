@@ -18,7 +18,7 @@ docker start patroni
 Backup the Patroni database on one of the `patroni` nodes:
 ```bash
 mkdir /opt/datarobot/data/patroni/backup
-docker exec -u user -it patroni \
+docker exec -it patroni /entrypoint \
     python -m tools.manager.pgsql create-backup \
     --backup-location=/opt/datarobot-runtime/data/patroni/backup/
 ```
@@ -42,28 +42,16 @@ tar -cf /opt/datarobot/data/backups/pgsql/datarobot-pgsql-backup-$(date +%F).tar
 <a name="backup-patroni-quickstart-rpm"></a>
 ## Backup PostgreSQL Quickstart for RPM Installs
 ------------------------------------------------
-As a user with sudo privileges, or as the root user, start the DataRobot Zookeeper service on all of the nodes configured to run `zookeeper`:
+Start the DataRobot Zookeeper service on all of the nodes configured to run `zookeeper`:
 
-CentOS 6 or RHEL 6
 ```bash
-sudo service datarobot-zookeeper start
+/opt/datarobot/sbin/datarobot-supervisorctl start zookeeper
 ```
 
-CentOS 7 or RHEL 7
-```bash
-sudo systemctl start datarobot-zookeeper
-```
+Start the DataRobot Patroni database service on all of the data nodes configured to run `patroni`:
 
-As a user with sudo privileges, or as the root user, start the DataRobot Patroni database service on all of the data nodes configured to run `patroni`:
-
-CentOS 6 or RHEL 6
 ```bash
-sudo service datarobot-patroni start
-```
-
-CentOS 7 or RHEL 7
-```bash
-sudo systemctl start datarobot-patroni
+/opt/datarobot/sbin/datarobot-supervisorctl start patroni
 ```
 
 Backup the PostgreSQL data node running `postgres`:
@@ -74,28 +62,16 @@ python -m tools.manager.pgsql create-backup \
     --backup-location=/opt/datarobot/data/backups/pgsql/
 ```
 
-As a user with sudo privileges, or as the root user, stop the DataRobot PostgreSQL database service on the data node configured to run `pgsql`:
+Stop the DataRobot Patroni database service on all of the data nodes configured to run `patroni`:
 
-CentOS 6 or RHEL 6
 ```bash
-sudo service datarobot-postgres stop
+/opt/datarobot/sbin/datarobot-supervisorctl stop patroni
 ```
 
-CentOS 7 or RHEL 7
-```bash
-sudo systemctl stop datarobot-postgres
-```
+Stop the DataRobot Zookeeper service on all of the nodes configured to run `zookeeper`:
 
-As a user with sudo privileges, or as the root user, stop the DataRobot Zookeeper service on all of the nodes configured to run `zookeeper`:
-
-CentOS 6 or RHEL 6
 ```bash
-sudo service datarobot-zookeeper stop
-```
-
-CentOS 7 or RHEL 7
-```bash
-sudo systemctl stop datarobot-zookeeper
+/opt/datarobot/sbin/datarobot-supervisorctl stop zookeeper
 ```
 
 Create a tar archive to consolidate the backup:

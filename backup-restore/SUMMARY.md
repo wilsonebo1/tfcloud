@@ -14,7 +14,6 @@
 * [Model Management Database Backup](backup/database.md)
   * [PostgreSQL Backup](backup/pgsql.md)
   * [Patroni Backup](backup/patroni.md)
-* [Elasticsearch Backup](backup/elasticsearch.md)
 * [Start DataRobot](start-datarobot.md)
 * [Consolidate Backup Files](consolidate-backups.md)
 
@@ -31,5 +30,4 @@
 * [Model Management Database Restore](restore/database.md)
   * [PostgreSQL Restore](restore/pgsql.md)
   * [Patroni Restore](restore/patroni.md)
-* [Elasticsearch Restore](restore/elasticsearch.md)
 * [Start and Reconfigure DataRobot](restore/start-and-reconfigure-datarobot.md)

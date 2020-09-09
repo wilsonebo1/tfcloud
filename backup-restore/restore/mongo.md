@@ -19,7 +19,7 @@ docker start mongo
 
 Restore the Mongo database on any single `mongo` data node:
 ```bash
-docker exec -u user -it mongo sbin/datarobot-manage-mongo restore --backup-dir /opt/datarobot-runtime/data/mongo/backup
+docker exec -it mongo /entrypoint sbin/datarobot-manage-mongo restore --backup-dir /opt/datarobot-runtime/data/mongo/backup
 ```
 
 Stop the `mongo` container on every data node configured to run `mongo`:
@@ -36,16 +36,10 @@ mkdir -p /opt/datarobot/data/mongo
 tar -xf /opt/datarobot/data/backups/mongo/datarobot-mongo-backup-<backup_date>.tar
 ```
 
-As a user with sudo privileges, or as the root user, start the DataRobot Mongo database service on all data nodes configured to run `mongo`:
+Start the DataRobot Mongo database service on all data nodes configured to run `mongo`:
 
-CentOS 6 or RHEL 6
 ```bash
-sudo service datarobot-mongo start
-```
-
-CentOS 7 or RHEL 7
-```bash
-sudo systemctl start datarobot-mongo
+/opt/datarobot/sbin/datarobot-supervisorctl start mongo
 ```
 
 Restore the Mongo database on any single `mongo` data node:
@@ -53,14 +47,8 @@ Restore the Mongo database on any single `mongo` data node:
 /opt/datarobot/app/DataRobot/sbin/datarobot-manage-mongo restore --backup-dir /opt/datarobot-runtime/data/mongo/backup
 ```
 
-As a user with sudo privileges, or as the root user, stop the `datarobot-mongo` service:
+Stop the `datarobot-mongo` service:
 
-CentOS 6 or RHEL 6
 ```bash
-sudo service datarobot-mongo stop
-```
-
-CentOS 7 or RHEL 7
-```bash
-sudo systemctl stop datarobot-mongo
+/opt/datarobot/sbin/datarobot-supervisorctl stop mongo
 ```

@@ -21,7 +21,7 @@ docker start minio
 
 Restore the MinIO cluster on the data node where the backup archive was extracted:
 ```bash
-docker exec -u user -it minio bash
+docker exec -it minio /entrypoint bash
 source <(python2 -m config.render -g minio -T "{{minio_env | shexports}}")
 mc config host add minio https://${MINIO_HOST}:${MINIO_PORT} ${MINIO_ACCESS_KEY} ${MINIO_SECRET_KEY} --api S3v4
 mc cp --insecure -r /opt/datarobot-runtime/data/backup/ minio/${MINIO_BUCKET}
@@ -65,7 +65,7 @@ tar -xf /opt/datarobot/data/backups/minio/datarobot-minio-backup-<backup_date>.t
 
 Enter the running MinIO docker:
 ```bash
-docker exec -it minio bash
+docker exec -it minio /entrypoint bash
 ```
 
 Set the required MinIO variables:

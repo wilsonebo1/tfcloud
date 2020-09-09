@@ -25,14 +25,8 @@ bin/datarobot services stop
 
 Start the MinIO service on every host configured to run MinIO:
 
-CentOS 6 or RHEL 6
 ```bash
-service datarobot-minio start
-```
-
-CentOS 7 or RHEL 7
-```bash
-systemctl start datarobot-minio
+/opt/datarobot/sbin/datarobot-supervisorctl start minio
 ```
 
 Perform a final data copy with the DataRobot application offline:
@@ -57,14 +51,8 @@ app_configuration:
 
 Stop the MinIO service on every host configured to run MinIO:
 
-CentOS 6 or RHEL 6
 ```bash
-service datarobot-minio stop
-```
-
-CentOS 7 or RHEL 7
-```bash
-systemctl stop datarobot-minio
+/opt/datarobot/sbin/datarobot-supervisorctl stop minio
 ```
 
 

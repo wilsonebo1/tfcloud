@@ -13,7 +13,7 @@ mkdir -p /opt/datarobot/data/pgsql/backup
 
 Backup the PostgreSQL databases on the same data node:
 ```bash
-docker exec -it -u $(id -u) pgsql python -m tools.manager.pgsql create-backup \
+docker exec -it pgsql /entrypoint python -m tools.manager.pgsql create-backup \
     --backup-location /opt/datarobot-runtime/data/postgresql/backup/
 ```
 
@@ -32,16 +32,10 @@ tar -cf /opt/datarobot/data/backups/pgsql/datarobot-pgsql-backup-$(date +%F).tar
 <a name="backup-pgsql-quickstart-rpm"></a>
 ## Backup PostgreSQL Quickstart for RPM Installs
 ------------------------------------------------
-As a user with sudo privileges, or as the root user, start the DataRobot PostgreSQL database service on the data node configured to run `pgsql`:
+Start the DataRobot PostgreSQL database service on the data node configured to run `pgsql`:
 
-CentOS 6 or RHEL 6
 ```bash
-sudo service datarobot-postgres start
-```
-
-CentOS 7 or RHEL 7
-```bash
-sudo systemctl start datarobot-postgres
+/opt/datarobot/sbin/datarobot-supervisorctl start postgres
 ```
 
 Backup the PostgreSQL data node running `pgsql`:
@@ -52,16 +46,10 @@ python -m tools.manager.pgsql create-backup \
     --backup-location=/opt/datarobot/data/backups/pgsql/
 ```
 
-As a user with sudo privileges, or as the root user, stop the DataRobot PostgreSQL database service on the data node configured to run `pgsql`:
+Stop the DataRobot PostgreSQL database service on the data node configured to run `pgsql`:
 
-CentOS 6 or RHEL 6
 ```bash
-sudo service datarobot-postgres stop
-```
-
-CentOS 7 or RHEL 7
-```bash
-sudo systemctl stop datarobot-postgres
+/opt/datarobot/sbin/datarobot-supervisorctl stop postgres
 ```
 
 Create a tar archive to consolidate the backup:

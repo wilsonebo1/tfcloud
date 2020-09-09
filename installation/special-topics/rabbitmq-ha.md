@@ -195,7 +195,7 @@ Once you have edited your config.yaml and followed the normal upgrade procedure,
 2. locate a host running RabbitMQ
 3. Login to that host via ssh
 4. Execute the following:
-   * `docker exec --user user rabbit rabbitmqctl cluster_status`
+   * `docker exec rabbit /entrypoint rabbitmqctl cluster_status`
 5. you should receive output similar to
 ```
    Cluster status of node rabbit@192.168.1.3

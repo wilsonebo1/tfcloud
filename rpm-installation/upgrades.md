@@ -43,32 +43,10 @@ The DataRobot installer handles distribution of TLS Certificates for both front-
 
 ### Remove old files and services
 
-* Stop all DataRobot services for RHEL7:
+* Stop all DataRobot services:
 
 ```bash
-systemctl stop datarobot.target
-systemctl stop datarobot-hadoop-config-sync
-```
-
-* Alternatively, if on RHEL6, stop all DataRobot services:
-
-```bash
-initctl stop datarobot.target
-initctl stop datarobot-hadoop-config-sync
-```
-
-* Remove all DataRobot service files:
-
-```bash
-rm -rf /etc/systemd/system/datarobot*
-rm -rf /etc/init/datarobot*
-```
-
-* If on RHEL7, reload and clear `systemctl`:
-
-```bash
-systemctl daemon-reload
-systemctl reset-failed
+bin/datarobot services stop
 ```
 
 * Remove the DataRobot directories:

@@ -149,7 +149,7 @@ useradd -d /opt/datarobot datarobot
 The `user` refers to the user which services run as, and is used for parts of the installation that do not require privilege (`sudo`). The SSH key
 specified by `private_ssh_key_path` must be usable by the `user` to SSH into all machines in the cluster, unless an offline installation is performed.
 
-The `admin_user` refers to the user running privileged parts of the installation (such as requiring `sudo`, running `systemctl`/`initctl` commands, etc.).
+The `admin_user` refers to the user running privileged parts of the installation (such as requiring `sudo`, etc.).
 They must have the ability to run commands via `sudo` over SSH, unless an offline installation is performed.
 The SSH key specified by `admin_private_ssh_key_path` must be usable by the `admin_user` to SSH into all machines in the cluster and run `sudo` commands.
 
