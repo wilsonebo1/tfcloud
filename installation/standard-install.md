@@ -209,6 +209,13 @@ It should take several minutes to complete.
 ```bash
 ./bin/datarobot setup-dependencies
 ```
+
+If performing an offline installation using local connection, you must skip the support environment setup.
+
+```bash
+./bin/datarobot setup-dependencies --skip-support-setup
+```
+
 A successful run of this command will finish with:
 
 ```bash
