@@ -41,7 +41,7 @@ Please note that this step might require you to have additional space on the des
 
 Caveat: if you are re-running installer for DataRobot cluster that had tiles installed before, it may not automatically switch to the new tiles. To switch to the new tiles, use the `switch` command in the next section.
 
-## Tile Management post-install for RPM Installs
+## Tile Management post-install
 
 It is also possible to manage the tiles at any point after the installation. The following commands need to be run on the provisioner host using `provisioner` container.
 
