@@ -80,7 +80,6 @@ app_configuration:
     AWS_SECRET_ACCESS_KEY: <redacted>
     FILE_STORAGE_PREFIX: data/
     FILE_STORAGE_TYPE: s3
-    MULTI_PART_S3_UPLOAD: false
     S3_BUCKET: <bucket>
     S3_CALLING_FORMAT: OrdinaryCallingFormat
     S3_HOST: s3.us-east-1.amazonaws.com
@@ -101,6 +100,8 @@ You may addtionally set the `S3_REGION` variable if you want to explicitly speci
 `S3_IS_SECURE`: Whether or not the service is using HTTPS - The True value, which is the Default, has only been tested in AWS S3
 
 `S3_PORT`: The port on which the S3 service is running
+
+You may also specify `MULTI_PART_S3_UPLOAD: false` to disable multipart file uploads if you encounter uploading issues. In general, multipart uploads are well tested and support much larger file uploads, so you will likely not need to change the default.
 
 DataRobot recommends using AWS IAM roles attached to your instances to authenticate with S3 storage.
 If you prefer to use keys, or are connecting to an S3-compatible API, you will additionally need to add your credentials as environment variables:
