@@ -60,6 +60,7 @@
   * [BigQuery](special-topics/bigquery.md)
   * [Custom Models GitHub and S3 integration](special-topics/custom-models-github-s3-integration.md)
   * [Tile Server](special-topics/tile-server.md)
+  * [Security Banner](special-topics/security-banner.md)
 
 ## Administration
 
