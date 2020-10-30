@@ -10,9 +10,10 @@ Configuration to support BigQuery happens in two locations, in the customer's Go
 
 ### Google OAuth application
 
-In the Google Cloud Console, an OAuth application must be created. To support BigQuery, a scope must be added to the OAuth application:
+In the Google Cloud Console, an OAuth application must be created. To support BigQuery ingestion, the following scopes must be added to the OAuth application:
 
-- https://www.googleapis.com/auth/bigquery
+- https://www.googleapis.com/auth/devstorage.read_write
+- https://www.googleapis.com/auth/bigquery.readonly
 
 After setting this, download the OAuth application credentials/settings. This json file will contain the `client_id` and `client_secret` that are needed in the DataRobot settings below.
 
