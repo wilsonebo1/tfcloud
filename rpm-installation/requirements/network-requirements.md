@@ -230,6 +230,7 @@ Hadoop Servers => Application Servers
 | 6379  | TCP      | Redis |
 | 8027  | TCP      | Hadoop Configuration Sync |
 | 8100  | TCP      | DataRobot DataSets Service API |
+| 9200  | TCP      | Elasticsearch for AI Catalog (this is an optional premium feature)  |
 | 26379 | TCP      | Redis Sentinel |
 | 27017 | TCP      | MongoDB |
 

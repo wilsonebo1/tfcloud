@@ -272,6 +272,7 @@ Hadoop Servers => Application Servers
 | 6379  | TCP      | Redis |
 | 8027  | TCP      | Hadoop Configuration Sync |
 | 8100  | TCP      | DataRobot DataSets Service API |
+| 9200  | TCP      | Elasticsearch for AI Catalog (this is an optional premium feature)  |
 | 15671 | TCP      | RabbitMQ HTTPS Interface (TLS enabled on edge node) |
 | 15672 | TCP      | RabbitMQ HTTP Interface (TLS not enabled on edge node) |
 | 26379 | TCP      | Redis Sentinel |
