@@ -61,6 +61,10 @@
   * [Custom Models GitHub and S3 integration](special-topics/custom-models-github-s3-integration.md)
   * [Tile Server](special-topics/tile-server.md)
   * [Security Banner](special-topics/security-banner.md)
+  * [AutoScaling Installation](special-topics/autoscaling-installation.md)
+      * [AWS](special-topics/aws-autoscaling-installation.md)
+      * [Google Cloud](special-topics/gcp-autoscaling-installation.md)
+      * [Azure](special-topics/azure-autoscaling-installation.md)
 
 ## Administration
 
