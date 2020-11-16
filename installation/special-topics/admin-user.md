@@ -61,6 +61,40 @@ After performing these steps, verify everything is working correctly with:
 ./bin/datarobot health cluster-checks
 ```
 
+## Prepare the Ansible Interpreter
+
+DataRobot 6.2+ relies on a portable Quantum Python interpreter to be used as 
+the Ansible Python interpreter on all cluster hosts. 
+ 
+**Note**: If preforming an Offline Installation using Local Connection these 
+steps are unnecessary as you have already provided an alternative interpreter 
+location via `config.yaml`.
+
+* Prepare the `release/venv` for transfer:
+
+```bash
+cd /opt/datarobot/DataRobot-6.x.x/release
+find -L venv/ -type f ! -name "*.pyc" | tar -czvf release_venv.tar.gz -T -
+```
+
+* Copy `release_venv.tar.gz` to all application servers.
+
+* On all nodes, delete any previous interpreter and install the new virtualenv
+under the `support/release` directory of the DataRobot home:
+
+```bash
+sudo rm -rf /opt/datarobot/support/
+mkdir dir -p /opt/datarobot/support/release/
+tar -xzvf release_venv.tar.gz -C /opt/datarobot/support/release/
+```
+
+* Recursively change ownership of the new interpreter to the DataRobot service
+user:
+
+```bash
+sudo chown -R datarobot:datarobot /opt/datarobot/support/
+```
+
 ## Install Docker
 
 Docker Engine version 18.09+ must be installed on all Edge Nodes.
