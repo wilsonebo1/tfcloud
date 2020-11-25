@@ -38,8 +38,6 @@ Provisioner/Administration Server => All Servers
 | Port  | Protocol | Component|
 |------:|:---------|:---------|
 | 22    | TCP      | SSH Access |
-| 8433  | TCP      | Datarobot diagnostics (TLS) |
-| 8833  | TCP      | Datarobot diagnostics (not secure) |
 
 ## Internal Ports
 
@@ -63,7 +61,6 @@ application server cluster, whether or not using Hadoop.
 | 8011  | TCP      | DataRobot Socket.IO Server |
 | 8018  | UDP      | Analytics Broker |
 | 8023  | TCP      | DataRobot Upload Server |
-| 8033  | TCP      | DataRobot Diagnostics Server |
 | 8051  | TCP      | TileServer GL |
 | 8052  | TCP      | TileServer GL Proxy Port |
 | 8100  | TCP      | DataRobot Datasets Service API |
@@ -387,7 +384,6 @@ All of these are listed in one or more of the above tables.
 |8100|TCP|DataRobot Datasets Service API|Application Servers|All Cluster Nodes|
 |8188|TCP|YARN Timeline Service webapp HTTP|Hadoop workers|Hadoop workers|
 |8190|TCP|YARN Timeline Service webapp HTTPS|Hadoop workers|Hadoop workers|
-|8433|TCP|Datarobot diagnostics (TLS)|Application Servers|Administrators|
 |8440|TCP|Ambari Agent Handshake port|Ambari Manager|Hortonworks workers|
 |8441|TCP|Ambari Agent Registration and Heartbeat port|Ambari Manager|Hortonworks workers|
 |8443|TCP|Ambari Manager web interface secured (Ambari only)|Ambari Manager|Application Servers|
@@ -395,7 +391,6 @@ All of these are listed in one or more of the above tables.
 |8481|TCP|Secure JournalNode Web UI Port (TLS/SSL)|Hadoop workers|Hadoop workers|
 |8485|TCP|JournalNode RPC Port|Hadoop workers|Hadoop workers|
 |8670|TCP|Ambari Agent ping port|Hortonworks workers|Ambari Manager|
-|8833|TCP|Datarobot diagnostics (not secure)|Application Servers|Administrators|
 |9000|TCP|MinIO Port|Data Servers|All Cluster Nodes|
 |9000|TCP|Cloudera Manager Agent HTTP port|Cloudera workers|Cloudera Manager|
 |9001|TCP|ETL Controller|Hadoop workers|Application Servers|

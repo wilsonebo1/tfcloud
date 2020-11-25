@@ -321,7 +321,6 @@ servers:
   # Additional optional services
   - idebroker
   - ideworker
-  - diagnostics
   - tableauextension
 
 # HA Web services
