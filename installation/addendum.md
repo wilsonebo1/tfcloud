@@ -4,13 +4,34 @@
 
 The DataRobot application comes with a small number of `rpm` packages required for installation and administration of the service.
 
-| Dependency | File |
-|:-----------|:-----|
-| Docker-Py  | `python-docker-py-1.10.6-7.el7.noarch.rpm` |
-| Docker-Py  | `python-docker-pycreds-1.10.6-4.el7.noarch.rpm` |
-| Docker-Py  | `python-requests-2.7.0-1.noarch.rpm` |
-| Docker-Py  | `python-websocket-client-0.32.0-116.el7.noarch.rpm` |
-| Docker Engine  | `docker-ce-18.09.2-3.el7.x86_64.rpm` |
-| Docker Engine  | `docker-ce-cli-18.09.2-3.el7.x86_64.rpm` |
-| Docker Engine  | `containerd.io-1.2.2-3.3.el7.x86_64.rpm` |
-| Docker Engine  | `container-selinux-2.74-1.el7.noarch.rpm` |
+
+### Docker Dependencies (Required)
+
+| Dependency | RHEL/CentOS 7 | RHEL/CentOS 8 |
+|:-----------|:----------------|:----------------|
+| Docker Engine  | `docker-ce-19.03.12-3.el7.x86_64.rpm` |  `docker-ce-19.03.12-3.el7.x86_64.rpm` |
+| Docker CLI  | `docker-ce-cli-19.03.12-3.el7.x86_64.rpm` | `docker-ce-cli-19.03.12-3.el7.x86_64.rpm` |
+| Container Runtime  | `containerd.io-1.2.13-3.2.el7.x86_64.rpm` | `containerd.io-1.2.13-3.2.el7.x86_64.rpm` |
+| Container SELinux Policy  | `container-selinux-2.119.2-1.911c772..el7_8.noarch.rpm` | `container-selinux-2.135.0-1.module+el8.2.1+6849+893e4f4a.noarch.rpm` |
+| SELinux Python Utils  | | `policycoreutils-python-utils-2.9-9.el8.noarch.rpm` |
+
+
+### Custom Models Dependencies (RHEL/CentOS 7 Only)
+
+| Package |
+|:--------|
+| `cri-tools-0.1.13.0-0.x86_64.rpm` |
+| `kubeadm-1.18.5-0.x86_64.rpm` |
+| `kubectl-1.18.5-0.x86_64.rpm` |
+| `kubelet-1.18.5-0.x86_64.rpm` |
+| `kubernetes-cni-0.8.6-0.x86_64.rpm` |
+
+### NVIDIA/GPU Dependencies (RHEL/CentOS 7 Only)
+
+| Package |
+|:--------|
+| `libnvidia-container-tools-1.3.0-1.x86_64.rpm` |
+| `libnvidia-container1-1.3.0-1.x86_64.rpm` |
+| `nvidia-container-runtime-3.4.0-1.x86_64.rpm` |
+| `nvidia-container-toolkit-1.3.0-2.x86_64.rpm` |
+| `nvidia-docker2-2.5.0-1.noarch.rpm` |
