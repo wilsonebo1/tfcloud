@@ -30,11 +30,13 @@ TARGET_MAPPING = {
     'Elasticsearch Nodes': ALL_APPLICATION_NODES,
     'Hadoop workers': HADOOP_WORKERS,
     'Hortonworks workers': ['ambari_worker'],
+    'Image builder registry': ['registryimagebuilder'],
+    'Kubernetes': ['kubernetescontrolplane'],
     'Model Management': ALL_APPLICATION_NODES,
     # 'Patroni Nodes': ['Application Servers', 'Patroni Nodes'],
     'Patroni Nodes': ALL_APPLICATION_NODES,
     'Provisioner/Admin': ALL_APPLICATION_NODES,
-    'RabbitMQ node': ALL_APPLICATION_NODES
+    'RabbitMQ node': ALL_APPLICATION_NODES,
 }
 
 
@@ -60,7 +62,7 @@ def parse(network_requirements):
     network_requirements.readline()
     data = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: defaultdict(list))))
     for line in network_requirements:
-        _, port, documented_protocol, _, dst, src, _ = line.split('|')
+        _, ports, documented_protocol, _, dst, src, _ = line.split('|')
 
         for protocol in PROTOCOLS:
             if protocol in documented_protocol.lower():
@@ -69,7 +71,13 @@ def parse(network_requirements):
                     for trgt in TARGET_MAPPING[target]:
                         # scope = 'internal' if src == dst else 'all'
                         scope = 'all'
-                        data[trgt]['sg_open_ports'][protocol][scope].append(int(port))
+                        if '-' in ports:
+                            # add all ports in range
+                            start, stop = [int(port) for port in ports.split('-')]
+                            int_ports = [port for port in range(start, stop + 1)]
+                        else:
+                            int_ports = [int(ports)]
+                        data[trgt]['sg_open_ports'][protocol][scope].extend(int_ports)
 
     print(json.dumps(data))
 

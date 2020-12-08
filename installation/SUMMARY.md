@@ -6,6 +6,7 @@
 
 * [Linux Requirements](requirements/system-requirements.md)
 * [Hadoop Requirements](requirements/hadoop-requirements.md)
+* [Kubernetes Requirements](requirements/kubernetes-requirements.md)
 * [Network Requirements](requirements/network-requirements.md)
 
 ## Installation
@@ -15,6 +16,7 @@
 * [Hadoop Installation](hadoop-install.md)
   * [Cloudera Installation](cloudera-install.md)
   * [Hortonworks Installation](ambari-install.md)
+* [Kubernetes Installation](kubernetes-install.md)
 * [Pre-Flight Checks](pre-flight-checks.md)
 * [Hadoop Pre-Flight Checks](pre-flight-checks.md#hadoop-checks)
 * [Advanced Configuration](special-topics/README.md)

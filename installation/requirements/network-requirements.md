@@ -366,6 +366,36 @@ These ports are used by Ambari in addition to the common ports.
 | 50075 | TCP      | `dfs.datanode.http.address` | Data transfer without HTTPS |
 | 50111 | TCP      | `templeton.port` | Hive WebHCat Server port |
 
+
+## Kubernetes Ports
+
+These ports are used when kubernetes is setup (e.g. for custom models).
+
+| Port  | Protocol | Component |
+|------:|:---------|:----------|
+| 80    |TCP       |Kubernetes ingress controller HTTP|
+| 443   |TCP       |Kubernetes ingress controller HTTPS|
+| 6443  |TCP       |Kubernetes API HTTPS endpoint|
+
+### Image builder registry
+
+When `registryimagebuilder` service is used, these ports are used:
+
+| Port  | Protocol | Component |
+|------:|:---------|:----------|
+|443    |TCP       |Image builder registry HTTPS|
+
+
+### Internal Kubernetes Ports
+
+This ports are used internally by kubernetes and only need to be opened when DataRobot-provided kubernetes is installed (using `kubernetescontrolplane` service):
+
+| Port      | Protocol | Component |
+|----------:|:---------|:----------|
+|2379-2380  |TCP       |Kubernetes etcd|
+|10250-10252|TCP       |Internal kubernetes communication|
+
+
 ## All Ports In One Table
 
 All of these are listed in one or more of the above tables.
@@ -375,15 +405,19 @@ All of these are listed in one or more of the above tables.
 |22|TCP|SSH Access|Application Servers, Cloudera Manager, Ambari Manager|Provisioner/Admin|
 |22|TCP|SSH Debug|Hadoop workers|All Cluster Nodes|
 |80|TCP|HTTP (not secure)|Application Web Servers|End users, All Cluster Nodes|
+|80|TCP|Kubernetes ingress controller HTTP|Kubernetes|All Cluster Nodes|
 |111|TCP/UDP|Gluster Portmapper Service (non-Hadoop only)|Data Servers|All Cluster Nodes|
 |443|TCP|HTTPS (TLS)|Application Web Servers|End users, All Cluster Nodes|
+|443|TCP|Image builder registry HTTPS|Image builder registry|All Cluster Nodes|
+|443|TCP|Kubernetes ingress controller HTTPS|Kubernetes|All Cluster Nodes|
 |1004|TCP|Data transfer (HDFS HA) (Cloudera only)|Cloudera workers|Application Servers|
 |1006|TCP|Data transfer without HTTPS (HDFS HA) (Cloudera only)|Cloudera workers|Application Servers|
 |1019|TCP|Data transfer (HDFS HA) (Ambari only)|Hortonworks workers|Application Servers|
 |1022|TCP|Data transfer without HTTPS (HDFS HA) (Ambari only)|Hortonworks workers|Application Servers|
-|1514|UDP|Application Web|Provisioner/Admin|All Cluster Nodes|
 |1514|TCP|Logging|Model Management|Dedicated Prediction Workers|
+|1514|UDP|Application Web|Provisioner/Admin|All Cluster Nodes|
 |2181|TCP|ZooKeeper client port|Hadoop workers|Application Servers|
+|2379-2380|TCP|Kubernetes etcd|Kubernetes|All Kubernetes Nodes|
 |2888|TCP|Zookeeper Quorum Port|Hadoop workers|Hadoop workers|
 |2888|TCP|Zookeeper Quorum Port HA Postgres|Patroni Nodes|Patroni Nodes|
 |3000|TCP|DataRobot Prediction Optimization User Interface|Application Web Servers|End users|
@@ -403,12 +437,13 @@ All of these are listed in one or more of the above tables.
 |5446|TCP|IDE Client Worker|Application Servers|Application Servers|
 |5555|TCP|Worker Broker Client (non-Hadoop only)|Application Servers|Application Servers|
 |5556|TCP|Worker Broker (non-Hadoop only)|Application Servers|Application Servers|
-|5671|TCP|RabbitMQ (TLS)|RabbitMQ node|All Cluster Nodes|
 |5671|TCP|HAProxy HA RabbitMQ (TLS) Port|Application Servers|All Cluster Nodes|
-|5672|TCP|RabbitMQ|RabbitMQ node|All Cluster Nodes|
+|5671|TCP|RabbitMQ (TLS)|RabbitMQ node|All Cluster Nodes|
 |5672|TCP|HAProxy HA RabbitMQ|Application Servers|All Cluster Nodes|
+|5672|TCP|RabbitMQ|RabbitMQ node|All Cluster Nodes|
 |5673|TCP|RabbitMQ HA (TLS/non-TLS)|RabbitMQ node|Application Servers|
 |6379|TCP|Redis|Data Servers|All Cluster Nodes|
+|6443|TCP|Kubernetes API HTTPS endpoint|Kubernetes|All Cluster Nodes|
 |7001|TCP|HAProxy|Application Servers|Application Servers|
 |7180|TCP|Cloudera Manager web interface (CDH only) (not secure)|Cloudera Manager|Provisioner/Admin|
 |7182|TCP|Cloudera Internal Communication (CDH only)|Cloudera Manager|All Cloudera Nodes|
@@ -431,10 +466,10 @@ All of these are listed in one or more of the above tables.
 |8020|TCP|NameNode IPC Port|Hadoop workers|Application Servers|
 |8022|TCP|NameNode Service RPC Port|Cloudera workers|Cloudera workers|
 |8023|TCP|DataRobot Upload Server|Application Servers|Application Servers|
-|8031|TCP|YARN Resourcemanager Resource Tracker (HDP)|Hortonworks workers|Hortonworks workers|
 |8027|TCP|Hadoop Configuration Sync|Application Servers|Hadoop workers|
 |8030|TCP|YARN Resourcemanager Scheduler|Hadoop workers|Hadoop workers|
 |8031|TCP|YARN Resourcemanager Resource Tracker (CDH)|Hadoop workers|Hadoop workers|
+|8031|TCP|YARN Resourcemanager Resource Tracker (HDP)|Hortonworks workers|Hortonworks workers|
 |8032|TCP|YARN Resourcemanager Address(CDH)|Cloudera workers|Cloudera workers|
 |8033|TCP|YARN Resourcemanager Admin (CDH)|Application Servers, Cloudera workers|Cloudera workers|
 |8040|TCP|YARN NodeManager Localizer (CDH)|Cloudera workers|Cloudera workers|
@@ -459,22 +494,22 @@ All of these are listed in one or more of the above tables.
 |8481|TCP|Secure JournalNode Web UI Port (TLS/SSL)|Hadoop workers|Hadoop workers|
 |8485|TCP|JournalNode RPC Port|Hadoop workers|Hadoop workers|
 |8670|TCP|Ambari Agent ping port|Hortonworks workers|Ambari Manager|
-|9000|TCP|MinIO Port|Data Servers|All Cluster Nodes|
 |9000|TCP|Cloudera Manager Agent HTTP port|Cloudera workers|Cloudera Manager|
-|9001|TCP|ETL Controller|Hadoop workers|Application Servers|
+|9000|TCP|MinIO Port|Data Servers|All Cluster Nodes|
 |9001|TCP|Chart Export Service|Application Servers|All Cluster Nodes|
+|9001|TCP|ETL Controller|Hadoop workers|Application Servers|
 |9002|TCP|MinIO HA Port|Data Servers|All Cluster Nodes|
 |9083|TCP|Hive metastore port|Hortonworks workers|Hortonworks workers|
 |9090|TCP|DataRobot Availability Monitor|Application Servers|Application Servers|
 |9200|TCP|Elasticsearch for AI Catalog|Elasticsearch Nodes|Application Servers|
 |9300|TCP|Elasticsearch Internode Communication|Elasticsearch Nodes|Elasticsearch Nodes|
 |9494|TCP|DataRobot PNGExport Service|Application Servers|Application Servers|
-|9866|TCP|Data transfer (HDFS HA) (CDH 6.x)|Cloudera workers|Application Servers|
 |9864|TCP|Data transfer without HTTPS (HDFS HA) (CDH 6.x)|Cloudera workers|Application Servers|
+|9865|TCP|Data Transfer with HTTPS (CDH 6.x)|Cloudera workers|Application Servers|
+|9866|TCP|Data transfer (HDFS HA) (CDH 6.x)|Cloudera workers|Application Servers|
 |9867|TCP|HDFS Metadata operations (CDH 6.x)|Cloudera workers|Application Servers|
 |9870|TCP|NameNode Web UI without HTTPS (CDH 6.x)|Cloudera workers|Application Servers|
 |9871|TCP|NameNode Web UI with HTTPS (CDH 6.x)|Cloudera workers|Application Servers|
-|9865|TCP|Data Transfer with HTTPS (CDH 6.x)|Cloudera workers|Application Servers|
 |9994|TCP|Cloudera Host Monitor's query API|Cloudera Manager|Cloudera workers|
 |9995|TCP|Cloudera Host Monitor, listening for agent messages|Cloudera Manager|Cloudera workers|
 |9996|TCP|Cloudera Service Monitor's query API|Cloudera Manager|Cloudera workers|
@@ -483,12 +518,13 @@ All of these are listed in one or more of the above tables.
 |9999|TCP|Cloudera Activity Monitor, listening for agent messages|Cloudera Manager|Cloudera workers|
 |10000|TCP|Hive server port|Hortonworks workers|Hortonworks Nodes|
 |10200|TCP|YARN Timeline Service RPC|Hadoop workers|Hadoop workers|
+|10250-10252|TCP|Internal kubernetes communication|Kubernetes|All Kubernetes Nodes|
 |14000|TCP|HTTPFS data transfer (if HTTPFS is enabled)|Hadoop workers|All Cluster Nodes|
 |14001|TCP|HTTPFS administration (if HTTPFS is enabled)|Hadoop workers|All Cluster Nodes|
-|15671|TCP|RabbitMQ HTTPS Interface|RabbitMQ node|Application Servers|
 |15671|TCP|HAProxy HA RabbitMQ HTTPS Interface|Application Servers|Application Servers|
-|15672|TCP|RabbitMQ HTTP Interface|RabbitMQ node|Application Servers|
+|15671|TCP|RabbitMQ HTTPS Interface|RabbitMQ node|Application Servers|
 |15672|TCP|HAProxy HA RabbitMQ HTTP Interface|Application Servers|Application Servers|
+|15672|TCP|RabbitMQ HTTP Interface|RabbitMQ node|Application Servers|
 |15673|TCP|RabbitMQ HTTP(S) Interface in HA mode|RabbitMQ node|Application Servers|
 |24007|TCP|Gluster Daemon|Data Servers|All Cluster Nodes|
 |24008|TCP|Gluster Management|Data Servers|All Cluster Nodes|

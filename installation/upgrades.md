@@ -49,6 +49,12 @@ The DataRobot installer handles distribution of TLS Certificates for both front-
 
 ### Remove old files and services
 
+* Stop kubelet
+
+```bash
+systemctl stop kubelet
+```
+
 * Stop and remove all containers:
 
 ```bash
@@ -90,6 +96,12 @@ systemctl stop docker
 docker --version
 ```
 
+* If kubernetes was installed, uninstall it completely:
+
+```bash
+yum remove -y cri-tools kubeadm kubectl kubelet kubernetes-cni
+```
+
 * If the installed version of Docker is below 18.03, uninstall it completely
 from every node:
 
@@ -100,18 +112,28 @@ yum remove -y docker docker-ce docker-ce-cli docker-ce-selinux docker-selinux py
 **NOTE:** If using even older versions of Docker, the package names may be
 different.
 
+* Cleanup unnecessary packages:
+
+```bash
+yum -y autoremove
+```
+
+* Remove old kubernetes files:
+
+```bash
+rm -rf /etc/kubernetes /var/lib/kubelet /var/lib/etcd ~/.kube
+```
+
 * Remove old Docker images:
 
 ```bash
-rm -rf /var/lib/docker
-rm -rf /opt/datarobot/registry
+rm -rf /var/lib/docker /opt/datarobot/registry
 ```
 
 * Remove old configuration files:
 
 ```bash
-rm -rf /opt/datarobot/etc/
-rm /etc/docker/daemon.json
+rm -rf /opt/datarobot/etc/ /etc/docker/daemon.json
 ```
 
 * Remove old temporary package files:

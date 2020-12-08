@@ -1,7 +1,7 @@
 # DataRobot Linux Installation {#linux-install}
 
 The following steps are required for all DataRobot installations.
-Refer to supplementary material for any extra configuration requirements, such as [enabling TLS](./special-topics/tls.md) or [Hadoop integration](./hadoop-install.md).
+Refer to supplementary material for any extra configuration requirements, such as [enabling TLS](./special-topics/tls.md), [Hadoop integration](./hadoop-install.md), or [Kubernetes setup](./kubernetes-install.md).
 
 ## Cluster Preparation {#linux-prep}
 
@@ -96,6 +96,8 @@ First, choose a sample YAML configuration file as a template from the `example-c
 * `multi-node.yaml`: Multiple machine Linux install, with additional examples for more complex setups.
 
 * `single-node-poc.hadoop.yaml`: Single application server install connecting to a Hadoop cluster.
+
+* `multi-node-mlops.yaml`: Multiple machine Linux install, with DataRobot-provided kubernetes for Custom Models on single host.
 
 * `multi-node-ha.yaml`: Multiple application servers.
 
@@ -292,6 +294,7 @@ Application server installation complete!
 
 If this is a Linux-only installation, DataRobot is now ready to use.
 If this is a Hadoop installation, refer to the [Hadoop Installation](./hadoop-install.md) section to continue with the installation process.
+If this is a Kubernetes installation, refer to the [Kubernetes Installation](./kubernetes-install.md) section to continue with the installation process.
 
 * You can now open the DataRobot application in your web browser by pointing it to `http://[INSTALL SERVER FQDN OR IP ADDRESS]` and logging in using the credentials printed out by the previous command. You should use this account for creating new users and modifying user permissions only.
 

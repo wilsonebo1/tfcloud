@@ -9,7 +9,7 @@ The servers and or server instances that are provisioned are expected to be dedi
 
 ## Linux Distribution
 
-DataRobot officially supports RedHat and CentOS versions greater than or equal to 7.6 and less than 8.
+DataRobot officially supports RedHat and CentOS versions greater than or equal to 7.9 and 8.2, and less than 9.0.
 Other systems are supported on a best-effort basis.
 
 Your Linux server must have access to up-to-date repository servers with standard RedHat packages.
@@ -329,6 +329,10 @@ This can be set through `/etc/sysctl.conf`:
 ```bash
 kernel.keys.root_maxkeys = 1000000
 ```
+
+## Time Synchronization
+
+Running some standard method of basic time synchronization between hosts (such as `ntpd` or `chronyd`) is a requirement for `DataRobot` application functionality.
 
 ## Additional requirements
 

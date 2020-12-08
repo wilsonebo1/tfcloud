@@ -80,7 +80,7 @@ def test_table_and_description_match(test_file):
     # Fetch all of the ports in the "All Ports" section of the document
     table_ports = get_ports_from_lines(lines[table_position:])
 
-    assert len(description_ports) > 0, 'No ports were found in the description'
+    assert len(description_ports) > 0, 'No ports were found with separate descriptions'
     assert len(table_ports) > 0, 'No ports were found in the table'
     not_in_table = description_ports - table_ports
     table_msg = 'These ports are missing in the table: {}'.format(
@@ -88,7 +88,7 @@ def test_table_and_description_match(test_file):
     )
     assert not not_in_table, table_msg
     not_in_description = table_ports - description_ports
-    desc_msg = 'These ports are missing in the description: {}'.format(
+    desc_msg = 'These ports are missing separate description: {}'.format(
         ', '.join(str(x) for x in not_in_description)
     )
     assert not not_in_description, desc_msg
