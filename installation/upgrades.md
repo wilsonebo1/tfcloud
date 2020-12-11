@@ -118,10 +118,16 @@ different.
 yum -y autoremove
 ```
 
+* Unmount old kubernetes mounts:
+
+```bash
+mount | grep kubelet | awk '{ print $3 }' | xargs --no-run-if-empty umount
+```
+
 * Remove old kubernetes files:
 
 ```bash
-rm -rf /etc/kubernetes /var/lib/kubelet /var/lib/etcd ~/.kube
+rm -rf /etc/cni /etc/kubernetes /opt/datarobot/var/lib/kubelet /var/lib/calico /var/lib/kubelet /var/lib/etcd ~/.kube
 ```
 
 * Remove old Docker images:
@@ -133,7 +139,7 @@ rm -rf /var/lib/docker /opt/datarobot/registry
 * Remove old configuration files:
 
 ```bash
-rm -rf /opt/datarobot/etc/ /etc/docker/daemon.json
+rm -rf /opt/datarobot/admin/ /opt/datarobot/etc/ /etc/docker/daemon.json
 ```
 
 * Remove old temporary package files:
