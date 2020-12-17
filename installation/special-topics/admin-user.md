@@ -97,7 +97,7 @@ sudo chown -R datarobot:datarobot /opt/datarobot/support/
 
 ## Install Docker
 
-Docker Engine version 18.09+ must be installed on all Edge Nodes.
+Docker Engine version 19.03+ must be installed on all Edge Nodes.
 
 * Copy the folder `release/docker-packages/RedHat-7/` to all application
 servers.

@@ -102,7 +102,7 @@ docker --version
 yum remove -y cri-tools kubeadm kubectl kubelet kubernetes-cni
 ```
 
-* If the installed version of Docker is below 18.03, uninstall it completely
+* If the installed version of Docker is below 19.03, uninstall it completely
 from every node:
 
 ```bash
