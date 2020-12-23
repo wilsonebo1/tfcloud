@@ -177,3 +177,19 @@ details.
 * Log into the Ambari Manager.
 * Stop the DataRobot service.
 * Delete the DataRobot service.
+
+### Hyper API Service to Tableau Integrations Service
+
+Starting with DataRobot 7.0, the Hyper API service has been modified to host the DataRobot Tableau Analytics Extension server.
+Since this service now supports two different integrations, it makes sense to rename the service to better reflect its usage in DataRobot.
+The new service has been changed from `hyper-api-service` to `tableau-integrations`
+
+The following environment variables have been renamed, though existing environment variables set for the Hyper API Service will still be used if the new variables are not set:
+
+```
+HYPER_API_SERVICE_GUNICORN_BIND -> TABLEAU_INTEGRATIONS_SERVICE_GUNICORN_BIND
+HYPER_API_SERVICE_GUNICORN_MAX_REQUESTS -> TABLEAU_INTEGRATIONS_SERVICE_GUNICORN_MAX_REQUESTS
+HYPER_API_SERVICE_GUNICORN_TIMEOUT -> TABLEAU_INTEGRATIONS_SERVICE_GUNICORN_TIMEOUT
+HYPER_API_SERVICE_GUNICORN_WORKERS -> TABLEAU_INTEGRATIONS_SERVICE_GUNICORN_WORKERS
+```
+
