@@ -12,6 +12,10 @@ Datarobot provides tiles at different zoom levels which vary from few MBs upto 7
   * Medium tiles (4.0 GB): https://datarobot-geospatial.s3.amazonaws.com/geospatial-map-data/mbtiles/tiles-zoom-11-20191202.post1%2Bdr.mbtiles
   * Small tiles (245 MB): https://datarobot-geospatial.s3.amazonaws.com/geospatial-map-data/mbtiles/tiles-zoom-08-20191202.post1%2Bdr.mbtiles
 
+A good practice is to start with Medium tiles first (or even without tiles at all), and switch to larger tiles post-install if more detailed maps are required. Medium tiles would normally be quick to download and would not slow down the intaller, whereas Large tiles might require significant time to distribute.
+
+Please note that if you use S3 as the shared data storage and plan to use tiles larger than 5 GB, you need to enable multipart uploads. They are enabled by default and can be disabled by setting `MULTI_PART_S3_UPLOAD` to `false` in `config.yaml`.
+
 ## DataRobot Application Configuration
 
 Tileserver supports [HA Configuration](special-topics/ha-web-services.html). You need to enable the service on _webserver_ nodes.
@@ -28,7 +32,7 @@ Tileserver supports [HA Configuration](special-topics/ha-web-services.html). You
 
 ## Configuring Tile-Set as part of installation process
 
-In order to configure the tile-set as part of the installation process `TILESERVERGL_TILESET_PATH` should be provided in global `app_configuration` section. This will distribute the tiles to each of the HA nodes.
+In order to configure the tile-set as part of the installation process, `TILESERVERGL_TILESET_PATH` should be provided in global `app_configuration` section. This will distribute the tiles to each of the HA nodes.
 
 
 ```yaml
@@ -37,7 +41,9 @@ app_configuration:
     TILESERVERGL_TILESET_PATH: tiles-dist/tiles-zoom-01-20200202.post1+dr.mbtiles
 ```
 
-Please note that this step might require you to have additional space on the destination depending on the size of the map tiles you choose. You would also need space for tiles on each instance running tileserver.
+Please note that `TILESERVERGL_TILESET_PATH` must be a path that is relative to the location of `config.yaml`.
+
+Please also note that this step might require you to have additional space on the destination depending on the size of the map tiles you choose. You would also need space for tiles on each instance running tileserver.
 
 Caveat: if you are re-running installer for DataRobot cluster that had tiles installed before, it may not automatically switch to the new tiles. To switch to the new tiles, use the `switch` command in the next section.
 
@@ -54,8 +60,9 @@ python3 -m tools.manager.tileservergl list
 To upload a tile-set to storage:
 ```bash
 source /opt/datarobot/etc/profile
-python3 -m tools.manager.tileservergl push --tileset <path/to/tileset>
+python3 -m tools.manager.tileservergl push --tileset <relative/path/to/tileset>
 ```
+In the command above, `<relative/path/to/tileset>` should be a relative path to the location of `config.yaml`.
 
 To select one of the tile-sets as the one to be used by the Tileserver (and replicated to HA nodes):
 ```bash
