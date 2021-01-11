@@ -23,7 +23,7 @@ Single Sign-On should be configured on both Identity Provider and DataRobot side
 
 ### Identity Provider configuration
 
-Identity Providers implement their own dashborads, so customer should reach IdP's documentation to integrate DataRobot. IdP requires from DataRobot sign in and sign out urls. They are represented on the `Manage SSO` page under `Single Sign-On URL` and `Single Sign-Out URL` settings.
+Identity Providers implement their own dashboards, so customer should reach IdP's documentation to integrate DataRobot. IdP requires from DataRobot sign in and sign out urls. They are represented on the `Manage SSO` page under `Single Sign-On URL` and `Single Sign-Out URL` settings.
 DataRobot expects to receive username and email from the identity provider. IdP should be configured so that the SAML response contains `username` attribute (mandatory) and `email` attribute (optional, recommended).
 
 ### DataRobot configuration
@@ -36,7 +36,7 @@ DataRobot expects to receive username and email from the identity provider. IdP 
 There are following settings in advanced configuration:
 
 * `User Session Length (sec)` - Session cookie expiration time. Default is month
-* `SP Initiated Method` - SAML metod which is used to start authentication negotiation
+* `SP Initiated Method` - SAML method which is used to start authentication negotiation
 * `IdP Initiated Method` - SAML method which is used to move user to DataRobot after successful authentication
 * `Identify Provider Metadata` - XML document with integration specific information (for the case IdP doesn't provide `IdP Metadata URL`)
 
@@ -283,3 +283,178 @@ curl '<DATAROBOT_ENDPOINT>/api/v2/admin/sso/saml/configuration/global/' -X PATCH
   }
 }'
 ```
+
+## Enhanced SAML Single Sign-On (SSO)
+
+Enhanced SAML SSO beside authentication provides a number of improvements in sense of users provisioning and simplified configuration of security and advanced parameters.
+
+## Enable SSO
+
+SSO is disabled by default. Update your `config.yaml` to enable enhanced SSO:
+
+```yaml
+---
+app_configuration:
+    drenv_override:
+        PLATFORM_TYPE: enterprise
+        ENABLE_SAML_SSO: false
+        ENABLE_ENHANCED_GLOBAL_SAML_SSO: true
+```
+
+### SSO Configuration Permissions
+
+SSO configuration is disabled by default. There is a per user flag `Enable Enhanced Global SAML SSO configuration management` to enable it (find this flag in the user account settings). `Manage SSO` tab appears under `APP ADMIN` when `Enable Enhanced Global SAML SSO configuration management` is checked. Note, the configuration is accessible only by system administrators.
+
+### SSO Configuration
+
+Single Sign-On should be configured on both Identity Provider (IdP) and DataRobot sides.
+
+#### Identity Provider configuration
+
+Identity Providers (IdP) implement their own dashboards, so customer should reach IdP's documentation to integrate DataRobot. IdP requires from DataRobot sign in and sign out URLs. They are represented on the `Manage SSO` page in section `Service provider details` under `SP initiated login URL` and `IdP initiated login URL` settings, where SP stands for Service Provider which is DataRobot app in this case. DataRobot expects to receive username and email from the identity provider. IdP should be configured such that the SAML response contains `username` attribute (mandatory) and `email` attribute (optional, recommended).
+
+#### DataRobot configuration
+
+`Manage SSO` page represents form for SSO configuration. It consists of the following sections.
+
+##### Single Sign On and Service Provider details
+<img src="images/sso_saml_enhanced_config_a.png" alt="SSO SAML Configuration. Single Sign On and Service Provider details sections." style="border: 1px solid black;" width="600" />
+
+* `Enable single sign on` - enables SSO, if checked then SSO appears on the landing page and corresponding SSO routes accepts requests.
+* `Enforce single sign on` - enforces SSO, user can only login by SSO (cannot use its username and password).
+* `SP initiated login URL` - The endpoint DR app uses for initiating SSO authentication request to IdP (note, the default schema is HTTPS).
+* `IdP initiated login URL` - The endpoint that receives the SAML sign-in request from the IdP. This URL also known as Assertion Consumer Service (ACS) URL (note, the default schema is HTTPS).
+* `IdP initiated logout URL` - Optional. The endpoint that receives the SAML sign-out request from the IdP (note, the default schema is HTTPS).
+* `Save` - click to save the changes.
+
+##### Configure / Metadata URL
+There are three option of how one can configure the IdP parameters, namely Metadata URL, Metadata file, Manual settings.
+
+<img src="images/sso_saml_enhanced_config_b.png" alt="SSO SAML Configuration. Configure using Metadata URL." style="border: 1px solid black;" width="400" />
+
+* `Entity Id` - Unique identifier. Provided by Identity Provider.
+* `Metadata URL` - URL to the XML document with information required for integration with IdP.
+* `Verify IdP Metadata HTTPS Certificate` - once is checked and the Metadata URL is of HTTPS schema then it is checked for valid certificate.
+
+##### Configure / Metadata file
+
+Metadata file allows user to provide IdP metadata as XML content.
+
+<img src="images/sso_saml_enhanced_config_c.png" alt="SSO SAML Configuration. Configure using Metadata file." style="border: 1px solid black;" width="400" />
+
+* `Entity Id` - Unique identifier. Provided by Identity Provider.
+* `Metadata file` - IdP Metadata content as XML document. User has to retrieve this content from corresponding IdP. This option should be used when there is no way to have IdP Metadata URL.
+
+##### Configure / Manual settings
+
+This option is used, if IdP metadata is not available. DR app generates it based on the following fields.
+
+<img src="images/sso_saml_enhanced_config_d.png" alt="SSO SAML Configuration. Configure using Manual settings." style="border: 1px solid black;" width="400" />
+
+* `Entity Id` - Unique identifier. Provided by Identity Provider.
+* `Identity Provider Single Sign On URL` - The URL that DataRobot contacts to initiate login authentication for the user. This is obtained from the SAML application you created for DataRobot in the IdP configuration (KeyCloak example: http://host/auth/realms/dr-realm/protocol/saml).
+* `Identity Provider Single Sign-Out URL (optional)` - The URL that DataRobot directs the user’s browser to after logout. This is obtained from the SAML application you created for DataRobot in the IdP configuration. If left blank, DatRobot redirects to the root DataRobot site.
+* `Issuer` - The IdP-provided Entity ID obtained from the SAML application you created for DataRobot in the IdP configuration (KeyCloak example: http://host/auth/realms/dr-realm).
+* `Certificate` - IdP X.509 certificate, pasted or uploaded. The certificate is obtained from the IdP side. The certificate is used by SP for verifying the IdP signatures (e.g., it is a corresponding realm certificate in case of KeyCloak).
+
+##### User provisioning
+
+<img src="images/sso_saml_enhanced_config_e.png" alt="SSO SAML Configuration. User provisioning." style="border: 1px solid black;" width="400" />
+
+* `Auto-generate Users` - if checked then newly signed-on user is created in the DataRobot database.
+
+##### Mapping between DataRobot and the IdP
+
+There are three mapping options: Attributes, Groups, Roles. All three options allow to set up users attributes/groups/roles mappings between Identity Provider and DataRobot. Those mapping is used during automatic user provisioning.
+
+Adding mappings adds more restrictions on who can access DataRobot and also controls what users can access.
+
+###### Mapping / Attributes
+
+Attribute mapping allows one to map DataRobot attributes (data about the user, e.g., first name, last name) to the fields of the SAML response. In other words, because DataRobot and the IdP may use different fields' names, this section allows you to configure the name of the field in the SAML response where DataRobot updates the user’s display name, first name, last name, and email.
+
+<img src="images/sso_saml_enhanced_config_f.png" alt="SSO SAML Configuration. Mapping / Attributes." style="border: 1px solid black;" width="400" />
+
+###### Mapping / Groups
+
+Use the Groups mapping to create an unlimited number of mappings between IdP groups and existing DataRobot groups. Mappings can be one-to-one, one-to-many, or many-to-many.
+
+<img src="images/sso_saml_enhanced_config_g.png" alt="SSO SAML Configuration. Mapping / Groups." style="border: 1px solid black;" width="400" />
+
+To configure, set:
+* Group attribute: The name, in the SAML response, that identifies the string as a group name.
+* DataRobot group: The name of an existing DataRobot group to which the user will be assigned.
+* Identity provider group: The name of the IdP group to which the user belongs.
+
+###### Mapping / Roles
+
+Use the Roles mapping to create an unlimited number of mappings between IdP and DataRobot roles. Mappings can be one-to-one, one-to-many, or many-to-many.
+
+<img src="images/sso_saml_enhanced_config_h.png" alt="SSO SAML Configuration. Mapping / Roles." style="border: 1px solid black;" width="400" />
+
+To configure, set:
+
+* Role attribute: The name, in the SAML response, that identifies the string as a named user role.
+* DataRobot role: The name of the DataRobot role to assign to the user.
+* Identity provider role: The name of the role in the IdP configuration that is assigned to the user.
+
+##### Security Parameters
+
+The following options are strengthening or weakening the security of the SAML protocol.
+
+<img src="images/sso_saml_enhanced_config_i.png" alt="SSO SAML Configuration. Security Parameters." style="border: 1px solid black;" width="400" />
+
+* `Allow unsolicited` - when checked, the DataRobot app (SP) consumes unsolicited SAML Responses, i.e. SAML Responses for which it has not sent a respective SAML Authentication Request.
+* `Authn Requests Signed` - when checked, the Authentication Requests sent by this DataRobot app are signed. Note, singing works only when the primary key is provided by this part described in the section Advanced Options / Client Config / SAML Config.
+* `Want Assertions Signed` - Indicates if this DataRobot app wants the IdP to send the assertions signed. This sets the WantAssertionsSigned attribute of the SPSSODescriptor node of the metadata so the Identity Provider (IdP) will know this preference.
+* `Want Response Signed` - Indicates that Authentication Responses to the DataRobot app must be signed. If checked, the DataRobot app does not consume any SAML Responses that are not signed.
+* `Logout Requests Signed` - Indicates if this entity will sign the Logout Requests originated from it.
+
+##### Advanced Options / Session & Binding
+
+<img src="images/sso_saml_enhanced_config_j.png" alt="SSO SAML Configuration. Advanced Options / Session & Binding." style="border: 1px solid black;" width="400" />
+
+* `User Session Length (sec)` - Session cookie expiration time.
+* `SP Initiated Method` - SAML method which is used to start authentication negotiation.
+* `IdP Initiated Method` - SAML method which is used to move user to DataRobot after successful authentication.
+
+##### Advanced Options / Client Config
+
+<img src="images/sso_saml_enhanced_config_k.png" alt="SSO SAML Configuration. Advanced Options / Client Config." style="border: 1px solid black;" width="400" />
+
+* `Digest Algorithm` - A message digest algorithm used for calculating hash values.
+* `Signature Algorithm` - An algorithm used for producing signatures.
+* `SAML Config` - allows to provide fine tuning configuration for SAML client by proving JSON object. Here is, for instance, how one could set primary key:
+```json
+{
+  "key_file": "/Users/user/secretes/key_for_client.pem"
+}
+```
+where `key_file` is a path to the key pem file.
+
+#### User impersonation
+
+In order to enable user impersonation on environments with SAML SSO please put the following to `config.yaml`:
+
+```yaml
+---
+app_configuration:
+    drenv_override:
+        ENABLE_USER_IMPERSONATION: true
+```
+
+The username to use for impersonation will be take from attribute `impersonation_user` of SAML response.
+
+### Sign In
+
+After SSO is configured, Single Sign-On button appears on the landing page of DataRobot app. User is redirected to Identity Provider's authentication page after clicking it.
+
+User is redirected to DataRobot after successful sign on.
+
+### Basic Examples
+
+The basic example described in the following section [Base Configuration Examples](#base-configuration-examples) are also valid for the enhanced global SSO. The differences one may face are:
+
+* `<domain>/sso/signed-in/` has to be provided as Assertion Consumer Service URL (instead of `<domain>/sso/saml/signed-in/`).
+* Use config section [Configure / Metadata URL](#Configure-/-Metadata-URL), if IdP metadata is provided by URL.
+* Use config section [Configure / Metadata file](#Configure-/-Metadata-file), if IdP metadata is provided as content.
