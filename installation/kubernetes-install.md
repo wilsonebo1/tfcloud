@@ -26,6 +26,17 @@ os_configuration:
     htpasswd: "datarobot:$2y$05$Ss92wdQZFXpqQ6iwohMSXOegBXfU.jBR.2p4gFCmbKMMUekRExCui"
 ```
 
+### kubeconfig
+
+As part of installation of DataRobot-provided kubernetes, a `kubeconfig` granting administrative access to kubernetes API on host running `kubernetescontrolplane` will be created in the same directory as `config.yaml`. If kubernetes is externally provided, a `kubeconfig` file granting administrative access to kubernetes API is required. This `kubeconfig` must be usable by `kubectl` without requiring access to other external commands or input (for example, the account used in `kubeconfig` must not require running `aws` CLI commands, nor requiring user input, such as a password prompt or MFA token).
+
+When DataRobot-provided kubernetes is used, the `kubeconfig` context is "datarobot", which must match the `cluster_name` in the `kubernetes` section of the `config.yaml`. In other scenarios, if "datarobot" context name cannot be used for whatever reason, then `config.yaml` must have `cluster_name` updated to appropriate value, and additionally an application environment variable must be added:
+
+```yaml
+app_configuration:
+  drenv_override:
+    KUBERNETES_CLUSTER_NAME: name-of-cluster-context
+```
 
 ### setup-dependencies
 
@@ -37,6 +48,16 @@ If `metallb` is used, the first address in its configured pool will be written i
 
 Additionally, when `registryimagebuilder` is used, it will add the kubernetes CA into the docker daemon certificate chain on all hosts, and modify `/etc/hosts` on all hosts to add the IP address for the host running `registryimagebuilder` as `registry.test`.
 
+#### checking kubernetes control plane pods
+
+After `bin/datarobot setup-dependencies` has been run, an admin kubeconfig can be used to verify pod health:
+
+```shell
+kubectl --kubeconfig /path/to/kubeconfig get pods -A
+```
+
+All pods should be running, except possibly DNS pods, which await CNI setup (which happens during `bin/datarobot install`).
+
 ### install
 
 Since we are only able to `sudo` as `root` during `setup-dependencies`, all tasks during `bin/datarobot install` run as a non-privileged user.
@@ -44,6 +65,14 @@ Since we are only able to `sudo` as `root` during `setup-dependencies`, all task
 On the host marked `registryimagebuilder`, the image builder registry, bound to port 443, will be stood up. A registry certificate is created (using the kubernetes CA distributed during `bin/datarobot setup-dependencies`), and `htpasswd` username/password authentication is set up (defaulting to "datarobot:Registry123").
 
 A `kubernetescontrolplane` container is started running a "kubernetes watcher". This waits for ability to access kubernetes API using `kubeconfig` and then applies all "amenities" (packages of kubernetes manifests to install into kubernetes) during `bin/datarobot install`. This sets up networking, ingress, and other amenities e.g. as required by LRS used by custom models (e.g. setting up `calico`, `metallb`, `nginx-ingress`, etc.).
+
+#### checking health of installed kubernetes amenities
+
+After `bin/datarobot install` is run, all amenities should have been applied (including CNI, e.g. `calico`) and all pods should stabilize to running and healthy (this can take several minutes). These can be checked with an admin kubeconfig:
+
+```shell
+kubectl --kubeconfig /path/to/kubeconfig get pods -A
+```
 
 ### health smoke-test
 
@@ -59,4 +88,17 @@ For custom models, "Long Running Services" (LRS) is required. This must be insta
 bin/datarobot lrs_operator install-webhook-and-crd
 bin/datarobot lrs_operator install
 bin/datarobot lrs_operator set-active
+```
+
+#### Uninstalling LRS
+
+In the event that LRS needs to be uninstalled or reinstalled (e.g. updating `config.yaml` LRS section), `kubectl` can be used.
+
+Uninstalling LRS requires an admin kubeconfig. To clean up, must delete namespace, webhook service, and deployment:
+
+```shell
+export KUBECONFIG=/path/to/admin/kubeconfig
+kubectl delete ns datarobot-lrs
+kubectl delete services -n kube-system lrs-webhook-service
+kubectl delete deployments -n kube-system lrs-webhook
 ```
