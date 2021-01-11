@@ -246,7 +246,7 @@ curl '<DATAROBOT_ENDPOINT>/api/v2/admin/sso/saml/configuration/global/' -X PATCH
 
 ### Encrypted Response
 
-If SAML identity provider ecnrypts response assertions, please
+If SAML identity provider encrypts response assertions, please
 
 1. put your encryption certificate and key files into `/opt/datarobot/DataRobot-6.x.x/etc/certs/`,
 2. configure the application to use that certificate:
@@ -458,3 +458,55 @@ The basic example described in the following section [Base Configuration Example
 * `<domain>/sso/signed-in/` has to be provided as Assertion Consumer Service URL (instead of `<domain>/sso/saml/signed-in/`).
 * Use config section [Configure / Metadata URL](#Configure-/-Metadata-URL), if IdP metadata is provided by URL.
 * Use config section [Configure / Metadata file](#Configure-/-Metadata-file), if IdP metadata is provided as content.
+
+
+## Advanced Enhanced SSO Configuration
+
+Compare to the old [Advanced SSO Configuration](#Advanced-SSO-Configuration) one can set encryption keys/certificates and security flags right at UI.
+
+### Encrypted Request
+
+In order to enable authentication request signing, please, follow the steps:
+
+* put your encryption certificate and key files into `/opt/datarobot/DataRobot-7.x.x/etc/certs/`,
+* create JSON file:
+```json
+{
+  "key_file": "/opt/datarobot/DataRobot-7.x.x/etc/certs/key.pem",
+  "cert_file" : "/opt/datarobot/DataRobot-7.x.x/etc/certs/cert.pem"
+}
+```
+
+* configure the application:
+  - uploading JSON file using `SAML Config` described in the [Advanced Options / Client Config](#Advanced-Options-/-Client-Config) section.
+  - set security flag `Authn Requests Signed` described in the [Security Parameters](#Security-Parameters) section.
+
+### Encrypted Response
+
+If SAML identity provider encrypts response assertions, please, follow the steps:
+
+* put your encryption certificate and key files into `/opt/datarobot/DataRobot-7.x.x/etc/certs/`,
+ create JSON file:
+```json
+{
+  "encryption_keypairs" : [{
+    "key_file" : "/opt/datarobot/DataRobot-7.x.x/etc/certs/key.pem",
+    "cert_file" : "/opt/datarobot/DataRobot-7.x.x/etc/certs/cert.pem"
+  }]
+}
+```
+* configure the application to use that certificate by uploading JSON file using `SAML Config` described in the  [Advanced Options / Client Config](#Advanced-Options-/-Client-Config) section.
+
+#### Encrypted Response with Okta
+
+When using encrypted assertions with Okta, please additionally specify `id_attr_name` in the JSON file:
+
+```json
+{
+  "encryption_keypairs" : [{
+    "key_file" : "/opt/datarobot/DataRobot-7.x.x/etc/certs/key.pem",
+    "cert_file" : "/opt/datarobot/DataRobot-7.x.x/etc/certs/cert.pem"
+  }],
+  "id_attr_name" : "Id"
+}
+```
