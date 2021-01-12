@@ -163,7 +163,7 @@ Verify that your DataRobot user can access the Docker daemon on all nodes by
 logging in as your DataRobot user and running:
 
 ```bash
-sudo su datarobot
+sudo su - datarobot
 docker info
 ```
 
@@ -206,7 +206,7 @@ with `755` permissions. All paths are relative to the
 the default `/opt/datarobot` if that is not set.
 
 ```bash
-sudo su datarobot
+sudo su - datarobot
 cd /opt/datarobot
 mkdir -p data \
          data/nginx \

@@ -9,7 +9,7 @@ Perform these steps after performing the [Cluster Preparation](standard-install.
 On the install node, logged in as the DataRobot user, run the following to verify the provisioner will be able to connect to all nodes in the cluster:
 
 ```bash
-sudo su dradmin
+sudo su - dradmin
 cd /opt/datarobot/DataRobot-6.x.x/
 source release/profile
 ./bin/inventory --list
