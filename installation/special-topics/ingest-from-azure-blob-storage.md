@@ -4,8 +4,10 @@ On-premise installations of DataRobot support ingestion of Azure Blob Storage ob
 
 Once configured correctly, Azure Blob Storage objects are accessible using links as `azure_blob://<container-name>/<file-name.csv>`.
 
+**NOTE**: DataRobot does not support the use of Page blobs, which means that when your Azure Blob Storage is being configured you must select the use of Standard Storage Accounts.  The use of Premium Storage Accounts will result in an error similar to `Block blobs are not supported. ErrorCode: BlobTypeNotSupported` indicating that your Azure Storage Account does not support Block blobs.
+
 ## DataRobot application configuration
- 
+
 The DataRobot application can access objects within a single Storage Account that is specified in `AZURE_BLOB_STORAGE_ACCOUNT_NAME`.
 **NOTE**:  It is not necessary to set the `AZURE_BLOB_STORAGE_ACCOUNT_NAME` once you are using `AZURE_BLOB_STORAGE_CONNECTION_STRING` (refer to [VPC Installation](./vpc-installation.md) for more information)
 

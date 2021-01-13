@@ -459,7 +459,6 @@ After installing DataRobot with the given _config.yaml_ and creating the infrast
 Ensure that all services work as expected:
 * Create a new project
 * Run autopilot and let some models build
-* Submit a model via the Jupyter Notebook interface
 * Export PNGs of diagrams for successful model runs
 
 ### Simulating a Failed Instance
@@ -489,24 +488,6 @@ ha_services_endpoints:
   https://datarobot-internal.int.company.org:
     ...
 ```
-
-#### Jupyter is waiting for the server set up
-
-One of the reasons for that to be happening for HA Web Services clusters is that `ideworker` service is not installed on the same node with any replica of `internalapi` and IP forwarding is disabled for that node.
-
-To check if IP forwarding is enabled:
-
-* SSH to the node with `ideworker` service.
-* Run `cat /proc/sys/net/ipv4/ip_forward`. The output should be `1`.
-
-To quickly enable IP forwarding for the cluster nodes add `enable_ip_forwarding: true` to `os_configuration` section of the _config.yaml_:
-
-```yaml
-os_configuration:
- ...
- enable_ip_forwarding: true
-```
-Run `./bin/datarobot setup-dependencies`
 
 #### Large file uploads are failing (`ClientDisconnected: 400 Bad Request``)
 

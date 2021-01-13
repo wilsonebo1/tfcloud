@@ -88,8 +88,8 @@ If using `minio` in an HA configuration, additional internal ports are required
 |-------:|:--------:|:--------------|
 | 9002   | TCP/UDP  | MinIO HA Port |
 
-### Optional Premium Feature Ports
-These ports are only required if the referenced feature has been purchased and enabled.
+### Optional Feature Ports
+These ports are only required if the referenced feature has been enabled.
 
 | Port | Protocol | Component                                  |
 |-----:|:---------|:-------------------------------------------|

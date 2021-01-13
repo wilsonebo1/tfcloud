@@ -32,7 +32,14 @@ If your certificates are signed by an internal Certificate Authority, you will n
 ```
 This will not disable SSL/TLS; all traffic to the web server will still be encrypted.
 
-DataRobot supports TLSv1.2 and TLSv1.3 ciphers.  The default ciphers used by DataRobot web services can be overridden using the `os_configuration.GOOD_SSL_CIPHERS`  parameter in `config.yaml`.
+DataRobot supports TLSv1.2 and TLSv1.3 ciphers.  The default ciphers used by DataRobot web services can be overridden using the `os_configuration.ssl.ciphers`  parameter in `config.yaml`:
+
+```yaml
+# config.yaml snippet
+---
+os_configuration:
+  ssl:
+    ciphers: ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384
+```
 
 [This Mozilla article](https://wiki.mozilla.org/Security/Server_Side_TLS) provides examples of strong cipher sets that could be configured for use in DataRobot.
-

@@ -54,7 +54,11 @@ Perform these steps after performing the [Cluster Preparation](standard-install.
 
 ## Docker storage capacity
 
-Verify that Docker has sufficient available storage capacity by checking the output of:
+Verify that Docker has sufficient available storage capacity.  Verify that at least 100GB of total storage is available in the docker filesystem.
+
+You can verify the docker filesystem by running `docker info | grep 'Docker Root Dir'` as a user that belongs to the `docker` group.
+
+You can determine how much space is available to docker by running `df -h "<results>"` against the results of the previous command.
 
 ```bash
 docker info | grep 'Data Space' 2> /dev/null
@@ -95,7 +99,7 @@ This end-to-end test will verify that the provisioner can run, connect to nodes 
 ```bash
 sudo su - datarobot
 cd /opt/datarobot/DataRobot-6.x.x/
-./bin/ansible -i ./bin/inventory -m docker -a "image=foo name=bar state=absent" all
+./bin/ansible -i ./bin/inventory -m docker_container -a "image=foo name=bar state=absent" all
 ```
 
 ## Logging
