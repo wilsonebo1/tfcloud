@@ -405,7 +405,7 @@ The following options are strengthening or weakening the security of the SAML pr
 <img src="images/sso_saml_enhanced_config_i.png" alt="SSO SAML Configuration. Security Parameters." style="border: 1px solid black;" width="400" />
 
 * `Allow unsolicited` - when checked, the DataRobot app (SP) consumes unsolicited SAML Responses, i.e. SAML Responses for which it has not sent a respective SAML Authentication Request.
-* `Authn Requests Signed` - when checked, the Authentication Requests sent by this DataRobot app are signed. Note, singing works only when the primary key is provided by this part described in the section Advanced Options / Client Config / SAML Config.
+* `Auth Requests Signed` - when checked, the Authentication Requests sent by this DataRobot app are signed. Note, signing works only when the primary key is provided by this part described in the section Advanced Options / Client Config / SAML Config.
 * `Want Assertions Signed` - Indicates if this DataRobot app wants the IdP to send the assertions signed. This sets the WantAssertionsSigned attribute of the SPSSODescriptor node of the metadata so the Identity Provider (IdP) will know this preference.
 * `Want Response Signed` - Indicates that Authentication Responses to the DataRobot app must be signed. If checked, the DataRobot app does not consume any SAML Responses that are not signed.
 * `Logout Requests Signed` - Indicates if this entity will sign the Logout Requests originated from it.
