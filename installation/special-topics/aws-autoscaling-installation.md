@@ -68,7 +68,7 @@ This will be used to grant access to the web server/provisioner node so that it 
 
 ## 3. Install DataRobot
 
-**Please note: DataRobot recommends using an S3 bucket for data storage vs. using gluster**
+**Please note: DataRobot recommends using an S3 bucket for data storage vs. using MinIO**
 
 Refer to [Linux Installation Guide](../standard-install.md) to provision and deploy DataRobot according to the Multi-Node Architecture recommendations.
 

@@ -103,22 +103,6 @@ DataRobot workers.
 | 5556  | TCP      | Worker Broker |
 
 
-### Gluster Ports
-
-**NOTE**: Gluster has been deprecated as of the 5.3 release and will be completely removed
-in a future release.  Please consider using MinIO instead.
-
-If using `gluster` as a data backend, e.g. in non-Hadoop installs, additional
-internal ports are required.
-
-| Port  | Protocol | Component |
-|------:|:---------|:----------|
-| 111   | TCP/UDP  | Gluster Portmapper Service   |
-| 24007 | TCP      | Gluster Daemon |
-| 24008 | TCP      | Gluster Management |
-| 24009 | TCP      | Gluster Brick |
-| 49152 | TCP      | Gluster Brick |
-
 ### MinIO Ports
 
 If using `minio` as a data backend, e.g. in non-Hadoop installs, additional
@@ -406,7 +390,6 @@ All of these are listed in one or more of the above tables.
 |22|TCP|SSH Debug|Hadoop workers|All Cluster Nodes|
 |80|TCP|HTTP (not secure)|Application Web Servers|End users, All Cluster Nodes|
 |80|TCP|Kubernetes ingress controller HTTP|Kubernetes|All Cluster Nodes|
-|111|TCP/UDP|Gluster Portmapper Service (non-Hadoop only)|Data Servers|All Cluster Nodes|
 |443|TCP|HTTPS (TLS)|Application Web Servers|End users, All Cluster Nodes|
 |443|TCP|Image builder registry HTTPS|Image builder registry|All Cluster Nodes|
 |443|TCP|Kubernetes ingress controller HTTPS|Kubernetes|All Cluster Nodes|
@@ -526,9 +509,6 @@ All of these are listed in one or more of the above tables.
 |15672|TCP|HAProxy HA RabbitMQ HTTP Interface|Application Servers|Application Servers|
 |15672|TCP|RabbitMQ HTTP Interface|RabbitMQ node|Application Servers|
 |15673|TCP|RabbitMQ HTTP(S) Interface in HA mode|RabbitMQ node|Application Servers|
-|24007|TCP|Gluster Daemon|Data Servers|All Cluster Nodes|
-|24008|TCP|Gluster Management|Data Servers|All Cluster Nodes|
-|24009|TCP|Gluster Brick|Data Servers|All Cluster Nodes|
 |25672|TCP|RabbitMQ HA inter-node communication port|RabbitMQ node|RabbitMQ node|
 |26379|TCP|Redis Sentinel|Data Servers|Application Servers|
 |27017|TCP|MongoDB|Data Servers|All Cluster Nodes|
@@ -541,7 +521,6 @@ All of these are listed in one or more of the above tables.
 |44016|TCP|DataRobot YARN Application Master Stats (DataRobot 4.2.1 and above)|Hadoop workers|Application Servers|
 |45454|TCP|YARN NodeManager Address (HDP)|Hortonworks workers|Hortonworks workers|
 |46379|TCP|Redis Proxy Server|Application Servers|Application Servers|
-|49152|TCP|Gluster Brick|Data Servers|All Cluster Nodes|
 |50010|TCP|Data transfer (Ambari only)|Hortonworks workers|Application Servers|
 |50020|TCP|HDFS Metadata operations|Hadoop workers|Application Servers|
 |50070|TCP|NameNode Web UI without HTTPS|Hadoop workers|Application Servers|

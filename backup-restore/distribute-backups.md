@@ -8,7 +8,6 @@ In HA environments, only one node will require the archive; all nodes in the HA 
 
 The following is a complete list of backup archives described in this document:
 
-Gluster: `/opt/datarobot/data/backups/gluster/datarobot-gluster-backup-<date>.tar`
 MinIO: `/opt/datarobot/data/backups/minio/datarobot-minio-backup-<date>.tar`
 Redis: `/opt/datarobot/data/backups/redis/dump.rdb`
 MongoDB: `/opt/datarobot/data/backups/mongo/datarobot-monogo-backup-<date>.tar`

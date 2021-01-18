@@ -4,7 +4,6 @@
 
 Once you have finished executing all of the appropriate backups for your installation you may have backup archives distributed between multiple systems, depending on your configuration. After backups are complete, and the DataRobot Instance has been returned to service, you should consolidate your backups to a single location.  The following is a complete list of backup archives described in this document:
 
-Gluster: `/opt/datarobot/data/backups/gluster/datarobot-gluster-backup-<date>.tar`
 MinIO: `/opt/datarobot/data/backups/minio/datarobot-minio-backup-<date>.tar`
 Redis: `/opt/datarobot/data/backups/redis/dump.rdb`
 MongoDB: `/opt/datarobot/data/backups/mongo/datarobot-monogo-backup-<date>.tar`
