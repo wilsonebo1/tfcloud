@@ -316,6 +316,8 @@ app_configuration:
 
 Failure to disable read-only containers will result in `glfs_init(<id>) failed: Read-only file system` errors during upload.
 
+Starting with DataRobot 7.0, Gluster is no longer supported as a storage backend.  Any upgrades taking DataRobot to version 7.0 or beyond must first migrate any existing Gluster storage to an alternative backend (for example: AWS S3, Azure Blob, Google Compute Storage, or the bundled MinIO service).  Please consult with your Customer Success team to plan an appropriate storage migration plan prior to upgrading to 7.0 or beyond if your current implementation includes Gluster.
+
 ### Hyper API Service to Tableau Integrations Service
 
 Starting with DataRobot 7.0, the Hyper API service has been modified to host the DataRobot Tableau Analytics Extension server.
