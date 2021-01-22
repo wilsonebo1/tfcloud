@@ -88,6 +88,6 @@ To debug configuration in a running container on application server:
 
 ```bash
 # get full list of configuration
-docker exec CONTAINER_NAME datarobot-get-config
-# Eg: docker exec hadoopconfigsync datarobot-get-config
+docker exec CONTAINER_NAME /entrypoint datarobot-get-config
+# Eg: docker exec hadoopconfigsync /entrypoint datarobot-get-config
 ```

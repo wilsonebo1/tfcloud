@@ -38,7 +38,7 @@ In order to prepare to run the tool:
 2. Connect to the running Docker container with the following command:
 
 ```bash
-sudo docker exec -it modmonworker /bin/bash
+sudo docker exec -it modmonworker /entrypoint /bin/bash
 ```
 
 After DataRobot has been upgraded to release 5.0 (or later), options for running the tool can be

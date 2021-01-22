@@ -16,7 +16,7 @@ A more detailed background on WiredTiger Internal Cache Mechanism can be found
 The maximum cache size allocation can be queried:
 
 ```bash
-docker exec -it mongo mongo --eval "db.serverStatus().wiredTiger.cache['maximum bytes configured']"
+docker exec -it mongo /entrypoint mongo --eval "db.serverStatus().wiredTiger.cache['maximum bytes configured']"
 ```
 
 In order to adjust the size of the WiredTiger internal cache, modify the `mongod.conf` template and reconfigure mongo:
@@ -36,5 +36,5 @@ bin/datarobot reconfigure
 3. Confirm that the running mongo container has WiredTiger using the specified cache size:
 
 ```bash
-docker exec -it mongo mongo --eval "db.serverStatus().wiredTiger.cache['maximum bytes configured']"
+docker exec -it mongo /entrypoint mongo --eval "db.serverStatus().wiredTiger.cache['maximum bytes configured']"
 ```
