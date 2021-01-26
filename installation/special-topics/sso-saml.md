@@ -430,7 +430,13 @@ The following options are strengthening or weakening the security of the SAML pr
   "key_file": "/Users/user/secretes/key_for_client.pem"
 }
 ```
-where `key_file` is a path to the key pem file.
+where `key_file` is a path to the key pem file. Or alternatively one could upload secrets by content providing the following JSON:
+```json
+{
+  "key_file_value": "-----BEGIN RSA PRIVATE KEY-----\n...\n-----END RSA PRIVATE KEY-----"
+}
+```
+same is valid for certificate file (user `cert_file_value` in that case).
 
 #### User impersonation
 
@@ -486,7 +492,7 @@ In order to enable authentication request signing, please, follow the steps:
 If SAML identity provider encrypts response assertions, please, follow the steps:
 
 * put your encryption certificate and key files into `/opt/datarobot/DataRobot-7.x.x/etc/certs/`,
- create JSON file:
+ create JSON file (alternatively one could use fields `key_file_value`, `cert_file_value` to specify the key and cert files contnet directly):
 ```json
 {
   "encryption_keypairs" : [{
