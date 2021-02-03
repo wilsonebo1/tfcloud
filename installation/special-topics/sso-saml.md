@@ -2,6 +2,8 @@
 
 DataRobot could use external services (Identity Providers, IdP) for user authentication through Single Sign-On (SSO) technology. DataRobot supports SSO based on SAML protocol.
 
+(<span style="color:red">NOTE: SSO described in this section will be deprecated in DataRobot 7.1. Please, configure instead Enhanced SSO described in the section [Enhanced SAML Single Sign-On (SSO)](#Enhanced-SAML-Single-Sign-On-(SSO))!</span>)
+
 ## Enable Single Sign-On
 
 Single Sign-On feature is disabled by default. Update your `config.yaml` to enable SSO:
@@ -301,6 +303,11 @@ app_configuration:
         ENABLE_ENHANCED_GLOBAL_SAML_SSO: true
 ```
 
+NOTE:
+
+- One does not need to backup/dump the old SSO config, the new config is created and stored separately. The new config is created either with default values (if there was no old config) or based on old SSO config values. The old config is kept for the case if one needs to switch back to the old SSO.
+- However one has to update signed-in SSO route (aka Assertion Consumer Service URL) at IdP. The route format is `https://<host>/sso/signed-in/`. Pay attention for route protocol (HTTP vs HTTPS), modify it if required.
+
 ### SSO Configuration Permissions
 
 SSO configuration is disabled by default. There is a per user flag `Enable Enhanced Global SAML SSO configuration management` to enable it (find this flag in the user account settings). `Manage SSO` tab appears under `APP ADMIN` when `Enable Enhanced Global SAML SSO configuration management` is checked. Note, the configuration is accessible only by system administrators.
@@ -505,7 +512,7 @@ If SAML identity provider encrypts response assertions, please, follow the steps
 
 #### Encrypted Response with Okta
 
-When using encrypted assertions with Okta, please additionally specify `id_attr_name` in the JSON file:
+When using encrypted assertions with Okta, please additionally specify `id_attr_name_crypto` in the JSON file:
 
 ```json
 {
@@ -513,6 +520,6 @@ When using encrypted assertions with Okta, please additionally specify `id_attr_
     "key_file" : "/opt/datarobot/DataRobot-7.x.x/etc/certs/key.pem",
     "cert_file" : "/opt/datarobot/DataRobot-7.x.x/etc/certs/cert.pem"
   }],
-  "id_attr_name" : "Id"
+  "id_attr_name_crypto" : "Id"
 }
 ```
