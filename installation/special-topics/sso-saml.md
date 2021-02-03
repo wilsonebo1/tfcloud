@@ -424,7 +424,7 @@ The following options are strengthening or weakening the security of the SAML pr
 
 * `Digest Algorithm` - A message digest algorithm used for calculating hash values.
 * `Signature Algorithm` - An algorithm used for producing signatures.
-* `SAML Config` - allows to provide fine tuning configuration for SAML client by proving JSON object. Here is, for instance, how one could set primary key:
+* `SAML Config` - allows to provide fine tuning configuration for SAML client by providing JSON object. Here is, for instance, how one could set primary key:
 ```json
 {
   "key_file": "/Users/user/secretes/key_for_client.pem"
@@ -485,7 +485,7 @@ In order to enable authentication request signing, please, follow the steps:
 
 * configure the application:
   - uploading JSON file using `SAML Config` described in the [Advanced Options / Client Config](#Advanced-Options-/-Client-Config) section.
-  - set security flag `Authn Requests Signed` described in the [Security Parameters](#Security-Parameters) section.
+  - set security flag `Auth Requests Signed` described in the [Security Parameters](#Security-Parameters) section.
 
 ### Encrypted Response
 
