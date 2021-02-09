@@ -1,5 +1,16 @@
 # Model Management Data Upgrade
 
+---
+**REMOVAL NOTICE:** 
+
+The Model Management Data Upgrade was removed as of release 7.0 of DataRobot. Customers
+upgrading from >=4.4.1;<5.0 to >=7.0 who wish to preserve deployment data must be upgraded in
+multiple phases:
+1. Upgrade the installation to >=5.0;<7.0
+2. Execute the Model Management Data Upgrade
+3. Upgrade the installation to >=7.0
+---
+
 Starting with DataRobot release 5.0, model monitoring and management is receiving vast performance
 and scaling improvements. As a consequence of this improvement, all historical data is no longer
 visible in existing deployments. _The data has not been removed, only archived._ Any deployment data
@@ -32,8 +43,8 @@ application.
 
 ## Using the upgrade tool
 
-After DataRobot has been upgraded to release 5.0 (or later), options for running the tool can be
-viewed by issuing the following command:
+After DataRobot has been upgraded to a release >=5.0;<7.0, options for running the tool
+can be viewed by issuing the following command:
 
 ```bash
 /opt/datarobot/sbin/datarobot-migrate-modmon-data --help
@@ -67,7 +78,7 @@ each deployment directly correlate to upgrade runtime.
 Expect the migration to take around one minute per 15k predictions migrated. This may vary depending
 on your data.
 
-### Purging archived data
+### Purging archived data (DataRobot <7.0 only)
 
 Once all deployments have been migrated, data from the archived tables can be purged by executing
 the following command:
