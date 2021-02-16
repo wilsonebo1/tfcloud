@@ -35,3 +35,18 @@ The DataRobot application comes with a small number of `rpm` packages required f
 | `nvidia-container-runtime-3.4.0-1.x86_64.rpm` |
 | `nvidia-container-toolkit-1.3.0-2.x86_64.rpm` |
 | `nvidia-docker2-2.5.0-1.noarch.rpm` |
+
+## 3rd Party Components Included
+
+The DataRobot application includes the following versions of 3rd party components:
+
+| Component          | Version   |
+|:-------------------|:----------|
+| Elasticsearch      | 6.8.1     |
+| HAProxy            | 2.3.1     |
+| MinIO              | 2021.1.16 |
+| MongoDB            | 3.6.14    |
+| Nginx              | 1.18.0    |
+| PostgreSQL         | 10.13     |
+| RabbitMQ           | 3.8.9     |
+| Redis              | 6.0.8     |
