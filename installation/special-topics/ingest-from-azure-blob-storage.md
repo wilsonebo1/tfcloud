@@ -20,3 +20,5 @@ There are three supported ways of authenticating the DataRobot application so th
 This should be configured in cluster's config.yaml (see the [VPC Installation](./vpc-installation.md) guide for details).
 
 **NOTE**: Attaching Azure Blob Storage to the DataRobot application deployed outside of Azure Cloud is possible only when using either Shared Key or Service Principal authentication.
+
+Optional `AZURE_BLOB_STORAGE_CHUNK_SIZE` (in bytes) and `AZURE_BLOB_STORAGE_TIMEOUT` (in seconds) can be set to configure the transport when writing to Azure (refer to [VPC Installation](./vpc-installation.md) for more information).

@@ -19,6 +19,9 @@ app_configuration:
     AZURE_BLOB_STORAGE_CONTAINER_NAME: <blob_container_name>
     AZURE_BLOB_STORAGE_ACCOUNT_NAME: <storage_account_name>
     AZURE_BLOB_STORAGE_ACCOUNT_KEY: <storage_account_secret_key>
+    # Optional:
+    AZURE_BLOB_STORAGE_CHUNK_SIZE: <chunk_size_in_bytes>
+    AZURE_BLOB_STORAGE_TIMEOUT: <timeout_in_seconds>
 ```
 
 `AZURE_BLOB_STORAGE_CONTAINER_NAME` : Name of existing container. DataRobot will store all files within this container.
@@ -28,6 +31,10 @@ app_configuration:
 `AZURE_BLOB_STORAGE_ACCOUNT_KEY` : Secret key string for accessing `AZURE_BLOB_STORAGE_ACCOUNT_NAME`. Refer to the [Azure documentation](https://docs.microsoft.com/en-us/azure/storage/common/storage-configure-connection-string) to create the account key.
 
 `AZURE_BLOB_STORAGE_CONNECTION_STRING` : An alternative way of configuring access. Instead of filling AZURE_BLOB_STORAGE_ACCOUNT_NAME and AZURE_BLOB_STORAGE_ACCOUNT_KEY values, you can use only this value. Refer to the Azure [view and copy a connection string](https://docs.microsoft.com/en-us/azure/storage/common/storage-configure-connection-string?toc=%2fazure%2fstorage%2fblobs%2ftoc.json#view-and-copy-a-connection-string). This allows you to connect to not only to Azure Blob Storage itself, but to various storage emulators or API compatible 3rd-party services.
+
+`AZURE_BLOB_STORAGE_CHUNK_SIZE` : Optional chunk size (in bytes) when writing to azure. Default is 103809024 bytes (99 MB).
+
+`AZURE_BLOB_STORAGE_TIMEOUT` : Optional timeout (in seconds) when writing to azure. Default is 20 seconds.
 
 #### Authenticate DataRobot using Service Principal credentials
 
@@ -45,6 +52,9 @@ app_configuration:
     AZURE_TENANT_ID: <azure_tenant_id>
     AZURE_CLIENT_ID: <azure_client_id>
     AZURE_CLIENT_SECRET: <service_principal_secret_key>
+    # Optional:
+    AZURE_BLOB_STORAGE_CHUNK_SIZE: <chunk_size_in_bytes>
+    AZURE_BLOB_STORAGE_TIMEOUT: <timeout_in_seconds>
 ```
 
 #### Grant DataRobot virtual machine access to an Azure Storage container
@@ -60,6 +70,9 @@ app_configuration:
     FILE_STORAGE_TYPE: azure_blob
     AZURE_BLOB_STORAGE_CONTAINER_NAME: <blob_container_name>
     AZURE_BLOB_STORAGE_ACCOUNT_NAME: <storage_account_name>
+    # Optional:
+    AZURE_BLOB_STORAGE_CHUNK_SIZE: <chunk_size_in_bytes>
+    AZURE_BLOB_STORAGE_TIMEOUT: <timeout_in_seconds>
 ```
 
 ## AWS
