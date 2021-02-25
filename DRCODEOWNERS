@@ -19,3 +19,6 @@
 # Unless a later match takes precedence, these groups will be requested for
 # review when someone opens a pull request.
 /               @datarobot/platform
+/installation/special-topics/gcp-autoscaling-installation.md  @datarobot/platform-dynamic-workers @datarobot/platform
+/installation/special-topics/azure-autoscaling-installation.md  @datarobot/platform-dynamic-workers @datarobot/platform
+/installation/special-topics/aws-autoscaling-installation.md  @datarobot/platform-dynamic-workers @datarobot/platform

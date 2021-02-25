@@ -21,7 +21,7 @@ Under normal circumstances, you will want to have at least 1 Modeling node runni
 
 - In the Google Cloud Portal -> IAM -> Service Accounts, create a new service account for DataRobot. Grant Monitoring Admin and Storage Admin for the new Service Account.
 
-- Download the google credential json file, copy to application host and set the file path in config.yaml later.
+- Attach the service account to the machines running DataRobot (Application Default Credentials - adc mode) or download the google credential json file, copy to application host and set the file path in config.yaml later (Path/Content mode).
 
 <img src="./images/gcp-service-account.png" alt="GCP Create Service Account" style="border: 1px solid black;"/>
 
@@ -38,14 +38,71 @@ cp example-configs/multi-node.yaml config.yaml
 chmod 0600 config.yaml
 ```
 
-Edit the config.yaml with the following parameters:
+Next, follow the instruction to edit `config.yaml` for providing Google Cloud credential via ADC or path mode.
+
+**3.1.1 Configure the application running in GCE using ADC**
+
+Google can provide ["Application Default Credentials (ADC)"](https://cloud.google.com/docs/authentication/production)
+to software running on a GCE instance.
+The GCE instance must be [configured with a default service account](https://cloud.google.com/compute/docs/access/create-enable-service-accounts-for-instances)
+in order for this to work.
+This method is the most convenient and secure because google will manage all credentials outside the
+instance, so plain-text credentials will not be stored.
+
+Example `config.yaml` snippet:
 
 ```bash
 os_configuration:
-  # Google Cloud Credential required parameters
   google_cloud:
     use_google_cloud_application: true
-    google_credential_keyfile_path: /opt/datarobot/google_creds.json
+    google_credential_source: adc
+
+app_configuration:
+  drenv_override:
+    # Metrics Publisher required parameters
+    METRICS_PUBLISHER_CLOUD_PROVIDER: gcp
+    ADMIN_API_TOKEN: admin-token-retrieved-above
+    GOOGLE_CLOUD_PROJECT_ID: your-project-id
+    STATS_METRICS_NAMESPACE: datarobot-modelling-autoscaling
+    # Google Cloud Storage parameters (Only required if Google Cloud Storage enabled)
+    FILE_STORAGE_PREFIX: data/
+    FILE_STORAGE_TYPE: google
+    GOOGLE_STORAGE_BUCKET: your-google-storage-bucket
+    ENABLE_GS_INGESTION: True
+
+servers:
+# Application node
+- services:
+  ...other services...
+  - metricspublisher
+
+# Modeling node
+- services:
+  - execmanagereda
+  - resourcemonitor
+  - datasetsserviceworker0
+  - datasetsservicequickworker0
+  - datasetsserviceworker1
+  - datasetsservicequickworker1
+
+# Modelling-only node (Used for Autoscaling)
+- services:
+  - execmanagersw
+  - resourcemonitor
+```
+
+**3.1.2 Configure the application running in GCE using manually distributed credentials**
+
+The keyfile must be manually copied to the provisioner node, and this path must be supplied in the configuration.
+
+Example `config.yaml` snippet:
+
+```bash
+os_configuration:
+  google_cloud:
+    use_google_cloud_application: true
+    google_credential_source: path
+    google_credential_keyfile_path: /opt/datarobot/etc/credentials/<keyfile.json>
 
 app_configuration:
   drenv_override:
