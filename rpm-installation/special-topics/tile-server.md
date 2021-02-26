@@ -62,7 +62,7 @@ To upload a tile-set to storage:
 source /opt/datarobot/etc/profile
 python3 -m tools.manager.tileservergl push --tileset <relative/path/to/tileset>
 ```
-In the command above, `<relative/path/to/tileset>` should be a relative path to the location of `config.yaml`.
+In the command above, `<relative/path/to/tileset>` should be a relative path to the location of `config.yaml`. Apart from the `push` command, all other commands work with tileset file names instead of file system paths.
 
 To select one of the tile-sets as the one to be used by the Tileserver (and replicated to HA nodes):
 ```bash
