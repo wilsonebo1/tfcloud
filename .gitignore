@@ -12,3 +12,4 @@ test-results.xml
 *.pyc
 .cache
 .pytest_cache
+installation/installer-toolkit/*

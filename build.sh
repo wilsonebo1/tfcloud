@@ -75,6 +75,23 @@ function _clean {
     set -e
 }
 
+function _copy_platform_guide {
+    set +x
+    if [ -z "${WORKSPACE:-}" ]; then
+        _error "WORKSPACE not set!"
+    fi
+    if [ ! -d "${WORKSPACE}/DataRobot/dev-docs/docs/platform_guide" ]; then
+        _warn "Platform Guide not detected under $WORKSPACE/DataRobot."
+        return
+    fi
+
+    _note "Copying Platform Guide files"
+
+    set -x
+    cp -Rv "${WORKSPACE}/DataRobot/dev-docs/docs/platform_guide/installer-toolkit" "installation/"
+    set +x
+}
+
 
 function _test {
     set +x
@@ -90,6 +107,8 @@ function _test {
         echo "refname: ${refname}"
     fi
 
+    _copy_platform_guide
+
     user_id="$(id -u)"
 
     oldIFS="$IFS"
@@ -98,6 +117,7 @@ function _test {
     echo "Pulling ${FULL_IMAGE_NAME}"
     docker pull "${FULL_IMAGE_NAME}"
 
+    set -x
     rm -rf output/*
     docker run --rm --name "${TEST_CONTAINER}" --user="${UID}" -i \
         -e "GUIDES=${GUIDES}" \

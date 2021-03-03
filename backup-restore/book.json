@@ -6,7 +6,7 @@
   "author": "DataRobot, Inc",
   "variables":
   {
-    "defaultfoot": "&copy; DataRobot, Inc. 2019. All Rights Reserved."
+    "defaultfoot": "&copy; DataRobot, Inc. 2021. All Rights Reserved."
   },
   "plugins": ["theme-defaultfoot"]
 }
