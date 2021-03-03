@@ -26,8 +26,8 @@ os_configuration:
 
 On the hosts from which you are running installation commands:
 
-* Remove the file `/opt/datarobot/DataRobot-6.x.x/secrets.yaml` if it exists
-* Remove the files in `/opt/datarobot/DataRobot-6.x.x/secrets/*` if they exist (do not remove `secrets` dir or `.secrets.key`)
+* Remove the file `/opt/datarobot/DataRobot-7.x.x/secrets.yaml` if it exists
+* Remove the files in `/opt/datarobot/DataRobot-7.x.x/secrets/*` if they exist (do not remove `secrets` dir or `.secrets.key`)
 
 On each host:
 

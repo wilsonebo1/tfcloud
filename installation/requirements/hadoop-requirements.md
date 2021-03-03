@@ -76,28 +76,28 @@ To Improve performance and stability, DataRobot recommends:
 
 ## Cloudera Requirements
 
-* Cloudera CDH must be version 5.4 or greater. CDH 6.1 support was added in 5.1.
-* Cloudera cluster must be running on CentOS/RHEL version 6.4 or greater on the X86_64 Architecture.
+* The DataRobot Platform supports Cloudera CDH versions 5.12, 6.1.0, and 6.3.1.  Other CDH versions are supported on a best-effort basis.
+* Cloudera cluster must be running on CentOS/RHEL version 7.9 or greater on the X86_64 Architecture.
 
 ### Required files
 
 | Description | Filename | Notes |
 |:------------|:---------|:------|
-| Hadoop Parcel | `parcel/DataRobot-6.x.x-RELEASE-any.parcel` | Rename the file by replacing `any` with **el7** for CentOS/RHEL 7.x. Rename the file by replacing `any` with **el6** for CentOS/RHEL 6.4. |
-| Hadoop Parcel Checksum | `parcel/DataRobot-6.x.x-RELEASE-any.parcel.sha` | Rename the file by replacing `any` with **el7** for CentOS/RHEL 7.x. Rename the file by replacing `any` with **el6** for CentOS/RHEL 6.4. |
-| Custom Service Descriptor (CSD) | `csd/DataRobot-6.x.x-RELEASE.jar` | Configuration files used to integrate DataRobot with Cloudera. |
+| Hadoop Parcel | `parcel/DataRobot-7.x.x-RELEASE-any.parcel` | Rename the file by replacing `any` with **el7** for CentOS/RHEL 7.x. |
+| Hadoop Parcel Checksum | `parcel/DataRobot-7.x.x-RELEASE-any.parcel.sha` | Rename the file by replacing `any` with **el7** for CentOS/RHEL 7.x. |
+| Custom Service Descriptor (CSD) | `csd/DataRobot-7.x.x-RELEASE.jar` | Configuration files used to integrate DataRobot with Cloudera. |
 
 {% block ambari_requirements %}
 ## Ambari Requirements
 
-* The DataRobot Platform support Hortonworks Data Platform (HDP) versions 2.3, 2.4, 2.5, 2.6, and 3.0.
+* The DataRobot Platform supports Hortonworks Data Platform (HDP) versions 2.5, 3.0, and 3.1.4.  Other HDP versions are supported on a best-effort basis.
 * Ambari cluster must be running on CentOS/RHEL version 6.4 or greater on the X86_64 Architecture.
 
 ### Required files
 
 | Description | Filename | Notes |
 |:------------|:---------|:------|
-| Hadoop Parcel | `parcel/DataRobot-6.x.x-RELEASE-any.parcel` | |
-| Hadoop Parcel Checksum | `parcel/DataRobot-6.x.x-RELEASE-any.parcel.sha` | |
-| Service Descriptor | `ambari/datarobot-ambari-5.2.2-RELEASE.tar.gz` | Configuration files used to integrate DataRobot with Ambari. |
+| Hadoop Parcel | `parcel/DataRobot-7.x.x-RELEASE-any.parcel` | |
+| Hadoop Parcel Checksum | `parcel/DataRobot-7.x.x-RELEASE-any.parcel.sha` | |
+| Service Descriptor | `ambari/datarobot-ambari-7.x.x-RELEASE.tar.gz` | Configuration files used to integrate DataRobot with Ambari. |
 {% endblock %}

@@ -39,7 +39,7 @@ Refer to [Linux Installation Guide](../standard-install.md) to provision and dep
 
 **3.1 Configure config.yaml**
 
-Copy example config.yaml to `/opt/datarobot/DataRobot-6.x.x/config.yaml`:
+Copy example config.yaml to `/opt/datarobot/DataRobot-7.x.x/config.yaml`:
 
 ```bash
 cp example-configs/multi-node.yaml config.yaml
@@ -82,7 +82,7 @@ servers:
 **3.2 Complete the installation and verify cluster health before proceeding**
 
 ```bash
-cd /opt/datarobot/DataRobot-6.x.x/
+cd /opt/datarobot/DataRobot-7.x.x/
 ./bin/datarobot validate
 ./bin/datarobot setup-dependencies
 ./bin/datarobot run-registry

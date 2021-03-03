@@ -9,7 +9,7 @@ The servers and or server instances that are provisioned are expected to be dedi
 
 ## Linux Distribution
 
-DataRobot officially supports RedHat and CentOS versions greater than or equal to 7.9 and 8.2, and less than 9.0.
+DataRobot officially supports RedHat and CentOS versions greater than or equal to 7.9 and less than or equal to 8.2.
 Other systems are supported on a best-effort basis.
 
 Your Linux server must have access to up-to-date repository servers with standard RedHat packages.
@@ -142,7 +142,7 @@ This user must have access to the following:
 
 ```bash
 useradd --create-home --uid 1234 datarobot # uid can be any valid uid
-mkdir -p /opt/datarobot /opt/datarobot/DataRobot-6.x.x
+mkdir -p /opt/datarobot /opt/datarobot/DataRobot-7.x.x
 chown -R datarobot:datarobot /opt/datarobot
 ```
 
@@ -295,7 +295,7 @@ ln -s /data/mydatarobot/docker /var/lib/docker
 
 | Description | Filename | Notes |
 |:------------|:---------|:------|
-| DataRobot Distribution | DataRobot-RELEASE-6.x.x.tar.gz | A tarball containing all files required for DataRobot installation |
+| DataRobot Distribution | DataRobot-RELEASE-7.x.x.tar.gz | A tarball containing all files required for DataRobot installation |
 
 ## Limits
 

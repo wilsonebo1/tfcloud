@@ -33,7 +33,7 @@ If password protection must be disabled for some reason, and `minio` is not bein
 On the hosts from which you are running installation commands:
 
 * Remove the line for `secrets_enforced: true` from `config.yaml`
-* Remove the file `/opt/datarobot/DataRobot-6.x.x/secrets.yaml` if it exists (do not remove `secrets` dir or `.secrets.key`)
+* Remove the file `/opt/datarobot/DataRobot-7.x.x/secrets.yaml` if it exists (do not remove `secrets` dir or `.secrets.key`)
 
 On each host:
 

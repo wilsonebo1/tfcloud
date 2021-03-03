@@ -73,7 +73,7 @@ location via `config.yaml`.
 * Prepare the `release/venv` for transfer:
 
 ```bash
-cd /opt/datarobot/DataRobot-6.x.x/release
+cd /opt/datarobot/DataRobot-7.x.x/release
 find -L venv/ -type f ! -name "*.pyc" | tar -czvf release_venv.tar.gz -T -
 ```
 
@@ -105,7 +105,7 @@ servers.
 * On all nodes, run the following commands:
 
 ```bash
-cd /opt/datarobot/DataRobot-6.x.x/
+cd /opt/datarobot/DataRobot-7.x.x/
 sudo yum localinstall -y --nogpgcheck \
     release/docker-packages/RedHat-7/prereqs/*.rpm
 sudo yum localinstall -y --nogpgcheck \

@@ -74,7 +74,7 @@ Verify that you can run Docker containers with the following command:
 
 ```bash
 sudo su - datarobot
-cd /opt/datarobot/DataRobot-6.x.x/
+cd /opt/datarobot/DataRobot-7.x.x/
 docker load -i dockerfiles/datarobot/saved/docker-registry.tar
 docker run --rm -it docker.hq.datarobot.com/datarobot/registry
 # You should see some logs from the container
@@ -87,7 +87,7 @@ On the install node, logged in as the DataRobot user, run the following to verif
 
 ```bash
 sudo su - datarobot
-cd /opt/datarobot/DataRobot-6.x.x/
+cd /opt/datarobot/DataRobot-7.x.x/
 ./bin/inventory --list
 ./bin/ansible -i ./bin/inventory -m shell -a 'uptime' all
 ```
@@ -98,7 +98,7 @@ This end-to-end test will verify that the provisioner can run, connect to nodes 
 
 ```bash
 sudo su - datarobot
-cd /opt/datarobot/DataRobot-6.x.x/
+cd /opt/datarobot/DataRobot-7.x.x/
 ./bin/ansible -i ./bin/inventory -m docker_container -a "image=foo name=bar state=absent" all
 ```
 

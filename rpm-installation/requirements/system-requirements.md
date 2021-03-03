@@ -7,7 +7,7 @@ It assumes you have provisioned sufficient hardware resources to run large compu
 
 ## Linux Distribution
 
-DataRobot officially supports RedHat and CentOS at versions `6.9+` and `7.4+`, but less than `8.0`.
+DataRobot officially supports RedHat and CentOS at versions `7.9+`, but less than `8.2`.
 
 Your Linux server must have access to up-to-date repository servers with standard RedHat packages.
 
@@ -19,9 +19,9 @@ libffi, libgcc, libgfortran, libgomp, libpcap, libpng, libstdc++, libuuid, libXf
 net-tools, numactl, openssl, readline, snappy, sqlite, tar, tk, uuid, wget, xz, zlib
 ```
 
-These packages are available on [Extra Packages for Enterprise Linux (EPEL)](https://fedoraproject.org/wiki/EPEL) for CentOS/RHEL 6/7.
+These packages are available on [Extra Packages for Enterprise Linux (EPEL)](https://fedoraproject.org/wiki/EPEL) for CentOS/RHEL 7/8.
 
-**NOTE**: On RHEL7, the `libdb4` package provides `db4` and there is no package named `db4` for RHEL7. On RHEL6 the package name is `db4`.
+**NOTE**: On RHEL7, the `libdb4` package provides `db4` and there is no package named `db4` for RHEL7.
 
 We recommend making the latest stable version from EPEL available in your internal repositories if you are not using EPEL.
 
@@ -112,7 +112,7 @@ For data storage nodes (running `HDFS`, etc.), we recommend a minimum of 4TB of 
 
 | Description | Filename | Notes |
 |:------------|:---------|:------|
-| DataRobot Distribution | DataRobot-RELEASE-6.x.x-rpm.tar.gz | A tarball containing all files required for DataRobot installation |
+| DataRobot Distribution | DataRobot-RELEASE-7.x.x-rpm.tar.gz | A tarball containing all files required for DataRobot installation |
 
 ## Additional requirements
 
