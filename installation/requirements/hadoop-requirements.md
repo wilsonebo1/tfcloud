@@ -91,7 +91,7 @@ To Improve performance and stability, DataRobot recommends:
 ## Ambari Requirements
 
 * The DataRobot Platform supports Hortonworks Data Platform (HDP) versions 2.5, 3.0, and 3.1.4.  Other HDP versions are supported on a best-effort basis.
-* Ambari cluster must be running on CentOS/RHEL version 6.4 or greater on the X86_64 Architecture.
+* Ambari cluster must be running on CentOS/RHEL version 7.9 or greater on the X86_64 Architecture.
 
 ### Required files
 

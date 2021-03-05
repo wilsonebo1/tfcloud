@@ -7,7 +7,8 @@ It assumes you have provisioned sufficient hardware resources to run large compu
 
 ## Linux Distribution
 
-DataRobot officially supports RedHat and CentOS at versions `7.9+`, but less than `8.2`.
+DataRobot officially supports RedHat and CentOS versions 7.9 and 8.2.
+Other versions are supported via contract addendum.
 
 Your Linux server must have access to up-to-date repository servers with standard RedHat packages.
 
