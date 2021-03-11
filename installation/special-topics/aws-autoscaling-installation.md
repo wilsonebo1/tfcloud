@@ -109,7 +109,6 @@ servers:
 # Modeling node
 - services:
   - execmanagereda
-  - resourcemonitor
   - datasetsserviceworker0
   - datasetsservicequickworker0
   - datasetsserviceworker1
@@ -118,7 +117,6 @@ servers:
 # Modelling-only node (Used for Autoscaling)
 - services:
   - execmanagersw
-  - resourcemonitor
 ```
 
 **3.2 Complete the installation and verify cluster health before proceeding**

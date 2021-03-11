@@ -357,7 +357,6 @@ servers:
   - 192.168.0.9
   services:
   - execmanager
-  - resourcemonitor
   - datasetsservicequickworker0
   - datasetsservicequickworker1
   - datasetsserviceworker0

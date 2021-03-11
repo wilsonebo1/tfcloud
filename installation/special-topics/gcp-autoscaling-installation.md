@@ -79,7 +79,6 @@ servers:
 # Modeling node
 - services:
   - execmanagereda
-  - resourcemonitor
   - datasetsserviceworker0
   - datasetsservicequickworker0
   - datasetsserviceworker1
@@ -88,7 +87,6 @@ servers:
 # Modelling-only node (Used for Autoscaling)
 - services:
   - execmanagersw
-  - resourcemonitor
 ```
 
 **3.1.2 Configure the application running in GCE using manually distributed credentials**
@@ -126,7 +124,6 @@ servers:
 # Modeling node
 - services:
   - execmanagereda
-  - resourcemonitor
   - datasetsserviceworker0
   - datasetsservicequickworker0
   - datasetsserviceworker1
@@ -135,7 +132,6 @@ servers:
 # Modelling-only node (Used for Autoscaling)
 - services:
   - execmanagersw
-  - resourcemonitor
 ```
 
 **3.2 Complete the installation and verify cluster health before proceeding**
@@ -164,7 +160,6 @@ After several minutes, you should see the metric created in the Google Cloud Por
 - Configure Source disk to take disk snapshot from Modelling Only node. This is the node that has the following services configured:
 ```
 -execmanagersw
--resourcemonitor
 ```
 
 <img src="./images/gcp-create-image.png" alt="GCP Create Image" style="border: 1px solid black;"/>

@@ -79,7 +79,6 @@ servers:
   - mongo
   - queueproxy
   - redis
-  - resourcemonitor
   - resourceproxy
   - securebroker
   - sentinel
@@ -96,7 +95,6 @@ servers:
   - mongo
   - rabbit
   - redis
-  - resourcemonitor
   - secureworker
   - sentinel
   - datasetsservicequickworker1
@@ -162,7 +160,6 @@ servers:
   - rabbit
   - queueproxy
   - redis
-  - resourcemonitor
   - resourceproxy
   - securebroker
   - sentinel
@@ -179,7 +176,6 @@ servers:
   - mongo
   - rabbit
   - redis
-  - resourcemonitor
   - secureworker
   - sentinel
   - datasetsservicequickworker1
