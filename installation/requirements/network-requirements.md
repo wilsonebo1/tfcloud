@@ -380,7 +380,7 @@ This ports are used internally by kubernetes and only need to be opened when Dat
 |----------:|:---------|:----------|
 |2379-2380  |TCP       |Kubernetes etcd|
 |10250-10252|TCP       |Internal kubernetes communication|
-
+|30000-32767|TCP       |Kubernetes NodePort services|
 
 ## All Ports In One Table
 
@@ -517,6 +517,7 @@ All of these are listed in one or more of the above tables.
 |26379|TCP|Redis Sentinel|Data Servers|Application Servers|
 |27017|TCP|MongoDB|Data Servers|All Cluster Nodes|
 |28003|TCP|DataRobot v1 API Health Check Service|Application Servers|Application Servers|
+|30000-32767|TCP|Kubernetes NodePort services|Kubernetes|All Kubernetes Nodes|
 |44011|TCP|DataRobot YARN Application Master Stats (DataRobot 4.2.1 and above)|Hadoop workers|Application Servers|
 |44012|TCP|DataRobot YARN Application Master Stats (DataRobot 4.2.1 and above)|Hadoop workers|Application Servers|
 |44013|TCP|DataRobot YARN Application Master Stats (DataRobot 4.2.1 and above)|Hadoop workers|Application Servers|

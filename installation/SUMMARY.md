@@ -6,7 +6,7 @@
 
 * [Linux Requirements](requirements/system-requirements.md)
 * [Hadoop Requirements](requirements/hadoop-requirements.md)
-* [Kubernetes Requirements](requirements/kubernetes-requirements.md)
+* [Kubernetes Requirements](./installer-toolkit/kubernetes-requirements.md)
 * [Network Requirements](requirements/network-requirements.md)
 
 ## Installation
@@ -16,9 +16,38 @@
 * [Hadoop Installation](hadoop-install.md)
   * [Cloudera Installation](cloudera-install.md)
   * [Hortonworks Installation](ambari-install.md)
-* [Kubernetes Installation](kubernetes-install.md)
+* [Kubernetes Installation](./installer-toolkit/kubernetes-install.md)
 * [Pre-Flight Checks](pre-flight-checks.md)
 * [Hadoop Pre-Flight Checks](pre-flight-checks.md#hadoop-checks)
+
+## Platform Installer Toolkit
+
+* [Platform Installer Toolkit](./installer-toolkit/index.md)
+  * [Platform Layer Model](./installer-toolkit/layer-model.md)
+  * [0 - Config]()
+    * [Config.yaml for Kubernetes](./installer-toolkit/0-config/config-yaml.md)
+    * [Kubeconfig Usage at DataRobot](./installer-toolkit/0-config/kubeconfig.md)
+  * [2 - Control Plane]()
+    * [Container Networking Interface (CNI) Requirements and Configuration for Kubernetes](./installer-toolkit/2-control-plane/cni.md)
+    * [Container Runtime Interface (CRI) Requirements and Configuration for Kubernetes](./installer-toolkit/2-control-plane/cri.md)
+    * [Image Builder Requirements and Configuration](./installer-toolkit/2-control-plane/image-builder.md)
+    * [Kubernetes Control Plane Requirements and Configuration](./installer-toolkit/2-control-plane/kubernetes-control-plane.md)
+    * [Load Balancer Requirements and Configuration for Kubernetes](./installer-toolkit/2-control-plane/load-balancers.md)
+    * [Registries Requirements and Configuration for Kubernetes](./installer-toolkit/2-control-plane/registries.md)
+      * [Application Registry](./installer-toolkit/2-control-plane/application-registry.md)
+      * [Platform Registry](./installer-toolkit/2-control-plane/platform-registry.md)
+      * [Provisioner Registry](./installer-toolkit/2-control-plane/provisioner-registry.md)
+  * [3 - Amenities]()
+    * [Calico](./installer-toolkit/3-amenities/calico.md)
+    * [Kubernetes Namespaces](./installer-toolkit/3-amenities/namespaces.md)
+    * [Kubernetes Tools Manager](./installer-toolkit/tools-manager/kubernetes.md)
+    * [Long Running Service (LRS)](./installer-toolkit/3-amenities/lrs.md)
+    * [Metallb](./installer-toolkit/3-amenities/metallb.md)
+  * [4 - Critical Services]()
+    * [Mongo Tools Manager](./installer-toolkit/tools-manager/mongo.md)
+
+## Advanced Configuration
+
 * [Advanced Configuration](special-topics/README.md)
   * [Adjusting Log Verbosity](special-topics/application-log-levels.md)
   * [Configuring Elasticsearch Backup/Restore](special-topics/elasticsearch-configure-backup-restore.md)
