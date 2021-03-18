@@ -10,7 +10,7 @@ installation.
 ## Platform Overview
 
 The DataRobot platform is highly flexible and supports multiple environment
-types, from single-node Linux systems to large Hadoop environments.
+types, including single-node Linux systems, large Hadoop environments, and MLOps with custom models.
 
 All installations require at the minimum a Linux application server running
 DataRobot services in Docker containers. Services in Docker can be distributed
@@ -45,3 +45,9 @@ modified to add a YARN Application Master that handles resources in Hadoop.
 **NOTE**: Unless otherwise specified, "Hadoop" is applicable to both Cloudera
 and Ambari clusters. Where there is something specific to Cloudera or
 Ambari, it is mentioned explicitly.
+
+### MLOps
+
+The following diagram illustrates the high-level architecture of the DataRobot MLOps with custom models installation.
+
+<img src="images/mlops-arch.png" style="border:1px solid black"/>
