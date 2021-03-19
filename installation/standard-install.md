@@ -275,6 +275,10 @@ DataRobot Installation Complete.
 **NOTE**: If performing an offline install, run all of these commands on each machine. Additionally, you may need to perform a final
 `bin/datarobot services restart` on each machine after completing installation on all machines.
 
+* Apply a valid license for the application.
+  
+**NOTE**: If this step is missed, then the next step will fail with errors, while in the frontend, a red banner in the top of the page appears mentioning:
+  "*Your license has expired, Submit a new license key to continue building models*"
 
 * Check that the cluster was installed correctly:
 
