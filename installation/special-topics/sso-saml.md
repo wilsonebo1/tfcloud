@@ -434,7 +434,7 @@ The following options are strengthening or weakening the security of the SAML pr
 * `SAML Config` - allows to provide fine tuning configuration for SAML client by providing JSON object. Here is, for instance, how one could set primary key:
 ```json
 {
-  "key_file": "/Users/user/secretes/key_for_client.pem"
+  "key_file": "/opt/datarobot/etc/secrets/key_for_client.pem"
 }
 ```
 where `key_file` is a path to the key pem file. Or alternatively one could upload secrets by content providing the following JSON:
