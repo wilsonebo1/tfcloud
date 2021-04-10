@@ -11,6 +11,9 @@ during your upgrade.
 None of these steps will cause you to lose any data or application state.
 However, they will require service downtime for the DataRobot application.
 
+Starting in 7.1.0 mongo upgrades will be part of the installation
+process. **Back up your mongo data before running any upgrades!**
+
 ### Preserve secrets
 
 If `secrets_enforced` was true from a previous install, and user/password
@@ -46,6 +49,22 @@ credentials would no longer be accessible by the app.
 ### Preserve Externally Signed TLS Certificates
 
 The DataRobot installer handles distribution of TLS Certificates for both front-end and backend network encryption.  Typically the web-server certificate is issued by a public Certificate Authority and will need to be migrated during the upgrade process.  If this is the case then the `certs/` directory, and all of it's contents, must be copied into the new installation directory.
+
+### Back Up Mongo Data
+
+Starting in 7.1.0, the DataRobot installer will always perform an in-place upgrade of
+your database. It will detect the current version and attempt to upgrade to
+the mongo version of the new installation. While the risk in minimal, the
+cost of _not_ backing up your data is huge.
+
+Please backup your data using
+[datarobot-manage-mongo backup](./backup-mongo.md).
+
+Or directly access help commands here:
+
+- `docker exec -it mongo /entrypoint sbin/datarobot-manage-mongo --help`
+- `docker exec -it mongo /entrypoint sbin/datarobot-manage-mongo backup --help`
+
 
 ### Remove old files and services
 
@@ -335,13 +354,22 @@ HYPER_API_SERVICE_GUNICORN_WORKERS -> TABLEAU_INTEGRATIONS_SERVICE_GUNICORN_WORK
 
 ### Mongo Version and Old DataRobot Versions
 
-Starting with DataRobot release 5.3, the old mongo 2.3->3.4 upgrade tooling has been deprecated. This tooling automatically converted old mongo data into WiredTiger format and made other changes.
+Starting with DataRobot release 5.3, the old mongo 2.3->3.4 upgrade tooling has been deprecated. 
+This tooling automatically converted old mongo data into WiredTiger format and made other changes.
 
-As a consequence of this change, for customers on 4.0.x (or earlier releases), they will require upgrading to a version before 5.3.x before upgrading to 5.3.x.
+As a consequence of this change, for customers on 4.0.x (or earlier releases), 
+they will require upgrading to a version before 5.3.x before upgrading to 5.3.x.
 
-For example, a customer on 4.0.x and mongo 2.4 could be upgraded to 4.4.x or 5.2.x first. This will bring them up to mongo 3.4. Then they could be upgraded to 5.3.x (or later), upgrading to mongo 3.6 (or later).
+For example, a customer on 4.0.x and mongo 2.4 could be upgraded to 4.4.x or 5.2.x first. 
+This will bring them up to mongo 3.4. Then they could be upgraded to 5.3.x (or later),
+upgrading to mongo 3.6 (or later).
 
-It is expected that trying to install mongo 3.6 or later on a system using old mongo data (not previously upgraded to 3.4 and WiredTiger), that the DataRobot mongo service/containers will fail to start, or otherwise yield error messages in the logs about "WiredTiger" or incompatible/unreadable mongo data.
+If you try to install mongo 3.6 or later on a system using old mongo data
+(not previously upgraded to 3.4 and WiredTiger), the DataRobot mongo service/containers will fail to start
+or will yield error messages in the logs about "WiredTiger" or incompatible/unreadable mongo data.
+
+Starting in DataRobot 7.1.0, the installer will automatically check the version of your mongo data and
+upgrade it to the mongo version shipped with DataRobot. This requires mongo 3.4 or later and WiredTiger.
 
 ### Elasticsearch Backup and Restore
 

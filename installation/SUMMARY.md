@@ -12,6 +12,7 @@
 ## Installation
 
 * [Upgrades](upgrades.md)
+  * [Back Up Mongo](backup-mongo.md)
 * [Linux Installation](standard-install.md)
 * [Hadoop Installation](hadoop-install.md)
   * [Cloudera Installation](cloudera-install.md)

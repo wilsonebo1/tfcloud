@@ -11,6 +11,10 @@ during your upgrade.
 None of these steps will cause you to lose any data or application state.
 However, they will require service downtime for the DataRobot application.
 
+Starting in 7.1.0, mongo upgrades will be part of the installation
+process. **Back up your mongo data before running any upgrades!**
+
+
 ### Preserve secrets
 
 If `secrets_enforced` was true from a previous install, and user/password
@@ -40,6 +44,22 @@ credentials would no longer be accessible by the app.
 ### Preserve Externally Signed TLS Certificates
 
 The DataRobot installer handles distribution of TLS Certificates for both front-end and backend network encryption.  Typically the web-server certificate is issued by a public Certificate Authority and will need to be migrated during the upgrade process.  If this is the case then the `certs/` directory, and all of it's contents, must be copied into the new installation directory.
+
+### Back Up Mongo Data
+
+Starting in 7.1.0, the DataRobot installer will always perform an in-place upgrade of
+your database. It will detect the current version and attempt to upgrade to
+the mongo version of the new installation. While the risk in minimal, the
+cost of _not_ backing up your data is huge.
+
+Please backup your data using
+[datarobot-manage-mongo backup](./backup-mongo.md).
+
+Or directly access help commands here:
+
+- `/opt/datarobot/sbin/datarobot-manage-mongo --help`
+- `/opt/datarobot/sbin/datarobot-manage-mongo backup --help`
+
 
 ### Remove old files and services
 
