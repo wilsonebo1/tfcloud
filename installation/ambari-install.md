@@ -220,7 +220,8 @@ http://[IP OF SIMPLE WEBSERVER]:[SERVER PORT]/DataRobot-[PARCEL VERSION].parcel
 
 4. Select where to install DataRobot Master and click **Next**.
 
-5. Select all YARN nodes as clients and nodes for ETL roles. Then click **Next**:
+5. Select the node previously selected for DataRobot Master as clients
+   and nodes for ETL roles. Then click **Next**:
 
 <img src="images/ambari-select-yarn.png" alt="" style="border: 1px solid black;" width="600"/>
 
