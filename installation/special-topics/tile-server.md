@@ -58,11 +58,11 @@ List tile-sets available in storage: (the tile-set selected to be replicated on 
 docker exec -it provisioner /entrypoint python3 -m tools.manager.tileservergl list
 ```
 
-To upload a tile-set to storage:
+To upload a tile-set to storage, copy tileset file to the installation directory, and then:
 ```bash
-docker exec -it provisioner /entrypoint python3 -m tools.manager.tileservergl push --tileset /installer/<relative/path/to/tileset>
+docker exec -it provisioner /entrypoint python3 -m tools.manager.tileservergl push --tileset /installer/<tileset-path>
 ```
-In the command above, `<relative/path/to/tileset>` should be a relative path to the installation directory, where `config.yaml` is located (it is mounted to `/installer` directory of the `provisioner` container). Apart from the `push` command, all other commands work with tileset file names instead of file system paths.
+In the command above, the installation directory refers to where `config.yaml` is located (it is mounted to `/installer` directory of the `provisioner` container). Apart from the `push` command, all other commands work with tileset file names instead of file system paths.
 
 
 To select one of the tile-sets as the one to be used by the Tileserver (and replicated to HA nodes):
