@@ -26,15 +26,6 @@ The DataRobot application comes with a small number of `rpm` packages required f
 | `kubelet-1.18.5-0.x86_64.rpm` |
 | `kubernetes-cni-0.8.6-0.x86_64.rpm` |
 
-### NVIDIA/GPU Dependencies (RHEL/CentOS 7 Only)
-
-| Package |
-|:--------|
-| `libnvidia-container-tools-1.3.0-1.x86_64.rpm` |
-| `libnvidia-container1-1.3.0-1.x86_64.rpm` |
-| `nvidia-container-runtime-3.4.0-1.x86_64.rpm` |
-| `nvidia-container-toolkit-1.3.0-2.x86_64.rpm` |
-| `nvidia-docker2-2.5.0-1.noarch.rpm` |
 
 ## 3rd Party Components Included
 
