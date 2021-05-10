@@ -2,7 +2,7 @@
 
 DataRobot supports Notification Policies system that allows system admins to configure Notification Channels and Policies to subscribe to notifications when certain events happen in the system.
 
-This functionality is in Public Beta now and should be enabled for the cluster if you want to start using it.
+This functionality is Generally Available now and should be enabled for the cluster if you want to start using it.
 
 ## Configuration
 
@@ -34,4 +34,4 @@ There are additional settings that can be used to configure Notification Policie
 
 ## Usage
 
-Only admin users can setup Notification Channels and Policies. Users should have "Can Manage Notification Policies" Early Release Feature to be enabled. See DataRobot Documentation for guidance on how to set up and use Notification Policies.
+Only admin users can setup Notification Channels and Policies. They should have "Enable Notification Policies" (`ENABLE_NOTIFICATION_POLICIES`) feature flag enabled to set up Policies and Channels. See DataRobot Documentation for guidance on how to set up and use Notification Policies.

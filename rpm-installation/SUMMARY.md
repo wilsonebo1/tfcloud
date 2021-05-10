@@ -43,6 +43,7 @@
   * [Using the MinIO Filestore](special-topics/minio-filestore.md)
   * [Migrating Local Filestore to MinIO](special-topics/migrating-local-data-to-minio.md)
   * [Notification Policies](special-topics/notification-policies.md)
+  * [AI App Builder](special-topics/ai-app-builder.md)
   * [BigQuery](special-topics/bigquery.md)
   * [Custom Models GitHub and S3 integration](special-topics/custom-models-github-s3-integration.md)
   * [Tile Server](special-topics/tile-server.md)

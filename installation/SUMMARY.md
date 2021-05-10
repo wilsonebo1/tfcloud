@@ -87,6 +87,7 @@
   * [Data ingestion from Google Cloud Storage](special-topics/ingest-from-google-cloud-storage.md)
   * [Data ingestion from Microsoft Azure Blob Storage](special-topics/ingest-from-azure-blob-storage.md)
   * [Notification Policies](special-topics/notification-policies.md)
+  * [AI App Builder](special-topics/ai-app-builder.md)
   * [BigQuery](special-topics/bigquery.md)
   * [Custom Models GitHub and S3 integration](special-topics/custom-models-github-s3-integration.md)
   * [Tile Server](special-topics/tile-server.md)
