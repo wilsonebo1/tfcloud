@@ -128,6 +128,12 @@ from every node:
 yum remove -y docker docker-ce docker-ce-cli docker-ce-selinux docker-selinux python-docker-py python-docker-pycreds
 ```
 
+Also, you would need to remove the "exclude" in /etc/yum.conf if below line is there.
+```bash
+exclude=container-selinux* containerd.io* docker-ce* docker-ce-cli* libnvidia-container-tools* libnvidia-container1* nvidia-container-runtime* nvidia-container-toolkit* nvidia-docker2* python-docker-pycreds* python-websocket-client* python2-docker* python2-requests* python2-six*
+```
+
+
 **NOTE:** If using even older versions of Docker, the package names may be
 different.
 
