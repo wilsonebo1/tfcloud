@@ -27,7 +27,7 @@ We recommend using the version distributed with DataRobot.
 
 DataRobot ships files and scripts necessary to run a Docker registry containing all images used by the application, so access to Docker Hub or other public registries is not required.
 
-Documentation for Docker can be found at <https://docs.docker.com>.
+Documentation for Docker can be found at <https://docs.docker.com>. WARNING: Antivirus software will cause Docker to hang, and the detail can be found at https://docs.docker.com/engine/security/antivirus/.
 
 ### Dependencies
 
