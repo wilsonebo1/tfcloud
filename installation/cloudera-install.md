@@ -203,6 +203,9 @@ If you use [Transparent Encryption in HDFS](http://hadoop.apache.org/docs/stable
 
 ### Distribute and Activate the DataRobot Parcel
 
+* Ensure that all YARN nodes have at least 25 GB of free space under
+  `/opt/cloudera/parcels` for the DataRobot parcel contents.
+
 * Click on the Parcels icon (<img src="./images/cdh-parcels-icon.png" alt="parcels icon" style="border: 1px solid black;"/>)
 in the top toolbar of the website.
 

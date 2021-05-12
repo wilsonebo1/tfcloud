@@ -170,6 +170,12 @@ which allows the _datarobot_ user to submit YARN applications:
 There are a few different possibilities for distributing parcel to hosts.
 Either `scp` the file to all hosts, or run a small webserver.
 
+**Note**: Ensure that all YARN nodes have at least 25 GB of free space
+under `/opt` for the DataRobot parcel contents.
+Additionally make sure all YARN nodes have at least 6GB of
+space under `/var/lib/ambari-agent/tmp` for temporarily storing the
+parcel file.
+
 ### Copying Parcel to All Hosts
 
 For each host in Ambari that could run DataRobot service, copy the parcel
