@@ -5,13 +5,16 @@ Please note that multiple restarts of your Hadoop cluster will be required.
 
 DataRobot is installable as a parcel that can run on your organization's Hadoop cluster.
 
-DataRobot can integrate with Cloudera and Hortonworks (Ambari) Hadoop distributions.
+DataRobot can integrate with Cloudera(up to 6.3.x version), Ambari-Hortonworks(up to 3.1.x version) and Cloudera Data Platform(CDP7) Hadoop distributions.
+
 {% endblock %}
 
 **NOTE**: DataRobot supports only parcels as a format of software distribution for a Hadoop cluster.
 Deployment via system specific packages (RPM, DEB, etc.) is not supported.
 
 DataRobot is not supported on Hadoop clusters that use Sentry security because Sentry does not allow impersonation.
+
+DataRobot is only supported on Hadoop clusters with KMS service on Cloudera 5.x.y version and Ambari 2.x.y version.
 
 ## Access Requirements
 
