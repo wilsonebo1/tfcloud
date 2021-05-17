@@ -379,4 +379,4 @@ upgrade it to the mongo version shipped with DataRobot. This requires mongo 3.4 
 
 ### Elasticsearch Backup and Restore
 
-Starting with DataRobot release 5.1, Elasticsearch is provided as a storage mechanism for the AI Catalog premium feature. If AI Catalogs are part of the DataRobot installation it is recommended that the DataRobot installation is configured for elasticsearch backup/restore as part of the upgrade process. Please see the DataRobot Backup/Restore guide for details regarding how to configure elasticsearch for backup and restore activities.
+Starting with DataRobot release 5.1, Elasticsearch is provided as a storage mechanism for the AI Catalog premium feature. If AI Catalogs are part of the DataRobot installation, there is **NO** need to configure backup and restore. During DataRobot startup, DataRobot will rebuild the Elasticsearch index when the Elasticsearch index is empty. The rebuild time will vary based on the size of the catalog, but it is generally faster than a backup or restore.
