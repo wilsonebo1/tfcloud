@@ -322,30 +322,10 @@ details.
 Starting with DataRobot 5.3, it's possible  to enable clustered RabbitMQ to enhance durabiliy. If HA RabbitMQ is enabled, it will be necessary to add the port exceptions mentioned above. See [High Availability RabbitMQ](special-topics/rabbitmq-ha.md) for details on how to configure RabbitMQ in High Availability mode.
 
 
-### Gluster Migration to MinIO
-
-Starting with DataRobot 5.3, the Gluster storage backend has been deprecated and will be removed
-from the DataRobot Platform in a future release.  Customers upgrading from prior releases should
-plan to migrate data from Gluster to another storage backend.  See
-[Gluster Migration](special-topics/gluster-migration.md) for details on how to migrate to the
-new MinIO storage backend.
-
-**NOTE**: MinIO provides encryption-at-rest for data stored in the `minio` service and creates a `minio_sse_master_key` as part of the installation/upgrade process.  The `minio_see_master_key` is set, and managed, by the DataRobot secrets system and should be regularly backed up.  If this key is lost, access to the data stored in the `minio` subsystem will become inaccessible.  All care should be taken to avoid misplacing or losing the `minio_sse_master_key` as it cannot be regenerated without incurring data loss.
-
 ### Gluster
 
-Starting with DataRobot 5.3, the Gluster storage backend has been deprecated and will be removed from the DataRobot Platform in the 7.0 release.  Customers upgrading from prior releases should plan to migrate data from Gluster to another storage backend.  See [Gluster Migration](special-topics/gluster-migration.md) for details on how to migrate to the new MinIO storage backend.
+The Gluster storage has been deprecated in 7.0. Suppose the system needs to be migrated to MinIO; customers will need to upgrade the system to 7.0.x and run through "Gluster Migration to MinIO" instruction first before upgrading the system to 7.1 after. 
 
-Starting with DataRobot 6.3, DataRobot defaults to running Docker containers in read-only mode.  Because Gluster is unable to support this configuration, customers still using Gluster will need to disable read-only mode in `config.yaml`.
-
-```yaml
-app_configuration:
-  read_only_containers: false
-```
-
-Failure to disable read-only containers will result in `glfs_init(<id>) failed: Read-only file system` errors during upload.
-
-Starting with DataRobot 7.0, Gluster is no longer supported as a storage backend.  Any upgrades taking DataRobot to version 7.0 or beyond must first migrate any existing Gluster storage to an alternative backend (for example: AWS S3, Azure Blob, Google Compute Storage, or the bundled MinIO service).  Please consult with your Customer Success team to plan an appropriate storage migration plan prior to upgrading to 7.0 or beyond if your current implementation includes Gluster.
 
 ### Hyper API Service to Tableau Integrations Service
 
