@@ -139,6 +139,22 @@ Where `ip` is the IPv4 address of the host running the `internalapi` service.
 
 The `example-configs/config-variables.md` file has a comprehensive set of documented configuration values.
 
+#### Python 3 for new installs only!
+
+Starting with the 7.1 release, new on-premise installations should be configured to start all runtime services using python 3.  `config.yaml` should set `PYTHON3_SERVICES` to `True` to enable this.  All the `example-configs` have been updated to add this within `drenv_overrides` by default.
+
+```yaml
+app_configuration:
+  ...
+
+  drenv_override:
+    PYTHON3_SERVICES: true  # use python3 runtime for all services
+```
+
+Upgrades of existing clusters for versions prior to 7.0 SHOULD NOT set `PYTHON3_SERVICES` to `True`, but should omit this setting from `config.yaml` entirely to prevent backwards compatibility issues with pre-existing python 2 projects.  A supported upgraded path for python 2 projects will be provided in subsequent releases after 7.1.
+
+Note that the python 2.7 runtime is still provided on the cluster should there be any functionality that still has a dependency on python 2.
+
 #### SSL/TLS Encryption
 
 Note: if your DataRobot installation is accessed from the Internet, as opposed to a internal network, you _must_ use TLS (Transport Layer Security) encryption to prevent exposing data and unauthorized access to your cluster.

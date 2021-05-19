@@ -202,6 +202,10 @@ Remove the following keys, if present:
 
 * `USER_MODEL_CONTEXT_BASE`
 * `SECURE_WORKER_USER_TASK_IMAGE`
+* `PYTHON3_SERVICES`
+
+Upgrades of existing clusters from versions prior to 7.1 **SHOULD NOT** set `PYTHON3_SERVICES` to `True`, but should omit this setting from `config.yaml` entirely to prevent backwards compatibility issues with pre-existing python 2 projects.  A supported upgraded path for python 2 projects will be provided in subsequent releases after 7.1.
+
 
 On upgrade to version 4.3 the following required changes must be made to `config.yaml`:
 

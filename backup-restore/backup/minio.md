@@ -16,7 +16,7 @@ Backup the MinIO cluster on any one of the data backend nodes with the following
 ```bash
 mkdir -p /opt/datarobot/data/minio/backup
 docker exec -it minio /entrypoint bash
-source <(python2 -m config.render -g minio -T "{{minio_env | shexports}}")
+source <(python3 -m config.render -g minio -T "{{minio_env | shexports}}")
 mc config host add minio https://${MINIO_HOST}:${MINIO_PORT} ${MINIO_ACCESS_KEY} ${MINIO_SECRET_KEY} --api S3v4
 # should result in 'Added `minio` successfully.'
 mc cp --insecure -r minio/${MINIO_BUCKET}/ /opt/datarobot-runtime/data/backup
@@ -64,7 +64,7 @@ docker exec -it minio /entrypoint bash
 
 Set the required MinIO variables:
 ```bash
-source <(python2 -m config.render -g minio -T "{{minio_env | shexports}}")
+source <(python3 -m config.render -g minio -T "{{minio_env | shexports}}")
 ```
 
 Create an alias for the local minio instance:
