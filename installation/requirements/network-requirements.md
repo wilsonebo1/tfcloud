@@ -287,6 +287,7 @@ Both Cloudera and Ambari use these ports.
 | 8481  | TCP      | `dfs.journalnode.https-address` | Secure JournalNode Web UI Port (TLS/SSL). Required if using HA HDFS and TLS |
 | 8485  | TCP      | `dfs.journalnode.rpc-address` | JournalNode RPC Port. Required if using HA HDFS |
 | 9001  | TCP      | Not configurable              | ETL Controller |
+| 50010 | TCP	     | `dfs.datanode.address`	       | Data transfer |
 | 50020 | TCP      | `dfs.datanode.ipc.address` | HDFS Metadata operations |
 | 50070 | TCP      | `dfs.namenode.http-address` | NameNode Web UI without HTTPS |
 | 50090 | TCP      | `dfs.namenode.secondary.http-address` | Secondary NameNode without HTTPS |
@@ -312,13 +313,16 @@ Following ports are for CDH5.x. Please, see section below for changes in CDH6.x.
 |------:|:---------|:------------------------------|:----------|
 | 1004  | TCP      | `dfs.datanode.address` | Data transfer (HDFS HA) |
 | 1006  | TCP      | `dfs.datanode.http.address`| Data transfer without HTTPS (HDFS HA) |
+| 4181  | TCP      | `X in server.N =host:X:Y` | Zookeeper Server |
 | 7180  | TCP      |                               | Cloudera Manager web interface |
 | 7183  | TCP      |                               | Cloudera Manager web interface (TLS enabled) |
+| 8019  | TCP      |                               | ZooKeeper FailoverController |
 | 8022  | TCP      | `dfs.namenode.servicerpc-address` | NameNode Service RPC Port |
 | 8032  | TCP      | `yarn.resourcemanager.address` | For application submissions |
 | 8033  | TCP      | `yarn.resourcemanager.admin.address` | YARN ResourceManager admin address |
 | 8040  | TCP      | `yarn.nodemanager.localizer.address` | YARN NodeManager localizer address |
 | 8041  | TCP      | `yarn.nodemanager.address` | Address of the YARN NodeManager |
+| 9010  | TCP      |                             | ZooKeeper JMX |
 
 #### Changes in CDH 6.x
 
@@ -348,7 +352,6 @@ These ports are used by Ambari in addition to the common ports.
 | 9083  | TCP      |                               | Hive metastore port |
 | 10000 | TCP      |                               | Hive server port |
 | 45454 | TCP      | `yarn.nodemanager.address` | Address of the YARN NodeManager |
-| 50010 | TCP      | `dfs.datanode.address` | Data transfer |
 | 50075 | TCP      | `dfs.datanode.http.address` | Data transfer without HTTPS |
 | 50111 | TCP      | `templeton.port` | Hive WebHCat Server port |
 
@@ -412,6 +415,7 @@ All of these are listed in one or more of the above tables.
 |3888|TCP|Zookeeper Election Port|Hadoop workers|Hadoop workers|
 |3888|TCP|Zookeeper Election Port HA Postgres|Patroni Nodes|Patroni Nodes|
 |4000|TCP|PostgreSQL in HA Mode|Patroni Nodes|Patroni Nodes|
+|4181|TCP|Zookeeper Server|Hadoop workers|Hadoop workers|
 |4369|TCP|Rabbit|Application Servers|Application Servers|
 |5000|TCP|Docker Registry|Application Servers|Application Servers|
 |5432|TCP|Model Management|Model Management|modmonrsyslogmaster, modmonworker and publicapi|
@@ -448,6 +452,7 @@ All of these are listed in one or more of the above tables.
 |8008|TCP|DataRobot OAuth2 API|Application Servers|Application Servers|
 |8011|TCP|DataRobot Socket.IO Server|Application Servers|Application Servers|
 |8018|UDP|Analytics Broker|Analytics Broker Node|All Cluster Nodes|
+|8019|TCP|ZooKeeper Failover Controller|Cloudera workers|Cloudera workers|
 |8020|TCP|NameNode IPC Port|Hadoop workers|Application Servers|
 |8022|TCP|NameNode Service RPC Port|Cloudera workers|Cloudera workers|
 |8023|TCP|DataRobot Upload Server|Application Servers|Application Servers|
@@ -486,6 +491,7 @@ All of these are listed in one or more of the above tables.
 |9001|TCP|Chart Export Service|Application Servers|All Cluster Nodes|
 |9001|TCP|ETL Controller|Hadoop workers|Application Servers|
 |9002|TCP|MinIO HA Port|Data Servers|All Cluster Nodes|
+|9010|TCP|ZooKeeper JMX|Cloudera workers|Cloudera workers|
 |9083|TCP|Hive metastore port|Hortonworks workers|Hortonworks workers|
 |9090|TCP|DataRobot Availability Monitor|Application Servers|Application Servers|
 |9200|TCP|Elasticsearch for AI Catalog|Elasticsearch Nodes|Application Servers|
