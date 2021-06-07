@@ -51,8 +51,16 @@ Then proceed with (re-)installation.
 
 ### Secrets Rotation
 
-The passwords used for authentication for databases can be rotated, by running this command from installation host:
+The passwords used for authentication for databases can be rotated. 
+
+First, run this command from the installation host to create the new secrets:
 
 ```bash
 ./bin/datarobot rotate-secrets
+```
+
+Then, restart the services to use the new secrets:
+
+```bash
+bin/datarobot services restart
 ```
