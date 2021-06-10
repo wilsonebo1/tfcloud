@@ -257,7 +257,7 @@ Please manually verify that the correct level of indentation is used in all YAML
 ```bash
 source release/profile
 
-./bin/datarobot install --pre-configure
+./bin/datarobot install --pre-configure --skip-mongo-upgrades # You can omit --skip-mongo-upgrades if this is a fresh installation.
 ```
 
 * As the `admin_user`, start DataRobot services:
@@ -269,6 +269,7 @@ source release/profile
 * As the `user`, apply configuration to the running application:
 
 ```bash
+./bin/datarobot upgrade-mongo --do-mongo-configure 
 ./bin/datarobot install --post-configure
 ```
 
