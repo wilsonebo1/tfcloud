@@ -54,8 +54,6 @@ application server cluster, whether or not using Hadoop.
 | 3003  | TCP      | DataRobot Tableau Extensions Service |
 | 4369  | TCP      | HAProxy HA RabbitMQ |
 | 5000  | TCP      | Docker Registry   |
-| 5445  | TCP      | IDE Client Broker |
-| 5446  | TCP      | IDE Client Worker |
 | 5671  | TCP      | RabbitMQ TLS |
 | 5671  | TCP      | HAProxy HA RabbitMQ TLS* |
 | 5672  | TCP      | RabbitMQ |
@@ -93,17 +91,6 @@ application server cluster, whether or not using Hadoop.
 | 46379 | TCP      | Redis Proxy Server |
 
 &ast; High availability configuration only
-
-### Non-Hadoop Worker Ports
-
-For non-Hadoop installs, additional internal ports are required for
-DataRobot workers.
-
-| Port  | Protocol | Component |
-|------:|:---------|:----------|
-| 5555  | TCP      | Worker Broker Client |
-| 5556  | TCP      | Worker Broker |
-
 
 ### MinIO Ports
 
@@ -422,10 +409,6 @@ All of these are listed in one or more of the above tables.
 |5432|TCP|PostgreSQL for Hive or other services|All Hadoop Nodes|Hadoop workers|
 |5433|TCP|PostgreSQL in HA Mode|Patroni Nodes|Application Servers|
 |5434|TCP|HAProxy HA Postgres Master Port|Application Servers|All Cluster Nodes|
-|5445|TCP|IDE Client Broker|Application Servers|Application Servers|
-|5446|TCP|IDE Client Worker|Application Servers|Application Servers|
-|5555|TCP|Worker Broker Client (non-Hadoop only)|Application Servers|Application Servers|
-|5556|TCP|Worker Broker (non-Hadoop only)|Application Servers|Application Servers|
 |5671|TCP|HAProxy HA RabbitMQ (TLS) Port|Application Servers|All Cluster Nodes|
 |5671|TCP|RabbitMQ (TLS)|RabbitMQ node|All Cluster Nodes|
 |5672|TCP|HAProxy HA RabbitMQ|Application Servers|All Cluster Nodes|

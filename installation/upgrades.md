@@ -291,6 +291,14 @@ Starting with the 5.3 release of DataRobot, RabbitMQ supports  high  availabilit
 | HA RabbitMQ enabled | 15673 | TCP    | high availability port |
 | HA RabbitMQ enabled | 25672 | TCP    | high availability port |
 
+On upgrade to version 7.2, the following changes to the open ports between hosts must be made:
+
+| Action            | Port  | Protocol | Component            |
+|:------------------|------:|:---------|:---------------------|
+| Optionally Remove | 5445  | TCP      | IDE Client Broker |
+| Optionally Remove | 5446  | TCP      | IDE Client Worker |
+| Optionally Remove | 5555  | TCP      | Worker Broker Client |
+
 
 ### Upgrade Model Monitoring and Management
 
