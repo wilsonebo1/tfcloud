@@ -312,6 +312,10 @@ performing a data upgrade process. See
 [Model Management Data Upgrade](special-topics/model-management-data-upgrade.md) for additional
 details.
 
+The release 7.2 removes Model Monitoring and Management's dependency on TimescaleDB. In order to
+accommodate this change, upgrades of the platform from versions prior to 5.3.x should first upgrade 
+to 5.3.x, and then upgrade to the current version.  
+
 ## Cloudera Preparation
 
 * Log into the Cloudera Manager.
