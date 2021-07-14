@@ -56,6 +56,7 @@ servers:
   - availabilitymonitor
   - datasetsserviceapi
   - internalapi
+  - internalnginx
   - jobretryservice
   - logtailer
   - mmqueue
@@ -136,6 +137,7 @@ servers:
   - availabilitymonitor
   - datasetsserviceapi
   - internalapi
+  - internalnginx
   - jobretryservice
   - logtailer
   - mmqueue

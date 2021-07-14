@@ -257,6 +257,9 @@ On upgrade to version 5.3 or higher the following changes should be considered:
   2. ```mv /opt/datarobot/data/rabbit/data/.erlang.cookie /opt/datarobot/data/rabbit/data/erlang.cookie.bak```
 * In 5.3, secrets enforced clusters began using a shared secret for Rabbitmq which is written to an `erlang.cookie` file. Upgrades from <= 5.2 to >= 5.3 must add a `rabbit_cookie: <any_secret_value>` value to `secrets.yaml`.
 
+On upgrade to version 7.2 the following required changes must be made to `config.yaml`:
+
+1. Add the `internalnginx` service colocated with the `internalapi` service.
 
 ### Update Network configuration
 

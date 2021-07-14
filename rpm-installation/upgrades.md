@@ -154,6 +154,9 @@ You will need to update document keys, _for all existing records_, to point to t
   * advanced_configuration.saml_client_configuration.key_file
   * advanced_configuration.saml_client_configuration.cert_file
 
+On upgrade to version 7.2 the following required changes must be made to `config.yaml`:
+
+1. Add the `internalnginx` service colocated with the `internalapi` service.
 
 ### Update Network configuration
 

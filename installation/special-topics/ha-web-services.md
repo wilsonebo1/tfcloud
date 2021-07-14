@@ -42,10 +42,8 @@ SSL is terminated at the load balancer, meaning that all listeners are secured, 
 SSL inside the DataRobot cluster is disabled, but a separate SSL certificate can be used for traffic from the load balancer to the application as well.
 This directly influences configuration parameters for the ALB infrastructure as can be seen later in this document.
 
-On the Application Load Balancer, we add 3 listeners:
-- Port 443 (default, secured): Used for communication with clients of the DataRobot application and by some internal services.
-- Port 8100 (secured): Used by internal services to access the *datasetsserviceapi* service.
-- Pot 9494 (secured): Used by internal services to access the *pngexport* service.
+On the Application Load Balancer, we add one listener:
+- Port 443 (default, secured): Used for communication with clients of the DataRobot application and by internal services.
 
 ### AWS Infrastructure Requirements
 
@@ -75,13 +73,12 @@ app | HTTP | 80 | /ping | traffic port | Disabled
 publicapi | HTTP | 80 | /api/v2/ping | traffic port | Disabled
 appupload | HTTP | 80 | /upload/ping | traffic port | Disabled
 mmqueue | HTTP | 80 | /ping | 8011 | 1 day
-internalapi | HTTP | 80 | /api/v0/ping | traffic port | Disabled
-dss-api | HTTP | 8100 | /status | traffic port | Disabled
-pngexport | HTTP | 9494 | /ping | traffic port | Disabled
+internalapi | HTTP | 5202 | /api/v0/ping | traffic port | Disabled
+dss-api | HTTP | 5202 | /status | traffic port | Disabled
+pngexport | HTTP | 5202 | /ping | traffic port | Disabled
 
 **NOTE:**
-* SSL also can be terminated on the cluster nodes (depending on the deployment scheme) in which case `nginx` instances on those nodes will be listening on **`443`** traffic port by default and communicating by **`HTTPS`** protocol.
-* `dss-api` and `pngexport` services will always listen on **`8100`** and **`9494`** in any SSL configuration.
+* SSL also can be terminated on the cluster nodes (depending on the deployment scheme) in which case `nginx` instances on those nodes will be listening on **`443`** traffic port by default (port **`5203`** for `internalnginx` instances) and communicating by **`HTTPS`** protocol.
 * Health check parameters for `mmqueue` service do not change whether SSL termination is enabled on the nodes or not: it will always have **`HTTP:8011`** scheme.
 
 Aside from the documented Health Check settings unique to each service, use the following settings for all Health Checks:
@@ -168,22 +165,6 @@ For illustration purposes, a detailed walkthrough of creating the _mmqueue_ Targ
 
 <kbd><img src="./images/check-alb-created.png" alt="Check ALB Created" style="border: 1px solid black;"/></kbd>
 
-### Create Additional Listeners
-
-Now you can create the remaining Listeners on your Application Load Balancer:
-
-* Add a new secure listener for the _pngexport_ service target group:
-
-<kbd><img src="./images/add-listener-for-pngexport.png" alt="add listener for pngexport" style="border: 1px solid black;"/></kbd>
-
-* Use HTTPS for traffic port 9494, and route it to your _pngexport_ target group. Use the same SSL certificate as before:
-
-<kbd><img src="./images/add-proto-and-port-for-pngexport.png" alt="add proto and port for pngexport" style="border: 1px solid black;"/></kbd>
-
-* Add another secure (HTTPS) listener for traffic port 8100, and route it to your _dss-api_ target group:
-
-<kbd><img src="./images/add-listener-for-dssapi.png" alt="add listener for dssapi" style="border: 1px solid black;"/></kbd>
-
 ### <a name="listeners_associations"></a>Target Group Listener Associations
 
 Now we can associate the remaining Target Groups with listener Forwarding Rules.
@@ -199,8 +180,8 @@ publicapi | HTTPS:443 | /api/v2/\*
 appupload | HTTPS:443 | /upload/\*
 mmqueue | HTTPS:443 | /socket.io-queue/\*
 internalapi | HTTPS:443 | /api/v0/\*
-dss-api | HTTPS:8100 | default
-pngexport | HTTPS:9494 | default
+dss-api | HTTPS:443 | /datasets-service/\*
+pngexport | HTTPS:443 | /pngexport/\*
 
 #### Walkthrough: Target Group Listener Association
 
@@ -334,6 +315,7 @@ servers:
   - appupload
   - publicapi
   - internalapi
+  - internalnginx
   - mmqueue
   - datasetsserviceapi
   - pngexport
@@ -415,7 +397,7 @@ os_configuration:
 _**Important note:**_ the endpoint for an ALB must always be a full URL, with proper protocol prefix (HTTPS if secure listeners are used and HTTP otherwise).
 
 Now for the `servers/hosts` section: for the regular multinode deployment config it must contain the list of cluster nodes with services deployed on them, this is also true for HA deployment - if you want to have a scalable service replica on a node - put its name into the list of services for that node, simple as that.
- The only requirement is that the `nginx` service must be _**always**_ installed with scaled services.
+ The only requirement is that the `nginx` service must _**always**_ be installed with scaled public services, and the `internalnginx` service with scaled internal services.
 
 
 If you would like to add in clusterd RabbitMQ nodes you'll need to add two addtional services to your config.yaml, these sections have been added to the sample config above

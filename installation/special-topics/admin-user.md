@@ -294,6 +294,10 @@ $FileGroup datarobot
 & /opt/datarobot/logs/all.log
 & stop
 
+:msg, contains, "INTERNALNGINXJSONLOGS" /opt/datarobot/logs/nginx.log
+& /opt/datarobot/logs/all.log
+& stop
+
 :msg, contains, "PREDAPINGINXJSONLOGS" /opt/datarobot/logs/nginx.log
 & /opt/datarobot/logs/all.log
 & stop
@@ -383,6 +387,11 @@ $FileGroup datarobot
 & stop
 
 :msg, contains, "NGINXJSONLOGS" @LOG_SERVER:;JSON_MSG
+& /opt/datarobot/logs/nginx.log
+& /opt/datarobot/logs/all.log
+& stop
+
+:msg, contains, "INTERNALNGINXJSONLOGS" @LOG_SERVER:;JSON_MSG
 & /opt/datarobot/logs/nginx.log
 & /opt/datarobot/logs/all.log
 & stop

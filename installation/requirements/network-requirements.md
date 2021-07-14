@@ -49,6 +49,8 @@ application server cluster, whether or not using Hadoop.
 |------:|:---------|:----------|
 | 80    | TCP      | NGINX     |
 | 443   | TCP      | NGINX     |
+| 5202  | TCP      | NGINX (Internal) |
+| 5203  | TCP      | NGINX (Internal) |
 | 1514  | UDP      | Application Web   |
 | 3000  | TCP      | DataRobot Prediction Optimization User Interface |
 | 3003  | TCP      | DataRobot Tableau Extensions Service |
@@ -405,6 +407,8 @@ All of these are listed in one or more of the above tables.
 |4181|TCP|Zookeeper Server|Hadoop workers|Hadoop workers|
 |4369|TCP|Rabbit|Application Servers|Application Servers|
 |5000|TCP|Docker Registry|Application Servers|Application Servers|
+|5202|TCP|Internal HTTP |Application Web Servers|All Cluster Nodes|
+|5203|TCP|Internal HTTPS (TLS) |Application Web Servers|All Cluster Nodes|
 |5432|TCP|Model Management|Model Management|modmonrsyslogmaster, modmonworker and publicapi|
 |5432|TCP|PostgreSQL for Hive or other services|All Hadoop Nodes|Hadoop workers|
 |5433|TCP|PostgreSQL in HA Mode|Patroni Nodes|Application Servers|

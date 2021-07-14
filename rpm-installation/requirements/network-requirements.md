@@ -48,6 +48,8 @@ application server cluster, whether or not using Hadoop.
 |------:|:---------|:----------|
 | 80    | TCP      | NGINX     |
 | 443   | TCP      | NGINX     |
+| 5202  | TCP      | NGINX (Internal) |
+| 5203  | TCP      | NGINX (Internal) |
 | 1514  | UDP      | Application Web   |
 | 4369  | TCP      | HAProxy HA RabbitMQ |
 | 5672  | TCP      | RabbitMQ |
@@ -337,6 +339,8 @@ All of these are listed in one or more of the above tables.
 |3888|TCP|Zookeeper Election Port HA Postgres|Patroni Nodes|Patroni Nodes|
 |4000|TCP|PostgreSQL in HA Mode|Patroni Nodes|Application Servers|
 |4369|TCP|Rabbit|Application Servers|Application Servers|
+|5202|TCP|Internal HTTP |Application Web Servers|All Cluster Nodes|
+|5203|TCP|Internal HTTPS (TLS) |Application Web Servers|All Cluster Nodes|
 |5432|TCP|Model Management|Model Management|modmonrsyslogmaster, modmonworker and publicapi|
 |5432|TCP|PostgreSQL for Hive or other services|All Hadoop Nodes|Hadoop workers|
 |5433|TCP|PostgreSQL in HA Mode|Patroni Nodes|Patroni Nodes|
