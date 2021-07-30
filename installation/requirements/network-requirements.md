@@ -370,7 +370,9 @@ This ports are used internally by kubernetes and only need to be opened when Dat
 
 | Port      | Protocol | Component |
 |----------:|:---------|:----------|
+|179        |TCP       |Calico Networking (BGP)|
 |2379-2380  |TCP       |Kubernetes etcd|
+|4789       |TCP       |Calico Networking with VXLAN enabled|
 |10250-10252|TCP       |Internal kubernetes communication|
 |30000-32767|TCP       |Kubernetes NodePort services|
 
@@ -384,6 +386,7 @@ All of these are listed in one or more of the above tables.
 |22|TCP|SSH Debug|Hadoop workers|All Cluster Nodes|
 |80|TCP|HTTP (not secure)|Application Web Servers|End users, All Cluster Nodes|
 |80|TCP|Kubernetes ingress controller HTTP|Kubernetes|All Cluster Nodes|
+|179|TCP|Calico Networking (BGP)|Kubernetes|All Kubernetes Nodes|
 |443|TCP|HTTPS (TLS)|Application Web Servers|End users, All Cluster Nodes|
 |443|TCP|Image builder registry HTTPS|Image builder registry|All Cluster Nodes|
 |443|TCP|Kubernetes ingress controller HTTPS|Kubernetes|All Cluster Nodes|
@@ -406,6 +409,7 @@ All of these are listed in one or more of the above tables.
 |4000|TCP|PostgreSQL in HA Mode|Patroni Nodes|Patroni Nodes|
 |4181|TCP|Zookeeper Server|Hadoop workers|Hadoop workers|
 |4369|TCP|Rabbit|Application Servers|Application Servers|
+|4789|TCP|Calico Networking with VXLAN enabled|Kubernetes|All Kubernetes Nodes|
 |5000|TCP|Docker Registry|Application Servers|Application Servers|
 |5202|TCP|Internal HTTP |Application Web Servers|All Cluster Nodes|
 |5203|TCP|Internal HTTPS (TLS) |Application Web Servers|All Cluster Nodes|
