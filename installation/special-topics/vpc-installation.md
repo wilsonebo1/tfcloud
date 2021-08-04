@@ -122,6 +122,7 @@ If you prefer to use keys, or are connecting to an S3-compatible API, you will a
 `AWS_ACCESS_KEY_ID` : Access key ID for the account you want to use to connect to S3 storage.
 `AWS_SECRET_ACCESS_KEY` : Secret access key for authenticating your AWS account.
 
+`S3_ADDRESSING_STYLE` : Set addressing style to use with S3 service. Either `auto`, `path` or `virtual`. The default value is `auto`. Please see the [documentation](https://docs.aws.amazon.com/sdkref/latest/guide/setting-s3-addressing_style.html) for detailed comparison of these styles.
 
 ### IAM role policy settings
 
@@ -177,6 +178,19 @@ app_configuration:
     S3_VALIDATE_CERTS: False
     ALLOW_SELF_SIGNED_CERTS: True
 ```
+
+### Server-side encryption settings
+
+DataRobot application can be configured to enable server-side encryption (SSE) for data at rest when it stores new files to S3 (it has no effect on existing files). Either S3 managed or customer managed (CMK) key can be used for encryption.
+
+The following configuration settings are available to configure server-side encryption:
+
+`S3_SERVER_SIDE_ENCRYPTION` : with the default value `AES256` data will be encrypted using [S3-managed](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingServerSideEncryption.html) keys, alternatively set to `aws:kms` to use server-side encryption with [KMS-managed](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingKMSEncryption.html) keys. Set to `DISABLED` to completely disable server-side encryption.
+`AWS_S3_SSE_KMS_KEY_ID` : encrypt data using particular KMS key. Set to the identity of a specific customer managed key, or leave blank to let AWS create a key on your behalf (see [AWS managed CMK](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#aws-managed-cmk)). This setting only applies when `S3_SERVER_SIDE_ENCRYPTION` is set to `aws:kms`.
+
+**Note**: Server-side encryption means the encryption keys are independently obtained by the S3 service and hidden from the DataRobot application. If the keys are deleted or access lost, then DataRobot will not be able to help decrypting the data.
+
+**Note**: S3 will make a [billable](https://aws.amazon.com/kms/pricing/) call to AWS KMS service every time DataRobot makes a read or write request against an encrypted object. Refer yourself to an article on reducing the costs of AWS KMS resource usage with SSE [here](https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-key.html)
 
 ## Google Cloud Storage
 ### Google Cloud Storage as backend storage
