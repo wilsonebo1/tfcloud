@@ -8,9 +8,9 @@ There is only an empty tile included with the installer which would render a bla
 
 Datarobot provides tiles at different zoom levels which vary from few MBs upto 70 GB. Tiles with different levels of detail can be downloaded from our S3 location.
 
-  * Large tiles (69.1 GB): https://datarobot-geospatial.s3.amazonaws.com/geospatial-map-data/mbtiles/tiles-zoom-14-20191202.post1%2Bdr.mbtiles
-  * Medium tiles (4.0 GB): https://datarobot-geospatial.s3.amazonaws.com/geospatial-map-data/mbtiles/tiles-zoom-11-20191202.post1%2Bdr.mbtiles
-  * Small tiles (245 MB): https://datarobot-geospatial.s3.amazonaws.com/geospatial-map-data/mbtiles/tiles-zoom-08-20191202.post1%2Bdr.mbtiles
+  * Large tiles (69.1 GB): https://datarobot-geospatial.s3.amazonaws.com/geospatial-map-data/mbtiles/tiles-zoom-14-20191202.post1-dr.mbtiles
+  * Medium tiles (4.0 GB): https://datarobot-geospatial.s3.amazonaws.com/geospatial-map-data/mbtiles/tiles-zoom-11-20191202.post1-dr.mbtiles
+  * Small tiles (245 MB): https://datarobot-geospatial.s3.amazonaws.com/geospatial-map-data/mbtiles/tiles-zoom-08-20191202.post1-dr.mbtiles
 
 A good practice is to start with Medium tiles first (or even without tiles at all), and switch to larger tiles post-install if more detailed maps are required. Medium tiles would normally be quick to download and would not slow down the intaller, whereas Large tiles might require significant time to distribute.
 
@@ -49,28 +49,28 @@ Caveat: if you are re-running installer for DataRobot cluster that had tiles ins
 
 ## Tile Management post-install
 
-It is also possible to manage the tiles at any point after the installation. The following commands need to be run on the provisioner host using `provisioner` container. This container is launched during the app installation process; if it is stopped (e.g. after the machine is restarted), it can be started again using `docker start provisioner`. 
+It is also possible to manage the tiles at any point after the installation. The following commands need to be run on the provisioner host using `provisioner` container. This container is launched during the app installation process; if it is stopped (e.g. after the machine is restarted), it can be started again using `docker start provisioner`. The commands below use `bin/datarobot-manage` script located alongside the `bin/datarobot` script used for installation.
 
 **Please use the following commands to manage tiles post-install:**
 
 List tile-sets available in storage: (the tile-set selected to be replicated on HA nodes would be maked with `*`)
 ```bash
-docker exec -it provisioner /entrypoint python3 -m tools.manager.tileservergl list
+bin/datarobot-manage --full-env tileservergl list
 ```
 
 To upload a tile-set to storage, copy tileset file to the installation directory, and then:
 ```bash
-docker exec -it provisioner /entrypoint python3 -m tools.manager.tileservergl push --tileset /installer/<tileset-path>
+bin/datarobot-manage --full-env tileservergl  push --tileset /installer/<tileset-path>
 ```
 In the command above, the installation directory refers to where `config.yaml` is located (it is mounted to `/installer` directory of the `provisioner` container). Apart from the `push` command, all other commands work with tileset file names instead of file system paths.
 
 
 To select one of the tile-sets as the one to be used by the Tileserver (and replicated to HA nodes):
 ```bash
-docker exec -it provisioner /entrypoint python3 -m tools.manager.tileservergl switch --tileset <tileset-name>
+bin/datarobot-manage --full-env tileservergl tileservergl switch --tileset <tileset-name>
 ```
 
 To remove a tile-set from storage:
 ```bash
-docker exec -it provisioner /entrypoint python3 -m tools.manager.tileservergl remove --tileset <tileset-name>
+bin/datarobot-manage --full-env tileservergl tileservergl remove --tileset <tileset-name>
 ```

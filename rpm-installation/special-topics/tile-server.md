@@ -8,9 +8,9 @@ There is only an empty tile included with the installer which would render a bla
 
 Datarobot provides tiles at different zoom levels which vary from few MBs upto 70 GB. Tiles with different levels of detail can be downloaded from our S3 location.
 
-  * Large tiles (69.1 GB): https://datarobot-geospatial.s3.amazonaws.com/geospatial-map-data/mbtiles/tiles-zoom-14-20191202.post1%2Bdr.mbtiles
-  * Medium tiles (4.0 GB): https://datarobot-geospatial.s3.amazonaws.com/geospatial-map-data/mbtiles/tiles-zoom-11-20191202.post1%2Bdr.mbtiles
-  * Small tiles (245 MB): https://datarobot-geospatial.s3.amazonaws.com/geospatial-map-data/mbtiles/tiles-zoom-08-20191202.post1%2Bdr.mbtiles
+  * Large tiles (69.1 GB): https://datarobot-geospatial.s3.amazonaws.com/geospatial-map-data/mbtiles/tiles-zoom-14-20191202.post1-dr.mbtiles
+  * Medium tiles (4.0 GB): https://datarobot-geospatial.s3.amazonaws.com/geospatial-map-data/mbtiles/tiles-zoom-11-20191202.post1-dr.mbtiles
+  * Small tiles (245 MB): https://datarobot-geospatial.s3.amazonaws.com/geospatial-map-data/mbtiles/tiles-zoom-08-20191202.post1-dr.mbtiles
 
 A good practice is to start with Medium tiles first (or even without tiles at all), and switch to larger tiles post-install if more detailed maps are required. Medium tiles would normally be quick to download and would not slow down the intaller, whereas Large tiles might require significant time to distribute.
 
@@ -49,29 +49,25 @@ Caveat: if you are re-running installer for DataRobot cluster that had tiles ins
 
 ## Tile Management post-install
 
-It is also possible to manage the tiles at any point after the installation. The following commands need to be run on the provisioner host as a user without admin privileges (`datarobot` by default).
+It is also possible to manage the tiles at any point after the installation. The following commands need to be run on the provisioner host as a user without admin privileges (`datarobot` by default). The commands below use `bin/datarobot-manage` script, which is located alongside the `bin/datarobot` script used for installation.
 
 List tile-sets available in storage: (the tile-set selected to be replicated to HA nodes would be marked with `*`)
 ```bash
-source /opt/datarobot/etc/profile
-python3 -m tools.manager.tileservergl list
+bin/datarobot-manage --full-env tileservergl list
 ```
 
 To upload a tile-set to storage, copy tileset file to the installation directory, and then:
 ```bash
-source /opt/datarobot/etc/profile
-python3 -m tools.manager.tileservergl push --tileset <tileset-path>
+bin/datarobot-manage --full-env tileservergl push --tileset <tileset-path>
 ```
 In the command above, the installation directory refers to where `config.yaml` is located. Apart from the `push` command, all other commands work with tileset file names instead of file system paths.
 
 To select one of the tile-sets as the one to be used by the Tileserver (and replicated to HA nodes):
 ```bash
-source /opt/datarobot/etc/profile
-python3 -m tools.manager.tileservergl switch --tileset <tileset-name>
+bin/datarobot-manage --full-env tileservergl switch --tileset <tileset-name>
 ```
 
 To remove a tile-set from storage:
 ```bash
-source /opt/datarobot/etc/profile
-python3 -m tools.manager.tileservergl remove --tileset <tileset-name>
+bin/datarobot-manage --full-env tileservergl remove --tileset <tileset-name>
 ```
