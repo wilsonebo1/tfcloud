@@ -12,7 +12,7 @@ DataRobot can integrate with Cloudera(up to 6.3.x version), Ambari-Hortonworks(u
 **NOTE**: DataRobot supports only parcels as a format of software distribution for a Hadoop cluster.
 Deployment via system specific packages (RPM, DEB, etc.) is not supported.
 
-DataRobot is not supported on Hadoop clusters that use Sentry security because Sentry does not allow impersonation.
+Hadoop clusters that use Sentry security cannot use HDFS impersonation because Sentry does not allow impersonation. Instead they must be configured to use direct kerberos authentication by setting the config setting `ENABLE_DIRECT_KERBEROS_AUTHENTICATION` to be true.
 
 DataRobot is only supported on Hadoop clusters with KMS service on Cloudera 5.x.y version and Ambari 2.x.y version.
 
