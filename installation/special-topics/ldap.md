@@ -38,7 +38,7 @@ Authentication flow is the following:
 1. User enters a username in the UI.
 2. `ldapsearch` backend performs an LDAP query using a predefined query pattern (e.g. `(uid=$username)`, `(sAMAccount=$username)`, `(email=$username)` or `((cn=$username)|(foo=bar)))` - DataRobot takes `BIND_DN` / `BIND_PASSWORD` from the configuration for making this query.
 3. If there is exactly one user found, `ldapsearch` takes the appropriate DN from the search results and tries to bind using the password entered by user to check if the password is correct.
-4. Using `USER_AUTH_LDAP_ORGANIZATION_NAME_ACCOUNT_ATTRIBUTE` config value backend will try to find an organization the user belongs to. If the attribute is set in LDAP user profile, the user will be mapped to the organization on DataRobot side.
+4. If `USER_AUTH_LDAP_ORGANIZATION_NAME_ACCOUNT_ATTRIBUTE` is configured, backend will try to find an organization the user belongs to using the config value as an attibute name. If the attribute is set in LDAP user profile, the user will be mapped to the organization on DataRobot side.
 5. If `USER_AUTH_LDAP_GROUP_SEARCH_BASE_DN` config value is specified then backend will try to map user group on AD with a Datarobot group by making another request. Query for the group search looks like:
 `(&(objectClass=groupOfNames)(|(member=cn={username},{base_dn})(member=uid={username},{base_dn})))`. Please note this query applied on the top of value set in `USER_AUTH_LDAP_GROUP_SEARCH_BASE_DN`. 
 In case if backend found group with the same name as group in the DR database, logged user will be automatically assigned to this group. Also it's important to mention when the user is part of an organization, this will also be considered during group mapping, i.e. the group on DR side must also be within the organization.
@@ -70,7 +70,7 @@ There is an interactive LDAP Configuration Tool located at `./bin/datarobot-ldap
 - **`USER_AUTH_LDAP_SEARCH_BASE_DN`** - LDAP node that contains all the DR users, (e.g. `OU=Users,DC=example,DC=org`)
 - **`USER_AUTH_LDAP_SEARCH_SCOPE`** - LDAP search scope (ONELEVEL or SUBTREE, default is SUBTREE)
 - **`USER_AUTH_LDAP_SEARCH_FILTER`** - LDAP search query (default: `(cn=$username), LDAP = (&(objectClass=user)(uid=$username)), AD = (&(objectClass=user)(sAMAccountName=$username))`)
-- **`USER_AUTH_LDAP_ORGANIZATION_NAME_ACCOUNT_ATTRIBUTE`** - the organization name attribute in LDAP user profile (default `o`).
+- **`USER_AUTH_LDAP_ORGANIZATION_NAME_ACCOUNT_ATTRIBUTE`** - the organization name attribute in LDAP user profile. If not configured, user organization mapping will not be performed.
 
 ### Configuration Options for S3 Impersonation
 
