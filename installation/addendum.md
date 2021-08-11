@@ -36,8 +36,8 @@ The DataRobot application includes the following versions of 3rd party component
 | Elasticsearch      | 6.8.1     |
 | HAProxy            | 2.3.1     |
 | MinIO              | 2021.1.16 |
-| MongoDB            | 3.6.14    |
-| Nginx              | 1.18.0    |
-| PostgreSQL         | 10.13     |
+| MongoDB            | 4.2.11    |
+| Nginx              | 1.20.1    |
+| PostgreSQL         | 10.17     |
 | RabbitMQ           | 3.8.9     |
 | Redis              | 6.0.8     |
