@@ -1,6 +1,6 @@
 # AI App Builder
 
-App Builder allows users to create AI Apps that can make predictions, scenario optimization and comparison in the No Code environment. In addition, there are visualization capabilities that will allow users to create insights for their predictions. This feature is available as Public Beta starting from 7.1 release.
+App Builder allows users to create AI Apps that can make predictions, scenario optimization and comparison in the No Code environment. In addition, there are visualization capabilities that will allow users to create insights for their predictions. This feature is available as Public Beta starting from 7.1 release, and GA for 7.2.
 
 ## Configuration
 
@@ -35,6 +35,17 @@ app_configuration:
     OAUTH2_CLUSTER_ENABLED: true
 ```
 
+## Sizing requirements
+The App Builder can be deployed either on a single or multi-node setup. 
+
+| Service |  Memory per service | Notes |
+|----------------|:---------------------:|:------------------------:|
+| appsbuilderapi | 4 GB |  1x |
+| appsinternalapi | 512MB |  1x |
+| appsbuilderworker | 512MB | 1x or more |
+
+The node should have at least 4 core CPU, and additional 8GB of storage for applications data.
+
 ## Usage
 
-Users also need to have feature flag enabled in order to be able to access "Applications" view and create apps - "Enable Application Builder Service" (`ENABLE_APPSBUILDER_SERVICE`);
+For 7.1 version users also need to have feature flag enabled in order to be able to access "Applications" view and create apps - "Enable Application Builder Service" (`ENABLE_APPSBUILDER_SERVICE`);
