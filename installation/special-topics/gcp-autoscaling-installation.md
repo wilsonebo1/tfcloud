@@ -208,7 +208,9 @@ Target: “readmitted”
 
 7. You may start multiple projects in Autopilot mode and notice the new worker image instances increased in turn increase in the total worker count. When load on worker images are reduced these instances scale down as per the rules applied.
 
-8. Congratulations! You have successfully set up autoscaling in Google Cloud Platform. Be sure to cancel all the jobs in your test queue and ensure the autoscaled instances eventually scale back in.
+8. Please note that there is a [10-minute stabilization period](https://cloud.google.com/compute/docs/autoscaler#stabilization_period) for Scale-in.
+
+9. Congratulations! You have successfully set up autoscaling in Google Cloud Platform. Be sure to cancel all the jobs in your test queue and ensure the autoscaled instances eventually scale back in.
 
 ## 8. Clean Up
 
