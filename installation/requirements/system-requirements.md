@@ -220,13 +220,6 @@ which netstat  # Should output a path to netstat
 which semanage  # Should output a path to semanage
 ```
 
-* Python 2.7
-
-```bash
-
-python --version # Should be a version of `2.7`.
-```
-
 * rsync
 
 ```bash
