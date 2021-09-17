@@ -72,6 +72,7 @@
   * [Integration with LDAP](special-topics/ldap.md)
   * [SELinux](special-topics/selinux.md)
   * [Standalone Predictions](special-topics/standalone-predictions.md)
+  * [Downloadable Portable Prediction Server](special-topics/downloadable-portable-prediction-server.md)
   * [Exported Model File Validation](special-topics/model-export-validation.md)
   * [Password Policies](special-topics/password-policies.md)
   * [VPC Installation](special-topics/vpc-installation.md)

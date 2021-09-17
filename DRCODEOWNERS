@@ -22,3 +22,4 @@
 /installation/special-topics/gcp-autoscaling-installation.md  @datarobot/platform-dynamic-workers @datarobot/platform
 /installation/special-topics/azure-autoscaling-installation.md  @datarobot/platform-dynamic-workers @datarobot/platform
 /installation/special-topics/aws-autoscaling-installation.md  @datarobot/platform-dynamic-workers @datarobot/platform
+/installation/special-topics/downloadable-portable-prediction-server.md  @datarobot/predictions @datarobot/platform
