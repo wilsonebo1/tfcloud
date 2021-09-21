@@ -4,7 +4,7 @@ DataRobot optionally includes the ability to use MinIO as a Filestore backend; t
 
 To enable the MinIO Filestore Backend, [Database Password Protection](database-passwords.md) must be enabled.  Please follow the directions included in this guide before proceeding.
 
-**NOTE**: MinIO provides encryption-at-rest for data stored in the `minio` service and creates a `minio_sse_master_key` as part of the installation/upgrade process.  The `minio_see_master_key` is set, and managed, by the DataRobot secrets system and should be regularly backed up.  If this key is lost, access to the data stored in the `minio` subsystem will become inaccessible.  All care should be taken to avoid misplacing or losing the `minio_sse_master_key` as it cannot be regenerated without incurring data loss.
+**NOTE**: MinIO provides encryption-at-rest for data stored in the `minio` service and creates a `minio_sse_master_key` as part of the installation/upgrade process.  The `minio_sse_master_key` is set, and managed, by the DataRobot secrets system and should be regularly backed up.  If this key is lost, access to the data stored in the `minio` subsystem will become inaccessible.  All care should be taken to avoid misplacing or losing the `minio_sse_master_key` as it cannot be regenerated without incurring data loss.
 
 ## Enabling the MinIO Filestore Backend
 
