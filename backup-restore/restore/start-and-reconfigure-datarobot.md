@@ -28,3 +28,24 @@ After restoring DataRobot you must reconfigure the application to make sure that
 ```bash
 bin/datarobot reconfigure
 ```
+
+<a name="recover-jobs"></a>
+## Recover Jobs
+------------------------
+If database backup was done with the modeling jobs in progress then after the restoring of this backup the active modeling jobs will be stuck. 
+To recover these jobs the script `/sbin/datarobot-manage-queue` should be used.
+
+The script can retrieve active jobs started before a specified timestamp and restart them. 
+It also can report the active jobs before recovering.    
+
+### Usage
+Report the jobs started before a specified timestamp or current time if the option `-t` is not provided.
+```bash
+sbin/datarobot-manage-queue show-running-jobs -t YYYY-MM-DDThh:mmZ
+```
+
+Recover the jobs started before a specified timestamp or current time if the option `-t` is not provided.
+```bash
+sbin/datarobot-manage-queue recover-jobs -t YYYY-MM-DDThh:mmZ 
+```
+The timestamp must be UTC time
