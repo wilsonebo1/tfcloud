@@ -169,6 +169,7 @@ After several minutes, you should see the metric created in the Google Cloud Por
 - In the Google Cloud Portal -> Compute Engine -> Instance Templates, create an instance template from the VM snapshot image generated in the previous step
 - Configure Machine Family to e2-highmem-8 (8 CPUs + 64GB memory)
 - Configure Boot Disk to load from VM snapshot image
+- Configure "Delete disk when instance is deleted" deletion rule
 
 <img src="./images/gcp-create-instance-template.png" alt="GCP Create Image" style="border: 1px solid black;"/>
 
