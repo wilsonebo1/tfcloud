@@ -73,9 +73,11 @@ app | HTTP | 80 | /ping | traffic port | Disabled
 publicapi | HTTP | 80 | /api/v2/ping | traffic port | Disabled
 appupload | HTTP | 80 | /upload/ping | traffic port | Disabled
 mmqueue | HTTP | 80 | /ping | 8011 | 1 day
+appsbuilder | HTTP | 80 | /applications/current/status/health/ | traffic port | Disabled
 internalapi | HTTP | 5202 | /api/v0/ping | traffic port | Disabled
 dss-api | HTTP | 5202 | /status | traffic port | Disabled
 pngexport | HTTP | 5202 | /ping | traffic port | Disabled
+appsinternalapi | HTTP | 8084 | /status/health/ | traffic port | Disabled
 
 **NOTE:**
 * SSL also can be terminated on the cluster nodes (depending on the deployment scheme) in which case `nginx` instances on those nodes will be listening on **`443`** traffic port by default (port **`5203`** for `internalnginx` instances) and communicating by **`HTTPS`** protocol.
@@ -182,6 +184,8 @@ mmqueue | HTTPS:443 | /socket.io-queue/\*
 internalapi | HTTPS:443 | /api/v0/\*
 dss-api | HTTPS:443 | /datasets-service/\*
 pngexport | HTTPS:443 | /pngexport/\*
+appsbuilder | HTTPS:443 | /applications/\*/\*
+appsinternalapi | HTTPS:8084 | default
 
 #### Walkthrough: Target Group Listener Association
 
@@ -255,6 +259,8 @@ ha_services_endpoints:
   - mmqueue
   - pngexport
   - datasetsserviceapi
+  - appsbuilderapi
+  - appsinternalapi
 
 # Insert your cluster's global configuration here:
 app_configuration:
@@ -319,6 +325,8 @@ servers:
   - mmqueue
   - datasetsserviceapi
   - pngexport
+  - appsbuilderapi
+  - appsinternalapi
 
 # HA Databases
 - hosts:
@@ -343,6 +351,8 @@ servers:
   - datasetsservicequickworker1
   - datasetsserviceworker0
   - datasetsserviceworker1
+  - appsbuilderworker0
+  - appsbuilderworker1
 
 # Predictions
 - hosts:
@@ -366,6 +376,8 @@ ha_services_endpoints:
   - mmqueue
   - pngexport
   - datasetsserviceapi
+  - appsbuilderapi
+  - appsinternalapi
 ```
 
 This section maps between ALB endpoints (actually _route53_ record names) and services which are accessible through that load balancer.
@@ -380,12 +392,14 @@ ha_services_endpoints:
   - appupload
   - publicapi
   - mmqueue
+  - appsbuilderapi
 
   # This endpoint can only be accessed by DataRobot services
   https://datarobot-internal.int.company.org:
   - internalapi
   - pngexport
   - datasetsserviceapi
+  - appsinternalapi
 
 os_configuration:
  ...
@@ -441,6 +455,7 @@ Ensure that all services work as expected:
 * Create a new project
 * Run autopilot and let some models build
 * Export PNGs of diagrams for successful model runs
+* Deploy a model and create an application using the new deployment
 
 ### Simulating a Failed Instance
 
