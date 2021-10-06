@@ -56,7 +56,6 @@ os_configuration:
 app_configuration:
     drenv_override:
         CUSTOM_MODEL_GITHUB_APP_NAME: <Application name slug>
-        ENABLE_CUSTOM_MODEL_GIT_S3_INTEGRATION: true
         ENABLE_CREDENTIAL_STORAGE_FOR_ALL_USERS: true
 ```
 
@@ -73,7 +72,6 @@ If you did the "GitHub Configuration" steps, the S3 integration will be already 
 ---
 app_configuration:
     drenv_override:
-        ENABLE_CUSTOM_MODEL_GIT_S3_INTEGRATION: true
         ENABLE_CREDENTIAL_STORAGE_FOR_ALL_USERS: true
 ```
 * Execute `./bin/datarobot reconfigure`
