@@ -132,126 +132,177 @@ See <https://docs.docker.com/engine/userguide/storagedriver/> for more informati
 ## Users
 
 DataRobot runs all services using the Linux user of your choice.
-For illustration purposes, we will use the username `datarobot` throughout this documentation.
-The user may be a system user, but keep in mind you will want to set a default shell for the user.
-This user must have access to the following:
+For illustration purposes, we will use the username `datarobot` as our DataRobot service user throughout this documentation.
 
-* A shell (`/bin/bash` preferred)
+On each node of the cluster, starting with the App node, execute the following commands as `root` to provision the DataRobot service user:
 
-* Ownership of a directory called `/opt/datarobot` on each node with enough space to install and run the application.
+1. Create the `datarobot` user.
 
-```bash
-useradd --create-home --uid 1234 datarobot # uid can be any valid uid
-mkdir -p /opt/datarobot /opt/datarobot/DataRobot-7.x.x
-chown -R datarobot:datarobot /opt/datarobot
-```
+    ```bash
+    useradd --create-home --uid 1234 datarobot # uid can be any valid, consistent uid
+    ```
 
-* Access to the Docker Engine on the host.
+2. Enable docker access for the `datarobot` user.
 
-```bash
-groupadd docker
-usermod -aG docker datarobot
-```
+    ```bash
+    groupadd docker
+    usermod -aG docker datarobot
+    ```
 
-* Enable sudo for the datarobot user.
+3. Enable sudo for the `datarobot` user.
 
-```bash
-echo 'datarobot ALL=(ALL) NOPASSWD: ALL' >> ./datarobot
-chown root:root datarobot
-mv datarobot /etc/sudoers.d/
-```
-
-* Passwordless SSH access to all nodes in the cluster, even in single-node environment.
-Please ensure there is no SSH timeout; some SSH commands take a long time to run, particularly if disk access is slow.
-If there is an SSH timeout, it must be greater than 45 minutes.
-
-```bash
-su - datarobot
-ssh-keygen -t rsa
-# Hit Enter at the prompts
-cat .ssh/id_rsa.pub >> ~/.ssh/authorized_keys
-chmod 600 ~/.ssh/authorized_keys
-ssh -i ~/.ssh/id_rsa localhost date
-# Append id_rsa.pub contents to /home/datarobot/.ssh/authorized_keys on other nodes
-# and verify ssh connectivity from the install node.
-```
-
-* Ensure that sshd is appropriately configured for public key authentication.
-
-```bash
-grep PubkeyAuthentication /etc/ssh/sshd_config
-# If a line like "#PubkeyAuthentication yes" appears, you must uncomment the line:
-sudo vi /etc/ssh/sshd_config
-# Uncomment the line, save and quit
-sudo systemctl restart sshd.service
-```
-
-If you are not able to give the `datarobot` user access to `sudo` or you have an
+    If you are not able to give the `datarobot` user access to `sudo` or you have an
 alternative privilege escalation tool, see our additional documentation on
 installation with
 [unprivileged users](../special-topics/admin-user.md#unprivileged-user-installation).
 
+    ```bash
+    echo 'datarobot ALL=(ALL) NOPASSWD: ALL' >> ./datarobot
+    mv datarobot /etc/sudoers.d/
+    ```
+
+4. Set max number of processes, lock memory, and open files for the `datarobot` user.
+
+    ```bash
+    echo "datarobot -    nproc   32768" >> /etc/security/limits.d/99-datarobot.conf
+    echo "datarobot -    memlock unlimited" >> /etc/security/limits.d/99-datarobot.conf
+    echo "datarobot -    nofile  65535" >> /etc/security/limits.d/99-datarobot.conf
+    ```
+
+5. Set Docker service parameters to avoid "Out of Memory" and "Too Many Open Files" errors.
+
+    ```bash
+    mkdir -p /etc/systemd/system/docker.service.d/
+    echo -e "[Service]\nLimitMEMLOCK=infinity\nLimitNOFILE=65536\nRestart=on-failure\n" >> /etc/systemd/system/docker.service.d/1-datarobot.conf
+    ```
+
+6. Enable passwordless SSH access.
+
+    ```bash
+    mkdir -p /home/datarobot/.ssh && chmod 700 /home/datarobot/.ssh
+    ssh-keygen -t rsa -b 2048 -f /home/datarobot/.ssh/id_rsa -N ""
+    cat /home/datarobot/.ssh/id_rsa.pub >> /home/datarobot/.ssh/authorized_keys
+    chown -R datarobot:datarobot /home/datarobot/.ssh
+    chmod 644 /home/datarobot/.ssh/id_rsa.pub
+    chmod 600 /home/datarobot/.ssh/id_rsa
+    chmod 600 /home/datarobot/.ssh/authorized_keys
+    ```
+
+7. Enable public key authentication for sshd.
+
+    ```bash
+    sed -i 's/#PubkeyAuthentication yes/PubkeyAuthentication yes/' /etc/ssh/sshd_config
+    ```
+
+8. Set SSH timeout to 1 hour. Some SSH commands take a long time to run, particularly if disk access is slow. It is recommended to set SSH timeout to greater than 45 minutes.
+
+    ``` bash
+    sed -i 's/#ClientAliveInterval 0/ClientAliveInterval 1200/' /etc/ssh/sshd_config
+    sed -i 's/#ClientAliveCountMax 3/ClientAliveCountMax 3/' /etc/ssh/sshd_config
+    ```
+
+9. Reload the updated `sshd_config`.
+
+    ```bash
+    systemctl reload sshd
+    ```
+
+10. Copy `datarobot` public key.
+
+    ```bash
+    cat /home/datarobot/.ssh/id_rsa.pub
+    # Save the output (to your clipboard, for example).
+    ```
+
+11. Add the `datarobot` public key to `authorized_keys` on each node in the cluster by connecting to each one and executing the following:
+
+    ```bash
+    sudo su - datarobot
+    echo "<the id_rsa.pub string saved in step 13>" >> ~/.ssh/authorized_keys
+    ```
+
+12. Test SSH connection to each node. From the App node, execute:
+
+    ```bash
+    sudo su - datarobot
+    ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa <node-ip> date
+    # upon successful connection you should see today's date and time
+    ```
+
 ## Software
-
-You must have the following software installed.
-Running the following commands should succeed.
-
-* checkpolicy
+You must have the following software installed. Running the following commands on all nodes in your cluster should return a valid path. If one is not present, the Administrator will need to install and possibly configure it.
 
 ```bash
-which checkpolicy  # Should output a path to checkpolicy
+command -v checkpolicy
+command -v logrotate
+command -v netstat
+command -v semanage
+command -v rsync
+command -v vi
+command -v curl
 ```
 
-* logrotate
-
+## Services
 ```bash
-which logrotate  # Should output a path to logrotate
+systemctl status -l rsyslog |grep "Active: "
+# This command should return a value if the rsyslog service is running.
+
+systemctl status -l firewalld |grep "Active: "
+# If you do not get a value or see "Unit firewalld.service could not be found" that is OK and the following command can be skipped.
+
+# If the firewall is active as shown in the command above, execute:
+firewall-cmd --zone=public --list-ports
+# Match these ports against the required ports.
 ```
 
-* net-tools package
 
-```bash
-which netstat  # Should output a path to netstat
-```
+## Disks and Filesystem
+DataRobot requires dedicated hard drive space. For best results:
+- All DataRobot volumes must support 50 mb/sec or better throughput using an SSD.
+- All DataRobot volumes must have a filesystem that supports D-types such as ext4, or xfs with d_types=true.
+- The root drive or `/` should be sized at 40GB minimum.
 
-* policycoreutils-python package
+We also suggest running DataRobot on a separate volume which has been sized according to the provided Spec Sheet by performing the following commands as `root`:
 
-```bash
-which semanage  # Should output a path to semanage
-```
+1. Find your name of the volume you intend to use. It should be sized as per the node type.
 
-* rsync
+    ```bash
+    lsblk # Examples include nvme1n1 (AWS R5 node types), sdb (AWS R4 node types or GCP), sdc (Used with Azure)
+    ```
 
-```bash
-which rsync  # Should output a path to rsync
-```
+2. Create a filesystem on the volume and mount it. Steps for mounting an Amazon EBS volume are below. Details can be found in the [Amazon Documentation](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-using-volumes.html).
 
-* rsyslog
+    ```bash
+    VOLUME=/dev/<volume name> # Where <volume name> = nvme1n1 or sdb or sdc, as shown in the NAME column of the lsblk command above.
+    mkfs.ext4 $VOLUME
+    mkdir /opt/datarobot
+    mount $VOLUME /opt/datarobot
+    echo "$(file -s $VOLUME | cut -f 8 -d ' ') /opt/datarobot ext4 defaults,nofail 0 0" >> /etc/fstab
+    systemctl daemon-reload
+    ```
 
-```bash
-service rsyslog status  # Should show service status
-```
+3. Create the DataRobot install directory.
 
-* vim
+    ```bash
+    mkdir /opt/datarobot/DataRobot-<DataRobot version number> # e.g., 7.2.0
+    ```
 
-```bash
-which vim  # Should output a path to vim
-```
+4. Create docker symlink in order to preserve root disk space.
 
-* wget
+    ```bash
+    mkdir /opt/datarobot/docker
+    ln -s /opt/datarobot/docker /var/lib/docker
+    ```
 
-```bash
-which wget  # Should output a path to wget
-```
+5. Ensure `datarobot` user is the owner of required directories.
 
-## Disk Space
+    ```bash
+    chown -R datarobot:datarobot /opt/datarobot
+    chown -h datarobot:datarobot /var/lib/docker
+    ```
 
-DataRobot requires a minimum of free disk space in these locations:
+For data storage nodes (running minio, HDFS, etc.) we recommend a minimum of 4TB of free space.
 
-- DataRobot Home Directory (default `/opt/datarobot`) - 80 GiB
-- Docker Data Directory (default `/var/lib/docker`) - 30 GiB
-
-For data storage nodes (running `minio`, `HDFS`, etc.), we recommend a minimum of 4TB of free space for production-ready systems.
 
 ## MinIO Encryption Key
 
