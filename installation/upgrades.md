@@ -18,16 +18,12 @@ process. **Back up your mongo data before running any upgrades!**
 
 If `secrets_enforced` was true from a previous install, and user/password
 authentication is used for services, then the files driving secrets should
-be preserved. Namely the file `secrets.yaml` from the installation directory
-(which  has `config.yaml` in it), must be copied and preserved for the upgrade
-(e.g. copy `secrets.yaml` from previous installation into the new installation
-directory).
+be preserved. You will need to first copy the following files and directories, if present, from your previous installation into the new installation directory:
 
-#### Update secrets
-
-In 5.3, secrets enforced clusters began using a shared secret for Rabbitmq which is written
-to an `erlang.cookie` file. Upgrades from <= 5.2 to >= 5.3 must add a `rabbit_cookie: <any_secret_value>`
-value to `secrets.yaml`.
+* `.secrets-key`
+* `certs/`
+* `secrets.yaml`
+* `secrets/`
 
 ### Preserve installer encryption key and encrypted config values
 
@@ -173,93 +169,24 @@ rm -rf /opt/datarobot/admin/ /opt/datarobot/etc/ /etc/docker/daemon.json
 rm -rf /tmp/docker-*
 ```
 
-### Update configuration files
+### Create Configuration Files
 
-#### Carry over old files
+* Copy the template config file from `example-configs` most relevant to your install target into your installation directory.
 
-You will need to first copy the following files and directories, if present, from your previous installation into the new installation directory:
+  ```bash
+  cp example-configs/multi-node.yaml config.yaml
+  chmod 0600 config.yaml
+  ```
 
-* `.secrets-key`
-* `certs/`
-* `config.yaml`
-* `hadoop-configuration.yaml`
-* `secrets.yaml`
-* `secrets/`
+* Open `config.yaml` with a text editor and update it with any cluster-specific values such as users, IP addresses, external URLs, or backend storage details.
 
-#### Apply modifications to configuration files
+* Remove the following keys, if present:
 
-Your `config.yaml` will need to be updated.
-
-Look at the file in `example-configs` most relevant to your install target.
-Some new required values may be necessary which are not required in earlier releases.
-For example, if using Hadoop, make sure to add required keys per the
-`example-configs/*hadoop.yaml` files which are under
-_"Additional Hadoop configuration settings"_ (e.g. `WEBHDFS_STORAGE_DIR`, etc.).
-
-Contact DataRobot Support to identify required changes.
-
-Remove the following keys, if present:
-
-* `USER_MODEL_CONTEXT_BASE`
-* `SECURE_WORKER_USER_TASK_IMAGE`
-* `PYTHON3_SERVICES`
-
-Upgrades of existing clusters from versions prior to 7.1 **SHOULD NOT** set `PYTHON3_SERVICES` to `True`, but should omit this setting from `config.yaml` entirely to prevent backwards compatibility issues with pre-existing python 2 projects.  A supported upgraded path for python 2 projects will be provided in subsequent releases after 7.1.
-
-
-On upgrade to version 4.3 the following required changes must be made to `config.yaml`:
-
-1. Remove the instance of the `edabroker` service and replace it with the following two services: `taskmanager` and `rabbit`. There should be exactly one instance of both the `taskmanager` and the `rabbit` services on each cluster.
-
-2. Remove the instance of the `edaworker` service and replace it with the `execmanager` service. NOTE: this component should _not_ be present on Hadoop installs.
-
-On upgrade to version 4.4 the following required changes must be made to `config.yaml`:
-
-1. (Not common) If the `secureworker` service was on a different node than the `execmanager` service, replace `execmanager` with `execmanagereda` and add `execmanagersw` to the node with `secureworker` to retain the same workload distribution. In most configurations, the `secureworker` service is on the same node as the `execmanager` service, and in this case no changes are needed to the configuration.
-
-On upgrade to version 5.0 the following required changes must be made to `config.yaml` for non Hadoop installs:
-
-1. Remove the instance of the `securebroker` service.
-
-2. Find the instance of `secureworker` service.
-  * If the `secureworker` service was on a different node than the `execmanager` service, replace `execmanager` with `execmanagereda` and `secureworker` with `execmanagersw` to retain the same workload distribution.
-
-On upgrade to version 5.0 the following required changes must be made to `config.yaml`:
-
-1. On Hadoop installations, add the new `execmanagerqw` service to one of the nodes in your environment. It processes some lightweight jobs which were executed on Hadoop in previous versions. You may have multiple instances of this service on different nodes. Example:
-
-```yaml
----
-servers:
-# Web server
-- services:
-  - nginx
-  # ...
-  - execmanagerqw
-```
-
-On upgrade to version 5.1 the following required changes must be made to `config.yaml`:
-
-1. If SAML is used, move SAML certifications to `/opt/datarobot/etc/certs/saml/`.
-
-After making this change, existing database records will need to be updated in the `sso_configuration` collection.
-You will need to update document keys, _for all existing records_, to point to the new paths:
-
-  * advanced_configuration.saml_client_configuration.key_file
-  * advanced_configuration.saml_client_configuration.cert_file
-
-On upgrade to version 5.3 or higher the following changes should be considered:
-
-* `config.yaml` now supports customizing Docker networks. See [Docker Networking](special-topics/docker-networks.md)
-* If secrets are enabled, remove the erlang cookie on all RabbitMQ hosts (located by inspecting your config.yaml) host after services have been stopped.
-  These nodes will be labeled Rabbit in config.yaml.
-  1. ensure that all datarobot services are stopped
-  2. ```mv /opt/datarobot/data/rabbit/data/.erlang.cookie /opt/datarobot/data/rabbit/data/erlang.cookie.bak```
-* In 5.3, secrets enforced clusters began using a shared secret for Rabbitmq which is written to an `erlang.cookie` file. Upgrades from <= 5.2 to >= 5.3 must add a `rabbit_cookie: <any_secret_value>` value to `secrets.yaml`.
-
-On upgrade to version 7.2 the following required changes must be made to `config.yaml`:
-
-1. Add the `internalnginx` service colocated with the `internalapi` service.
+  * `USER_MODEL_CONTEXT_BASE`
+  * `SECURE_WORKER_USER_TASK_IMAGE`
+  * `PYTHON3_SERVICES`
+    
+    Upgrades of existing clusters from versions prior to 7.1 **SHOULD NOT** set `PYTHON3_SERVICES` to `True`, but should omit this setting from `config.yaml` entirely to prevent backwards compatibility issues with pre-existing python 2 projects.  A supported upgraded path for python 2 projects will be provided in subsequent releases after 7.1.
 
 ### Update Network configuration
 
