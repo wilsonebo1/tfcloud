@@ -8,13 +8,13 @@ Note: Azure Autoscaling is compatible with Azure blob storage, which is highly r
 Below is a listing of suggested node types to build out the DataRobot Auto Scaling cluster. At least 1 Modeling node and at least 1 Modeling Only Node are required.
 
 | Node Type | Required | Count | Cores (vCPUs)  |  RAM (GB) | HD Space (GB) |
-|---|---|---|---|---|---|
-Application+Data Node  | Yes  | 1  | 8 | 64 | 2000
-Modeling Node  | Yes  | 1  | 8 | 64 | 100
-Modeling Only Node  | Yes  | 1  | 8 | 64 | 100
-Dedicated Prediction Engine  | Optional  | 1 | 4 | 32 | 100
-Model Management  | Optional  | 1  | 4 | 16 | 1000
-Total  |   | 5  | 32 | 240 | 3300
+|----------------|:---------------------:|:----------------:|:-------------------:|:------------------------:|-------|
+|Application+Data Node  | Yes  | 1  | 8 | 64 | 2000
+|Modeling Node  | Yes  | 1  | 8 | 64 | 100
+|Modeling Only Node  | Yes  | 1  | 8 | 64 | 100
+|Dedicated Prediction Engine  | Optional  | 1 | 4 | 32 | 100
+|Model Management  | Optional  | 1  | 4 | 16 | 1000
+|Total  |   | 5  | 32 | 240 | 3300
 
 Under normal circumstances, you will want to have at least 1 Modeling node running to allow for a single user to use the system whenever they wish. Any other user on this system will be using an auto-scaled worker, which could increase the time it takes to run the jobs by up to 5 minutes.
 
