@@ -2,6 +2,7 @@
 
 DataRobot supports dynamic scale-out and scale-in of worker nodes in Azure. This feature requires an image of a fully provisioned and configured DataRobot worker node, an autoscaling group, and a DataRobot custom metric to be published to the cloud's monitoring service.
 
+Note: Azure Autoscaling is compatible with Azure blob storage, which is highly recommended for object storage if Azure Autoscaling is required 
 ## 1. Create a cluster
 
 Below is a listing of suggested node types to build out the DataRobot Auto Scaling cluster. At least 1 Modeling node and at least 1 Modeling Only Node are required.
