@@ -225,8 +225,6 @@ On upgrade to version 7.2, the following changes to the open ports between hosts
 
 | Action            | Port  | Protocol | Component            |
 |:------------------|------:|:---------|:---------------------|
-| Optionally Remove | 5445  | TCP      | IDE Client Broker |
-| Optionally Remove | 5446  | TCP      | IDE Client Worker |
 | Optionally Remove | 5555  | TCP      | Worker Broker Client |
 
 

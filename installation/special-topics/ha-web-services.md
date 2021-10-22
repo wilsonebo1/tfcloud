@@ -281,7 +281,7 @@ os_configuration:
   webserver_hostname: https://datarobot-ha-testing.ent.datarobot.com
 
   # set this flag if ideworker is deployed for the cluster
-  enable_ip_forwarding: true
+  enable_ip_forwarding: false
 
 servers:
 # Non-HA services
@@ -300,14 +300,11 @@ servers:
   # Brokers and Proxies
   - edabroker
   - securebroker
-  - idebroker
   - queueproxy
   - resourceproxy
   - taskmanager
 
   # Additional optional services
-  - idebroker
-  - ideworker
   - tableauextension
 
 # HA Web services

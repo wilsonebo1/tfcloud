@@ -69,8 +69,6 @@ servers:
   - rsyslog
   - sentinel
   - minio
-  - idebroker
-  - ideworker
   - logstash
 - app_configuration:
   hosts:
@@ -150,8 +148,6 @@ servers:
   - rsyslog
   - sentinel
   - minio
-  - idebroker
-  - ideworker
   - logstash
 - app_configuration:
   hosts:
