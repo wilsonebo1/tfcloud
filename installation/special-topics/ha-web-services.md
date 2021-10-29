@@ -75,9 +75,9 @@ appupload | HTTP | 80 | /upload/ping | traffic port | Disabled
 mmqueue | HTTP | 80 | /ping | 8011 | 1 day
 appsbuilder | HTTP | 80 | /applications/current/status/health/ | traffic port | Disabled
 internalapi | HTTP | 5202 | /api/v0/ping | traffic port | Disabled
-dss-api | HTTP | 5202 | /status | traffic port | Disabled
-pngexport | HTTP | 5202 | /ping | traffic port | Disabled
-appsinternalapi | HTTP | 8084 | /status/health/ | traffic port | Disabled
+dss-api | HTTP | 5202 | /datasets-service/status | traffic port | Disabled
+pngexport | HTTP | 5202 | /pngexport/ping | traffic port | Disabled
+appsinternalapi | HTTP | 5202 | /appsinternalapi/status/health/ | traffic port | Disabled
 
 **NOTE:**
 * SSL also can be terminated on the cluster nodes (depending on the deployment scheme) in which case `nginx` instances on those nodes will be listening on **`443`** traffic port by default (port **`5203`** for `internalnginx` instances) and communicating by **`HTTPS`** protocol.
