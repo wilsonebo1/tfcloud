@@ -66,8 +66,8 @@ sudo mv /opt/cloudera/parcel-repo/DataRobot-7.x.x-RELEASE-any.parcel.sha /opt/cl
 The CDH 5.4.0 format is `SHA PARCEL_FILENAME`:
 
 ```
-# FILE: DataRobot-7.x.x-RELEASE-el6.parcel.sha
-9304fab63aa02f6e3ebbb27fc1c46f7fdc551c3e DataRobot-7.x.x-RELEASE-el6.parcel
+# FILE: DataRobot-7.x.x-RELEASE-el7.parcel.sha
+9304fab63aa02f6e3ebbb27fc1c46f7fdc551c3e DataRobot-7.x.x-RELEASE-el7.parcel
 ```
 
 **NOTE**: This means you must add the filename to the sha file distributed with the DataRobot release
@@ -76,7 +76,7 @@ CDH 5.5.0 and later **must only contain the SHA**,
 _without the space and filename_, for example:
 
 ```
-# FILE: DataRobot-7.x.x-RELEASE-el6.parcel.sha
+# FILE: DataRobot-7.x.x-RELEASE-el7.parcel.sha
 9304fab63aa02f6e3ebbb27fc1c46f7fdc551c3e
 ```
 
