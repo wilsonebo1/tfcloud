@@ -96,6 +96,7 @@
       * [AWS](special-topics/aws-autoscaling-installation.md)
       * [Google Cloud](special-topics/gcp-autoscaling-installation.md)
       * [Azure](special-topics/azure-autoscaling-installation.md)
+  * [Segmented Modeling](special-topics/segmented-modeling.md)
 
 ## Administration
 
