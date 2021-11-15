@@ -13,7 +13,7 @@ Also, you need to provide other configuration options to set-up auth-server.
 Example:
 
 ```
-webserver_hostname: { external-facing, will be used for applications redirect also }
+webserver_hostname: appdatarobot.customer.com  # external-facing, will be used for applications redirect also
 
 # Global drenv_override
 ENABLE_APPSBUILDER_SERVICE: true
@@ -30,10 +30,16 @@ hosts:
 
 app_configuration:
   drenv_override:
-    EXTERNAL_WEB_SERVER_URL: { public URL, will be used for applications redirect also }
-    EXTERNAL_WEB_SERVER_URL_FORCED: false
+    EXTERNAL_WEB_SERVER_URL: https://appdatarobot.customer.com  # public URL, will be used for applications redirect also
+    EXTERNAL_WEB_SERVER_URL_FORCED: true
     OAUTH2_CLUSTER_ENABLED: true
 ```
+
+Please note that it's **required** to set `EXTERNAL_WEB_SERVER_URL_FORCED: true` in any of the following scenarios for on-premise installations:
+ * FQDNs set in `webserver_hostname` and `EXTERNAL_WEB_SERVER_URL` are different;
+ * There is an HTTP -> HTTPS permanent redirect setup on the webserver front proxy / load balancer (at `EXTERNAL_WEB_SERVER_URL`), but `os_configuration['ssl']` is set to `false`.
+
+Otherwise, users might get authentication errors when logging in AI Apps.
 
 ## Sizing requirements
 The App Builder can be deployed either on a single or multi-node setup. 
