@@ -46,6 +46,11 @@
     * [Metallb](./installer-toolkit/3-amenities/metallb.md)
   * [4 - Critical Services]()
     * [Mongo Tools Manager](./installer-toolkit/tools-manager/mongo.md)
+  * [Custom Models]()
+    * [Node Sizing](./installer-toolkit/custom-models/node-sizing.md)
+    * [Dependency Management Sources](./installer-toolkit/custom-models/dependency-management.md)
+    * [Installing the Public Execution Environments](./installer-toolkit/custom-models/public-environments.md)
+    * [Installing the Legacy Package](./installer-toolkit/custom-models/legacy-package.md)
 
 ## Advanced Configuration
 
