@@ -29,3 +29,4 @@
   * [PostgreSQL Restore](restore/pgsql.md)
   * [Patroni Restore](restore/patroni.md)
 * [Start and Reconfigure DataRobot](restore/start-and-reconfigure-datarobot.md)
+* [Custom Models Restore](restore/custom-models.md)
