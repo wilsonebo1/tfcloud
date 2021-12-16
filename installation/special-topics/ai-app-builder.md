@@ -47,7 +47,7 @@ The App Builder can be deployed either on a single or multi-node setup.
 | Service |  Memory per service | Notes |
 |----------------|:---------------------:|:------------------------:|
 | appsbuilderapi | 4 GB |  1x |
-| appsinternalapi | 512MB |  1x |
+| appsinternalapi | 4 GB |  1x |
 | appsbuilderworker | 512MB | 1x or more |
 
 The node should have at least 4 core CPU, and additional 8GB of storage for applications data.
