@@ -63,25 +63,39 @@ The following infrastructure will be required or set up during the installation 
 A new target group must be created for each service and [added](#listeners_associations) to a load balancer listener's routing rules.
 To each target group, add only the instances that are expected to run that service, as defined by your _config.yaml_ in the [DataRobot Application Configuration](#datarobot_configuration) section.
 
-#### Table: Target Groups
+#### Target Groups
 
-The following tables summarize all of the target groups that must be created:
+The following tables summarize all of the target groups that must be created.
 
-Name | Protocol | Traffic Port | Health Check Path | Health Check Port | Stickiness
----- | -------- | ------------ | ----------------- | ----------------- | ----------
-app | HTTP | 80 | /ping | traffic port | Disabled
-publicapi | HTTP | 80 | /api/v2/ping | traffic port | Disabled
-appupload | HTTP | 80 | /upload/ping | traffic port | Disabled
-mmqueue | HTTP | 80 | /ping | 8011 | 1 day
-appsbuilder | HTTP | 80 | /applications/current/status/health/ | traffic port | Disabled
-internalapi | HTTP | 5202 | /api/v0/ping | traffic port | Disabled
-dss-api | HTTP | 5202 | /datasets-service/status | traffic port | Disabled
-pngexport | HTTP | 5202 | /pngexport/ping | traffic port | Disabled
-appsinternalapi | HTTP | 5202 | /appsinternalapi/status/health/ | traffic port | Disabled
+#### <a name="http_target_groups"></a>Table 1: SSL Disabled DataRobot Cluster
+For SSL termination at the load balancer (_ssl_enabled: false_ in [DataRobot Application Configuration](#datarobot_configuration)):
 
-**NOTE:**
-* SSL also can be terminated on the cluster nodes (depending on the deployment scheme) in which case `nginx` instances on those nodes will be listening on **`443`** traffic port by default (port **`5203`** for `internalnginx` instances) and communicating by **`HTTPS`** protocol.
-* Health check parameters for `mmqueue` service do not change whether SSL termination is enabled on the nodes or not: it will always have **`HTTP:8011`** scheme.
+Name | Protocol | Traffic Port | Health Check Protocol | Health Check Path | Health Check Port | Stickiness
+---- | -------- | ------------ | --------------------- | ----------------- | ----------------- | ----------
+app | HTTP | 80 | HTTP | /ping | traffic port | Disabled
+publicapi | HTTP | 80 | HTTP | /api/v2/ping | traffic port | Disabled
+appupload | HTTP | 80 | HTTP | /upload/ping | traffic port | Disabled
+mmqueue | HTTP | 80 | HTTP | /ping | 8011 | 1 day
+appsbuilder | HTTP | 80 | HTTP | /applications/current/status/health/ | traffic port | Disabled
+internalapi | HTTP | 5202 | HTTP | /api/v0/ping | traffic port | Disabled
+dss-api | HTTP | 5202 | HTTP | /datasets-service/status | traffic port | Disabled
+pngexport | HTTP | 5202 | HTTP | /pngexport/ping | traffic port | Disabled
+appsinternalapi | HTTP | 5202 | HTTP | /appsinternalapi/status/health/ | traffic port | Disabled
+
+#### <a name="https_target_groups"></a>Table 2: SSL Enabled DataRobot Cluster
+For SSL termination at the app nodes (_ssl_enabled: true_ in [DataRobot Application Configuration](#datarobot_configuration)):
+
+Name | Protocol | Traffic Port | Health Check Protocol | Health Check Path | Health Check Port | Stickiness
+---- | -------- | ------------ | --------------------- | ----------------- | ----------------- | ----------
+app | HTTPS | 443 | HTTPS | /ping | traffic port | Disabled
+publicapi | HTTPS | 443 | HTTPS | /api/v2/ping | traffic port | Disabled
+appupload | HTTPS | 443 | HTTPS | /upload/ping | traffic port | Disabled
+mmqueue | HTTPS | 443 | HTTP | /ping | 8011 | 1 day
+appsbuilder | HTTPS | 443 | HTTPS | /applications/current/status/health/ | traffic port | Disabled
+internalapi | HTTPS | 5203 | HTTPS | /api/v0/ping | traffic port | Disabled
+dss-api | HTTPS | 5203 | HTTPS | /datasets-service/status | traffic port | Disabled
+pngexport | HTTPS | 5203 | HTTPS | /pngexport/ping | traffic port | Disabled
+appsinternalapi | HTTPS | 5203 | HTTPS | /appsinternalapi/status/health/ | traffic port | Disabled
 
 Aside from the documented Health Check settings unique to each service, use the following settings for all Health Checks:
 
@@ -89,7 +103,6 @@ Protocol | Healthy Threshold | Unhealthy Threshold | Timeout | Interval | Succes
 -------- | ----------------- | ------------------- | ------- | -------- | -------------
 HTTP | 2 | 2 | 3 | 5 | 200
 
-**NOTE:** again, health check endpoints protocol will change to **`HTTPS`** when SSL termination is enabled on the cluster _nodes_.
 
 #### Walkthrough: Target Group Creation
 
@@ -181,11 +194,11 @@ app | HTTPS:443 | default
 publicapi | HTTPS:443 | /api/v2/\*
 appupload | HTTPS:443 | /upload/\*
 mmqueue | HTTPS:443 | /socket.io-queue/\*
+appsbuilder | HTTPS:443 | /applications/\*/\*
 internalapi | HTTPS:443 | /api/v0/\*
 dss-api | HTTPS:443 | /datasets-service/\*
 pngexport | HTTPS:443 | /pngexport/\*
-appsbuilder | HTTPS:443 | /applications/\*/\*
-appsinternalapi | HTTPS:8084 | default
+appsinternalapi | HTTPS:443 | /appsinternalapi/*
 
 #### Walkthrough: Target Group Listener Association
 
@@ -262,26 +275,15 @@ ha_services_endpoints:
   - appsbuilderapi
   - appsinternalapi
 
-# Insert your cluster's global configuration here:
-app_configuration:
-  drenv_override:
-    SECURE_WORKER_FIT_WORKERS: 4
-
 os_configuration:
   user: datarobot
   group: datarobot
   private_ssh_key_path: /home/datarobot/.ssh/id_rsa
-  admin_user: dradmin
-  admin_private_ssh_key_path: /home/dradmin/.ssh/id_rsa
-  datarobot_home_dir: /opt/datarobot
   prediction_ssl:
     enabled: false
   ssl:
     enabled: false
-  webserver_hostname: https://datarobot-ha-testing.ent.datarobot.com
-
-  # set this flag if ideworker is deployed for the cluster
-  enable_ip_forwarding: false
+  webserver_hostname: datarobot-ha-testing.ent.datarobot.com
 
 servers:
 # Non-HA services
@@ -293,19 +295,14 @@ servers:
   # Cluster monitoring and infrastructure
   - availabilitymonitor
   - rsyslog
-  - jobretryservice
-  - logstash
   - haproxy
 
   # Brokers and Proxies
-  - edabroker
-  - securebroker
-  - queueproxy
-  - resourceproxy
   - taskmanager
 
   # Additional optional services
   - tableauextension
+  - elasticsearch
 
 # HA Web services
 - hosts:
@@ -336,6 +333,8 @@ servers:
   - redis
   - rabbit
   - sentinel
+  - patroni
+  - zookeeper
 
 # Workers
 - hosts:
@@ -357,6 +356,15 @@ servers:
   services:
   - dedicatedpredictionnginx
   - dedicatedpredictionapi
+  - modmonrsyslogmaster
+  - predictionspooler
+
+# Model Management
+- hosts:
+  - 192.168.0.11
+  services:
+  - modmonworker
+  - modmonscheduler
 ```
 
 ### Further notes on _config.yaml_
@@ -378,7 +386,7 @@ ha_services_endpoints:
 ```
 
 This section maps between ALB endpoints (actually _route53_ record names) and services which are accessible through that load balancer.
-In this setup we configured only one load balancer.
+In this setup we configured only one load balancer with a secure listener.
 In the event there is more than one ALB, simply map each URL to its proxied services, for example:
 
 ```yaml
@@ -401,17 +409,27 @@ ha_services_endpoints:
 os_configuration:
  ...
   # This value must match the endpoint hosting public services
-  webserver_hostname: https://datarobot-public.company.org
+  webserver_hostname: datarobot-public.company.org
 ```
 
 
 _**Important note:**_ the endpoint for an ALB must always be a full URL, with proper protocol prefix (HTTPS if secure listeners are used and HTTP otherwise).
 
+If TLS/HTTPS will be terminated at the load balancer, then the Target Groups must be set to forward traffic via HTTP as shown in [Target Groups Table 1](#http_target_groups) and SSL must be disabled within DataRobot configuration using the following flag:
+```yaml
+os_configuration:
+ ...
+  ssl:
+    enabled: false
+```
+If TLS/HTTPS will be terminated at the application nodes, then the Target Groups must be set to forward traffic via HTTPS as shown in [Target Groups Table 2](#https_target_groups) and SSL must be enabled within DataRobot configuration by setting the above flag to `true`.
+
+
 Now for the `servers/hosts` section: for the regular multinode deployment config it must contain the list of cluster nodes with services deployed on them, this is also true for HA deployment - if you want to have a scalable service replica on a node - put its name into the list of services for that node, simple as that.
  The only requirement is that the `nginx` service must _**always**_ be installed with scaled public services, and the `internalnginx` service with scaled internal services.
 
 
-If you would like to add in clusterd RabbitMQ nodes you'll need to add two addtional services to your config.yaml, these sections have been added to the sample config above
+If you would like to add in clustered RabbitMQ nodes you'll need to add two addtional services to your config.yaml, these sections have been added to the sample config above
 
 ```yaml
 servers:
@@ -424,9 +442,7 @@ servers:
   # Cluster monitoring and infrastructure
   - availabilitymonitor
   - rsyslog
-  - jobretryservice
-  - logstash
-  - haproxy # added to support clusterd RabbitMQ and MinIO nodes, multple proxies will be supported in a later release
+  - haproxy # added to support clustered RabbitMQ and MinIO nodes, multple proxies will be supported in a later release
 ...
 # HA Databases
 - hosts:
@@ -439,6 +455,8 @@ servers:
   - redis
   - rabbit  # added here to cluster RabbitMQ nodes
   - sentinel
+  - patroni
+  - zookeeper
 ```
 
 
@@ -471,7 +489,7 @@ You may have not enabled stickiness on the _**mmqueue**_ target group
 
 #### Overall the application does not seem to be working
 
-Always make sure you put full URL path with proper protocol prefix for ALB endpoints into `ha_services_endpoints` mapping and `os_configuration.webserver_hostname` key, as in the [config example](#config_example) above:
+Always make sure you put full URL path with proper protocol prefix for ALB endpoints into `ha_services_endpoints` and that the protocol corresponds to the ALB Listener protocol. Also ensure the hostname of the public ALB endpoint matches the `os_configuration.webserver_hostname` key, as in the [config example](#config_example) above:
 
 ```yaml
 ha_services_endpoints:
@@ -480,6 +498,10 @@ ha_services_endpoints:
 
   https://datarobot-internal.int.company.org:
     ...
+
+os_configuration:
+ ...
+  webserver_hostname: datarobot-public.company.org
 ```
 
 #### Large file uploads are failing (`ClientDisconnected: 400 Bad Request``)
