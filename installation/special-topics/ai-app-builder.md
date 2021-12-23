@@ -32,7 +32,6 @@ app_configuration:
   drenv_override:
     EXTERNAL_WEB_SERVER_URL: https://appdatarobot.customer.com  # public URL, will be used for applications redirect also
     EXTERNAL_WEB_SERVER_URL_FORCED: true
-    OAUTH2_CLUSTER_ENABLED: true
 ```
 
 Please note that it's **required** to set `EXTERNAL_WEB_SERVER_URL_FORCED: true` in any of the following scenarios for on-premise installations:
