@@ -180,7 +180,7 @@ docker_group_name: mydockergroup
 The `docker-py` Python package, used by the installer to issue commands to
 Docker, must be present on all application servers.
 
-* Copy the rpm files in `release/docker-packages/docker-py-packages/rpm/`
+* Copy the rpm files in `release/docker-packages/RedHat-7/rpm/`
 to all application servers.
 * Run the following command on all nodes:
 
