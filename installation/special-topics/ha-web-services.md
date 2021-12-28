@@ -81,6 +81,7 @@ internalapi | HTTP | 5202 | HTTP | /api/v0/ping | traffic port | Disabled
 dss-api | HTTP | 5202 | HTTP | /datasets-service/status | traffic port | Disabled
 pngexport | HTTP | 5202 | HTTP | /pngexport/ping | traffic port | Disabled
 appsinternalapi | HTTP | 5202 | HTTP | /appsinternalapi/status/health/ | traffic port | Disabled
+tileservergl | HTTP | 5202 | HTTP | /tileservergl-internal/health | traffic port | Disabled
 
 #### <a name="https_target_groups"></a>Table 2: SSL Enabled DataRobot Cluster
 For SSL termination at the app nodes (_ssl_enabled: true_ in [DataRobot Application Configuration](#datarobot_configuration)):
@@ -96,6 +97,7 @@ internalapi | HTTPS | 5203 | HTTPS | /api/v0/ping | traffic port | Disabled
 dss-api | HTTPS | 5203 | HTTPS | /datasets-service/status | traffic port | Disabled
 pngexport | HTTPS | 5203 | HTTPS | /pngexport/ping | traffic port | Disabled
 appsinternalapi | HTTPS | 5203 | HTTPS | /appsinternalapi/status/health/ | traffic port | Disabled
+tileservergl | HTTP | 5203 | HTTP | /tileservergl-internal/health | traffic port | Disabled
 
 Aside from the documented Health Check settings unique to each service, use the following settings for all Health Checks:
 
@@ -199,6 +201,7 @@ internalapi | HTTPS:443 | /api/v0/\*
 dss-api | HTTPS:443 | /datasets-service/\*
 pngexport | HTTPS:443 | /pngexport/\*
 appsinternalapi | HTTPS:443 | /appsinternalapi/*
+tileservergl | HTTPS:443 | /tileservergl-internal/*
 
 #### Walkthrough: Target Group Listener Association
 
