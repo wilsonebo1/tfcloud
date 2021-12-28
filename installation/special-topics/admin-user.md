@@ -106,9 +106,9 @@ servers.
 
 ```bash
 cd /opt/datarobot/DataRobot-7.x.x/
-sudo yum localinstall -y --nogpgcheck \
+sudo yum localinstall -y --nogpgcheck 
     release/docker-packages/RedHat-7/prereqs/*.rpm
-sudo yum localinstall -y --nogpgcheck \
+sudo yum localinstall -y --nogpgcheck
     release/docker-packages/RedHat-7/*.rpm
 sudo systemctl enable docker
 sudo systemctl start docker
@@ -180,13 +180,16 @@ docker_group_name: mydockergroup
 The `docker-py` Python package, used by the installer to issue commands to
 Docker, must be present on all application servers.
 
-* Copy the rpm files in `release/docker-packages/RedHat-7/rpm/`
+* Copy the rpm files in `release/docker-packages/RedHat-7/rpm/` or `release/docker-packages/RedHat-8/rpm/`
 to all application servers.
 * Run the following command on all nodes:
 
 ```bash
 sudo yum localinstall -y --nogpgcheck \
-release/docker-packages/docker-py-packages/rpm/*.rpm
+release/docker-packages/RedHat-7/rpm/*.rpm
+or
+sudo yum localinstall -y --nogpgcheck \
+release/docker-packages/RedHat-8/rpm/*.rpm
 ```
 * Add the `docker-py` libraries to site-packages so they are accessible.
 (**NOTE**: `cp` may print an error about backports directory.
