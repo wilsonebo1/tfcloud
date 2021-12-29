@@ -150,13 +150,12 @@ mount | grep kubelet | awk '{ print $3 }' | xargs --no-run-if-empty umount
 ```bash
 rm -rf /etc/cni /etc/kubernetes /opt/datarobot/var/lib/kubelet /var/lib/calico /var/lib/kubelet /var/lib/etcd ~/.kube
 ```
-
 * Remove old Docker images:
-
-```bash
-rm -rf /var/lib/docker /opt/datarobot/registry
-```
-
+ 
+ ```bash
+ rm -rf /var/lib/docker/* /opt/datarobot/registry
+ ```
+ 
 * Remove old configuration files:
 
 ```bash
