@@ -99,16 +99,16 @@ sudo chown -R datarobot:datarobot /opt/datarobot/support/
 
 Docker Engine version 19.03+ must be installed on all Edge Nodes.
 
-* Copy the folder `release/docker-packages/RedHat-7/` to all application
+* Copy the folder `release/docker-packages/RedHat-7/` or `release/docker-packages/RedHat-8/` to all application
 servers.
 
 * On all nodes, run the following commands:
 
 ```bash
 cd /opt/datarobot/DataRobot-7.x.x/
-sudo yum localinstall -y --nogpgcheck 
+sudo yum localinstall -y --nogpgcheck \
     release/docker-packages/RedHat-7/prereqs/*.rpm
-sudo yum localinstall -y --nogpgcheck
+sudo yum localinstall -y --nogpgcheck \
     release/docker-packages/RedHat-7/*.rpm
 sudo systemctl enable docker
 sudo systemctl start docker
@@ -174,33 +174,6 @@ Now add the following parameter to the root level of your `config.yaml` file:
 ```yaml
 docker_group_name: mydockergroup
 ```
-
-## Docker-py
-
-The `docker-py` Python package, used by the installer to issue commands to
-Docker, must be present on all application servers.
-
-* Copy the rpm files in `release/docker-packages/RedHat-7/rpm/` or `release/docker-packages/RedHat-8/rpm/`
-to all application servers.
-* Run the following command on all nodes:
-
-```bash
-sudo yum localinstall -y --nogpgcheck \
-release/docker-packages/RedHat-7/rpm/*.rpm
-or
-sudo yum localinstall -y --nogpgcheck \
-release/docker-packages/RedHat-8/rpm/*.rpm
-```
-* Add the `docker-py` libraries to site-packages so they are accessible.
-(**NOTE**: `cp` may print an error about backports directory.
-This can be safely ignored.)
-
-```bash
-sudo cp -d /usr/lib/python2.7/dist-packages/* \
-    /usr/lib/python2.7/site-packages/
-```
-{% endblock %}
-
 ## Directories
 
 Ensure the following directories exist and are owned by the DataRobot user
