@@ -50,3 +50,4 @@
   * [Security Banner](special-topics/security-banner.md)
   * [Catalog Search Install Options](special-topics/catalog-search-install-options.md)
   * [Segmented Modeling](special-topics/segmented-modeling.md)
+  * [Mongo Schema Migration](special-topics/mongo-schema-migration.md)

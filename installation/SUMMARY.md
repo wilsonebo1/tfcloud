@@ -102,6 +102,7 @@
       * [Google Cloud](special-topics/gcp-autoscaling-installation.md)
       * [Azure](special-topics/azure-autoscaling-installation.md)
   * [Segmented Modeling](special-topics/segmented-modeling.md)
+  * [Mongo Schema Migration](special-topics/mongo-schema-migration.md)
 
 ## Administration
 
