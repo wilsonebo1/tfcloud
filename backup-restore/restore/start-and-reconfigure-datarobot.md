@@ -38,14 +38,24 @@ To recover these jobs the script `/sbin/datarobot-manage-queue` should be used.
 The script can retrieve active jobs started before a specified timestamp and restart them. 
 It also can report the active jobs before recovering.    
 
-### Usage
-Report the jobs started before a specified timestamp or current time if the option `-t` is not provided.
+### Report jobs 
+Report all stuck jobs
 ```bash
-sbin/datarobot-manage-queue show-running-jobs -t YYYY-MM-DDThh:mmZ
+docker exec -it app /entrypoint sbin/datarobot-manage-queue show-running-jobs
 ```
 
-Recover the jobs started before a specified timestamp or current time if the option `-t` is not provided.
+Report stuck jobs started before UTC timestamp
 ```bash
-sbin/datarobot-manage-queue recover-jobs -t YYYY-MM-DDThh:mmZ 
+docker exec -it app /entrypoint sbin/datarobot-manage-queue show-running-jobs -t YYYY-MM-DDThh:mmZ
 ```
-The timestamp must be UTC time
+
+### Recover jobs
+Recover all jobs
+```bash
+docker exec -it app /entrypoint sbin/datarobot-manage-queue recover-jobs
+```
+
+Recover jobs started before UTC timestamp
+```bash
+docker exec -it app /entrypoint sbin/datarobot-manage-queue recover-jobs -t YYYY-MM-DDThh:mmZ 
+```
