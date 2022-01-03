@@ -197,6 +197,7 @@ mkdir -p data \
          DataRobot \
          logs
 ```
+{% endblock %}
 
 ## Logging
 
