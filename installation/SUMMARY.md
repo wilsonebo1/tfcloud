@@ -56,7 +56,6 @@
 
 * [Advanced Configuration](special-topics/README.md)
   * [Adjusting Log Verbosity](special-topics/application-log-levels.md)
-  * [Configuring Elasticsearch Backup/Restore](special-topics/elasticsearch-configure-backup-restore.md)
   * [Catalog Search Install Options](special-topics/catalog-search-install-options.md)
   * [TLS](special-topics/tls.md)
   * [Security Best Practices](special-topics/security.md)
